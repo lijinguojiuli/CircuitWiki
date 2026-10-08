@@ -1,0 +1,136 @@
+import { test, expect } from "@playwright/test";
+import { articles } from "../../src/lib/content";
+test("all public routes render, formulas work, internal links and anchors resolve", async ({
+  page,
+  request,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
+  const targets = new Set<string>();
+  for (const route of [
+    "/",
+    ...articles.map((a) => `/learn/${a.slug}`),
+    "/formulas",
+    "/tools",
+    "/curriculum",
+    "/topics/analog",
+    "/topics/digital",
+  ]) {
+    const response = await page.goto(route);
+    expect(response?.status()).toBe(200);
+    await expect(page.locator("h1")).toBeVisible();
+    if (route.startsWith("/learn/")) {
+      await expect(page.locator('.prose h2[id^="section-"]')).toHaveCount(8);
+      expect(await page.locator(".katex").count()).toBeGreaterThan(0);
+    }
+    const links = await page
+      .locator("a[href]")
+      .evaluateAll((els) => els.map((e) => e.getAttribute("href")!));
+    for (const href of links) {
+      if (href.startsWith("/")) targets.add(href.split("#")[0]);
+      if (href.startsWith("#"))
+        expect(
+          await page
+            .locator(`[id="${decodeURIComponent(href.slice(1))}"]`)
+            .count(),
+          `${route} ${href}`,
+        ).toBeGreaterThan(0);
+    }
+  }
+  for (const target of targets)
+    expect((await request.get(target)).status(), target).toBe(200);
+  expect(errors).toEqual([]);
+});
+test("search, quiz, themes and persistence", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("textbox", { name: "搜索知识点和公式" }).fill("戴维南");
+  await page
+    .locator(".search-results")
+    .getByRole("link", { name: /戴维南定理/ })
+    .click();
+  await expect(page).toHaveURL(/thevenin/);
+  await page.getByRole("button", { name: "短路", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("回答正确");
+  await page.getByRole("button", { name: "Dark 深色", exact: true }).click();
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.reload();
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.getByRole("button", { name: "Light 浅色", exact: true }).click();
+  await expect(page.locator("html")).not.toHaveClass(/dark/);
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page
+    .getByRole("button", { name: "System 跟随系统", exact: true })
+    .click();
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator("html")).not.toHaveClass(/dark/);
+});
+test("three calculators recompute and explain invalid inputs", async ({
+  page,
+}) => {
+  await page.goto("/tools");
+  const ohm = page.locator("#ohm");
+  await expect(ohm.locator(".results")).toContainText("0.012");
+  await ohm.getByLabel("电阻 R").fill("0");
+  await expect(ohm.getByRole("alert")).toContainText("大于 0");
+  await ohm.getByLabel("电阻 R").fill("2000");
+  await expect(ohm.locator(".results")).toContainText("0.006");
+  const rc = page.locator("#rc");
+  await expect(rc.locator(".rc-stats")).toContainText("0.1 s");
+  await rc.getByLabel("电阻 R").fill("2000");
+  await expect(rc.locator(".rc-stats")).toContainText("0.2 s");
+  await expect(rc.locator(".recharts-line-curve")).toBeVisible();
+  await rc.getByLabel("电容 C").fill("-1");
+  await expect(rc.getByRole("alert")).toBeVisible();
+  await rc.getByLabel("电容 C").fill("100");
+  const phasor = page.locator("#phasor");
+  await expect(phasor.locator(".phasor-output")).toContainText("8.66025");
+  await phasor.getByRole("button", { name: "直角坐标 → 极坐标" }).click();
+  await expect(phasor.locator(".phasor-output")).toContainText("53.1301");
+  await phasor.getByLabel("运算方式").selectOption("subtract");
+  await expect(phasor.locator(".phasor-output")).toContainText("2 + j2");
+  await phasor.getByLabel("A 实部").fill("1");
+  await phasor.getByLabel("A 虚部").fill("2");
+  await expect(phasor.locator(".phasor-output")).toContainText(
+    "未定义（零相量）",
+  );
+});
+test("mobile navigation and no page overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const route of [
+    "/",
+    "/learn/kcl-kvl",
+    "/learn/nodal-analysis",
+    "/learn/mesh-analysis",
+    "/learn/thevenin",
+    "/learn/rc-circuit",
+    "/learn/phasor",
+    "/formulas",
+    "/tools",
+  ]) {
+    await page.goto(route);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      route,
+    ).toBeTruthy();
+  }
+  await page.getByRole("button", { name: "打开目录" }).click();
+  await expect(page.locator(".mobile-menu")).toBeVisible();
+  await page
+    .locator(".mobile-menu")
+    .getByRole("link", { name: "节点电压法", exact: true })
+    .click();
+  await expect(page).toHaveURL(/nodal-analysis/);
+  await expect(page.locator(".mobile-menu")).toHaveCount(0);
+  await page.locator(".mobile-toc summary").click();
+  await page
+    .locator(".mobile-toc")
+    .getByRole("link", { name: /核心公式/ })
+    .click();
+  await expect(page).toHaveURL(/#section-3/);
+});

@@ -1,0 +1,157 @@
+export type Article = {
+  slug: string;
+  title: string;
+  category: string;
+  folder: string;
+  description: string;
+  keywords: string[];
+  core?: boolean;
+};
+export const articles: Article[] = [
+  {
+    slug: "kcl-kvl",
+    title: "KCL 与 KVL",
+    category: "电路基础",
+    folder: "circuits",
+    description: "从电荷与能量守恒出发，掌握电路分析的两条基本定律。",
+    keywords: ["基尔霍夫", "电流定律", "电压定律", "欧姆定律"],
+    core: true,
+  },
+  {
+    slug: "nodal-analysis",
+    title: "节点电压法",
+    category: "电路基础",
+    folder: "circuits",
+    description: "以节点电压为未知量，把复杂电路变成线性方程。",
+    keywords: ["节点", "KCL", "电导", "超级节点"],
+    core: true,
+  },
+  {
+    slug: "mesh-analysis",
+    title: "网孔电流法",
+    category: "电路基础",
+    folder: "circuits",
+    description: "选择独立网孔，用 KVL 系统地求解支路电流。",
+    keywords: ["网孔", "回路", "KVL"],
+    core: true,
+  },
+  {
+    slug: "superposition",
+    title: "叠加定理",
+    category: "电路基础",
+    folder: "circuits",
+    description: "分开考察独立源，再叠加线性电路的响应。",
+    keywords: ["线性", "独立源"],
+  },
+  {
+    slug: "thevenin",
+    title: "戴维南定理",
+    category: "电路基础",
+    folder: "circuits",
+    description: "一个电压源与一个电阻，描述端口外部看到的整个电路。",
+    keywords: ["戴维南", "等效", "开路电压"],
+    core: true,
+  },
+  {
+    slug: "norton",
+    title: "诺顿定理",
+    category: "电路基础",
+    folder: "circuits",
+    description: "使用电流源与并联电阻建立端口等效。",
+    keywords: ["诺顿", "短路电流"],
+  },
+  {
+    slug: "capacitor",
+    title: "电容基础",
+    category: "动态电路",
+    folder: "dynamics",
+    description: "电场储能、电容伏安关系与电压连续性。",
+    keywords: ["电容", "储能"],
+  },
+  {
+    slug: "inductor",
+    title: "电感基础",
+    category: "动态电路",
+    folder: "dynamics",
+    description: "磁场储能、电感伏安关系与电流连续性。",
+    keywords: ["电感", "储能"],
+  },
+  {
+    slug: "rc-circuit",
+    title: "RC 一阶电路",
+    category: "动态电路",
+    folder: "dynamics",
+    description: "用时间常数理解电容的充电、放电与过渡过程。",
+    keywords: ["RC", "时间常数", "充电", "放电"],
+    core: true,
+  },
+  {
+    slug: "rl-circuit",
+    title: "RL 一阶电路",
+    category: "动态电路",
+    folder: "dynamics",
+    description: "用三要素法求解电感电流的指数变化。",
+    keywords: ["RL", "时间常数"],
+  },
+  {
+    slug: "sinusoidal",
+    title: "正弦量",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "幅值、频率与初相位，描述一个正弦信号。",
+    keywords: ["正弦", "频率", "有效值"],
+  },
+  {
+    slug: "phasor",
+    title: "正弦稳态与相量",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "将同频正弦量映射为复数，让微分运算变成代数运算。",
+    keywords: ["相量", "正弦稳态", "复数", "有效值"],
+    core: true,
+  },
+  {
+    slug: "impedance",
+    title: "阻抗与导纳",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "用复数统一表达电阻、电感、电容的伏安关系。",
+    keywords: ["阻抗", "导纳", "电抗"],
+  },
+  {
+    slug: "rlc",
+    title: "RLC 电路",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "理解串联 RLC 的频率响应与谐振。",
+    keywords: ["谐振", "RLC"],
+  },
+  {
+    slug: "power",
+    title: "交流功率",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "区分有功、无功和视在功率。",
+    keywords: ["功率", "有功", "无功"],
+  },
+  {
+    slug: "power-factor",
+    title: "功率因数",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "理解功率因数及其对供电电流的影响。",
+    keywords: ["功率因数", "补偿"],
+  },
+];
+export const categories = ["电路基础", "动态电路", "正弦稳态"];
+export const articleHref = (slug: string) => `/learn/${slug}`;
+export const sections = [
+  "核心概念",
+  "前置知识",
+  "核心公式",
+  "解题步骤",
+  "电路图",
+  "典型例题",
+  "常见错误",
+  "相关知识",
+];

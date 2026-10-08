@@ -1,0 +1,83 @@
+<Callout title="基础导读" kind="important">
+  本页提供第一版知识框架与简例；完整推导和更多练习将在后续补充。
+</Callout>
+
+## 1. 核心概念
+
+正弦量由幅值、频率和初相位描述。本站以余弦作为共同参考；有效值用于交流功率与相量计算。
+
+## 2. 前置知识
+
+[进入前置知识](/learn/kcl-kvl)
+
+## 3. 核心公式
+
+<Formula
+  latex={"i=I_m\\cos(\\omega t+\\phi_i)"}
+  description="第5版式（8-1）：余弦参考的正弦电流。"
+/>
+
+<Formula
+  latex={"\\omega=2\\pi f,\\quad f=\\frac1T,\\quad I=\\frac{I_m}{\\sqrt2}"}
+  description="第5版 p.206–207；电压同理 U=Um/√2。"
+/>
+
+Im 是峰值，I 是有效值，φᵢ 是初相位。电压可写成 u=Um cos(ωt+φᵤ)。f 单位 Hz，ω 单位 rad/s。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §8-2，书页 205–207。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+Um 是峰值，U 是有效值，ω 是角频率，f 是每秒振动次数。不要把 ω 直接当作 f。
+
+<div className="formula-usage">
+
+### 使用示例：从波形表达式提取参数
+
+**什么时候用：** 已知 u(t)=10cos(100πt+30°) V。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "U=\\frac{10}{\\sqrt2}\\approx7.071\\,\\mathrm V,\\quad f=\\frac{100\\pi}{2\\pi}=50\\,\\mathrm{Hz}"
+  }
+/>
+
+<Formula latex={"T=\\frac1f=0.02\\,\\mathrm s=20\\,\\mathrm{ms}"} />
+
+**结果怎么看：** 峰值是 10 V，有效值约 7.071 V，初相位 30°；这些量各自描述不同特征。
+
+</div>
+
+## 4. 解题步骤
+
+1. 明确电路模型、参考方向与适用条件。
+2. 将已知量换算为一致的 SI 单位。
+3. 代入公式并检查结果的单位与物理意义。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="rc"
+  sourceLabel="u_S"
+  caption="相关拓扑示意，用于识别元件连接方式，不代表下方简例的全部参数"
+/>
+
+## 6. 典型例题
+
+<Example title="快速应用">
+
+u(t)=10cos(100πt+30°) V：有效值约 7.071 V，频率 50 Hz，周期 20 ms。
+
+</Example>
+
+## 7. 常见错误
+
+<Warning>角频率不是频率；它们之间有 2π 的系数。</Warning>
+
+## 8. 相关知识
+
+[前置知识](/learn/kcl-kvl) → [继续学习](/learn/phasor) · [公式速查](/formulas)

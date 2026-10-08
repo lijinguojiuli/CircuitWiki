@@ -1,0 +1,137 @@
+## 1. 核心概念
+
+对外部负载而言，线性二端网络可以等效为一个理想电压源与一个电阻串联。等效前后保持端口伏安关系，内部电流和功率分布不必相同。
+
+当负载经常变化时，先做戴维南等效，能避免每次重新求解整个网络。
+
+<Tip>先画参考方向，再写方程；每一步都保留单位和适用条件。</Tip>
+
+## 2. 前置知识
+
+[KCL / KVL](/learn/kcl-kvl) · [节点电压法](/learn/nodal-analysis) · [叠加定理](/learn/superposition)
+
+## 3. 核心公式
+
+<Formula
+  latex={"u=u_{oc}-R_{eq}i"}
+  description="第5版 p.92：戴维宁端口关系，电流取从端口流向负载。"
+/>
+
+<Formula
+  latex={"u_{oc}=R_{eq}i_{sc}"}
+  description="第5版式（4-5）：开路电压、等效电阻、短路电流的关系。"
+/>
+
+<Formula
+  latex={"i=\\frac{u_{oc}}{R_{eq}+R_L}"}
+  description="由端口关系和负载 u=RLi 推得的带载电流式。"
+/>
+
+沿用书中 uoc、Req、isc 记号，分别表示开路电压、等效电阻和短路电流。求 Req 时独立源置零，受控源保留。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §4-3（教材题名：戴维宁定理和诺顿定理），书页
+  90–93。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+uoc 是移去负载后的开路电压，uoc 是等效电源电压，Req 是网络的等效内阻，RL 是重新接上的负载。
+
+<div className="formula-usage">
+
+### 使用示例：用等效电路算带载电流
+
+**什么时候用：** 已求得 uoc=10 V、Req=2 kΩ，接入 RL=3 kΩ 的负载。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "u_{oc}=U_{oc}=10\\,\\mathrm V\\qquad i_L=\\frac{10}{2000+3000}=2\\,\\mathrm{mA}"
+  }
+/>
+
+**结果怎么看：** 先把原网络替换成 10 V 电源串联 2 kΩ，再按普通串联电路计算。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：算接入负载后的端口电压
+
+**什么时候用：** 使用刚算出的 iL=2 mA；内部等效电阻会产生压降。
+
+**代入计算：**
+
+<Formula latex={"u=10-2000\\times0.002=6\\,\\mathrm V"} />
+
+**结果怎么看：** 带载电压为 6 V，而开路电压为 10 V；二者不能混用。也可用 iL×RL=6 V 交叉检查。
+
+</div>
+
+## 4. 解题步骤
+
+1. 移去负载，明确端口位置与电压极性。
+2. 求开路端口电压 uoc，作为 uoc。
+3. 将独立源置零，从端口求等效电阻；含受控源时用测试源法。
+4. 重新连接负载，用串联电路求电流与电压。
+5. 检查等效前后开路电压与端口关系是否一致。
+
+## 5. 电路图
+
+<CircuitDiagram type="thevenin" caption="等效网络：uoc 串联 Req，接入负载 RL" />
+
+## 6. 典型例题
+
+<Example title="分压网络接入负载">
+
+**题目：** 原网络由 12 V 电源、上臂 2 kΩ 和下臂 4 kΩ 构成。负载从中点 A 接到地，求等效参数及 RL = 2 kΩ 时的负载电流。
+
+<CircuitDiagram
+  type="divider"
+  caption="原始网络：12 V 电源，2 kΩ / 4 kΩ 分压，负载接 A 与地之间"
+/>
+
+**思路：** 负载断开时先求分压。电源置零后，上臂与下臂对端口呈并联，而不是串联。
+
+**计算步骤：**
+
+<Formula latex={"u_{oc}=12\\frac{4}{2+4}=8\\,\\mathrm V"} />
+
+<Formula
+  latex={
+    "R_{eq}=2\\parallel4=\\frac{2\\times4}{2+4}=\\frac43\\,\\mathrm{k\\Omega}"
+  }
+/>
+
+<Formula
+  latex={
+    "i_L=\\frac{8}{(4/3+2)\\times1000}=2.4\\,\\mathrm{mA},\\quad u_L=4.8\\,\\mathrm V"
+  }
+/>
+
+**最终答案：** 戴维南电压为 8 V，等效电阻约 1.333 kΩ。接入 2 kΩ 负载后，电流 2.4 mA，端口电压降至 4.8 V。
+
+</Example>
+
+<Quiz
+  question="求 Req 时，理想独立电压源应如何处理？"
+  options={["开路", "短路", "保持原电压"]}
+  answer={1}
+  explanation="独立电压源置零相当于端口电压为零，即短路。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 把带载电压当成开路电压。
+- 电源置零时把电压源开路，或把电流源短路。
+- 错误地关闭受控源；受控关系必须保留。
+
+</Warning>
+
+## 8. 相关知识
+
+[前置：节点电压法](/learn/nodal-analysis) → [后续：诺顿定理](/learn/norton) · [相关：RC 等效时间常数](/learn/rc-circuit)

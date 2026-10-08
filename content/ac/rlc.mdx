@@ -1,0 +1,83 @@
+<Callout title="基础导读" kind="important">
+  本页提供第一版知识框架与简例；完整推导和更多练习将在后续补充。
+</Callout>
+
+## 1. 核心概念
+
+串联 RLC 电路中，电阻、电感、电容阻抗相加。当感抗与容抗抵消时出现串联谐振。
+
+## 2. 前置知识
+
+[进入前置知识](/learn/impedance)
+
+## 3. 核心公式
+
+<Formula
+  latex={"Z(j\\omega)=R+j\\left(\\omega L-\\frac1{\\omega C}\\right)"}
+  description="第5版 p.281：串联 RLC 输入阻抗。"
+/>
+
+<Formula
+  latex={"\\omega_0=\\frac1{\\sqrt{LC}},\\qquad f_0=\\frac1{2\\pi\\sqrt{LC}}"}
+  description="第5版 p.282：串联谐振的角频率与频率。"
+/>
+
+理想串联 RLC，R>0；谐振时感抗与容抗抵消，总阻抗为 R，元件各自电压并不为零。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §11-2，书页 281–282。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+串联阻抗的虚部是“感抗减容抗”；二者相等时，串联电路谐振。ω₀ 是谐振角频率，f₀=ω₀/(2π)。
+
+<div className="formula-usage">
+
+### 使用示例：求谐振频率及此时的阻抗
+
+**什么时候用：** R=10 Ω、L=10 mH、C=1 μF。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "\\omega_0=\\frac1{\\sqrt{0.01\\times10^{-6}}}=10000\\,\\mathrm{rad/s}\\quad\\Rightarrow\\quad f_0\\approx1591.55\\,\\mathrm{Hz}"
+  }
+/>
+
+<Formula latex={"Z(\\omega_0)=10+j(100-100)=10\\,\\Omega"} />
+
+**结果怎么看：** 谐振时总阻抗为纯电阻；若输入电压有效值为 5 V，则电流有效值为 0.5 A。
+
+</div>
+
+## 4. 解题步骤
+
+1. 明确电路模型、参考方向与适用条件。
+2. 将已知量换算为一致的 SI 单位。
+3. 代入公式并检查结果的单位与物理意义。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="rl"
+  sourceLabel="u_S"
+  caption="相关拓扑示意，用于识别元件连接方式，不代表下方简例的全部参数"
+/>
+
+## 6. 典型例题
+
+<Example title="快速应用">
+
+L=10 mH，C=1 μF，则 ω₀=10000 rad/s，f₀≈1591.55 Hz。
+
+</Example>
+
+## 7. 常见错误
+
+<Warning>谐振不代表电感与电容各自电压为零，它们的相量电压相互抵消。</Warning>
+
+## 8. 相关知识
+
+[前置知识](/learn/impedance) → [继续学习](/learn/power) · [公式速查](/formulas)

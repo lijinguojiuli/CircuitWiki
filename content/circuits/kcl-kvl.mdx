@@ -1,0 +1,146 @@
+## 1. 核心概念
+
+基尔霍夫电流定律（KCL）来自电荷守恒：一个节点没有净电荷积累时，流入电流之和等于流出电流之和。基尔霍夫电压定律（KVL）来自能量守恒：沿任意闭合回路，电压的代数和为零。
+
+在集总电路模型中，先选参考方向，再写方程。电流为负只说明实际方向与假设相反。
+
+<Tip>先画参考方向，再写方程；每一步都保留单位和适用条件。</Tip>
+
+## 2. 前置知识
+
+[电阻与欧姆定律](#section-3) · [节点电压法预览](/learn/nodal-analysis)
+
+## 3. 核心公式
+
+<Formula
+  latex={"\\sum i=0\\qquad\\sum u=0"}
+  description="第5版 p.21–22：KCL 与 KVL 的代数和形式。"
+/>
+
+<Formula
+  latex={"u=Ri"}
+  description="第5版式（1-3）：电压、电流取关联参考方向。"
+/>
+
+<Formula
+  latex={"p=ui=Ri^2=\\frac{u^2}{R}"}
+  description="第5版式（1-5）：电阻的瞬时功率。"
+/>
+
+u、i、p 表示瞬时量，直流时也可直接代入恒定数值。KCL 统一取流出为正、流入为负；KVL 按电压参考方向与绕行方向确定正负。把整条方程同乘 −1 不改变答案。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §1-3、§1-5、§1-8，书页
+  12–15、21–22。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+先把符号读成一句话：Σ 表示“把各项加起来”；i 是支路电流，u 是沿回路计算的电压升降。电流、电压的正负号由你先选定的参考方向决定。
+
+<div className="formula-usage">
+
+### 使用示例：用 KCL 求一条未知电流
+
+**什么时候用：** 结点流入 2 mA 和 3 mA，只有一条支路流出。以流入为正，流出为负。
+
+**代入计算：**
+
+<Formula latex={"2+3-I=0\\quad\\Rightarrow\\quad I=5\\,\\mathrm{mA}"} />
+
+**结果怎么看：** 这里方程中的电流都用 mA；结果表示流出电流为 5 mA。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：用 KVL 求电阻上的电压
+
+**什么时候用：** 一个 12 V 电源串联两个电阻，已知第一个电阻压降 4 V。沿电源升压、两个电阻降压的方向绕行。
+
+**代入计算：**
+
+<Formula latex={"12-4-U_2=0\\quad\\Rightarrow\\quad U_2=8\\,\\mathrm V"} />
+
+**结果怎么看：** 电源提供的 12 V，分别降落在两个电阻上。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：用欧姆定律求电流
+
+**什么时候用：** 电阻 2 kΩ，两端电压 6 V；电流参考方向取从正端流入。先把 kΩ 换为 Ω。
+
+**代入计算：**
+
+<Formula
+  latex={"I=\\frac U R=\\frac6{2000}=0.003\\,\\mathrm A=3\\,\\mathrm{mA}"}
+/>
+
+**结果怎么看：** 电阻两端电压和阻值已知时，就可以用这一步直接求电流。
+
+</div>
+
+## 4. 解题步骤
+
+1. 标记节点、支路及参考方向。
+2. 对独立节点写 KCL：流入为正，流出为负。
+3. 选取独立回路，沿同一方向写电压升降。
+4. 使用元件伏安关系联立方程。
+5. 代回检查电流守恒与功率平衡。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="divider"
+  caption="US = 12 V，R₁ = 2 kΩ，R₂ = 4 kΩ；A 点为输出"
+/>
+
+## 6. 典型例题
+
+<Example title="串联分压中的两条定律">
+
+**题目：** 12 V 电源串联 2 kΩ 与 4 kΩ 电阻，求电流、输出电压和两个电阻的功率。
+
+<CircuitDiagram
+  type="divider"
+  caption="US = 12 V，R₁ = 2 kΩ，R₂ = 4 kΩ；A 点为输出"
+/>
+
+**思路：** A 点只有两条支路，由 KCL 可知两电阻电流相同。沿回路写 KVL，再使用欧姆定律。
+
+**计算步骤：**
+
+<Formula latex={"12-2000I-4000I=0\\Rightarrow I=2\\,\\mathrm{mA}"} />
+
+<Formula latex={"U_A=IR_2=8\\,\\mathrm V"} />
+
+<Formula latex={"P_1=I^2R_1=8\\,\\mathrm{mW},\\quad P_2=16\\,\\mathrm{mW}"} />
+
+**最终答案：** 电流 2 mA，输出 8 V；两个电阻分别吸收 8 mW、16 mW。电源提供 12 V × 2 mA = 24 mW，与总耗散一致。
+
+</Example>
+
+<Quiz
+  question="节点流入 3 mA 和 2 mA，唯一流出支路的电流是多少？"
+  options={["1 mA", "5 mA", "−5 mA"]}
+  answer={1}
+  explanation="采用流出为正的支路参考方向，流出电流等于两路流入电流之和。"
+/>
+
+## 7. 常见错误
+
+<SourceSymbolGuide />
+
+<Warning>
+
+- KCL 中所有电流都取同号，忽略流入和流出。
+- KVL 中把电源电压与电阻压降混为相同方向。
+- 负电流不是计算失败，而是实际方向与参考方向相反。
+
+</Warning>
+
+## 8. 相关知识
+
+[前置：欧姆定律速查](/formulas) → [后续：节点电压法](/learn/nodal-analysis) · [相关：网孔电流法](/learn/mesh-analysis)

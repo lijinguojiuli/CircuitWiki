@@ -1,0 +1,96 @@
+<Callout title="基础导读" kind="important">
+  本页提供第一版知识框架与简例；完整推导和更多练习将在后续补充。
+</Callout>
+
+## 1. 核心概念
+
+电容将能量储存在电场中。关联参考方向下，电流与电压变化率成正比；无冲激电流时电容电压连续。
+
+## 2. 前置知识
+
+[进入前置知识](/learn/kcl-kvl)
+
+## 3. 核心公式
+
+<Formula
+  latex={"i=\\frac{dq}{dt}=\\frac{d(Cu)}{dt}=C\\frac{du}{dt}"}
+  description="第5版式（6-2），C 为常数，采用关联参考方向。"
+/>
+
+<Formula
+  latex={"W_C(t)=\\frac12 Cu^2(t)"}
+  description="第5版式（6-8）：电容储能。"
+/>
+
+C 的单位 F，u 的单位 V，i 的单位 A，WC 的单位 J。直流稳态的理想电容开路；无冲激电流时，电容电压连续。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §6-1，书页 126–128。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+du/dt 是每秒电压变化多少伏；W 是电场储能。使用关联参考方向，C 的单位为 F。
+
+<div className="formula-usage">
+
+### 使用示例：由电压变化速度求电流
+
+**什么时候用：** 10 μF 电容的电压在 2 ms 内均匀上升 1 V。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "i=C\\frac{\\Delta u}{\\Delta t}=10\\times10^{-6}\\times\\frac1{0.002}=5\\,\\mathrm{mA}"
+  }
+/>
+
+**结果怎么看：** 均匀变化时可用 Δu/Δt 代替导数；若电压不随时间变，则理想电容电流为零。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：由端电压求储能
+
+**什么时候用：** 同一 10 μF 电容两端为 5 V。
+
+**代入计算：**
+
+<Formula
+  latex={"W_C=\\frac12\\times10\\times10^{-6}\\times5^2=125\\,\\mathrm{\\mu J}"}
+/>
+
+**结果怎么看：** 储能使用电压的平方，与电压极性的正负无关。
+
+</div>
+
+## 4. 解题步骤
+
+1. 明确电路模型、参考方向与适用条件。
+2. 将已知量换算为一致的 SI 单位。
+3. 代入公式并检查结果的单位与物理意义。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="rc"
+  caption="相关拓扑示意，用于识别元件连接方式，不代表下方简例的全部参数"
+/>
+
+## 6. 典型例题
+
+<Example title="快速应用">
+
+100 μF 电容两端为 5 V 时，储能为 0.5×100×10⁻⁶×25=1.25 mJ。
+
+</Example>
+
+## 7. 常见错误
+
+<Warning>电容电压连续不代表电容电流连续。</Warning>
+
+## 8. 相关知识
+
+[前置知识](/learn/kcl-kvl) → [继续学习](/learn/rc-circuit) · [公式速查](/formulas)

@@ -1,0 +1,99 @@
+<Callout title="基础导读" kind="important">
+  本页提供第一版知识框架与简例；完整推导和更多练习将在后续补充。
+</Callout>
+
+## 1. 核心概念
+
+阻抗把相量电压和相量电流联系起来，导纳是阻抗的倒数。电感呈正虚部，电容呈负虚部。
+
+## 2. 前置知识
+
+[进入前置知识](/learn/phasor)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "Z=\\frac{\\dot U}{\\dot I},\\quad\\dot U=Z\\dot I,\\quad Y=\\frac{\\dot I}{\\dot U}=\\frac1Z"
+  }
+  description="第5版 p.221–223：阻抗、导纳及相量欧姆定律。"
+/>
+
+<Formula
+  latex={"Z_R=R,\\quad Z_L=j\\omega L,\\quad Z_C=-j\\frac1{\\omega C}"}
+  description="第5版 p.223。"
+/>
+
+只用于同频正弦稳态。阻抗 Z 单位 Ω，导纳 Y 单位 S；1/j=−j，所以电容阻抗为负虚部。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §9-1，书页 220–223。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+Z 是电压相量与电流相量的比值，单位 Ω；Y=1/Z 是导纳，单位 S。电感、电容阻抗还与角频率有关。
+
+<div className="formula-usage">
+
+### 使用示例：由电压相量求电流相量
+
+**什么时候用：** 某负载 Z=3+j4 Ω，电压相量为 10∠0° V。先把阻抗转为极坐标。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "Z=5\\angle53.13^\\circ\\,\\Omega\\quad\\Rightarrow\\quad \\dot I=\\frac{10\\angle0^\\circ}{5\\angle53.13^\\circ}=2\\angle(-53.13^\\circ)\\,\\mathrm A"
+  }
+/>
+
+**结果怎么看：** 电流有效值为 2 A，落后电压 53.13°。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：求同一负载的导纳
+
+**什么时候用：** 将分母乘以共轭复数，计算阻抗倒数。
+
+**代入计算：**
+
+<Formula
+  latex={"Y=\\frac1{3+j4}=\\frac{3-j4}{3^2+4^2}=0.12-j0.16\\,\\mathrm S"}
+/>
+
+**结果怎么看：** 导纳的实部、虚部不能分别用阻抗实部和虚部的倒数代替。
+
+</div>
+
+## 4. 解题步骤
+
+1. 明确电路模型、参考方向与适用条件。
+2. 将已知量换算为一致的 SI 单位。
+3. 代入公式并检查结果的单位与物理意义。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="rc"
+  sourceLabel="u_S"
+  caption="相关拓扑示意，用于识别元件连接方式，不代表下方简例的全部参数"
+/>
+
+## 6. 典型例题
+
+<Example title="快速应用">
+
+在 ω=1000 rad/s、L=10 mH 时，ZL=j10 Ω；若 C=100 μF，则 ZC=−j10 Ω。
+
+</Example>
+
+## 7. 常见错误
+
+<Warning>1/j=−j，电容阻抗的虚部为负。</Warning>
+
+## 8. 相关知识
+
+[前置知识](/learn/phasor) → [继续学习](/learn/rlc) · [公式速查](/formulas)

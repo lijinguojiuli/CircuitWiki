@@ -1,0 +1,169 @@
+## 1. 核心概念
+
+相量用一个复数记录同频正弦量的有效值和初相位，省略所有信号共有的时间因子。本知识库采用余弦参考与有效值相量。
+
+相量不是随时间旋转的瞬时电压本身。它适用于线性电路的同频正弦稳态；换路瞬态和不同频率不能直接混在一次相量运算中。
+
+<Tip>先画参考方向，再写方程；每一步都保留单位和适用条件。</Tip>
+
+## 2. 前置知识
+
+[正弦量](/learn/sinusoidal) · [KCL / KVL](/learn/kcl-kvl) · [复数计算工具](/tools#phasor)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "\\dot U_S=U_Se^{j\\phi_u}=U_S\\angle\\phi_u,\\qquad\\dot I=Ie^{j\\phi_i}=I\\angle\\phi_i"
+  }
+  description="第5版 p.210：有效值相量使用大写字母上方的点号。"
+/>
+
+<Formula
+  latex={
+    "u_S=\\sqrt2 U_S\\cos(\\omega t+\\phi_u),\\qquad i=\\sqrt2 I\\cos(\\omega t+\\phi_i)"
+  }
+  description="第5版 p.209：相量对应的瞬时量；二者是对应关系，不是相等关系。"
+/>
+
+<Formula
+  latex={"\\dot U=U\\cos\\phi_u+jU\\sin\\phi_u"}
+  description="把教材相量定义按欧拉公式展开，便于加减运算。"
+/>
+
+<Formula
+  latex={"Z_R=R,\\quad Z_L=j\\omega L,\\quad Z_C=-j\\frac1{\\omega C}"}
+  description="第5版 p.223：电容阻抗采用负虚部形式。"
+/>
+
+U、I 使用有效值，ω=2πf。带点的大写字母是相量，普通大写字母是有效值，小写 u、i 是瞬时量；φᵤ、φᵢ 是相应初相位。不同频率不能直接作一次相量运算。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §8-3、§8-4，书页 209–214。以下数字示例为本站原创。
+</aside>
+
+### 先读懂符号
+
+u(t) 是随时间变化的瞬时电压；U 是有效值；带点的 U 是包含幅值与相位的复数。j 是虚数单位，φ 是相位角（电压为 φᵤ，电流为 φᵢ）。
+
+<div className="formula-usage">
+
+### 使用示例：从瞬时量写出相量
+
+**什么时候用：** 已知 u(t)=10√2 cos(100πt+30°) V，采用余弦参考和有效值约定。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "U=\\frac{10\\sqrt2}{\\sqrt2}=10\\,\\mathrm V\\qquad \\dot U=10\\angle30^\\circ\\,\\mathrm V"
+  }
+/>
+
+**结果怎么看：** 相量保留有效值 10 和相位 30°，不再写共同的时间项 100πt。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：把极坐标转换成直角坐标
+
+**什么时候用：** 把 10∠30° V 分成实部与虚部。
+
+**代入计算：**
+
+<Formula
+  latex={
+    "\\dot U=10\\cos30^\\circ+j10\\sin30^\\circ\\approx8.66+j5\\,\\mathrm V"
+  }
+/>
+
+**结果怎么看：** 这仍然是同一个相量，只是换了写法。要加减两个相量时，分别相加减实部和虚部更方便。
+
+</div>
+
+<div className="formula-usage">
+
+### 使用示例：把电感、电容换成阻抗
+
+**什么时候用：** 在 ω=1000 rad/s 下，R=100 Ω、L=10 mH、C=100 μF。三个元件分别代入各自公式。
+
+**代入计算：**
+
+<Formula
+  latex={"Z_R=100\\,\\Omega,\\quad Z_L=j1000\\times0.01=j10\\,\\Omega"}
+/>
+
+<Formula latex={"Z_C=\\frac1{j1000\\times100\\times10^{-6}}=-j10\\,\\Omega"} />
+
+**结果怎么看：** 注意 1/j=−j，电容阻抗的虚部为负。这些阻抗只对应给定频率。
+
+</div>
+
+## 4. 解题步骤
+
+1. 将所有信号转换为相同频率、余弦参考和有效值。
+2. 将电阻、电感、电容替换为对应复阻抗。
+3. 在复数域使用 KCL、KVL 或节点、网孔法。
+4. 按所需运算选择极坐标或直角坐标。
+5. 把结果转换回瞬时量时乘 √2，并补回共同时间因子。
+
+## 5. 电路图
+
+<CircuitDiagram
+  type="rc"
+  sourceLabel="u_S"
+  caption="正弦电源驱动串联 RC，电容电压由阻抗分压求得"
+/>
+
+## 6. 典型例题
+
+<Example title="串联 RC 的电流相量">
+
+**题目：** 电源有效值相量为 10∠0° V，R=100 Ω，电容在该频率下的阻抗为 −j100 Ω，求电流相量与瞬时电流。
+
+<CircuitDiagram
+  type="rc"
+  sourceLabel="u_S"
+  caption="正弦电源驱动串联 RC，电容电压由阻抗分压求得"
+/>
+
+**思路：** 先将电阻与电容阻抗相加，再将总阻抗转换成极坐标。电容使总阻抗相角为负，因此电流超前电源电压。
+
+**计算步骤：**
+
+<Formula latex={"Z=100-j100=141.421\\angle(-45^\\circ)\\,\\Omega"} />
+
+<Formula
+  latex={
+    "\\dot I=\\frac{10\\angle0^\\circ}{141.421\\angle(-45^\\circ)}=0.07071\\angle45^\\circ\\,\\mathrm A"
+  }
+/>
+
+<Formula latex={"i(t)=0.1\\cos(\\omega t+45^\\circ)\\,\\mathrm A"} />
+
+**最终答案：** 电流有效值为 70.71 mA，超前电压 45°。瞬时电流峰值为 0.1 A；具体角频率由题目给定的电源频率决定。
+
+</Example>
+
+<Quiz
+  question="10∠0° 与 10∠90° 相加的幅值是多少？"
+  options={["20", "0", "约 14.142"]}
+  answer={2}
+  explanation="转换为 10+j10 后取模，得到 10√2；相位为 45°。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 将峰值与有效值混用，造成 √2 倍误差。
+- 直接对两个相量的幅值与角度分别相加。
+- 把不同频率正弦量当作同频相量求和。
+- 对零相量报告唯一相位；零幅值时相位未定义。
+
+</Warning>
+
+## 8. 相关知识
+
+[前置：正弦量](/learn/sinusoidal) → [后续：阻抗与导纳](/learn/impedance) · [相关：交流功率](/learn/power)
