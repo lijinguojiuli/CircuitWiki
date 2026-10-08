@@ -1,5 +1,28 @@
 import { test, expect } from "@playwright/test";
 import { articles } from "../../src/lib/content";
+test("branch grouping preserves loop count and distinguishes a mesh from an outer loop", async ({
+  page,
+}) => {
+  await page.goto("/learn/kcl-kvl#topology-definitions");
+  const lab = page.locator(".multi-loop-lab");
+  await expect(lab.locator(".topology-counts")).toContainText("b = 5");
+  await expect(lab.locator(".topology-counts")).toContainText("n = 3");
+  await expect(lab.locator(".loop-choices button")).toHaveCount(6);
+  await lab
+    .getByRole("button", { name: "L₁₄：最外侧回路", exact: true })
+    .click();
+  await expect(lab.locator(".loop-detail")).toContainText("e1 → e2 → e5");
+  await expect(lab.locator(".loop-detail")).toContainText("不是网孔");
+  await lab
+    .getByRole("button", { name: "左侧串联组合成一条支路", exact: true })
+    .click();
+  await expect(lab.locator(".topology-counts")).toContainText("b = 4");
+  await expect(lab.locator(".topology-counts")).toContainText("n = 2");
+  await expect(lab.locator(".topology-counts")).toContainText("b − n + 1 = 3");
+  await expect(lab.locator(".loop-detail")).toContainText("b1 → b4");
+  await lab.getByRole("button", { name: "L₂₃：中间网孔", exact: true }).click();
+  await expect(lab.locator(".loop-detail")).toContainText("既是回路，也是网孔");
+});
 test("all public routes render, formulas work, internal links and anchors resolve", async ({
   page,
   request,

@@ -1018,6 +1018,78 @@ footer > span:first-child {
 .response-plot-label {
   font: 11px sans-serif;
 }
+.multi-loop-lab {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.multi-loop-lab .circuit svg {
+  max-height: none;
+}
+.multi-loop-lab .segmented {
+  flex-wrap: wrap;
+}
+.topology-counts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  font-size: 12px;
+}
+.topology-counts span {
+  background: var(--soft);
+  padding: 8px 12px;
+}
+.topology-counts strong {
+  display: block;
+  font-size: 15px;
+}
+.branch-view-explanation,
+.loop-detail {
+  padding: 14px;
+  background: var(--soft);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.branch-view-explanation p,
+.loop-detail p {
+  margin: 6px 0;
+}
+.loop-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0;
+}
+.loop-choices button {
+  padding: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 11px;
+  text-align: left;
+}
+.loop-choices button[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--text);
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .multi-loop-lab {
+    padding: 14px;
+  }
+  .loop-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .topology-counts {
+    gap: 7px;
+  }
+  .topology-counts span {
+    padding: 7px;
+    font-size: 10px;
+  }
+}
 @media (max-width: 700px) {
   .response-grid {
     grid-template-columns: 1fr;

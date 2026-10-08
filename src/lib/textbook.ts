@@ -4,7 +4,7 @@ export const textbookReferences: Record<
 > = {
   "kcl-kvl": {
     section: "§1-3、§1-5、§1-8、§3-1、§3-2",
-    pages: "12–15、20–22、53–55",
+    pages: "12–15、20–22、53–56",
   },
   "nodal-analysis": {
     section: "§3-6",
