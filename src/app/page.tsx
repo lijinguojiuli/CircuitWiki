@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { articles } from "@/lib/content";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -20,7 +21,7 @@ const modules = [
     description: "从基本定律到等效变换，建立电路分析的第一性原理。",
     href: "/learn/kcl-kvl",
     Icon: GitBranch,
-    count: "06 个知识点",
+    count: "07 个知识点",
   },
   {
     title: "动态电路",
@@ -35,6 +36,13 @@ const modules = [
     href: "/learn/phasor",
     Icon: Radio,
     count: "06 个知识点",
+  },
+  {
+    title: "三相电路",
+    description: "学习教材第十二章，分清线量与相量，掌握三相计算和功率。",
+    href: "/learn/three-phase-basics",
+    Icon: Radio,
+    count: "05 个知识点",
   },
   {
     title: "模拟电子",
@@ -146,7 +154,7 @@ export default function Home() {
         <div>
           <BookOpen />
           <span>
-            <strong>16</strong> 个知识点
+            <strong>{articles.length}</strong> 个知识点
           </span>
         </div>
         <div>

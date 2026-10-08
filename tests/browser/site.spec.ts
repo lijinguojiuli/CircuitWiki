@@ -110,6 +110,12 @@ test("mobile navigation and no page overflow", async ({ page }) => {
     "/learn/phasor",
     "/formulas",
     "/tools",
+    "/learn/star-delta",
+    "/learn/three-phase-basics",
+    "/learn/line-phase",
+    "/learn/balanced-three-phase",
+    "/learn/unbalanced-three-phase",
+    "/learn/three-phase-power",
   ]) {
     await page.goto(route);
     expect(

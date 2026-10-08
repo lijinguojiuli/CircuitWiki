@@ -953,6 +953,82 @@ footer > span:first-child {
   color: var(--accent);
   font-weight: 600;
 }
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 18px 0;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.prose th {
+  background: var(--soft);
+  font-weight: 600;
+}
+.prose td:first-child {
+  min-width: 65px;
+}
+.response-types {
+  margin: 24px 0;
+}
+.response-types > p {
+  font-size: 12px;
+}
+.response-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.response-card {
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  min-width: 0;
+}
+.response-card h4 {
+  font-size: 15px;
+  font-weight: 650;
+  text-align: center;
+}
+.response-circuit {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border: 0;
+  margin: 10px 0;
+}
+.response-card > svg:not(.response-circuit) {
+  width: 100%;
+  height: auto;
+}
+.response-card > p {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.response-card .formula {
+  padding: 8px 3px;
+  font-size: 11px;
+}
+.response-plot-label {
+  font: 11px sans-serif;
+}
+@media (max-width: 700px) {
+  .response-grid {
+    grid-template-columns: 1fr;
+  }
+  .response-circuit {
+    max-height: 220px;
+  }
+  .response-card > svg:not(.response-circuit) {
+    max-height: 160px;
+  }
+}
 .prose code {
   background: var(--soft);
   padding: 2px 5px;

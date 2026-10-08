@@ -51,15 +51,20 @@ export function Inductor({ x, y, label = "L" }: PartProps) {
   );
 }
 // Qiu Guanyuan, Circuit (5th ed.), p.16 fig.1-8: axial line, external polarity.
-export function VoltageSource({ x, y, label = "U_S" }: PartProps) {
+export function VoltageSource({
+  x,
+  y,
+  label = "U_S",
+  horizontal = false,
+}: PartProps & { horizontal?: boolean }) {
   return (
     <g transform={`translate(${x} ${y})`} data-symbol="voltage-source">
       <circle r="24" />
-      <path d="M0 -24v48" />
-      <text x="32" y="-13">
+      <path d={horizontal ? "M-24 0h48" : "M0 -24v48"} />
+      <text x="32" y={horizontal ? "18" : "-13"}>
         +
       </text>
-      <text x="32" y="23">
+      <text x={horizontal ? "-32" : "32"} y={horizontal ? "18" : "23"}>
         −
       </text>
       <SymbolLabel x={-45} y={5} label={label} />

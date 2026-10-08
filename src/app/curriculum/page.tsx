@@ -9,8 +9,9 @@ export default function Curriculum() {
         电路知识地图<span className="heading-dot">.</span>
       </h1>
       <p className="page-lead">
-        从守恒定律出发，经由动态响应，走向正弦稳态。6 篇完整核心课，10
-        篇基础导读。
+        从守恒定律出发，经由动态响应与正弦稳态，走向三相电路。
+        {articles.filter((a) => a.core).length} 篇完整学习页，
+        {articles.filter((a) => !a.core).length} 篇基础导读。
       </p>
       {categories.map((c, i) => (
         <section id={c} className="curriculum-group" key={c}>

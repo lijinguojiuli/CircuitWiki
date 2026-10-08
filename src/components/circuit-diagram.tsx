@@ -90,20 +90,7 @@ export function CircuitDiagram({
                 <CurrentSource x={485} y={130} label="I_S" />
               )}
             </>
-          ) : (
-            <>
-              <path strokeDasharray="4 5" d="M415 86v95" />
-              <text x="444" y="132">
-                {rc ? "uC" : "u"}
-              </text>
-              <text x="414" y="72">
-                +
-              </text>
-              <text x="414" y="204">
-                −
-              </text>
-            </>
-          )}
+          ) : null}
         </g>
       </svg>
       <figcaption>

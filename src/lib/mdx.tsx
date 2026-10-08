@@ -11,11 +11,19 @@ import { RCCalculator } from "@/components/calculators";
 import type { Article } from "./content";
 import type { MDXComponents } from "mdx/types";
 import { SourceSymbolGuide } from "@/components/source-symbol-guide";
+import { TopologyDiagram } from "@/components/topology-diagram";
+import { StarDeltaDiagram } from "@/components/star-delta-diagram";
+import { ThreePhaseDiagram } from "@/components/three-phase-diagram";
+import { RCResponseDiagrams } from "@/components/rc-response-diagrams";
 const components: MDXComponents = {
   Formula,
   InlineFormula,
   FormulaCard,
   SourceSymbolGuide,
+  TopologyDiagram,
+  StarDeltaDiagram,
+  ThreePhaseDiagram,
+  RCResponseDiagrams,
   Callout,
   Warning,
   Tip,

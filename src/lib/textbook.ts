@@ -3,8 +3,8 @@ export const textbookReferences: Record<
   { section: string; pages: string }
 > = {
   "kcl-kvl": {
-    section: "§1-3、§1-5、§1-8",
-    pages: "12–15、21–22",
+    section: "§1-3、§1-5、§1-8、§3-1、§3-2",
+    pages: "12–15、20–22、53–55",
   },
   "nodal-analysis": {
     section: "§3-6",
@@ -66,4 +66,10 @@ export const textbookReferences: Record<
     section: "§9-4",
     pages: "235–236",
   },
+  "star-delta": { section: "§2-4", pages: "37–39" },
+  "three-phase-basics": { section: "§12-1", pages: "301–303" },
+  "line-phase": { section: "§12-2", pages: "303–305" },
+  "balanced-three-phase": { section: "§12-3", pages: "306–308" },
+  "unbalanced-three-phase": { section: "§12-4", pages: "308–310" },
+  "three-phase-power": { section: "§12-5", pages: "310–312" },
 };

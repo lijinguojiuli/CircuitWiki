@@ -1,0 +1,106 @@
+## 1. 核心概念
+
+当三相电源、三条线路阻抗、三相负载均对称时，可以把整个三相系统归结为一相计算，再按相差120°写出另两相。
+
+对称Y-Y电路中，电源与负载中性点电位相同，中性线电流为零。一相等效图中的中性点连接用于表达这个等电位条件。
+
+<Tip>先识别连接方式、参考方向和给定量的单位，再选公式。</Tip>
+
+## 2. 前置知识
+
+[线量与相量](/learn/line-phase) · [阻抗与导纳](/learn/impedance) · [星三角变换](/learn/star-delta)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "\\dot I_A=\\frac{\\dot U_A}{Z+Z_l},\\quad\\dot I_B=a^2\\dot I_A,\\quad\\dot I_C=a\\dot I_A"
+  }
+  description="p.306：Y-Y 一相法，a=1∠120°；Zₗ 对应书中的线路阻抗。"
+/>
+
+<Formula
+  latex={"\\dot I_N=\\dot I_A+\\dot I_B+\\dot I_C=0"}
+  description="p.306：对称条件下中性线电流为零。"
+/>
+
+<Formula
+  latex={"Z_Y=\\frac{Z_\\Delta}{3}"}
+  description="p.307：对称Δ负载可先等效为Y，每相阻抗除3。"
+/>
+
+Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时使用 IAZ，不能把电源相电压直接视为负载相电压，除非线路压降为零。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §12-3，p.306–308。以下代入示例为本站原创。
+</aside>
+
+<div className="formula-usage">
+
+### 使用示例
+
+相电压100∠0° V，线路阻抗1+j1 Ω，Y负载阻抗3+j3 Ω。总阻抗4+j4 Ω，A线电流为17.68∠−45° A；B、C分别为17.68∠−165°、17.68∠75° A。
+
+</div>
+
+## 4. 解题步骤
+
+1. 检查电源、线路、负载是否都对称。
+2. Δ负载需要时先换成等效Y阻抗。
+3. 由线电压得到电源相电压，正确处理30°。
+4. 画一相电路，将线路阻抗与相负载阻抗相加。
+5. 求A相电流、负载电压，再按相序写B、C相。
+
+## 5. 电路图
+
+<ThreePhaseDiagram />
+
+## 6. 典型例题
+
+<Example title="用一相法计算对称Y负载">
+
+**题目：** 电源相电压100∠0° V，忽略线路阻抗，三相Y负载均为 Z=3+j4 Ω。求三条线电流与中性线电流。
+
+**思路：** 先对A相用相量欧姆定律，另外两相只改变相位。
+
+**计算步骤：**
+
+<Formula
+  latex={
+    "Z=5\\angle53.13^\\circ\\,\\Omega,\\quad\\dot I_A=\\frac{100\\angle0^\\circ}{5\\angle53.13^\\circ}=20\\angle(-53.13^\\circ)\\,\\mathrm A"
+  }
+/>
+
+<Formula
+  latex={
+    "\\dot I_B=20\\angle(-173.13^\\circ)\\,\\mathrm A,\\quad\\dot I_C=20\\angle66.87^\\circ\\,\\mathrm A"
+  }
+/>
+
+<Formula latex={"\\dot I_N=0"} />
+
+**最终答案：** 三条线电流有效值均为20 A，分别滞后对应相电压53.13°；它们的相量和为零。
+
+</Example>
+
+<Quiz
+  question="对称Δ阻抗每相为9+j12 Ω，等效Y每相是多少？"
+  options={["3+j4 Ω", "27+j36 Ω", "9+j12 Ω"]}
+  answer={0}
+  explanation="保持线端口等效时，每相Δ阻抗除以3。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 用线电压直接除以Y相阻抗。
+- 忽略题目给出的线路阻抗。
+- 将三相电流有效值相加得出中性线电流；正确方法是相量相加。
+- 不对称负载也只计算一相并旋转120°。
+
+</Warning>
+
+## 8. 相关知识
+
+[前置：线量与相量](/learn/line-phase) → [后续：不对称三相](/learn/unbalanced-three-phase) · [相关：三相功率](/learn/three-phase-power)

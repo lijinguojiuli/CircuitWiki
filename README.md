@@ -8,8 +8,8 @@ vibe coding 的电路网站，教材依据为邱关源《电路》第5版。
 
 ## 已实现功能
 
-- 产品首页、6 类知识入口、学习路线与常用知识快捷链接。
-- 16 个本地 MDX 知识页面。其中 KCL/KVL、节点电压法、网孔电流法、戴维南、RC 一阶电路、正弦稳态与相量为完整核心课；其余 10 篇为明确标注的基础导读。
+- 产品首页、7 类知识入口、学习路线与常用知识快捷链接。
+- 22 个本地 MDX 知识页面。其中 KCL/KVL、节点电压法、网孔电流法、戴维南、RC 一阶电路、正弦稳态与相量以及星三角变换、教材第十二章的5篇三相内容为完整学习页；其余 10 篇为明确标注的基础导读。
 - 三栏知识布局、当前文章高亮、面包屑、8 节页内目录、上一篇/下一篇和知识互链。移动端可展开目录。
 - KaTeX 公式、参数和单位展开、按分类的公式速查，以及关联知识页入口。
 - SVG 元件及分压、RC、RL、节点分析、双网孔、戴维南等效电路，以及教材电源符号对照与易错提示。
@@ -61,9 +61,10 @@ npm start
 ```text
 CircuitWiki/
 ├── content/
-│   ├── circuits/          # 6 篇电路基础 MDX
+│   ├── circuits/          # 7 篇电路基础 MDX
 │   ├── dynamics/          # 4 篇动态电路 MDX
-│   └── ac/                # 6 篇正弦稳态 MDX
+│   ├── ac/                # 6 篇正弦稳态 MDX
+│   └── three-phase/       # 教材第十二章5篇 MDX
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx       # 首页
@@ -109,7 +110,7 @@ Windows 已安装 Edge 时，可设置 `$env:PLAYWRIGHT_CHANNEL='msedge'` 后运
 
 ## 如何新增知识文章
 
-1. 在 `content/circuits`、`content/dynamics` 或 `content/ac` 添加对应 slug 的 `.mdx` 文件。
+1. 在 `content/circuits`、`content/dynamics`、`content/ac` 或 `content/three-phase` 添加对应 slug 的 `.mdx` 文件。
 2. 在 `src/lib/content.ts` 的 `articles` 增加元数据。数组顺序决定上一篇/下一篇；`folder` 必须与文件目录一致。`keywords` 用于搜索，`core` 区分完整课与导读。
 3. 保持下面的 8 个二级标题，编号自动映射到 `section-1` 至 `section-8`，供目录定位。
 4. 使用 `/learn/slug` 链接，运行测试与构建。无需手动增加页面路由。

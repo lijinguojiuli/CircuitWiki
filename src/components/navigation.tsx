@@ -125,7 +125,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         onClick={onNavigate}
       >
         <BookOpen size={17} />
-        学习路线<span>16</span>
+        学习路线<span>{articles.length}</span>
       </Link>
       {categories.map((c, i) => (
         <div className="nav-group" key={c}>

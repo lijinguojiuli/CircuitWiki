@@ -1,0 +1,110 @@
+## 1. 核心概念
+
+电源、线路或负载有一部分不对称，整个三相电路就不再对称。三相电流通常不能靠“算一相再旋转120°”得到。
+
+重点看Y负载的中性点：有理想中性线时 N′ 与 N 等电位；中性线断开后 N′ 可能偏移，使各相负载电压发生变化。
+
+<Tip>先识别连接方式、参考方向和给定量的单位，再选公式。</Tip>
+
+## 2. 前置知识
+
+[结点电压法](/learn/nodal-analysis) · [对称三相计算](/learn/balanced-three-phase)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "\\dot U_{N'N}=\\frac{\\dot U_A Y_A+\\dot U_B Y_B+\\dot U_C Y_C}{Y_A+Y_B+Y_C}"
+  }
+  description="p.309：中性线断开、忽略线路阻抗时的中性点位移。"
+/>
+
+<Formula
+  latex={"\\dot I_A=(\\dot U_A-\\dot U_{N'N})Y_A,\\quad Y_A=\\frac1{Z_A}"}
+  description="由结点电位差与相量欧姆定律求各相电流，B、C同理。"
+/>
+
+<Formula
+  latex={"\\dot I_N=\\dot I_A+\\dot I_B+\\dot I_C"}
+  description="p.309：接有中性线时按参考方向求中性线电流，通常不为零。"
+/>
+
+第一式不包含中性线导纳，因为它针对中性线断开的情况。若理想中性线接通，则 U̇N′N=0，应分别按电源相电压计算各相。Y 的单位 S，所有求和均为复数运算。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §12-4，p.308–310。以下代入示例为本站原创。
+</aside>
+
+<div className="formula-usage">
+
+### 使用示例
+
+电源每相220 V，RA=10 Ω、RB=RC=20 Ω。接理想中性线时，IA=22∠0° A，IB=11∠−120° A，IC=11∠120° A，中性线电流为11∠0° A。
+
+</div>
+
+## 4. 解题步骤
+
+1. 明确不对称来自电源、线路还是负载。
+2. 确认中性线接通、具有有限阻抗，还是断开。
+3. 有理想中性线时固定N′电位；断开时对N′写KCL。
+4. 用电源相电压减去中性点位移求实际负载电压。
+5. 分别求三相电流，检查支路KCL及负载电压。
+
+## 5. 电路图
+
+<ThreePhaseDiagram neutral={false} unbalanced />
+
+## 6. 典型例题
+
+<Example title="同一负载断开中性线后的电压变化">
+
+**题目：** 正序电源 UA=220∠0° V，RA=10 Ω、RB=RC=20 Ω，忽略线路阻抗，中性线断开。求中性点位移及各相负载电压有效值。
+
+**思路：** 用YA=0.1 S、YB=YC=0.05 S。B、C电压相量之和为−220 V，不能把两相幅值直接相加。
+
+**计算步骤：**
+
+<Formula
+  latex={
+    "\\dot U_{N'N}=\\frac{0.1\\times220+0.05(-220)}{0.1+0.05+0.05}=55\\angle0^\\circ\\,\\mathrm V"
+  }
+/>
+
+<Formula latex={"\\dot U_{AN'}=220-55=165\\,\\mathrm V"} />
+
+<Formula
+  latex={
+    "\\dot U_{BN'}=-165-j190.526\\,\\mathrm V,\\quad\\dot U_{CN'}=-165+j190.526\\,\\mathrm V"
+  }
+/>
+
+<Formula
+  latex={"U_{BN'}=U_{CN'}=\\sqrt{165^2+190.526^2}\\approx252.04\\,\\mathrm V"}
+/>
+
+**最终答案：** 中性点向A相电位偏移55 V；A负载电压降为165 V，B、C升为约252.04 V。断开中性线时三条线电流的相量和为零，但各相电压、电流仍不对称。
+
+</Example>
+
+<Quiz
+  question="不对称Y负载的中性线断开后，各相负载电压一定保持电源相电压吗？"
+  options={["不一定，会发生中性点位移", "一定", "所有相电压都变成0"]}
+  answer={0}
+  explanation="负载中性点不再由理想中性线固定，应重新用KCL求它的电位。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 中性线断开后仍把每相负载电压设成220 V。
+- 把参考结点的0 V当成负载中性点永远为0 V。
+- 直接相加电压或电流幅值，忽略相位。
+- 套用对称一相法，漏掉中性点位移。
+
+</Warning>
+
+## 8. 相关知识
+
+[前置：结点电压法](/learn/nodal-analysis) · [相关：三相功率](/learn/three-phase-power) · [返回：对称三相计算](/learn/balanced-three-phase)

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formulas } from "@/lib/formulas";
 import { FormulaCard } from "@/components/formula";
+const formulaCategories = [...new Set(formulas.map((f) => f.category))];
 export const metadata = { title: "公式速查" };
 export default function FormulasPage() {
   return (
@@ -15,13 +16,13 @@ export default function FormulasPage() {
         表示正弦有效值或已注明的直流恒定值。
       </p>
       <nav className="anchor-pills">
-        {["基础电路", "电容", "电感", "正弦稳态"].map((c) => (
+        {formulaCategories.map((c) => (
           <a href={`#${c}`} key={c}>
             {c}
           </a>
         ))}
       </nav>
-      {["基础电路", "电容", "电感", "正弦稳态"].map((c) => (
+      {formulaCategories.map((c) => (
         <section id={c} className="formula-group" key={c}>
           <h2>{c}</h2>
           <div className="formula-grid">
