@@ -245,11 +245,11 @@ const articleEntries: Article[] = [
   },
   {
     slug: "three-phase-power",
-    title: "三相功率与二瓦计法",
+    title: "三相电路的功率",
     category: "三相电路",
     folder: "three-phase",
-    description: "求三相总功率，理解二瓦计读数的符号和适用范围。",
-    keywords: ["三相", "功率", "二瓦计", "功率因数"],
+    description: "从各相功率之和出发，计算三相有功、无功和视在功率。",
+    keywords: ["三相", "功率", "有功", "无功", "视在功率", "功率因数"],
     core: true,
   },
 ];

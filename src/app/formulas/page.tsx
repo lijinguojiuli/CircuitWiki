@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { formulas } from "@/lib/formulas";
 import { FormulaCard } from "@/components/formula";
-const formulaCategories = [...new Set(formulas.map((f) => f.category))];
+import { chapters, chapterLabel } from "@/lib/chapters";
+const formulaChapters = chapters.filter((chapter) =>
+  formulas.some((formula) => formula.position[0] === chapter.number),
+);
 export const metadata = { title: "公式速查" };
 export default function FormulasPage() {
   return (
@@ -10,26 +13,36 @@ export default function FormulasPage() {
       <h1>
         公式速查<span className="heading-dot">.</span>
       </h1>
-      <p className="page-lead">把常用公式放在手边，也把适用条件放在心里。</p>
+      <p className="page-lead">
+        按教材章号、节号与公式出现顺序排列，保留适用条件与参数单位。
+      </p>
       <p className="book-reference">
         记号依据：《电路》第5版。小写 u、i、p 表示瞬时量；大写 U、I
         表示正弦有效值或已注明的直流恒定值。
       </p>
-      <nav className="anchor-pills">
-        {formulaCategories.map((c) => (
-          <a href={`#${c}`} key={c}>
-            {c}
+      <nav className="anchor-pills" aria-label="公式章节跳转">
+        {formulaChapters.map((chapter) => (
+          <a href={`#formula-chapter-${chapter.number}`} key={chapter.number}>
+            第{chapter.number}章
           </a>
         ))}
       </nav>
-      {formulaCategories.map((c) => (
-        <section id={c} className="formula-group" key={c}>
-          <h2>{c}</h2>
+      {formulaChapters.map((chapter) => (
+        <section
+          id={`formula-chapter-${chapter.number}`}
+          className="formula-group"
+          key={chapter.number}
+        >
+          <h2>{chapterLabel(chapter)}</h2>
           <div className="formula-grid">
             {formulas
-              .filter((f) => f.category === c)
+              .filter((f) => f.position[0] === chapter.number)
               .map((f) => (
-                <div key={f.name}>
+                <div key={f.name} data-textbook-position={f.position.join("-")}>
+                  <div className="formula-position">
+                    §{f.position[0]}-{f.position[1]}
+                    {f.supplemental ? " · 补充例题" : ""}
+                  </div>
                   <FormulaCard {...f} href={`/learn/${f.slug}`} />
                   <Link className="formula-article" href={`/learn/${f.slug}`}>
                     理解公式 · 查看知识点 ↗

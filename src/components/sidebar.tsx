@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Zap } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
-import { chapters } from "@/lib/chapters";
+import { chapters, lessonSectionLabel } from "@/lib/chapters";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname();
@@ -45,8 +45,14 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                     }
                     className={path === articleHref(slug) ? "current" : ""}
                     onClick={onNavigate}
+                    data-textbook-section={lessonSectionLabel(slug)}
                   >
-                    {article.title}
+                    <span>
+                      <small className="nav-section" aria-hidden="true">
+                        {lessonSectionLabel(slug)}
+                      </small>
+                      {article.title}
+                    </span>
                     {article.core && <span className="core-dot" />}
                   </Link>
                 );

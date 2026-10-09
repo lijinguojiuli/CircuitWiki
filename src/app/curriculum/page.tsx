@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { articles, articleHref } from "@/lib/content";
-import { chapters, chapterId } from "@/lib/chapters";
+import { chapters, chapterId, lessonSectionLabel } from "@/lib/chapters";
 import { KnowledgeCard } from "@/components/ui";
 export const metadata = { title: "学习路线" };
 export default function Curriculum() {
@@ -47,13 +47,13 @@ export default function Curriculum() {
             <div className="curriculum-grid">
               {articles
                 .filter((a) => chapter.slugs.includes(a.slug))
-                .map((a, j) => (
+                .map((a) => (
                   <KnowledgeCard
                     key={a.slug}
                     title={a.title}
                     description={a.description}
                     href={articleHref(a.slug)}
-                    index={`${a.core ? "核心" : "导读"} · ${j + 1}`}
+                    index={`${lessonSectionLabel(a.slug)} · ${a.core ? "核心" : "导读"}${a.slug === "bridge-arm" ? " · 补充例题" : ""}`}
                   />
                 ))}
             </div>

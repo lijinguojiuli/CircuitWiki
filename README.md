@@ -8,11 +8,11 @@ vibe coding 的电路网站，教材依据为邱关源《电路》第5版。
 
 ## 已实现功能
 
-- 产品首页、7 类知识入口、按教材第1—12章组织的学习路线与常用知识快捷链接；第5章跳过，第11章仅谐振。
+- 产品首页、7 类知识入口、按教材章、节顺序组织第1—12章的学习路线与常用知识快捷链接；第5章跳过，第11章仅谐振。
 - 文章目录使用共享布局，切换文章保留滚动位置；刷新和重新打开移动目录也可恢复位置。
 - 26 个本地 MDX 知识页面：16 篇完整学习页、10 篇基础导读，覆盖电路基础、动态电路、正弦稳态和三相电路。
 - 三栏知识布局、当前文章高亮、面包屑、8 节页内目录、上一篇/下一篇和知识互链。移动端可展开目录。
-- KaTeX 公式、参数和单位展开、按分类的公式速查，以及关联知识页入口。
+- KaTeX 公式、参数和单位展开、按教材章、节顺序的公式速查，以及关联知识页入口。
 - SVG 元件及分压、RC、RL、节点分析、双网孔、戴维南等效电路，以及教材电源符号对照与易错提示。
 - 欧姆定律与功率计算、RC 实时响应图、相量双向转换和加减计算，包含空值、数值范围与物理条件校验。
 - 本地搜索覆盖标题、知识点关键词、公式名称，支持 Ctrl/Cmd+K 和 Esc。
@@ -117,7 +117,7 @@ Windows 已安装 Edge 时，可设置 `$env:PLAYWRIGHT_CHANNEL='msedge'` 后运
 ## 如何新增知识文章
 
 1. 在 `content/circuits`、`content/dynamics`、`content/ac` 或 `content/three-phase` 添加对应 slug 的 `.mdx` 文件。
-2. 在 `src/lib/content.ts` 的 `articleEntries` 增加元数据，并将 slug 加入 `src/lib/chapters.ts` 对应章的 `slugs`。章节及 slugs 顺序决定上一篇/下一篇；`folder` 必须与文件目录一致。`keywords` 用于搜索，`core` 区分完整课与导读。
+2. 在 `src/lib/content.ts` 的 `articleEntries` 增加元数据，并将 slug 加入 `src/lib/chapters.ts` 对应章的 `slugs`。在同一文件的 `lessonSections` 中设置主教材节号，目录和上一篇/下一篇按章、节排序；同节条目按 slugs 的声明顺序排列；`folder` 必须与文件目录一致。`keywords` 用于搜索，`core` 区分完整课与导读。
 3. 保持下面的 8 个二级标题，编号自动映射到 `section-1` 至 `section-8`，供目录定位。
 4. 使用 `/learn/slug` 链接，运行测试与构建。无需手动增加页面路由。
 
@@ -166,7 +166,7 @@ LaTeX 放入 JavaScript 字符串时反斜杠须转义，例如 `<Formula latex=
 
 ## 如何新增公式
 
-向 `src/lib/formulas.ts` 添加 `FormulaEntry`：`name`、`latex`、`category`、目标文章 `slug`、适用条件 `condition`、含单位的 `parameters`。公式页面自动读取分类，公式名称也会进入文章搜索索引。
+向 `src/lib/formulas.ts` 的 `formulaEntries` 添加 `FormulaEntry`：`name`、`latex`、`position: [章号, 节号, 节内顺序]`、目标文章 `slug`、适用条件 `condition`、含单位的 `parameters`、教材出处 `source`。公式页面按 position 自动排序并按教材章节展示；原创补充例题标记 `supplemental: true`。公式名称也会进入文章搜索索引。
 
 ## 如何新增电路图
 

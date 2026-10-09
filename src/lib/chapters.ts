@@ -8,7 +8,7 @@ export type Chapter = {
 };
 
 // Chapter numbers stay intact. Slug order is also the previous/next reading order.
-export const chapters: readonly Chapter[] = [
+const chapterEntries: readonly Chapter[] = [
   {
     number: 1,
     title: "电路模型和电路定律",
@@ -94,6 +94,42 @@ export const chapters: readonly Chapter[] = [
     legacyAnchor: "三相电路",
   },
 ];
+// A combined lesson is placed at its main textbook section; examples stay next
+// to the section they apply. Equal section numbers retain the declared order.
+export const lessonSections: Readonly<Record<string, number>> = {
+  "controlled-sources": 7,
+  "kcl-kvl": 8,
+  "star-delta": 4,
+  "source-transformations": 6,
+  "bridge-arm": 7,
+  "mesh-analysis": 4,
+  "nodal-analysis": 6,
+  superposition: 1,
+  thevenin: 3,
+  norton: 3,
+  capacitor: 1,
+  inductor: 2,
+  "rc-circuit": 2,
+  "rl-circuit": 2,
+  sinusoidal: 2,
+  phasor: 3,
+  impedance: 1,
+  power: 4,
+  "power-factor": 4,
+  "coupled-inductors": 1,
+  rlc: 2,
+  "three-phase-basics": 1,
+  "line-phase": 2,
+  "balanced-three-phase": 3,
+  "unbalanced-three-phase": 4,
+  "three-phase-power": 5,
+};
+export const chapters: readonly Chapter[] = chapterEntries.map((chapter) => ({
+  ...chapter,
+  slugs: [...chapter.slugs].sort(
+    (a, b) => lessonSections[a] - lessonSections[b],
+  ),
+}));
 export const chapterId = (number: number) => `chapter-${number}`;
 export const chapterLabel = (chapter: Chapter) =>
   `第${chapter.number}章 · ${chapter.title}`;
@@ -101,4 +137,7 @@ export function chapterForArticle(slug: string): Chapter {
   const chapter = chapters.find((item) => item.slugs.includes(slug));
   if (!chapter) throw new Error(`知识页没有所属教材章节：${slug}`);
   return chapter;
+}
+export function lessonSectionLabel(slug: string) {
+  return `§${chapterForArticle(slug).number}-${lessonSections[slug]}`;
 }

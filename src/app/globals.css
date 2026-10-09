@@ -797,6 +797,17 @@ footer > span:first-child {
   color: var(--muted);
   font-size: 10px;
 }
+.nav-section {
+  display: block;
+  font: 9px monospace;
+  margin-bottom: 3px;
+  color: var(--muted);
+}
+.formula-position {
+  font: 10px monospace;
+  color: var(--muted);
+  padding: 16px 20px 0;
+}
 .nav-group-skipped {
   opacity: 0.65;
 }

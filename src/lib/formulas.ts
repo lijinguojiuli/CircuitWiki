@@ -1,17 +1,18 @@
 export type FormulaEntry = {
   name: string;
   latex: string;
-  category: string;
+  position: readonly [chapter: number, section: number, sequence: number];
+  supplemental?: boolean;
   slug: string;
   condition: string;
   parameters: string[];
   source: string;
 };
-export const formulas: FormulaEntry[] = [
+const formulaEntries: FormulaEntry[] = [
   {
     name: "耦合因数",
     latex: "k=\\frac{M}{\\sqrt{L_1L_2}}\\leq1",
-    category: "耦合电感",
+    position: [10, 1, 1],
     slug: "coupled-inductors",
     condition: "线性、无源的两耦合线圈，M取非负互感大小，0≤k≤1。",
     parameters: ["M、L1、L2：互感与自感 / H", "k：耦合因数，无量纲"],
@@ -20,30 +21,25 @@ export const formulas: FormulaEntry[] = [
   {
     name: "欧姆定律",
     latex: "u=Ri",
-    category: "基础电路",
+    position: [1, 5, 1],
     slug: "kcl-kvl",
     condition: "线性电阻，电压电流取关联参考方向。",
     parameters: ["u：电压 / V", "i：电流 / A", "R：电阻 / Ω"],
     source: "第5版 p.13，式（1-3）",
   },
   {
-    name: "电功率",
-    latex: "p=ui=Ri^2=\\frac{u^2}{R}",
-    category: "基础电路",
+    name: "瞬时功率",
+    latex: "p=ui",
+    position: [1, 3, 1],
     slug: "kcl-kvl",
-    condition: "后两式仅用于电阻；p=ui 采用关联参考方向。",
-    parameters: [
-      "p：瞬时功率 / W",
-      "u：电压 / V",
-      "i：电流 / A",
-      "R：电阻 / Ω",
-    ],
-    source: "第5版 p.15，式（1-5）",
+    condition: "采用关联参考方向；p>0表示吸收功率，p<0表示发出功率。",
+    parameters: ["p：瞬时功率 / W", "u：电压 / V", "i：电流 / A"],
+    source: "第5版 p.11，§1-3",
   },
   {
     name: "基尔霍夫电流定律",
     latex: "\\sum i=0",
-    category: "基础电路",
+    position: [1, 8, 1],
     slug: "kcl-kvl",
     condition: "集总电路节点，流入与流出符号相反。",
     parameters: ["i：支路电流 / A"],
@@ -52,7 +48,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电容伏安关系",
     latex: "i=C\\frac{du}{dt}",
-    category: "电容",
+    position: [6, 1, 1],
     slug: "capacitor",
     condition: "理想线性电容，关联参考方向。",
     parameters: [
@@ -66,7 +62,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电容储能",
     latex: "W_C(t)=\\frac12 Cu^2(t)",
-    category: "电容",
+    position: [6, 1, 2],
     slug: "capacitor",
     condition: "理想线性电容。",
     parameters: ["WC：能量 / J", "C：电容 / F", "u(t)：电压 / V"],
@@ -75,7 +71,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "RC 时间常数",
     latex: "\\tau=RC",
-    category: "电容",
+    position: [7, 2, 1],
     slug: "rc-circuit",
     condition: "R 为电容端口看到的等效电阻，R>0。",
     parameters: ["τ：时间常数 / s", "R：等效电阻 / Ω", "C：电容 / F"],
@@ -84,7 +80,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电感伏安关系",
     latex: "u=L\\frac{di}{dt}",
-    category: "电感",
+    position: [6, 2, 1],
     slug: "inductor",
     condition: "理想线性电感，关联参考方向。",
     parameters: [
@@ -98,7 +94,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电感储能",
     latex: "W_L(t)=\\frac12 Li^2(t)",
-    category: "电感",
+    position: [6, 2, 2],
     slug: "inductor",
     condition: "理想线性电感。",
     parameters: ["WL：能量 / J", "L：电感 / H", "i(t)：电流 / A"],
@@ -107,7 +103,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电阻阻抗",
     latex: "Z_R=R",
-    category: "正弦稳态",
+    position: [9, 1, 1],
     slug: "impedance",
     condition: "理想电阻，同频正弦稳态。",
     parameters: ["Z：阻抗 / Ω", "R：电阻 / Ω"],
@@ -116,7 +112,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电感阻抗",
     latex: "Z_L=j\\omega L",
-    category: "正弦稳态",
+    position: [9, 1, 2],
     slug: "impedance",
     condition: "理想电感，同频正弦稳态。",
     parameters: ["ω：角频率 / rad·s⁻¹", "L：电感 / H", "j：虚数单位"],
@@ -125,7 +121,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "电容阻抗",
     latex: "Z_C=-j\\frac1{\\omega C}",
-    category: "正弦稳态",
+    position: [9, 1, 3],
     slug: "impedance",
     condition: "理想电容，ω>0，同频正弦稳态。",
     parameters: ["ω：角频率 / rad·s⁻¹", "C：电容 / F", "j：虚数单位"],
@@ -134,7 +130,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "有功功率",
     latex: "P=UI\\cos\\phi_Z",
-    category: "正弦稳态",
+    position: [9, 4, 1],
     slug: "power",
     condition: "U、I 使用有效值，同频正弦稳态。",
     parameters: [
@@ -148,7 +144,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "对称星三角变换",
     latex: "R_\\Delta=3R_Y",
-    category: "基础电路",
+    position: [2, 4, 2],
     slug: "star-delta",
     condition: "三个电阻相等；保持三个外部端子等效。",
     parameters: ["RΔ：每边三角形电阻 / Ω", "RY：每支星形电阻 / Ω"],
@@ -157,7 +153,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "三角形转星形",
     latex: "R_1=\\frac{R_{12}R_{31}}{R_{12}+R_{23}+R_{31}}",
-    category: "基础电路",
+    position: [2, 4, 1],
     slug: "star-delta",
     condition: "端子1相邻的两条Δ电阻相乘，再除以三边之和。",
     parameters: ["R₁：星形端子1支路 / Ω", "R₁₂、R₂₃、R₃₁：Δ各边 / Ω"],
@@ -166,7 +162,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "对称三相相量和",
     latex: "\\dot U_A+\\dot U_B+\\dot U_C=0",
-    category: "三相电路",
+    position: [12, 1, 1],
     slug: "three-phase-basics",
     condition: "同频、等幅，相位依次相差120°。",
     parameters: ["U̇A、U̇B、U̇C：三相电压相量 / V"],
@@ -175,7 +171,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "Y连接线值与相值",
     latex: "U_l=\\sqrt3U_p,\\quad I_l=I_p",
-    category: "三相电路",
+    position: [12, 2, 1],
     slug: "line-phase",
     condition: "电压√3关系要求对称；正序线电压超前对应相电压30°。",
     parameters: ["Uₗ、Iₗ：线有效值 / V、A", "Uₚ、Iₚ：相有效值 / V、A"],
@@ -184,7 +180,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "Δ连接线值与相值",
     latex: "U_l=U_p,\\quad I_l=\\sqrt3I_p",
-    category: "三相电路",
+    position: [12, 2, 2],
     slug: "line-phase",
     condition: "电流√3关系要求对称；正序线电流滞后对应相电流30°。",
     parameters: ["Uₗ、Iₗ：线有效值 / V、A", "Uₚ、Iₚ：相有效值 / V、A"],
@@ -193,7 +189,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "三相一相计算法",
     latex: "\\dot I_A=\\frac{\\dot U_A}{Z+Z_l}",
-    category: "三相电路",
+    position: [12, 3, 1],
     slug: "balanced-three-phase",
     condition: "对称Y-Y；其他连接方式先做适当等效。",
     parameters: [
@@ -206,7 +202,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "三相有功功率",
     latex: "P=\\sqrt3U_lI_l\\cos\\phi",
-    category: "三相电路",
+    position: [12, 5, 1],
     slug: "three-phase-power",
     condition: "对称正弦三相；φ为相电压与相电流的相位差。",
     parameters: [
@@ -220,25 +216,16 @@ export const formulas: FormulaEntry[] = [
     name: "中性点位移",
     latex:
       "\\dot U_{N'N}=\\frac{\\dot U_A Y_A+\\dot U_B Y_B+\\dot U_C Y_C}{Y_A+Y_B+Y_C}",
-    category: "三相电路",
+    position: [12, 4, 1],
     slug: "unbalanced-three-phase",
     condition: "Y负载中性线断开，忽略线路阻抗。",
     parameters: ["Y：每相负载导纳 / S", "U̇N′N：负载中性点电压 / V"],
     source: "第5版 p.309，§12-4",
   },
   {
-    name: "二瓦计法",
-    latex: "P=P_1+P_2",
-    category: "三相电路",
-    slug: "three-phase-power",
-    condition: "三相三线制；读数取代数和，不要求负载对称。",
-    parameters: ["P：总有功功率 / W", "P₁、P₂：两路读数 / W"],
-    source: "第5版 p.311，§12-5",
-  },
-  {
     name: "电源等效变换",
     latex: "I_S=\\frac{U_S}{R},\\quad U_S=RI_S",
-    category: "基础电路",
+    position: [2, 6, 1],
     slug: "source-transformations",
     condition: "电压源串联R与电流源并联R的完整二端组合；方向由负端指向正端。",
     parameters: ["US：电压源 / V", "IS：电流源 / A", "R：保留的电阻 / Ω"],
@@ -247,7 +234,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "输入电阻测试源法",
     latex: "R_{in}=\\frac{u_t}{i_t}",
-    category: "基础电路",
+    position: [2, 7, 1],
     slug: "thevenin",
     condition: "独立源置零、受控源保留；it取流入网络正端。",
     parameters: ["ut：测试电压 / V", "it：测试电流 / A", "Rin：输入电阻 / Ω"],
@@ -256,7 +243,7 @@ export const formulas: FormulaEntry[] = [
   {
     name: "开路短路求等效电阻",
     latex: "R_{eq}=\\frac{u_{oc}}{i_{sc}}",
-    category: "基础电路",
+    position: [4, 3, 1],
     slug: "thevenin",
     condition: "线性一端口；isc有限且非零，按对应端口方向取代数值。",
     parameters: ["uoc：开路电压 / V", "isc：短路电流 / A", "Req：等效电阻 / Ω"],
@@ -265,52 +252,17 @@ export const formulas: FormulaEntry[] = [
   {
     name: "叠加的功率交叉项",
     latex: "p=R(i'+i'')^2",
-    category: "基础电路",
+    position: [4, 1, 1],
     slug: "superposition",
     condition: "先叠加同一电阻中的分电流再求功率，不能仅加两个分功率。",
     parameters: ["i′、i″：分电流 / A", "p：总响应下功率 / W", "R：电阻 / Ω"],
     source: "由第5版p.85的功率限制展开",
   },
   {
-    name: "VCVS",
-    latex: "u=\\mu u_x",
-    category: "受控源",
-    slug: "controlled-sources",
-    condition: "线性电压控制电压源，µ为常数，方向按标记。",
-    parameters: ["u、ux：电压 / V", "µ：电压增益，无量纲"],
-    source: "第5版p.19，图1-11",
-  },
-  {
-    name: "VCCS",
-    latex: "i=gu_x",
-    category: "受控源",
-    slug: "controlled-sources",
-    condition: "线性电压控制电流源，g为常数。",
-    parameters: ["i：输出电流 / A", "ux：控制电压 / V", "g：跨导 / S"],
-    source: "第5版p.19，图1-11",
-  },
-  {
-    name: "CCVS",
-    latex: "u=ri_x",
-    category: "受控源",
-    slug: "controlled-sources",
-    condition: "线性电流控制电压源，r为常数。",
-    parameters: ["u：输出电压 / V", "ix：控制电流 / A", "r：转移电阻 / Ω"],
-    source: "第5版p.19，图1-11",
-  },
-  {
-    name: "CCCS",
-    latex: "i=\\beta i_x",
-    category: "受控源",
-    slug: "controlled-sources",
-    condition: "线性电流控制电流源，β为常数。",
-    parameters: ["i、ix：电流 / A", "β：电流增益，无量纲"],
-    source: "第5版p.19，图1-11",
-  },
-  {
     name: "桥臂一端口开路电压",
     latex: "u_{oc}=U_S+I_SR",
-    category: "基础电路",
+    supplemental: true,
+    position: [2, 7, 2],
     slug: "bridge-arm",
     condition: "仅对应本站图中US左正右负、IS从X指向A的拓扑和方向。",
     parameters: [
@@ -321,4 +273,113 @@ export const formulas: FormulaEntry[] = [
     ],
     source: "原创拓扑，由KCL/KVL推得",
   },
+  {
+    name: "电阻功率",
+    latex: "p=Ri^2=\\frac{u^2}{R}",
+    position: [1, 5, 2],
+    slug: "kcl-kvl",
+    condition: "线性电阻，电压电流取关联参考方向。",
+    parameters: ["p：功率 / W", "R：电阻 / Ω", "u：电压 / V", "i：电流 / A"],
+    source: "第5版p.15，式（1-5）",
+  },
+  {
+    name: "基尔霍夫电压定律",
+    latex: "\\sum u=0",
+    position: [1, 8, 2],
+    slug: "kcl-kvl",
+    condition: "集总电路的闭合回路，沿统一绕行方向取电压代数值。",
+    parameters: ["u：支路电压 / V"],
+    source: "第5版p.22，§1-8",
+  },
+  {
+    name: "双网孔方程",
+    latex:
+      "\\begin{aligned}(R_1+R_2)i_{m1}-R_2i_{m2}&=u_{S1}-u_{S2}\\\\-R_2i_{m1}+(R_2+R_3)i_{m2}&=u_{S2}-u_{S3}\\end{aligned}",
+    position: [3, 4, 1],
+    slug: "mesh-analysis",
+    condition:
+      "对应教材图3-9，两网孔均按教材方向；公共支路电流为网孔电流之差。",
+    parameters: [
+      "R1、R2、R3：各支路电阻 / Ω",
+      "im1、im2：网孔电流 / A",
+      "uS1、uS2、uS3：支路电源电压 / V",
+    ],
+    source: "第5版p.61–62，式（3-6）",
+  },
+  {
+    name: "结点电压方程（第一行）",
+    latex: "G_{11}u_{n1}+G_{12}u_{n2}+G_{13}u_{n3}=i_{S11}",
+    position: [3, 6, 1],
+    slug: "nodal-analysis",
+    condition: "教材三独立结点方程的第一行；自导为正，互导为负。",
+    parameters: [
+      "G：电导 / S",
+      "un：结点电压 / V",
+      "iS11：流入结点1的电流源代数和 / A",
+    ],
+    source: "第5版p.70，式（3-18）的第一行",
+  },
+  {
+    name: "相量对应的瞬时量",
+    latex: "u=\\sqrt2 U\\cos(\\omega t+\\phi_u)",
+    position: [8, 3, 1],
+    slug: "phasor",
+    condition: "余弦参考，U使用有效值；瞬时量与相量是对应关系。",
+    parameters: [
+      "u：瞬时电压 / V",
+      "U：有效值 / V",
+      "ω：角频率 / rad·s⁻¹",
+      "φu：初相位",
+    ],
+    source: "第5版p.209，§8-3",
+  },
+  {
+    name: "有效值相量",
+    latex: "\\dot U=Ue^{j\\phi_u}=U\\angle\\phi_u",
+    position: [8, 3, 2],
+    slug: "phasor",
+    condition: "同频正弦稳态、余弦参考；U使用有效值。",
+    parameters: [
+      "U̇：电压相量 / V",
+      "U：有效值 / V",
+      "φu：初相位",
+      "j：虚数单位",
+    ],
+    source: "第5版p.210，§8-3",
+  },
+  {
+    name: "RLC串联阻抗",
+    latex: "Z(j\\omega)=R+j\\left(\\omega L-\\frac1{\\omega C}\\right)",
+    position: [11, 2, 1],
+    slug: "rlc",
+    condition: "理想R、L、C串联，R>0，ω>0。",
+    parameters: [
+      "Z：输入阻抗 / Ω",
+      "R：电阻 / Ω",
+      "L：电感 / H",
+      "C：电容 / F",
+    ],
+    source: "第5版p.281，§11-2",
+  },
+  {
+    name: "RLC串联谐振频率",
+    latex: "\\omega_0=\\frac1{\\sqrt{LC}},\\qquad f_0=\\frac1{2\\pi\\sqrt{LC}}",
+    position: [11, 2, 2],
+    slug: "rlc",
+    condition: "理想串联RLC，谐振时感抗与容抗相等。",
+    parameters: [
+      "ω0：谐振角频率 / rad·s⁻¹",
+      "f0：谐振频率 / Hz",
+      "L：电感 / H",
+      "C：电容 / F",
+    ],
+    source: "第5版p.282，§11-2",
+  },
 ];
+
+export const formulas: FormulaEntry[] = formulaEntries.sort(
+  (a, b) =>
+    a.position[0] - b.position[0] ||
+    a.position[1] - b.position[1] ||
+    a.position[2] - b.position[2],
+);
