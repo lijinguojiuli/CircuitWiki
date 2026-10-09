@@ -7,8 +7,8 @@ import { formulas } from "../src/lib/formulas";
 import katex from "katex";
 test("all registered lessons exist, contain eight sections and valid links", () => {
   const slugs = new Set(articles.map((a) => a.slug));
-  assert.equal(slugs.size, 22);
-  assert.equal(articles.filter((a) => a.core).length, 12);
+  assert.equal(slugs.size, 25);
+  assert.equal(articles.filter((a) => a.core).length, 16);
   for (const article of articles) {
     const body = fs.readFileSync(
       path.join("content", article.folder, article.slug + ".mdx"),

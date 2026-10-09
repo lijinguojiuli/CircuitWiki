@@ -1,5 +1,23 @@
 import { test, expect } from "@playwright/test";
 import { articles } from "../../src/lib/content";
+test("bridge one-port switches state and recomputes source contributions", async ({
+  page,
+}) => {
+  await page.goto("/learn/bridge-arm");
+  const lab = page.locator(".bridge-port-lab");
+  await expect(lab.locator(".port-results")).toContainText("uoc = 14 V");
+  await lab.getByRole("button", { name: "短路", exact: true }).click();
+  await expect(lab.locator(".port-results")).toContainText("短路电流为7 mA");
+  await lab.getByRole("button", { name: "带载", exact: true }).click();
+  await expect(lab.locator(".port-results")).toContainText("负载电流为2.8 mA");
+  await lab.getByLabel("电压源 US").fill("10");
+  await expect(lab.locator(".port-results")).toContainText("uoc = 18 V");
+  await expect(lab.locator(".port-results")).toContainText("负载电流为3.6 mA");
+  await lab.getByRole("button", { name: "源置零", exact: true }).click();
+  await expect(lab.locator(".port-results")).toContainText("输入电阻为2000 Ω");
+  await lab.getByLabel("并联电阻 R").fill("0");
+  await expect(lab.getByRole("alert")).toContainText("正数");
+});
 test("branch grouping preserves loop count and distinguishes a mesh from an outer loop", async ({
   page,
 }) => {
@@ -139,6 +157,10 @@ test("mobile navigation and no page overflow", async ({ page }) => {
     "/learn/balanced-three-phase",
     "/learn/unbalanced-three-phase",
     "/learn/three-phase-power",
+    "/learn/superposition",
+    "/learn/source-transformations",
+    "/learn/controlled-sources",
+    "/learn/bridge-arm",
   ]) {
     await page.goto(route);
     expect(

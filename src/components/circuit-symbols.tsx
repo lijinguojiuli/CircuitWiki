@@ -56,29 +56,43 @@ export function VoltageSource({
   y,
   label = "U_S",
   horizontal = false,
-}: PartProps & { horizontal?: boolean }) {
+  reverse = false,
+}: PartProps & { horizontal?: boolean; reverse?: boolean }) {
   return (
     <g transform={`translate(${x} ${y})`} data-symbol="voltage-source">
       <circle r="24" />
       <path d={horizontal ? "M-24 0h48" : "M0 -24v48"} />
       <text x="32" y={horizontal ? "18" : "-13"}>
-        +
+        {reverse ? "−" : "+"}
       </text>
       <text x={horizontal ? "-32" : "32"} y={horizontal ? "18" : "23"}>
-        −
+        {reverse ? "+" : "−"}
       </text>
       <SymbolLabel x={-45} y={5} label={label} />
     </g>
   );
 }
 // p.18 fig.1-10: transverse line; the current arrow sits outside the circle.
-export function CurrentSource({ x, y, label = "I_S" }: PartProps) {
+export function CurrentSource({
+  x,
+  y,
+  label = "I_S",
+  horizontal = false,
+}: PartProps & { horizontal?: boolean }) {
   return (
     <g transform={`translate(${x} ${y})`} data-symbol="current-source">
       <circle r="24" />
-      <path d="M-24 0h48M0 -31v-21" />
-      <path d="M0 -54l-4 8h8z" fill="currentColor" stroke="none" />
-      <SymbolLabel x={-45} y={-33} label={label} />
+      <path d={horizontal ? "M0 -24v48M31 0h21" : "M-24 0h48M0 -31v-21"} />
+      <path
+        d={horizontal ? "M54 0l-8 -4v8z" : "M0 -54l-4 8h8z"}
+        fill="currentColor"
+        stroke="none"
+      />
+      <SymbolLabel
+        x={horizontal ? 0 : -45}
+        y={horizontal ? -35 : -33}
+        label={label}
+      />
     </g>
   );
 }

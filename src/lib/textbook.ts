@@ -16,11 +16,11 @@ export const textbookReferences: Record<
   },
   superposition: {
     section: "§4-1",
-    pages: "82–83",
+    pages: "82–85",
   },
   thevenin: {
-    section: "§4-3（教材题名：戴维宁定理和诺顿定理）",
-    pages: "90–93",
+    section: "§2-7、§4-3（教材题名：戴维宁定理和诺顿定理）",
+    pages: "45–46、90–95",
   },
   norton: {
     section: "§4-3",
@@ -72,4 +72,10 @@ export const textbookReferences: Record<
   "balanced-three-phase": { section: "§12-3", pages: "306–308" },
   "unbalanced-three-phase": { section: "§12-4", pages: "308–310" },
   "three-phase-power": { section: "§12-5", pages: "310–312" },
+  "source-transformations": { section: "§2-6", pages: "42–44" },
+  "controlled-sources": { section: "§1-7、§2-7", pages: "19–20、45–46" },
+  "bridge-arm": {
+    section: "§2-6、§2-7、§4-1、§4-3（原创拓扑案例）",
+    pages: "42–46、82–85、90–95",
+  },
 };

@@ -21,7 +21,7 @@ const modules = [
     description: "从基本定律到等效变换，建立电路分析的第一性原理。",
     href: "/learn/kcl-kvl",
     Icon: GitBranch,
-    count: "07 个知识点",
+    count: "10 个知识点",
   },
   {
     title: "动态电路",

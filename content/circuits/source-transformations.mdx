@@ -1,0 +1,100 @@
+## 1. 核心概念
+
+实际电源常用两种线性模型：电压源与电阻串联，或电流源与电阻并联。满足参数与方向关系时，它们对外部负载的端口伏安特性相同，可以互相转换。
+
+等效的是整个含源支路，不是单独把一个理想电压源换成理想电流源。
+
+<Tip>先固定参考方向，再写元件关系和端口方程。</Tip>
+
+## 2. 前置知识
+
+[KCL / KVL](/learn/kcl-kvl) · [串并联与结点](/learn/kcl-kvl#topology-definitions)
+
+## 3. 核心公式
+
+<Formula
+  latex={"u=U_S-Ri"}
+  description="教材式（2-9）：电压源串联电阻，i取端口输出方向。"
+/>
+
+<Formula
+  latex={"i=I_S-Gu,\\qquad G=\\frac1R"}
+  description="教材式（2-10）：电流源并联电导。"
+/>
+
+<Formula
+  latex={"I_S=GU_S=\\frac{U_S}{R},\\qquad U_S=RI_S"}
+  description="教材式（2-11）的等价电阻写法。"
+/>
+
+转换前后R保持不变。电流源的正方向从电压源负端指向正端；端口A、B必须一一对应。R单位Ω，US单位V，IS单位A。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版 §2-6，p.42–44。以下数值示例与重绘电路为本站原创。
+</aside>
+
+<div className="formula-usage">
+
+### 使用示例
+
+12 V电压源串联3 kΩ，可换为4 mA电流源并联3 kΩ。反过来，4 mA乘3 kΩ就是12 V。不能把3 kΩ删掉。
+
+</div>
+
+## 4. 解题步骤
+
+1. 圈定电压源＋串联电阻，或电流源＋并联电阻的完整二端组合。
+2. 固定端口A、B与电压极性、输出电流方向。
+3. 按IS=US/R或US=RIS换算，保留相同电阻。
+4. 检查控制量或外部接线没有被移动、消去。
+5. 接回负载，核对端口电压、电流。
+
+## 5. 电路图
+
+<SourceTransformDiagram />
+
+## 6. 典型例题
+
+<Example title="同一负载，用两种模型验算">
+
+**题目：** US=12 V，R=3 kΩ，负载RL=6 kΩ。求负载电流与电压，再转成电流源模型检查。
+
+**思路：** 串联模型直接用欧姆定律；并联模型先换成IS=4 mA，再分流。
+
+<Formula
+  latex={
+    "i_L=\\frac{12}{3000+6000}=\\frac43\\,\\mathrm{mA},\\quad u_L=8\\,\\mathrm V"
+  }
+/>
+
+<Formula
+  latex={
+    "I_S=\\frac{12}{3000}=4\\,\\mathrm{mA},\\quad i_L=4\\frac3{3+6}=\\frac43\\,\\mathrm{mA}"
+  }
+/>
+
+**最终答案：** 两种模型都得到1.333 mA、8 V。内部元件的电流、功率分布不必相同：端口开路时，串联模型的R无电流，电流源模型的R仍流过4 mA。
+
+</Example>
+
+<Quiz
+  question="5 mA电流源并联2 kΩ，等效电压源的电压是多少？"
+  options={["10 V", "2.5 V", "0.01 V"]}
+  answer={0}
+  explanation="US=RIS=2000×0.005=10 V，2 kΩ保留为串联电阻。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 只换电源，漏掉串联或并联电阻。
+- 方向反了却仍把数值取正。
+- 把电压源串联任意不相邻电阻，或把非并联电阻强行纳入转换。
+- 受控源变换时丢失控制量所在支路；控制关系必须保留。
+
+</Warning>
+
+## 8. 相关知识
+
+[戴维南定理](/learn/thevenin) · [诺顿定理](/learn/norton) · [受控源](/learn/controlled-sources) · [桥臂式含源一端口](/learn/bridge-arm)

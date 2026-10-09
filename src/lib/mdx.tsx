@@ -15,6 +15,16 @@ import { TopologyDiagram } from "@/components/topology-diagram";
 import { StarDeltaDiagram } from "@/components/star-delta-diagram";
 import { ThreePhaseDiagram } from "@/components/three-phase-diagram";
 import { RCResponseDiagrams } from "@/components/rc-response-diagrams";
+import {
+  ControlledSourceGallery,
+  ControlledTestDiagram,
+} from "@/components/controlled-source-diagrams";
+import { SourceTransformDiagram } from "@/components/source-transform-diagram";
+import {
+  SuperpositionDiagram,
+  DividerPortDiagram,
+} from "@/components/one-port-diagrams";
+import { BridgePortLab } from "@/components/tools/bridge-port-lab";
 const components: MDXComponents = {
   Formula,
   InlineFormula,
@@ -24,6 +34,12 @@ const components: MDXComponents = {
   StarDeltaDiagram,
   ThreePhaseDiagram,
   RCResponseDiagrams,
+  ControlledSourceGallery,
+  ControlledTestDiagram,
+  SourceTransformDiagram,
+  SuperpositionDiagram,
+  DividerPortDiagram,
+  BridgePortLab,
   Callout,
   Warning,
   Tip,

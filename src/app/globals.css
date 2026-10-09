@@ -1018,6 +1018,57 @@ footer > span:first-child {
 .response-plot-label {
   font: 11px sans-serif;
 }
+.port-diagram-grid,
+.controlled-source-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.port-diagram-grid .circuit,
+.controlled-source-grid .circuit {
+  margin: 0;
+  min-width: 0;
+  padding: 10px;
+}
+.controlled-source-grid .circuit svg {
+  max-height: 180px;
+}
+.controlled-source-grid figcaption strong {
+  color: var(--text);
+  font-size: 12px;
+}
+.bridge-port-lab {
+  padding: 20px;
+  border: 1px solid var(--border);
+  margin: 22px 0;
+}
+.bridge-port-lab .segmented {
+  flex-wrap: wrap;
+}
+.bridge-port-lab .port-results {
+  padding: 15px;
+  background: var(--soft);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.bridge-port-lab .port-results p {
+  margin: 5px 0;
+}
+@media (max-width: 600px) {
+  .port-diagram-grid {
+    grid-template-columns: 1fr;
+  }
+  .bridge-port-lab {
+    padding: 14px;
+  }
+  .bridge-port-lab .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .controlled-source-grid {
+    gap: 9px;
+  }
+}
 .multi-loop-lab {
   margin: 24px 0;
   padding: 20px;

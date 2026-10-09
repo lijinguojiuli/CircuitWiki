@@ -1,0 +1,109 @@
+## 1. 核心概念
+
+图中的含源一端口由上方电阻R与电流源IS并联，再与下方电压源US组成，向右引出A、B两个负载端子。
+
+本例自行指定US左正右负，IS从X指向A，B为0 V参考结点。不同方向会改变代数符号，因此先认端口、结点与参考方向，再计算。
+
+<Tip>先固定参考方向，再写元件关系和端口方程。</Tip>
+
+## 2. 前置知识
+
+[结点与支路](/learn/kcl-kvl#topology-definitions) · [电源等效变换](/learn/source-transformations) · [戴维南定理](/learn/thevenin)
+
+## 3. 核心公式
+
+<Formula
+  latex={"u_X=U_S,\\qquad u_{oc}=U_S+I_SR"}
+  description="按本图方向，在开路端口A写KCL得到；IS取A方向为正。"
+/>
+
+<Formula
+  latex={"R_{eq}=R,\\qquad i_{sc}=\\frac{U_S}{R}+I_S=\\frac{u_{oc}}R"}
+  description="两个独立源置零后只剩R；短路时电阻电流与电流源电流汇合。"
+/>
+
+<Formula
+  latex={"i_L=\\frac{U_S+I_SR}{R+R_L},\\qquad u_L=i_LR_L"}
+  description="用戴维南等效接回负载。"
+/>
+
+本例R、RL均为正电阻。电源可以按参考方向取正负数；公式中的“＋”只对应图中选定方向。
+
+<aside className="book-reference">
+  教材依据：《电路》第5版
+  §2-6、§2-7、§4-1、§4-3（原创拓扑案例），p.42–46、82–85、90–95。以下数值示例与重绘电路为本站原创。
+</aside>
+
+<div className="formula-usage">
+
+### 使用示例
+
+US=6 V、IS=4 mA、R=2 kΩ。开路电压为6+0.004×2000=14 V；输入电阻2 kΩ；短路电流14/2000=7 mA。
+
+</div>
+
+## 4. 解题步骤
+
+1. 识别A-B端口，B取参考结点，X由电压源确定为6 V。
+2. 开路时对A写KCL，求A与X之间的电压差。
+3. 独立源置零，从A-B看进去求Req。
+4. 短路A-B，求电阻支路电流与电流源电流之和。
+5. 用uoc/isc核验Req，再接负载求电流、电压。
+
+## 5. 电路图
+
+<BridgePortLab />
+
+## 6. 典型例题
+
+<Example title="同一桥臂，用端口法与电源变换两路求解">
+
+**题目：** 采用上方默认参数，US=6 V、IS=4 mA、R=2 kΩ，RL=3 kΩ。求uoc、isc、Req及负载电流。
+
+**思路：** 方法一从开路、短路、输入电阻分别计算；方法二先把上方电流源并联R换成8 V电压源串联R，再与下方6 V按极性合成14 V。
+
+<Formula latex={"u_{oc}=6+4\\times10^{-3}\\times2000=14\\,\\mathrm V"} />
+
+<Formula
+  latex={
+    "i_{sc}=\\frac6{2000}+0.004=7\\,\\mathrm{mA},\\quad R_{eq}=\\frac{14}{0.007}=2\\,\\mathrm{k\\Omega}"
+  }
+/>
+
+<Formula
+  latex={
+    "U_{\\mathrm{upper}}=I_SR=8\\,\\mathrm V,\\quad U_{\\mathrm{equivalent}}=6+8=14\\,\\mathrm V"
+  }
+/>
+
+<Formula
+  latex={
+    "i_L=\\frac{14}{2000+3000}=2.8\\,\\mathrm{mA},\\quad u_L=8.4\\,\\mathrm V"
+  }
+/>
+
+**最终答案：** uoc=14 V，isc=7 mA，Req=2 kΩ；RL=3 kΩ时电流2.8 mA、电压8.4 V。开路时外部电流虽为0，上方R仍有4 mA从A流向X，与电流源形成内部回路。
+
+</Example>
+
+<Quiz
+  question="本例端口开路时，R中的电流是否一定为0？"
+  options={["不为0，按默认参数为4 mA", "一定为0", "等于负载电流"]}
+  answer={0}
+  explanation="开路只意味着端口负载电流为0；IS与R仍可形成内部回路。"
+/>
+
+## 7. 常见错误
+
+<Warning>
+
+- 端口开路就认为所有内部电流也为0。
+- 把下方US的极性反向，却仍直接加6 V。
+- 把上方电流源当作串联在负载中的理想电流源，误以为iL恒为IS。
+- 源置零时删除R；正确做法是IS开路、US短路，R仍保留。
+
+</Warning>
+
+## 8. 相关知识
+
+[叠加定理](/learn/superposition) · [电源等效变换](/learn/source-transformations) · [戴维南两种方法](/learn/thevenin#thevenin-two-methods) · [诺顿定理](/learn/norton)
