@@ -43,7 +43,9 @@ export default async function KnowledgePage({
           <h1>{article.title}</h1>
           <p>{article.description}</p>
           <div className="article-meta">
-            <span>◷ {article.core ? "8–12" : "3–5"} 分钟</span>
+            <span>
+              ◷ {article.readTime ?? (article.core ? "8–12" : "3–5")} 分钟
+            </span>
             <span>理论 · 公式 · 实践</span>
           </div>
           <p className="book-reference">

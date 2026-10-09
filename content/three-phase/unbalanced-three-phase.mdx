@@ -94,6 +94,18 @@
   explanation="负载中性点不再由理想中性线固定，应重新用KCL求它的电位。"
 />
 
+<Example title="不对称Δ逐支路计算，不能套√3">
+
+**题目：** UAB=100∠0° V，UBC=100∠−120° V，UCA=100∠120° V；RAB=10 Ω、RBC=20 Ω、RCA=10 Ω，忽略线路阻抗。
+
+<Formula latex={"\\dot I_{AB}=10,\\quad\\dot I_{BC}=-2.5-j4.330,\\quad\\dot I_{CA}=-5+j8.660\\quad(\\mathrm A)"} />
+<Formula latex={"\\dot I_A=\\dot I_{AB}-\\dot I_{CA}=15-j8.660\\,\\mathrm A"} />
+<Formula latex={"\\dot I_B=-12.5-j4.330\\,\\mathrm A,\\quad\\dot I_C=-2.5+j12.990\\,\\mathrm A"} />
+
+**核验：** 三线电流相量和为0，但其有效值不全相等。三相有功功率为100²/10+100²/20+100²/10=2500 W。
+
+</Example>
+
 ## 7. 常见错误
 
 <Warning>
@@ -108,3 +120,6 @@
 ## 8. 相关知识
 
 [前置：结点电压法](/learn/nodal-analysis) · [相关：三相功率](/learn/three-phase-power) · [返回：对称三相计算](/learn/balanced-three-phase)
+
+
+[本章逐节复习](/learn/chapter-12-summary)

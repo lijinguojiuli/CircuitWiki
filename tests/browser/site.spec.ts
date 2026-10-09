@@ -143,26 +143,9 @@ test("mobile navigation and no page overflow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const route of [
     "/",
-    "/learn/kcl-kvl",
-    "/learn/nodal-analysis",
-    "/learn/mesh-analysis",
-    "/learn/thevenin",
-    "/learn/rc-circuit",
-    "/learn/phasor",
+    ...articles.map((article) => `/learn/${article.slug}`),
     "/formulas",
     "/tools",
-    "/learn/star-delta",
-    "/learn/three-phase-basics",
-    "/learn/line-phase",
-    "/learn/balanced-three-phase",
-    "/learn/unbalanced-three-phase",
-    "/learn/three-phase-power",
-    "/learn/superposition",
-    "/learn/source-transformations",
-    "/learn/controlled-sources",
-    "/learn/bridge-arm",
-    "/learn/coupled-inductors",
-    "/learn/rlc",
     "/curriculum",
   ]) {
     await page.goto(route);

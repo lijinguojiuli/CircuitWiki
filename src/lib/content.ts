@@ -1,4 +1,5 @@
 import { chapters } from "./chapters";
+import { additionalArticles } from "./additional-content";
 
 export type Article = {
   slug: string;
@@ -8,14 +9,17 @@ export type Article = {
   description: string;
   keywords: string[];
   core?: boolean;
+  readTime?: string;
 };
 const articleEntries: Article[] = [
+  ...additionalArticles,
   {
     slug: "kcl-kvl",
     title: "KCL 与 KVL",
     category: "电路基础",
     folder: "circuits",
     description: "从电荷与能量守恒出发，掌握电路分析的两条基本定律。",
+    core: true,
     keywords: [
       "基尔霍夫",
       "电流定律",
@@ -28,7 +32,6 @@ const articleEntries: Article[] = [
       "回路",
       "网孔",
     ],
-    core: true,
   },
   {
     slug: "nodal-analysis",
@@ -36,8 +39,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "以节点电压为未知量，把复杂电路变成线性方程。",
-    keywords: ["节点", "KCL", "电导", "超级节点"],
     core: true,
+    keywords: ["节点", "KCL", "电导", "超级节点"],
   },
   {
     slug: "mesh-analysis",
@@ -45,8 +48,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "选择独立网孔，用 KVL 系统地求解支路电流。",
-    keywords: ["网孔", "回路", "KVL"],
     core: true,
+    keywords: ["网孔", "回路", "KVL"],
   },
   {
     slug: "superposition",
@@ -54,8 +57,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "分开考察独立源，再叠加线性电路的响应。",
-    keywords: ["线性", "独立源", "叠加", "功率", "交叉项"],
     core: true,
+    keywords: ["线性", "独立源", "叠加", "功率", "交叉项"],
   },
   {
     slug: "thevenin",
@@ -63,8 +66,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "一个电压源与一个电阻，描述端口外部看到的整个电路。",
-    keywords: ["戴维南", "等效", "开路电压"],
     core: true,
+    keywords: ["戴维南", "等效", "开路电压"],
   },
   {
     slug: "norton",
@@ -72,6 +75,7 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "使用电流源与并联电阻建立端口等效。",
+    core: true,
     keywords: ["诺顿", "短路电流"],
   },
   {
@@ -80,8 +84,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "从端子对应关系理解Y-Δ等效，先掌握对称电阻的简单变换。",
-    keywords: ["星三角", "星形", "三角形", "Y", "Δ", "等效"],
     core: true,
+    keywords: ["星三角", "星形", "三角形", "Y", "Δ", "等效"],
   },
   {
     slug: "source-transformations",
@@ -89,8 +93,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "理解电压源串联电阻与电流源并联电阻的端口等效。",
-    keywords: ["电源", "等效变换", "实际电源"],
     core: true,
+    keywords: ["电源", "等效变换", "实际电源"],
   },
   {
     slug: "controlled-sources",
@@ -98,8 +102,8 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "识别四类受控源，保留控制关系并使用测试源法。",
-    keywords: ["控制源", "受控源", "VCVS", "VCCS", "CCVS", "CCCS", "测试源"],
     core: true,
+    keywords: ["控制源", "受控源", "VCVS", "VCCS", "CCVS", "CCCS", "测试源"],
   },
   {
     slug: "bridge-arm",
@@ -107,6 +111,7 @@ const articleEntries: Article[] = [
     category: "电路基础",
     folder: "circuits",
     description: "按示意图分析并联源桥臂，切换开路、短路、输入电阻与带载状态。",
+    core: true,
     keywords: [
       "桥臂",
       "胳臂型",
@@ -115,7 +120,6 @@ const articleEntries: Article[] = [
       "短路电流",
       "输入电阻",
     ],
-    core: true,
   },
   {
     slug: "capacitor",
@@ -123,6 +127,7 @@ const articleEntries: Article[] = [
     category: "动态电路",
     folder: "dynamics",
     description: "电场储能、电容伏安关系与电压连续性。",
+    core: true,
     keywords: ["电容", "储能"],
   },
   {
@@ -131,6 +136,7 @@ const articleEntries: Article[] = [
     category: "动态电路",
     folder: "dynamics",
     description: "磁场储能、电感伏安关系与电流连续性。",
+    core: true,
     keywords: ["电感", "储能"],
   },
   {
@@ -139,8 +145,8 @@ const articleEntries: Article[] = [
     category: "动态电路",
     folder: "dynamics",
     description: "用时间常数理解电容的充电、放电与过渡过程。",
-    keywords: ["RC", "时间常数", "充电", "放电"],
     core: true,
+    keywords: ["RC", "时间常数", "充电", "放电"],
   },
   {
     slug: "rl-circuit",
@@ -148,6 +154,7 @@ const articleEntries: Article[] = [
     category: "动态电路",
     folder: "dynamics",
     description: "用三要素法求解电感电流的指数变化。",
+    core: true,
     keywords: ["RL", "时间常数"],
   },
   {
@@ -156,6 +163,7 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "幅值、频率与初相位，描述一个正弦信号。",
+    core: true,
     keywords: ["正弦", "频率", "有效值"],
   },
   {
@@ -164,8 +172,8 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "将同频正弦量映射为复数，让微分运算变成代数运算。",
-    keywords: ["相量", "正弦稳态", "复数", "有效值"],
     core: true,
+    keywords: ["相量", "正弦稳态", "复数", "有效值"],
   },
   {
     slug: "impedance",
@@ -173,14 +181,16 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "用复数统一表达电阻、电感、电容的伏安关系。",
+    core: true,
     keywords: ["阻抗", "导纳", "电抗"],
   },
   {
     slug: "rlc",
-    title: "RLC 串联谐振",
+    title: "RLC 串联与并联谐振",
     category: "正弦稳态",
     folder: "ac",
-    description: "理解感抗与容抗的抵消，计算串联谐振频率。",
+    description: "比较串联与并联谐振的条件、输入特性和支路量。",
+    core: true,
     keywords: ["谐振", "RLC"],
   },
   {
@@ -189,6 +199,7 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "分清自感与互感，用同名端判断互感电压的正负。",
+    core: true,
     keywords: ["互感", "耦合电感", "同名端", "耦合系数", "第十章", "10章"],
   },
   {
@@ -197,6 +208,7 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "区分有功、无功和视在功率。",
+    core: true,
     keywords: ["功率", "有功", "无功"],
   },
   {
@@ -205,6 +217,7 @@ const articleEntries: Article[] = [
     category: "正弦稳态",
     folder: "ac",
     description: "理解功率因数及其对供电电流的影响。",
+    core: true,
     keywords: ["功率因数", "补偿"],
   },
   {
@@ -213,8 +226,8 @@ const articleEntries: Article[] = [
     category: "三相电路",
     folder: "three-phase",
     description: "正序、相位差、三线与四线制，认识三相系统的组成。",
-    keywords: ["三相", "第十二章", "12章", "相序", "中性点"],
     core: true,
+    keywords: ["三相", "第十二章", "12章", "相序", "中性点"],
   },
   {
     slug: "line-phase",
@@ -222,8 +235,8 @@ const articleEntries: Article[] = [
     category: "三相电路",
     folder: "three-phase",
     description: "分清线值与相值，掌握Y、Δ连接中的√3与30°关系。",
-    keywords: ["三相", "线电压", "相电压", "线电流", "相电流"],
     core: true,
+    keywords: ["三相", "线电压", "相电压", "线电流", "相电流"],
   },
   {
     slug: "balanced-three-phase",
@@ -231,8 +244,8 @@ const articleEntries: Article[] = [
     category: "三相电路",
     folder: "three-phase",
     description: "用一相计算法求三相电流、负载电压和中性线电流。",
-    keywords: ["三相", "对称", "一相法", "Y-Y"],
     core: true,
+    keywords: ["三相", "对称", "一相法", "Y-Y"],
   },
   {
     slug: "unbalanced-three-phase",
@@ -240,8 +253,8 @@ const articleEntries: Article[] = [
     category: "三相电路",
     folder: "three-phase",
     description: "用结点法理解负载不对称、中性线断开及相电压变化。",
-    keywords: ["三相", "不对称", "中性点位移", "中性线"],
     core: true,
+    keywords: ["三相", "不对称", "中性点位移", "中性线"],
   },
   {
     slug: "three-phase-power",
@@ -249,8 +262,8 @@ const articleEntries: Article[] = [
     category: "三相电路",
     folder: "three-phase",
     description: "从各相功率之和出发，计算三相有功、无功和视在功率。",
-    keywords: ["三相", "功率", "有功", "无功", "视在功率", "功率因数"],
     core: true,
+    keywords: ["三相", "功率", "有功", "无功", "视在功率", "功率因数"],
   },
 ];
 export const articles: Article[] = chapters.flatMap((chapter) =>

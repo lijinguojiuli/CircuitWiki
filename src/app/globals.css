@@ -808,6 +808,59 @@ footer > span:first-child {
   color: var(--muted);
   padding: 16px 20px 0;
 }
+.learning-lab {
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin: 24px 0;
+  background: var(--surface);
+}
+.learning-lab .circuit {
+  margin: 18px 0;
+}
+.phasor-construction .circuit svg {
+  max-height: 440px;
+}
+.phasor-construction .circuit text {
+  font-size: 18px;
+}
+.drawing-step {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 18px 0;
+}
+.drawing-step input {
+  flex: 1;
+  accent-color: var(--text);
+}
+.textbook-topic {
+  scroll-margin-top: 95px;
+  padding: 16px 0 24px;
+  border-bottom: 1px solid var(--border);
+}
+.coverage-detail {
+  margin-top: 20px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  font-size: 12px;
+}
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.coverage-grid a {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  background: var(--soft);
+}
+.coverage-grid span,
+.coverage-grid small {
+  color: var(--muted);
+}
 .nav-group-skipped {
   opacity: 0.65;
 }

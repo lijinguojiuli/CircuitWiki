@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { BookOpen, Zap } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
 import { chapters, lessonSectionLabel } from "@/lib/chapters";
+import { learningScopeNotes } from "@/lib/textbook-scope";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname();
@@ -33,7 +34,11 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <p className="nav-scope">跳过本章</p>
           ) : (
             <>
-              {chapter.number === 11 && <p className="nav-scope">仅学习谐振</p>}
+              {learningScopeNotes[chapter.number] && (
+                <p className="nav-scope">
+                  {learningScopeNotes[chapter.number]}
+                </p>
+              )}
               {chapter.slugs.map((slug) => {
                 const article = articles.find((item) => item.slug === slug)!;
                 return (

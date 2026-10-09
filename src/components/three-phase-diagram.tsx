@@ -1,11 +1,77 @@
 import { Resistor, VoltageSource, Node } from "./circuit-symbols";
+import { ImpedanceEdge } from "./star-delta-diagram";
 export function ThreePhaseDiagram({
   neutral = true,
   unbalanced = false,
+  connection = "star",
 }: {
   neutral?: boolean;
   unbalanced?: boolean;
+  connection?: "star" | "delta";
 }) {
+  if (connection === "delta")
+    return (
+      <figure className="circuit">
+        <svg
+          viewBox="0 0 640 330"
+          role="img"
+          aria-label="三相星形电源连接三角形负载"
+        >
+          <title>三相Y-Δ连接</title>
+          <g
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path d="M65 65V245" />
+            {[65, 155, 245].map((y, index) => (
+              <g key={y}>
+                <path
+                  d={`M65 ${y}h56m48 0h36m90 0H${index === 1 ? 420 : 525}`}
+                />
+                <VoltageSource x={145} y={y} label="" horizontal />
+                <text x="145" y={y - 28}>
+                  {["U̇A", "U̇B", "U̇C"][index]}
+                </text>
+                <Resistor x={205} y={y} label="Zₗ" />
+              </g>
+            ))}
+            <ImpedanceEdge
+              from={[525, 65]}
+              to={[420, 155]}
+              label="Z_AB"
+              offset={[-25, -14]}
+            />
+            <ImpedanceEdge
+              from={[420, 155]}
+              to={[525, 245]}
+              label="Z_BC"
+              offset={[-25, 25]}
+            />
+            <ImpedanceEdge
+              from={[525, 245]}
+              to={[525, 65]}
+              label="Z_CA"
+              offset={[42, 5]}
+            />
+            <Node x={525} y={65} label="A′" />
+            <Node x={420} y={155} label="B′" />
+            <Node x={525} y={245} label="C′" />
+            <Node x={65} y={155} />
+            <text x="40" y="160">
+              N
+            </text>
+            <text x="460" y="295">
+              Δ负载无中性点
+            </text>
+          </g>
+        </svg>
+        <figcaption>
+          左侧为Y连接电源，右侧三条阻抗依次接在A′B′、B′C′、C′A′之间，构成Δ负载。线电流是相邻支路电流的相量差。
+        </figcaption>
+      </figure>
+    );
   return (
     <figure className="circuit">
       <svg

@@ -1,7 +1,9 @@
+import { additionalReferences } from "./additional-content";
 export const textbookReferences: Record<
   string,
   { section: string; pages: string }
 > = {
+  ...additionalReferences,
   "kcl-kvl": {
     section: "§1-3、§1-5、§1-8、§3-1、§3-2",
     pages: "12–15、20–22、53–56",
@@ -55,8 +57,8 @@ export const textbookReferences: Record<
     pages: "220–223",
   },
   rlc: {
-    section: "§11-2",
-    pages: "281–282",
+    section: "§11-2、§11-4",
+    pages: "281–284、290–291",
   },
   "coupled-inductors": { section: "§10-1", pages: "253–255" },
   power: {

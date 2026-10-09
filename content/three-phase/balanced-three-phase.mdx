@@ -83,6 +83,19 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 
 </Example>
 
+<Example title="同一相阻抗分别接Y和Δ">
+
+**题目：** 对称线电压380 V、每相电阻30 Ω，忽略线路阻抗，比较两种接法。
+
+<Formula latex={"Y: U_p=\\frac{380}{\\sqrt3}=219.393\\,\\mathrm V,\\quad I_l=I_p=7.313\\,\\mathrm A"} />
+<Formula latex={"\\Delta: U_p=380\\,\\mathrm V,\\quad I_p=12.667\\,\\mathrm A,\\quad I_l=\\sqrt3I_p=21.939\\,\\mathrm A"} />
+
+**结论：** 相阻抗不变而改变接法，Δ线电流是Y的3倍。若要求端口等效，应取ZΔ=3ZY，而不是保持相阻抗不变。
+
+</Example>
+
+<ThreePhaseDiagram connection="delta" />
+
 <Quiz
   question="对称Δ阻抗每相为9+j12 Ω，等效Y每相是多少？"
   options={["3+j4 Ω", "27+j36 Ω", "9+j12 Ω"]}
@@ -104,3 +117,6 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 ## 8. 相关知识
 
 [前置：线量与相量](/learn/line-phase) → [后续：不对称三相](/learn/unbalanced-three-phase) · [相关：三相功率](/learn/three-phase-power)
+
+
+[本章逐节复习](/learn/chapter-12-summary)

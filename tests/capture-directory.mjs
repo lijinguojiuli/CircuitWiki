@@ -25,7 +25,10 @@ await page
   .locator(".circuit")
   .screenshot({ path: `${dir}/coupled-inductors.png` });
 await page.goto("http://localhost:3000/learn/rlc");
-await page.locator(".circuit").screenshot({ path: `${dir}/resonance.png` });
+await page
+  .locator(".circuit")
+  .first()
+  .screenshot({ path: `${dir}/resonance.png` });
 await page.setViewportSize({ width: 390, height: 844 });
 await page.goto("http://localhost:3000/learn/rc-circuit");
 await page.getByRole("button", { name: "打开目录", exact: true }).click();

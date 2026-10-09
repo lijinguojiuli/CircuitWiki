@@ -13,7 +13,9 @@ test("formula reference follows textbook chapters and removed material stays abs
       (number) => `formula-chapter-${number}`,
     ),
   );
-  await expect(page.locator(".formula-card h3").first()).toHaveText("瞬时功率");
+  await expect(page.locator(".formula-card h3").first()).toHaveText(
+    "电流和电压的参考方向关系",
+  );
   await expect(
     page
       .locator(".formula-card h3")
@@ -33,6 +35,7 @@ test("formula reference follows textbook chapters and removed material stays abs
   await page.keyboard.press("Escape");
   await page.goto("/curriculum");
   await expect(page.locator("#chapter-3 .card-index")).toHaveText([
+    "§3-1 · 核心",
     "§3-4 · 核心",
     "§3-6 · 核心",
   ]);

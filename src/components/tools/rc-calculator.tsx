@@ -29,7 +29,7 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
     <section className={`calculator ${compact ? "compact" : ""}`} id="rc">
       <div className="eyebrow">RC 响应计算</div>
       <h2>看见电容充电的过程</h2>
-      <p>零初始电压，理想直流阶跃输入。调整参数，观察 0–5τ 内的响应。</p>
+      <p>零初始电压，t=0接入恒定直流电源。调整参数，观察 0–5τ 内的响应。</p>
       <div className="fields">
         <Field label="电阻 R" unit="Ω" value={r} onChange={setR} />
         <Field label="电容 C" unit="μF" value={c} onChange={setC} />

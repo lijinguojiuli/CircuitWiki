@@ -1,5 +1,5 @@
 import { Node } from "./circuit-symbols";
-function Edge({
+export function ImpedanceEdge({
   from,
   to,
   label,
@@ -62,17 +62,17 @@ export function StarDeltaDiagram({
           <text x="505" y="24">
             Δ 形（三角形）
           </text>
-          <Edge
+          <ImpedanceEdge
             from={[155, 55]}
             to={[155, 145]}
             label={impedance ? "Z_A" : "R₁"}
           />
-          <Edge
+          <ImpedanceEdge
             from={[155, 145]}
             to={[260, 225]}
             label={impedance ? "Z_B" : "R₂"}
           />
-          <Edge
+          <ImpedanceEdge
             from={[155, 145]}
             to={[50, 225]}
             label={impedance ? "Z_C" : "R₃"}
@@ -84,17 +84,21 @@ export function StarDeltaDiagram({
           <text x="185" y="145">
             {impedance ? "N′" : "O"}
           </text>
-          <Edge
+          <ImpedanceEdge
             from={[505, 55]}
             to={[610, 225]}
-            label={`${unit}₁₂`}
+            label={impedance ? "Z_AB" : `${unit}₁₂`}
             offset={[24, -6]}
           />
-          <Edge from={[610, 225]} to={[400, 225]} label={`${unit}₂₃`} />
-          <Edge
+          <ImpedanceEdge
+            from={[610, 225]}
+            to={[400, 225]}
+            label={impedance ? "Z_BC" : `${unit}₂₃`}
+          />
+          <ImpedanceEdge
             from={[400, 225]}
             to={[505, 55]}
-            label={`${unit}₃₁`}
+            label={impedance ? "Z_CA" : `${unit}₃₁`}
             offset={[-24, -6]}
           />
           <Node x={505} y={55} label={terminals[0]} />

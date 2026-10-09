@@ -71,18 +71,18 @@ test("chapter map, breadcrumbs and reading order match the textbook scope", asyn
   );
   await expect(page.locator("#chapter-5")).toContainText("已跳过");
   await expect(page.locator("#chapter-5 a")).toHaveCount(0);
-  await expect(page.locator("#chapter-11 .knowledge-card")).toHaveCount(1);
-  await expect(page.locator("#chapter-11")).toContainText("RLC 串联谐振");
+  await expect(page.locator("#chapter-11 .knowledge-card")).toHaveCount(2);
+  await expect(page.locator("#chapter-11")).toContainText("RLC 串联与并联谐振");
   await page
     .locator("#chapter-10")
     .getByRole("link", { name: /耦合电感与同名端/ })
     .click();
   await expect(page.locator(".breadcrumb")).toContainText("第10章");
   await expect(page.locator('nav[aria-label="文章翻页"]')).toContainText(
-    "RLC 串联谐振",
+    "串联与并联谐振全览",
   );
   await page.goto("/learn/norton");
   await expect(page.locator('nav[aria-label="文章翻页"]')).toContainText(
-    "电容基础",
+    "储能元件全览",
   );
 });

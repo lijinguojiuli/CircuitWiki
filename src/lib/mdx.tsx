@@ -7,7 +7,7 @@ import { Formula, InlineFormula, FormulaCard } from "@/components/formula";
 import { Callout, Warning, Tip, Example } from "@/components/ui";
 import { CircuitDiagram } from "@/components/circuit-diagram";
 import { Quiz } from "@/components/quiz";
-import { RCCalculator } from "@/components/calculators";
+import { RCCalculator, PhasorCalculator } from "@/components/calculators";
 import type { Article } from "./content";
 import type { MDXComponents } from "mdx/types";
 import { SourceSymbolGuide } from "@/components/source-symbol-guide";
@@ -26,8 +26,23 @@ import {
 } from "@/components/one-port-diagrams";
 import { BridgePortLab } from "@/components/tools/bridge-port-lab";
 import { CoupledInductorDiagram } from "@/components/coupled-inductor-diagram";
-import { ResonanceDiagram } from "@/components/resonance-diagram";
+import {
+  ResonanceDiagram,
+  ParallelResonanceDiagram,
+} from "@/components/resonance-diagram";
+import { SinusoidalLab } from "@/components/sinusoidal-lab";
+import { CompensationDiagram } from "@/components/compensation-diagram";
+import { ThreePhaseSourceDiagram } from "@/components/three-phase-source-diagram";
+import { PhasorConstruction } from "@/components/phasor-construction";
+import { ThreePhaseLab } from "@/components/three-phase-lab";
 const components: MDXComponents = {
+  ParallelResonanceDiagram,
+  SinusoidalLab,
+  CompensationDiagram,
+  ThreePhaseSourceDiagram,
+  PhasorConstruction,
+  ThreePhaseLab,
+  PhasorCalculator,
   Formula,
   InlineFormula,
   FormulaCard,

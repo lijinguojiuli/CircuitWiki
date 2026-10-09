@@ -375,6 +375,469 @@ const formulaEntries: FormulaEntry[] = [
     ],
     source: "第5版p.282，§11-2",
   },
+  {
+    name: "电流和电压的参考方向关系",
+    latex: "i=\\frac{\\mathrm dq}{\\mathrm dt},\\qquad u_{ab}=v_a-v_b",
+    position: [1, 2, 20],
+    slug: "chapter-1-summary",
+    condition:
+      "电流方向和电压极性是人为规定的参考。先规定方向，计算结果为负才表示实际方向相反。电流进入电压正端称关联参考方向，用它统一元件功率和伏安关系。",
+    parameters: [
+      "q：电荷 / C",
+      "t：时间 / s",
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+    ],
+    source: "第5版§1-2（本节始于p.9），按同一参考方向整理",
+  },
+  {
+    name: "电压源和电流源关系",
+    latex: "u=U_S\\quad\\text{或}\\quad i=I_S",
+    position: [1, 6, 20],
+    slug: "chapter-1-summary",
+    condition:
+      "理想电压源约束端电压，其电流由外电路决定；理想电流源约束电流，其端电压由外电路决定。电压源置零等效短路，电流源置零等效开路。受约束量与未约束量必须分清。",
+    parameters: [
+      "q：电荷 / C",
+      "t：时间 / s",
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+    ],
+    source: "第5版§1-6（本节始于p.16），按同一参考方向整理",
+  },
+  {
+    name: "电阻的串联和并联关系",
+    latex:
+      "R_s=\\sum R_k,\\quad G_p=\\sum G_k,\\quad u_k=\\frac{R_k}{R_s}u,\\quad i_k=\\frac{G_k}{G_p}i",
+    position: [2, 3, 20],
+    slug: "chapter-2-summary",
+    condition:
+      "串联元件流过同一电流，并联元件跨在同一对结点。串联分压按电阻成正比，并联分流按电导成正比；两支路分流也可用对侧电阻写比例。",
+    parameters: [
+      "R：电阻 / Ω",
+      "G：电导 / S",
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+    ],
+    source: "第5版§2-3（本节始于p.33），按同一参考方向整理",
+  },
+  {
+    name: "电压源、电流源的串联和并联关系",
+    latex: "U_{eq}=\\sum U_{Sk},\\qquad I_{eq}=\\sum I_{Sk}",
+    position: [2, 5, 20],
+    slug: "chapter-2-summary",
+    condition:
+      "串联电压源的电压按极性相加，并联电流源的电流按方向相加。理想电压源并联必须电压一致，理想电流源串联必须电流一致，否则约束矛盾。源的未约束量由外部电路决定。",
+    parameters: [
+      "R：电阻 / Ω",
+      "G：电导 / S",
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+    ],
+    source: "第5版§2-5（本节始于p.41），按同一参考方向整理",
+  },
+  {
+    name: "电路的图关系",
+    latex: "b_t=n-1,\\qquad b_l=b-n+1",
+    position: [3, 1, 20],
+    slug: "chapter-3-summary",
+    condition:
+      "图保留结点和支路的连接关系，忽略元件形状与参数。树是包含全部结点而不形成回路的连通子图，非树支路是连支。支路划分可按元件或串联组合，但结点与支路数要同步。",
+    parameters: [
+      "b：支路数，无量纲",
+      "n：结点数，无量纲",
+      "i：电流 / A",
+      "u：电压 / V",
+      "R：电阻 / Ω",
+    ],
+    source: "第5版§3-1（本节始于p.52），按同一参考方向整理",
+  },
+  {
+    name: "KCL和KVL的独立方程数关系",
+    latex: "N_{KCL}=n-1,\\quad N_{KVL}=b-n+1",
+    position: [3, 2, 20],
+    slug: "chapter-3-summary",
+    condition:
+      "连通网络的独立KCL方程数为n−1，独立KVL方程数为b−n+1，两者合计b。其余结点或回路方程能由它们线性组合得到。方程独立性与元件参数无关。",
+    parameters: [
+      "b：支路数，无量纲",
+      "n：结点数，无量纲",
+      "i：电流 / A",
+      "u：电压 / V",
+      "R：电阻 / Ω",
+    ],
+    source: "第5版§3-2（本节始于p.54），按同一参考方向整理",
+  },
+  {
+    name: "支路电流法关系",
+    latex: "i_1-i_2-i_3=0,\\quad R_1i_1+R_2i_2=U_S,\\quad R_2i_2=R_3i_3",
+    position: [3, 3, 20],
+    slug: "chapter-3-summary",
+    condition:
+      "以各支路电流为未知量，写n−1个KCL，再用元件关系把b−n+1个KVL写成电流方程。方法通用但未知量往往较多，适合结构简单、支路电流本身是目标的题目。",
+    parameters: [
+      "b：支路数，无量纲",
+      "n：结点数，无量纲",
+      "i：电流 / A",
+      "u：电压 / V",
+      "R：电阻 / Ω",
+    ],
+    source: "第5版§3-3（本节始于p.58），按同一参考方向整理",
+  },
+  {
+    name: "回路电流法关系",
+    latex:
+      "i_k=\\sum_{m=1}^{b-n+1}\\sigma_{km}i_{lm},\\qquad \\sigma_{km}\\in\\{-1,0,1\\}",
+    position: [3, 5, 20],
+    slug: "chapter-3-summary",
+    condition:
+      "回路法适用于一般连通网络。选一棵树，每加入一条连支形成一个基本回路，令其回路电流与该连支方向一致；树支电流是多个回路电流的代数和。网孔法是平面网络的一种便利选择。",
+    parameters: [
+      "b：支路数，无量纲",
+      "n：结点数，无量纲",
+      "i：电流 / A",
+      "u：电压 / V",
+      "R：电阻 / Ω",
+    ],
+    source: "第5版§3-5（本节始于p.64），按同一参考方向整理",
+  },
+  {
+    name: "替代定理关系",
+    latex: "u_S=u_p\\quad\\text{或}\\quad i_S=i_p",
+    position: [4, 2, 20],
+    slug: "chapter-4-summary",
+    condition:
+      "已知某二端子部分的端电压和电流，可用相同电压的理想电压源或相同电流的理想电流源替代，在原工作状态下保持其余网络的电压电流。要保证替代后解存在且唯一。它不等于对任意负载都成立的端口等效。",
+    parameters: [
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+      "R：电阻 / Ω",
+      "P：功率 / W",
+    ],
+    source: "第5版§4-2（本节始于p.88），按同一参考方向整理",
+  },
+  {
+    name: "最大功率传输定理关系",
+    latex: "R_L=R_{eq},\\qquad P_{max}=\\frac{u_{oc}^2}{4R_{eq}}",
+    position: [4, 4, 20],
+    slug: "chapter-4-summary",
+    condition:
+      "对固定的线性直流戴维南源，若Req>0且可调负载是正电阻，RL=Req时负载获得最大功率。这里优化的是负载功率，不是效率；负载变化时要保持源侧等效参数不变。",
+    parameters: [
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+      "R：电阻 / Ω",
+      "P：功率 / W",
+    ],
+    source: "第5版§4-4（本节始于p.97），按同一参考方向整理",
+  },
+  {
+    name: "电容、电感元件的串联与并联关系",
+    latex:
+      "C_p=\\sum C_k,\\quad\\frac1{C_s}=\\sum\\frac1{C_k},\\quad L_s=\\sum L_k,\\quad\\frac1{L_p}=\\sum\\frac1{L_k}",
+    position: [6, 3, 20],
+    slug: "chapter-6-summary",
+    condition:
+      "并联电容电压相同，电容值相加；串联电容按倒数相加。无互感的串联电感电流相同，电感值相加；并联电感按倒数相加。初始储能与电荷约束仍要另外保留。",
+    parameters: ["C：电容 / F", "L：电感 / H"],
+    source: "第5版§6-3（本节始于p.131），按同一参考方向整理",
+  },
+  {
+    name: "动态电路的方程及其初始条件关系",
+    latex:
+      "u_C(0_+)=u_C(0_-),\\quad i_L(0_+)=i_L(0_-),\\quad RC\\frac{\\mathrm du_C}{\\mathrm dt}+u_C=U_S",
+    position: [7, 1, 20],
+    slug: "chapter-7-summary",
+    condition:
+      "本学习范围只考虑一阶电路。换路前直流稳态用电容开路、电感短路求初值；换路后先用电容电压、电感电流连续性，再通过KCL/KVL求其余瞬时量。切换后的等效网络决定响应，不沿用旧网络的时间常数。",
+    parameters: [
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+      "R：等效电阻 / Ω",
+      "L：电感 / H",
+      "C：电容 / F",
+      "t、τ：时间 / s",
+    ],
+    source: "第5版§7-1（本节始于p.137），按同一参考方向整理",
+  },
+  {
+    name: "一阶电路的零状态响应关系",
+    latex:
+      "u_C(t)=U_S(1-e^{-t/\\tau}),\\qquad i_L(t)=\\frac{U_S}{R}(1-e^{-t/\\tau})",
+    position: [7, 3, 20],
+    slug: "chapter-7-summary",
+    condition:
+      "零状态表示初始电容电压或电感电流为0，响应仅由外部激励引起。本页只讨论t=0接入恒定直流源后的普通充电、建流，不展开阶跃或冲激专题。初始值为0不等于响应一直为0。",
+    parameters: [
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+      "R：等效电阻 / Ω",
+      "L：电感 / H",
+      "C：电容 / F",
+      "t、τ：时间 / s",
+    ],
+    source: "第5版§7-3（本节始于p.147），按同一参考方向整理",
+  },
+  {
+    name: "一阶电路的全响应关系",
+    latex: "f(t)=f(\\infty)+[f(0_+)-f(\\infty)]e^{-t/\\tau}",
+    position: [7, 4, 20],
+    slug: "chapter-7-summary",
+    condition:
+      "全响应同时包含初始储能与外部激励。三要素是0+初值、∞终值和时间常数；也可写为零输入加零状态，或稳态分量加暂态分量。两种分解角度不同，零输入不等于暂态的同义词。",
+    parameters: [
+      "u、U：电压 / V",
+      "i、I：电流 / A",
+      "R：等效电阻 / Ω",
+      "L：电感 / H",
+      "C：电容 / F",
+      "t、τ：时间 / s",
+    ],
+    source: "第5版§7-4（本节始于p.152），按同一参考方向整理",
+  },
+  {
+    name: "正弦量关系",
+    latex:
+      "u=U_m\\cos(\\omega t+\\phi),\\quad U=\\frac{U_m}{\\sqrt2},\\quad\\omega=2\\pi f,\\quad T=\\frac1f",
+    position: [8, 2, 20],
+    slug: "chapter-8-summary",
+    condition:
+      "正弦量由峰值、角频率和初相位决定。有效值用于同频正弦功率和有效值相量。先把sin改为共同的cos参考，再提取初相位；相位超前通常对应波形向左移动。不同频率的两量不能用一个固定相位差描述。",
+    parameters: [
+      "U、Um：电压有效值、峰值 / V",
+      "I：电流有效值 / A",
+      "ω：角频率 / rad·s⁻¹",
+      "f：频率 / Hz",
+      "T：周期 / s",
+      "φ：初相位",
+    ],
+    source: "第5版§8-2（本节始于p.205），按同一参考方向整理",
+  },
+  {
+    name: "电路定律的相量形式关系",
+    latex:
+      "\\sum\\dot I=0,\\quad\\sum\\dot U=0,\\quad\\dot U_R=R\\dot I,\\quad\\dot U_L=j\\omega L\\dot I,\\quad\\dot U_C=\\frac{\\dot I}{j\\omega C}",
+    position: [8, 4, 20],
+    slug: "chapter-8-summary",
+    condition:
+      "在同频线性正弦稳态中，KCL、KVL仍成立，但变量换成相量；R、L、C的伏安关系分别对应R、jωL、1/(jωC)。电感电压超前电流90°，电容电压滞后电流90°。",
+    parameters: [
+      "U、Um：电压有效值、峰值 / V",
+      "I：电流有效值 / A",
+      "ω：角频率 / rad·s⁻¹",
+      "f：频率 / Hz",
+      "T：周期 / s",
+      "φ：初相位",
+    ],
+    source: "第5版§8-4（本节始于p.211），按同一参考方向整理",
+  },
+  {
+    name: "电路的相量图关系",
+    latex: "\\dot U=\\dot U_R+\\dot U_L+\\dot U_C",
+    position: [9, 2, 20],
+    slug: "chapter-9-summary",
+    condition:
+      "相量图是复数方程的几何表示。串联取共同电流作参考，并联取共同电压作参考。等量纲相量按同一比例尺首尾相接，最终起点到终点的箭头为总量。相量可平移，不能随意改变长度或方向。",
+    parameters: [
+      "U、I：有效值 / V、A",
+      "Z：阻抗 / Ω",
+      "P、Q、S：有功、无功、视在功率 / W、var、VA",
+      "XL、XC：电抗大小 / Ω",
+    ],
+    source: "第5版§9-2（本节始于p.226），按同一参考方向整理",
+  },
+  {
+    name: "复功率关系",
+    latex: "\\overline S=\\dot U\\dot I^*=P+jQ,\\qquad S=\\sqrt{P^2+Q^2}",
+    position: [9, 5, 20],
+    slug: "chapter-9-summary",
+    condition:
+      "关联方向下复功率为电压相量乘电流相量共轭，实部为P、虚部为Q，其模为S。复功率可按支路相加，但不同支路视在功率的大小不能一般直接相加。复功率不是电压电流的同频相量。",
+    parameters: [
+      "U、I：有效值 / V、A",
+      "Z：阻抗 / Ω",
+      "P、Q、S：有功、无功、视在功率 / W、var、VA",
+      "XL、XC：电抗大小 / Ω",
+    ],
+    source: "第5版§9-5（本节始于p.238），按同一参考方向整理",
+  },
+  {
+    name: "最大功率传输关系",
+    latex:
+      "Z_L=Z_{eq}^*,\\quad P_{max}=\\frac{U_{oc}^2}{4R_{eq}};\\qquad X_L=0:\\ R_L=|Z_{eq}|",
+    position: [9, 6, 20],
+    slug: "chapter-9-summary",
+    condition:
+      "固定频率下把源侧化为Uoc与Zeq=Req+jXeq。若负载R、X均可调且Req>0，最佳负载是共轭匹配；若只能调纯电阻，最佳RL是源阻抗的模。约束不同，结论不同。",
+    parameters: [
+      "U、I：有效值 / V、A",
+      "Z：阻抗 / Ω",
+      "P、Q、S：有功、无功、视在功率 / W、var、VA",
+      "XL、XC：电抗大小 / Ω",
+    ],
+    source: "第5版§9-6（本节始于p.241），按同一参考方向整理",
+  },
+  {
+    name: "含有耦合电感电路的计算关系",
+    latex:
+      "L_{eq}=L_1+L_2\\pm2M,\\quad\\dot U_1=j\\omega L_1\\dot I_1\\pm j\\omega M\\dot I_2",
+    position: [10, 2, 20],
+    slug: "chapter-10-summary",
+    condition:
+      "互感项将两支路方程耦合，不能把每个线圈独立当作jωL处理。串联同向时等效电感L1+L2+2M，反向时L1+L2−2M；更一般的网络要按同名端写联立相量方程。",
+    parameters: [
+      "L1、L2、M：自感与互感 / H",
+      "i、I：电流 / A",
+      "u、U：电压 / V",
+      "ω：角频率 / rad·s⁻¹",
+      "n：匝比，无量纲",
+      "Z：阻抗 / Ω",
+      "W：储能 / J",
+    ],
+    source: "第5版§10-2（本节始于p.257），按同一参考方向整理",
+  },
+  {
+    name: "耦合电感的功率关系",
+    latex: "W=\\frac12L_1i_1^2+\\frac12L_2i_2^2\\pm Mi_1i_2",
+    position: [10, 3, 20],
+    slug: "chapter-10-summary",
+    condition:
+      "无损耦合电感通过磁场交换能量，总瞬时端口功率等于磁场储能变化率。互感储能项带符号，但无源模型的总能量不能任意为负；正弦稳态下可以在两个端口间传递有功。",
+    parameters: [
+      "L1、L2、M：自感与互感 / H",
+      "i、I：电流 / A",
+      "u、U：电压 / V",
+      "ω：角频率 / rad·s⁻¹",
+      "n：匝比，无量纲",
+      "Z：阻抗 / Ω",
+      "W：储能 / J",
+    ],
+    source: "第5版§10-3（本节始于p.262），按同一参考方向整理",
+  },
+  {
+    name: "变压器原理关系",
+    latex:
+      "(R_1+j\\omega L_1)\\dot I_1+j\\omega M\\dot I_2=\\dot U_1,\\quad j\\omega M\\dot I_1+(R_2+j\\omega L_2+Z_L)\\dot I_2=0",
+    position: [10, 4, 20],
+    slug: "chapter-10-summary",
+    condition:
+      "实际变压器用耦合线圈描述，绕组电阻带来铜耗，漏磁使k小于1，磁化支路需要电流。一次、二次回路通过互阻抗jωM联系。负载会反映到一次侧，开路、短路状态要区分。",
+    parameters: [
+      "L1、L2、M：自感与互感 / H",
+      "i、I：电流 / A",
+      "u、U：电压 / V",
+      "ω：角频率 / rad·s⁻¹",
+      "n：匝比，无量纲",
+      "Z：阻抗 / Ω",
+      "W：储能 / J",
+    ],
+    source: "第5版§10-4（本节始于p.265），按同一参考方向整理",
+  },
+  {
+    name: "理想变压器关系",
+    latex:
+      "\\frac{\\dot U_1}{\\dot U_2}=n,\\quad\\dot I_1=-\\frac{\\dot I_2}{n},\\quad Z_{in}=n^2Z_L",
+    position: [10, 5, 20],
+    slug: "chapter-10-summary",
+    condition:
+      "理想模型忽略损耗、漏磁与有限磁化电流，用匝比n=N1/N2规定电压和电流约束。两侧电流均流入同名端时电流比带负号；负载电流采用输出方向时符号相应改变。",
+    parameters: [
+      "L1、L2、M：自感与互感 / H",
+      "i、I：电流 / A",
+      "u、U：电压 / V",
+      "ω：角频率 / rad·s⁻¹",
+      "n：匝比，无量纲",
+      "Z：阻抗 / Ω",
+      "W：储能 / J",
+    ],
+    source: "第5版§10-5（本节始于p.268），按同一参考方向整理",
+  },
+  {
+    name: "RLC并联谐振电路关系",
+    latex:
+      "Y=G+j\\left(\\omega C-\\frac1{\\omega L}\\right),\\quad\\omega_0=\\frac1{\\sqrt{LC}},\\quad Z(\\omega_0)=\\frac1G",
+    position: [11, 4, 20],
+    slug: "chapter-11-summary",
+    condition:
+      "本节采用教材G、L、C并联模型。谐振条件是总导纳虚部为0，感性支路与容性支路电流相互抵消。固定端电压下电源电流最小，输入阻抗最大为1/G，支路电流仍可很大。",
+    parameters: [
+      "G：电导 / S",
+      "L：电感 / H",
+      "C：电容 / F",
+      "ω：角频率 / rad·s⁻¹",
+      "Z：阻抗 / Ω",
+    ],
+    source: "第5版§11-4（本节始于p.290），按同一参考方向整理",
+  },
+  {
+    name: "RL 时间常数",
+    latex: "\\tau=\\frac{L}{R_{eq}}",
+    position: [7, 2, 2],
+    slug: "rl-circuit",
+    condition: "R为电感端口看到的等效电阻，Req>0；独立源置零、受控关系保留。",
+    parameters: ["τ：时间常数 / s", "L：电感 / H", "Req：等效电阻 / Ω"],
+    source: "第5版p.144，§7-2",
+  },
+  {
+    name: "RL 零输入响应",
+    latex: "i_L(t)=I_0e^{-t/\\tau}",
+    position: [7, 2, 3],
+    slug: "rl-circuit",
+    condition: "无外部独立激励，由初始电感储能产生的一阶响应，τ=L/Req。",
+    parameters: ["iL、I0：电流 / A", "t、τ：时间 / s"],
+    source: "第5版§7-2，p.144",
+  },
+  {
+    name: "欧拉公式",
+    latex: "e^{j\\theta}=\\cos\\theta+j\\sin\\theta",
+    position: [8, 1, 1],
+    slug: "complex-euler",
+    condition: "指数中的角使用弧度，j²=−1。",
+    parameters: ["θ：角 / rad", "j：虚数单位，无量纲"],
+    source: "第5版§8-1，p.202–204的同一数学关系",
+  },
+  {
+    name: "余弦的指数形式",
+    latex: "\\cos\\theta=\\frac{e^{j\\theta}+e^{-j\\theta}}2",
+    position: [8, 1, 2],
+    slug: "complex-euler",
+    condition: "指数中的角使用弧度，j²=−1。",
+    parameters: ["θ：角 / rad", "j：虚数单位，无量纲"],
+    source: "第5版§8-1，p.202–204的同一数学关系",
+  },
+  {
+    name: "正弦的指数形式",
+    latex: "\\sin\\theta=\\frac{e^{j\\theta}-e^{-j\\theta}}{2j}",
+    position: [8, 1, 3],
+    slug: "complex-euler",
+    condition: "指数中的角使用弧度，j²=−1。",
+    parameters: ["θ：角 / rad", "j：虚数单位，无量纲"],
+    source: "第5版§8-1，p.202–204的同一数学关系",
+  },
+  {
+    name: "功率因数",
+    latex: "\\lambda=\\cos\\phi_Z=\\frac{P}{S}",
+    position: [9, 4, 2],
+    slug: "power-factor",
+    condition: "同频正弦条件；含谐波时不能仅用相位差余弦。",
+    parameters: ["λ：功率因数，无量纲", "P：有功功率 / W", "S：视在功率 / VA"],
+    source: "第5版p.236，§9-4",
+  },
+  {
+    name: "并联电容补偿",
+    latex: "C=\\frac{P(\\tan\\phi_1-\\tan\\phi_2)}{\\omega U^2}",
+    position: [9, 4, 3],
+    slug: "power-factor",
+    condition: "理想正弦单相并联补偿，电压保持不变。",
+    parameters: [
+      "C：补偿电容 / F",
+      "P：有功功率 / W",
+      "ω：角频率 / rad·s⁻¹",
+      "U：有效电压 / V",
+      "φ1、φ2：补偿前后电源侧功率因数角",
+    ],
+    source: "第5版p.241，等价写法",
+  },
 ];
 
 export const formulas: FormulaEntry[] = formulaEntries.sort(

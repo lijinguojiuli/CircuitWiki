@@ -21,28 +21,28 @@ const modules = [
     description: "从基本定律到等效变换，建立电路分析的第一性原理。",
     href: "/learn/kcl-kvl",
     Icon: GitBranch,
-    count: "10 个知识点",
+    count: `${articles.filter((a) => a.category === "电路基础").length} 个知识点`,
   },
   {
     title: "动态电路",
     description: "理解储能元件，探索电路随时间变化的规律。",
     href: "/learn/rc-circuit",
     Icon: Activity,
-    count: "04 个知识点",
+    count: `${articles.filter((a) => a.category === "动态电路").length} 个知识点`,
   },
   {
     title: "交流电路",
     description: "用相量与阻抗，简化正弦稳态中的复杂运算。",
     href: "/learn/phasor",
     Icon: Radio,
-    count: "07 个知识点",
+    count: `${articles.filter((a) => a.category === "正弦稳态").length} 个知识点`,
   },
   {
     title: "三相电路",
     description: "学习教材第十二章，分清线量与相量，掌握三相计算和功率。",
     href: "/learn/three-phase-basics",
     Icon: Radio,
-    count: "05 个知识点",
+    count: `${articles.filter((a) => a.category === "三相电路").length} 个知识点`,
   },
   {
     title: "模拟电子",
@@ -103,7 +103,7 @@ export default function Home() {
             </span>
           </div>
           <div className="hero-actions">
-            <Link className="button primary" href="/learn/kcl-kvl">
+            <Link className="button primary" href="/learn/chapter-1-summary">
               开始学习 <ArrowRight size={18} />
             </Link>
             <Link className="button secondary" href="/tools">
