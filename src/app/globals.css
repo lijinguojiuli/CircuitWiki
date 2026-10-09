@@ -760,6 +760,8 @@ footer > span:first-child {
   height: calc(100vh - 76px);
   overflow-y: auto;
   padding: 28px 16px;
+  overscroll-behavior: contain;
+  overflow-anchor: none;
 }
 .sidebar-nav {
   font-size: 12px;
@@ -783,11 +785,20 @@ footer > span:first-child {
   font-weight: 650;
   padding: 0 12px;
   margin-bottom: 9px;
+  line-height: 1.7;
 }
 .nav-group h3 > span {
   font: 9px monospace;
   color: var(--muted);
   margin-right: 10px;
+}
+.nav-scope {
+  margin: 4px 12px 8px 34px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.nav-group-skipped {
+  opacity: 0.65;
 }
 .nav-group > a {
   display: flex;
@@ -1575,7 +1586,39 @@ summary {
   margin-top: 40px;
 }
 .curriculum-group h2 {
+  margin-bottom: 10px;
+}
+.chapter-description {
+  color: var(--muted);
   margin-bottom: 20px;
+  line-height: 1.8;
+}
+.chapter-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.chapter-jumps a {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.chapter-jumps a:hover {
+  background: var(--soft);
+}
+.chapter-skipped {
+  border: 1px solid var(--border);
+  padding: 24px;
+  background: var(--soft);
+}
+.scope-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+.legacy-anchor {
+  display: block;
+  scroll-margin-top: 100px;
 }
 .curriculum-grid {
   display: grid;
@@ -1691,6 +1734,8 @@ summary {
     z-index: 35;
     overflow: auto;
     padding: 20px 26px;
+    overscroll-behavior: contain;
+    overflow-anchor: none;
   }
   .mobile-top-links {
     display: flex;

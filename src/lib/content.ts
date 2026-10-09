@@ -1,3 +1,5 @@
+import { chapters } from "./chapters";
+
 export type Article = {
   slug: string;
   title: string;
@@ -7,7 +9,7 @@ export type Article = {
   keywords: string[];
   core?: boolean;
 };
-export const articles: Article[] = [
+const articleEntries: Article[] = [
   {
     slug: "kcl-kvl",
     title: "KCL 与 KVL",
@@ -175,11 +177,19 @@ export const articles: Article[] = [
   },
   {
     slug: "rlc",
-    title: "RLC 电路",
+    title: "RLC 串联谐振",
     category: "正弦稳态",
     folder: "ac",
-    description: "理解串联 RLC 的频率响应与谐振。",
+    description: "理解感抗与容抗的抵消，计算串联谐振频率。",
     keywords: ["谐振", "RLC"],
+  },
+  {
+    slug: "coupled-inductors",
+    title: "耦合电感与同名端",
+    category: "正弦稳态",
+    folder: "ac",
+    description: "分清自感与互感，用同名端判断互感电压的正负。",
+    keywords: ["互感", "耦合电感", "同名端", "耦合系数", "第十章", "10章"],
   },
   {
     slug: "power",
@@ -243,7 +253,15 @@ export const articles: Article[] = [
     core: true,
   },
 ];
-export const categories = ["电路基础", "动态电路", "正弦稳态", "三相电路"];
+export const articles: Article[] = chapters.flatMap((chapter) =>
+  chapter.slugs.map((slug) => {
+    const article = articleEntries.find((item) => item.slug === slug);
+    if (!article) throw new Error(`教材章节引用了未注册知识页：${slug}`);
+    return article;
+  }),
+);
+if (articles.length !== articleEntries.length)
+  throw new Error("知识页注册表与教材章节目录不一致，请检查章节slugs。");
 export const articleHref = (slug: string) => `/learn/${slug}`;
 export const sections = [
   "核心概念",

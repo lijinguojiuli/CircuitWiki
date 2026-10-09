@@ -14,7 +14,9 @@ import {
   ArrowUpRight,
   Zap,
 } from "lucide-react";
-import { articles, categories, articleHref } from "@/lib/content";
+import { articles, articleHref } from "@/lib/content";
+import { chapterForArticle, chapterLabel } from "@/lib/chapters";
+import { MobileDirectory } from "./sidebar-panel";
 import { formulas } from "@/lib/formulas";
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -102,7 +104,7 @@ export function Search() {
               <BookOpen size={16} />
               <span>
                 {a.title}
-                <small>{a.category}</small>
+                <small>{chapterLabel(chapterForArticle(a.slug))}</small>
               </span>
               <ArrowUpRight size={14} />
             </Link>
@@ -111,53 +113,6 @@ export function Search() {
         </div>
       )}
     </div>
-  );
-}
-export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
-  const path = usePathname();
-  return (
-    <nav className="sidebar-nav" aria-label="知识目录">
-      <Link
-        className={
-          path === "/curriculum" ? "nav-overview current" : "nav-overview"
-        }
-        href="/curriculum"
-        onClick={onNavigate}
-      >
-        <BookOpen size={17} />
-        学习路线<span>{articles.length}</span>
-      </Link>
-      {categories.map((c, i) => (
-        <div className="nav-group" key={c}>
-          <h3>
-            <span>0{i + 1}</span>
-            {c}
-          </h3>
-          {articles
-            .filter((a) => a.category === c)
-            .map((a) => (
-              <Link
-                key={a.slug}
-                href={articleHref(a.slug)}
-                aria-current={path === articleHref(a.slug) ? "page" : undefined}
-                className={path === articleHref(a.slug) ? "current" : ""}
-                onClick={onNavigate}
-              >
-                {a.title}
-                {a.core && <span className="core-dot" />}
-              </Link>
-            ))}
-        </div>
-      ))}
-      <div className="sidebar-note">
-        <Zap size={18} />
-        <strong>把公式变成直觉</strong>
-        <p>调整参数，观察电路的变化。</p>
-        <Link href="/tools" onClick={onNavigate}>
-          打开电路工具 →
-        </Link>
-      </div>
-    </nav>
   );
 }
 export function Header() {
@@ -205,19 +160,7 @@ export function Header() {
           {menu ? <X /> : <Menu />}
         </button>
       </header>
-      {menu && (
-        <div className="mobile-menu">
-          <div className="mobile-top-links">
-            <Link href="/formulas" onClick={() => setMenu(false)}>
-              公式速查
-            </Link>
-            <Link href="/tools" onClick={() => setMenu(false)}>
-              电路工具
-            </Link>
-          </div>
-          <Sidebar onNavigate={() => setMenu(false)} />
-        </div>
-      )}
+      {menu && <MobileDirectory onNavigate={() => setMenu(false)} />}
     </>
   );
 }

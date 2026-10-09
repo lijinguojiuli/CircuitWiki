@@ -74,16 +74,18 @@ export function KnowledgeCard({
 }
 export function Breadcrumb({
   category,
+  categoryHref,
   title,
 }: {
   category: string;
+  categoryHref?: string;
   title: string;
 }) {
   return (
     <nav aria-label="面包屑" className="breadcrumb">
       <Link href="/">首页</Link>
       <span>/</span>
-      <Link href={`/curriculum#${category}`}>{category}</Link>
+      <Link href={categoryHref ?? `/curriculum#${category}`}>{category}</Link>
       <span>/</span>
       <span>{title}</span>
     </nav>

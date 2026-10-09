@@ -161,6 +161,9 @@ test("mobile navigation and no page overflow", async ({ page }) => {
     "/learn/source-transformations",
     "/learn/controlled-sources",
     "/learn/bridge-arm",
+    "/learn/coupled-inductors",
+    "/learn/rlc",
+    "/curriculum",
   ]) {
     await page.goto(route);
     expect(

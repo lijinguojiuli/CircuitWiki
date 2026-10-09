@@ -1,37 +1,63 @@
-import { articles, categories, articleHref } from "@/lib/content";
+import Link from "next/link";
+import { articles, articleHref } from "@/lib/content";
+import { chapters, chapterId } from "@/lib/chapters";
 import { KnowledgeCard } from "@/components/ui";
 export const metadata = { title: "学习路线" };
 export default function Curriculum() {
   return (
     <main id="main" className="page-container">
-      <div className="eyebrow">知识库</div>
+      <div className="eyebrow">教材学习路线 · 第1—12章</div>
       <h1>
-        电路知识地图<span className="heading-dot">.</span>
+        按教材章节学习<span className="heading-dot">.</span>
       </h1>
       <p className="page-lead">
-        从守恒定律出发，经由动态响应与正弦稳态，走向三相电路。
+        按邱关源《电路》第5版章节顺序组织，保留原章号。第5章跳过，第11章只学习谐振。当前提供
         {articles.filter((a) => a.core).length} 篇完整学习页，
         {articles.filter((a) => !a.core).length} 篇基础导读。
       </p>
-      {categories.map((c, i) => (
-        <section id={c} className="curriculum-group" key={c}>
+      <nav className="chapter-jumps" aria-label="教材章节跳转">
+        {chapters.map((chapter) => (
+          <Link key={chapter.number} href={`#${chapterId(chapter.number)}`}>
+            第{chapter.number}章
+            {chapter.skipped
+              ? " · 跳过"
+              : chapter.number === 11
+                ? " · 谐振"
+                : ""}
+          </Link>
+        ))}
+      </nav>
+      {chapters.map((chapter) => (
+        <section
+          id={chapterId(chapter.number)}
+          className={`curriculum-group${chapter.skipped ? " chapter-skipped" : ""}`}
+          key={chapter.number}
+        >
+          {chapter.legacyAnchor && (
+            <span id={chapter.legacyAnchor} className="legacy-anchor" />
+          )}
           <h2>
-            <span className="muted">0{i + 1} / </span>
-            {c}
+            <span className="muted">第{chapter.number}章 / </span>
+            {chapter.title}
           </h2>
-          <div className="curriculum-grid">
-            {articles
-              .filter((a) => a.category === c)
-              .map((a, j) => (
-                <KnowledgeCard
-                  key={a.slug}
-                  title={a.title}
-                  description={a.description}
-                  href={articleHref(a.slug)}
-                  index={`${a.core ? "核心" : "导读"} · ${j + 1}`}
-                />
-              ))}
-          </div>
+          <p className="chapter-description">{chapter.description}</p>
+          {chapter.skipped ? (
+            <p className="scope-label">已跳过 · 不计入学习顺序</p>
+          ) : (
+            <div className="curriculum-grid">
+              {articles
+                .filter((a) => chapter.slugs.includes(a.slug))
+                .map((a, j) => (
+                  <KnowledgeCard
+                    key={a.slug}
+                    title={a.title}
+                    description={a.description}
+                    href={articleHref(a.slug)}
+                    index={`${a.core ? "核心" : "导读"} · ${j + 1}`}
+                  />
+                ))}
+            </div>
+          )}
         </section>
       ))}
     </main>

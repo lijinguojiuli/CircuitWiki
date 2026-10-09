@@ -25,6 +25,8 @@ import {
   DividerPortDiagram,
 } from "@/components/one-port-diagrams";
 import { BridgePortLab } from "@/components/tools/bridge-port-lab";
+import { CoupledInductorDiagram } from "@/components/coupled-inductor-diagram";
+import { ResonanceDiagram } from "@/components/resonance-diagram";
 const components: MDXComponents = {
   Formula,
   InlineFormula,
@@ -40,6 +42,8 @@ const components: MDXComponents = {
   SuperpositionDiagram,
   DividerPortDiagram,
   BridgePortLab,
+  CoupledInductorDiagram,
+  ResonanceDiagram,
   Callout,
   Warning,
   Tip,

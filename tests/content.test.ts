@@ -3,11 +3,12 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { articles, sections } from "../src/lib/content";
+import { chapters, chapterForArticle } from "../src/lib/chapters";
 import { formulas } from "../src/lib/formulas";
 import katex from "katex";
 test("all registered lessons exist, contain eight sections and valid links", () => {
   const slugs = new Set(articles.map((a) => a.slug));
-  assert.equal(slugs.size, 25);
+  assert.equal(slugs.size, 26);
   assert.equal(articles.filter((a) => a.core).length, 16);
   for (const article of articles) {
     const body = fs.readFileSync(
@@ -20,6 +21,29 @@ test("all registered lessons exist, contain eight sections and valid links", () 
     for (const match of body.matchAll(/\/learn\/([a-z-]+)/g))
       assert.ok(slugs.has(match[1]), match[0]);
   }
+});
+
+test("textbook chapters preserve numbering, skip chapter 5 and restrict chapter 11 to resonance", () => {
+  assert.deepEqual(
+    chapters.map((chapter) => chapter.number),
+    Array.from({ length: 12 }, (_, i) => i + 1),
+  );
+  assert.equal(chapters[4].skipped, true);
+  assert.deepEqual(chapters[4].slugs, []);
+  assert.deepEqual(chapters[10].slugs, ["rlc"]);
+  const assigned = chapters.flatMap((chapter) => chapter.slugs);
+  assert.equal(new Set(assigned).size, assigned.length);
+  assert.deepEqual(
+    assigned,
+    articles.map((article) => article.slug),
+  );
+  for (const chapter of chapters.filter((item) => !item.skipped))
+    assert.ok(chapter.slugs.length > 0);
+  assert.equal(chapterForArticle("rc-circuit").number, 7);
+  assert.equal(chapterForArticle("phasor").number, 8);
+  assert.equal(chapterForArticle("impedance").number, 9);
+  assert.equal(chapterForArticle("coupled-inductors").number, 10);
+  assert.equal(chapterForArticle("rlc").number, 11);
 });
 test("formula catalog renders without KaTeX errors and links to valid lessons", () => {
   for (const formula of formulas) {

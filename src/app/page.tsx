@@ -35,7 +35,7 @@ const modules = [
     description: "用相量与阻抗，简化正弦稳态中的复杂运算。",
     href: "/learn/phasor",
     Icon: Radio,
-    count: "06 个知识点",
+    count: "07 个知识点",
   },
   {
     title: "三相电路",

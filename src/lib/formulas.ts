@@ -9,6 +9,15 @@ export type FormulaEntry = {
 };
 export const formulas: FormulaEntry[] = [
   {
+    name: "耦合因数",
+    latex: "k=\\frac{M}{\\sqrt{L_1L_2}}\\leq1",
+    category: "耦合电感",
+    slug: "coupled-inductors",
+    condition: "线性、无源的两耦合线圈，M取非负互感大小，0≤k≤1。",
+    parameters: ["M、L1、L2：互感与自感 / H", "k：耦合因数，无量纲"],
+    source: "第5版p.255，§10-1",
+  },
+  {
     name: "欧姆定律",
     latex: "u=Ri",
     category: "基础电路",

@@ -58,6 +58,7 @@ export const textbookReferences: Record<
     section: "§11-2",
     pages: "281–282",
   },
+  "coupled-inductors": { section: "§10-1", pages: "253–255" },
   power: {
     section: "§9-4、§9-5",
     pages: "233–239",
