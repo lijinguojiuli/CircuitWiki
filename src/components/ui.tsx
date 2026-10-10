@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Lightbulb, TriangleAlert, Info } from "lucide-react";
+import { CompletionMark } from "./study-progress";
 export function SecondaryBadge() {
   return <span className="secondary-badge">非重点</span>;
 }
@@ -83,16 +84,19 @@ export function KnowledgeCard({
   href,
   index,
   secondaryTopics,
+  slug,
 }: {
   title: string;
   description: string;
   href: string;
   index?: string;
   secondaryTopics?: readonly string[];
+  slug?: string;
 }) {
   return (
     <Link className="knowledge-card" href={href}>
       <span className="card-index">{index ?? "↗"}</span>
+      {slug && <CompletionMark slug={slug} />}
       <ArrowUpRight className="card-arrow" size={20} />
       <h3>{title}</h3>
       <p>{description}</p>
@@ -102,7 +106,7 @@ export function KnowledgeCard({
           <span>{secondaryTopics.join("、")}</span>
         </div>
       )}
-      <span className="card-link">探索知识模块 →</span>
+      <span className="card-link">打开学习页 →</span>
     </Link>
   );
 }
@@ -125,17 +129,4 @@ export function Breadcrumb({
     </nav>
   );
 }
-export function TableOfContents({ items }: { items: string[] }) {
-  return (
-    <nav className="toc" aria-label="本页目录">
-      <p className="eyebrow">阅读导航</p>
-      <strong>本页目录</strong>
-      {items.map((item, i) => (
-        <a href={`#section-${i + 1}`} key={item}>
-          <span>{String(i + 1).padStart(2, "0")}</span>
-          {item}
-        </a>
-      ))}
-    </nav>
-  );
-}
+export { TableOfContents } from "./reading-toc";

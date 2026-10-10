@@ -90,7 +90,7 @@ test("search, quiz, themes and persistence", async ({ page }) => {
   await page.getByRole("textbox", { name: "搜索知识点和公式" }).fill("戴维宁");
   await page
     .locator(".search-results")
-    .getByRole("link", { name: /戴维宁定理/ })
+    .locator('a[href="/learn/thevenin"]')
     .click();
   await expect(page).toHaveURL(/thevenin/);
   await page.getByRole("button", { name: "短路", exact: true }).click();

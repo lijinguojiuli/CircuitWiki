@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "katex/dist/katex.min.css";
 import "./globals.css";
+import "./platform.css";
+import Link from "next/link";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/navigation";
 export const metadata: Metadata = {
@@ -28,7 +30,11 @@ export default function RootLayout({
           <footer>
             <span>CircuitWiki</span>
             <p>理解原理 · 建立直觉 · 连接知识</p>
-            <span>为每一个好奇的电路学习者而建</span>
+            <nav aria-label="页脚导航">
+              <Link href="/curriculum">学习路线</Link>
+              <Link href="/formulas">公式速查</Link>
+              <Link href="/tools">电路工具</Link>
+            </nav>
           </footer>
         </Providers>
       </body>

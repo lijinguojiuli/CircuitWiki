@@ -1,6 +1,6 @@
 # 电路 · CircuitWiki
 
-vibe coding 的电路网站，教材依据为邱关源《电路》第5版。
+按邱关源《电路》第5版组织的电路学习平台。
 
 面向大学电气、电子、自动化专业学生的交互式电路知识库。把知识总结、公式、电路图、例题、常见错误与交互计算放在同一条学习路径上。
 
@@ -8,14 +8,16 @@ vibe coding 的电路网站，教材依据为邱关源《电路》第5版。
 
 ## 已实现功能
 
-- 产品首页、7 类知识入口、按教材章、节顺序组织第1—12章的学习路线与常用知识快捷链接；第4章与第7章只学§1至§4，第5章跳过，第11章仅串联与并联谐振。
+- 首页提供系统学习、解题查阅和动手验证三个入口；六个学习阶段串联教材知识，章节保留教材原章号与节顺序。
+- 本机学习记录：自动记住最近阅读页，手动标记完成，首页继续学习、章节进度与目录完成状态同步。无需登录，清除浏览器数据后记录也会清除；不跨设备同步。
 - 文章目录使用共享布局，切换文章保留滚动位置；刷新和重新打开移动目录也可恢复位置。
 - 40 个本地 MDX 学习页面，包含11篇逐节全览及复数、相量图专题；53个范围内教材小节均提供概念、条件、公式、代入示例和易错点。
 - 三栏知识布局、当前文章高亮、面包屑、8 节页内目录、上一篇/下一篇和知识互链。移动端可展开目录。
 - KaTeX 公式、参数和单位展开、按教材章、节顺序的公式速查，以及关联知识页入口。
 - SVG 元件及分压、RC、RL、节点分析、双网孔、戴维宁等效电路，以及教材电源符号对照与易错提示。
 - 欧姆定律与功率计算、RC 实时响应图、相量双向转换和加减计算，包含空值、数值范围与物理条件校验。
-- 本地搜索覆盖标题、知识点关键词、公式名称，支持 Ctrl/Cmd+K 和 Esc。
+- 全站搜索按相关度排列知识专题、教材小节、公式与工具，支持 Ctrl/Cmd+K、方向键、Enter 和 Esc；公式结果可直接定位卡片。
+- 公式速查支持名称、符号和章节筛选，保留教材顺序、单位与条件，提供空结果恢复和稳定链接。
 - Light / Dark / System 主题、持久化、系统主题变化同步、响应式布局、键盘焦点和跳过导航。
 - 核心课的交互小测验与即时解释。
 - KCL页面的多回路演示可切换元件支路与串联组合计数，并高亮6条回路，区分3个网孔与更大的回路。
@@ -26,7 +28,7 @@ vibe coding 的电路网站，教材依据为邱关源《电路》第5版。
 - 电源等效变换、四类受控源与含源桥臂案例；桥臂参数可实时调整并切换端口状态。
 - 正弦瞬时值与波形实验、分步相量画图、Y/Δ三相对照；公式速查包含69条关系，保持教材顺序。
 
-模拟电子、数字电路目前提供独立课程规划页，不冒充已完成课程。无账户、数据库和外部服务密钥。
+模拟电子、数字电路的旧课程规划链接仍可访问，已从首页学习入口中移除。无账户、数据库和外部服务密钥。产品审查与优化记录见 [docs/product-review.md](docs/product-review.md)。
 
 ## 技术栈
 
@@ -106,15 +108,15 @@ CircuitWiki/
 
 ## 截图
 
-`docs/screenshots/` 保存实际浏览器截图：`home-desktop.png`、`home-mobile.png`、`knowledge-desktop.png`、`knowledge-dark.png`、`tools-light.png`、`tools-dark.png`。
+`docs/screenshots/product-*.png` 保存本次产品改版的实际浏览器截图，覆盖首页、学习路线、知识页、公式筛选、手机端和深色模式。其他文件为此前版本与科学图示验收记录。
 
-![首页](docs/screenshots/home-desktop.png)
+![首页](docs/screenshots/product-home.png)
 
 服务启动后可重新生成：
 
 ```bash
 npx playwright install chromium
-node tests/capture.mjs
+node tests/capture-product.mjs
 ```
 
 Windows 已安装 Edge 时，可设置 `$env:PLAYWRIGHT_CHANNEL='msedge'` 后运行，避免额外下载浏览器。
@@ -122,7 +124,7 @@ Windows 已安装 Edge 时，可设置 `$env:PLAYWRIGHT_CHANNEL='msedge'` 后运
 ## 如何新增知识文章
 
 1. 在 `content/circuits`、`content/dynamics`、`content/ac`、`content/reviews` 或 `content/three-phase` 添加对应 slug 的 `.mdx` 文件。
-2. 在 `src/lib/content.ts` 的 `articleEntries` 增加元数据，并将 slug 加入 `src/lib/chapters.ts` 对应章的 `slugs`。在同一文件的 `lessonSections` 中设置主教材节号，目录和上一篇/下一篇按章、节排序；同节条目按 slugs 的声明顺序排列；`folder` 必须与文件目录一致。`keywords` 用于搜索，`core` 区分完整课与导读。
+2. 在 `src/lib/content.ts` 的 `articleEntries` 增加元数据，并将 slug 加入 `src/lib/chapters.ts` 对应章的 `slugs`。在同一文件的 `lessonSections` 中设置主教材节号，目录和上一篇/下一篇按章、节排序；同节条目按 slugs 的声明顺序排列；`folder` 必须与文件目录一致。`keywords` 用于搜索；产品中的“章节全览 / 知识专题 / 综合例题”由 `src/lib/learning.ts` 的 `lessonKind` 统一区分。
 3. 保持下面的 8 个二级标题，编号自动映射到 `section-1` 至 `section-8`，供目录定位。
 4. 使用 `/learn/slug` 链接，运行测试与构建。无需手动增加页面路由。
 

@@ -5,6 +5,8 @@ import { ArticleBody } from "@/lib/mdx";
 import { chapterForArticle, chapterLabel, chapterId } from "@/lib/chapters";
 import { Breadcrumb, TableOfContents, SecondaryBadge } from "@/components/ui";
 import { textbookReferences } from "@/lib/textbook";
+import { lessonKind, relatedTool } from "@/lib/learning";
+import { LessonProgress } from "@/components/study-progress";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -28,6 +30,7 @@ export default async function KnowledgePage({
   if (index < 0) notFound();
   const article = articles[index];
   const chapter = chapterForArticle(slug);
+  const tool = relatedTool(slug);
   return (
     <>
       <main id="main" className="article">
@@ -38,7 +41,7 @@ export default async function KnowledgePage({
         />
         <div className="article-header">
           <div className="eyebrow">
-            {chapterLabel(chapter)} / {article.core ? "核心知识" : "基础导读"}
+            {chapterLabel(chapter)} / {lessonKind(slug)}
           </div>
           <h1>{article.title}</h1>
           <p>{article.description}</p>
@@ -59,6 +62,16 @@ export default async function KnowledgePage({
             {textbookReferences[slug].pages}
           </p>
         </div>
+        <nav className="lesson-shortcuts" aria-label="本页学习入口">
+          <a href="#section-1">理解概念</a>
+          <a href="#section-3">查看公式</a>
+          <a href="#section-6">跟着例题练习</a>
+          {!slug.startsWith("chapter-") && (
+            <Link href={`/learn/chapter-${chapter.number}-summary`}>
+              本章全览 ↗
+            </Link>
+          )}
+        </nav>
         <details className="mobile-toc">
           <summary>展开本页目录</summary>
           <TableOfContents items={sections} />
@@ -66,6 +79,7 @@ export default async function KnowledgePage({
         <div className="prose">
           <ArticleBody article={article} />
         </div>
+        <LessonProgress slug={slug} />
         <nav className="prev-next" aria-label="文章翻页">
           {index > 0 ? (
             <Link href={articleHref(articles[index - 1].slug)}>
@@ -86,9 +100,12 @@ export default async function KnowledgePage({
       <aside className="right-sidebar">
         <TableOfContents items={sections} />
         <div className="toc-help">
-          <span>学以致用</span>
-          <p>在交互实验中验证你的理解。</p>
-          <Link href="/tools">进入电路实验室 ↗</Link>
+          <span>配合学习</span>
+          <p>查公式的条件与符号，再用计算验证理解。</p>
+          <Link href={`/formulas#formula-chapter-${chapter.number}`}>
+            本章公式速查 ↗
+          </Link>
+          <Link href={`/tools#${tool.id}`}>{tool.title} ↗</Link>
         </div>
       </aside>
     </>

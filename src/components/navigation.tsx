@@ -2,58 +2,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { useTheme } from "next-themes";
+import { flushSync } from "react-dom";
 import {
   Search as SearchIcon,
   Menu,
   X,
-  Sun,
-  Moon,
-  Monitor,
   BookOpen,
   ArrowUpRight,
   Zap,
 } from "lucide-react";
-import { articles, articleHref } from "@/lib/content";
-import { chapterForArticle, chapterLabel } from "@/lib/chapters";
 import { MobileDirectory } from "./sidebar-panel";
-import { formulas } from "@/lib/formulas";
-export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  return (
-    <div className="theme-toggle" aria-label="外观模式">
-      {[
-        { id: "light", label: "Light 浅色", Icon: Sun },
-        { id: "dark", label: "Dark 深色", Icon: Moon },
-        { id: "system", label: "System 跟随系统", Icon: Monitor },
-      ].map(({ id, label, Icon }) => (
-        <button
-          key={id}
-          title={label}
-          aria-label={label}
-          onClick={() => setTheme(id)}
-          data-theme-choice={id}
-          className={theme === id ? "active" : ""}
-          suppressHydrationWarning
-        >
-          <Icon size={15} />
-        </button>
-      ))}
-    </div>
-  );
-}
+import { searchContent } from "@/lib/search";
+import { ThemeToggle } from "./theme-toggle";
 export function Search() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const input = useRef<HTMLInputElement>(null);
-  const matches = articles.filter((a) =>
-    `${a.title} ${a.keywords.join(" ")} ${formulas
-      .filter((f) => f.slug === a.slug)
-      .map((f) => f.name)
-      .join(" ")}`
-      .toLowerCase()
-      .includes(query.trim().toLowerCase()),
-  );
+  const results = useRef<HTMLDivElement>(null);
+  const matches = searchContent(query);
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
@@ -80,36 +46,80 @@ export function Search() {
       <input
         ref={input}
         aria-label="搜索知识点和公式"
-        placeholder="搜索知识点、公式…"
+        placeholder="搜索知识、公式、工具…"
         value={query}
         onFocus={() => setOpen(true)}
         onChange={(e) => {
           setQuery(e.target.value);
           setOpen(true);
         }}
+        onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing) return;
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            results.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+          }
+          if (e.key === "Enter" && open)
+            results.current?.querySelector<HTMLAnchorElement>("a")?.click();
+        }}
       />
       <kbd>Ctrl K</kbd>
       {open && (
-        <div className="search-results">
+        <div
+          className="search-results"
+          ref={results}
+          onKeyDown={(e) => {
+            if (!["ArrowDown", "ArrowUp"].includes(e.key)) return;
+            e.preventDefault();
+            const links = [
+              ...e.currentTarget.querySelectorAll<HTMLAnchorElement>("a"),
+            ];
+            const index = links.indexOf(
+              document.activeElement as HTMLAnchorElement,
+            );
+            const next = index + (e.key === "ArrowDown" ? 1 : -1);
+            if (next < 0) input.current?.focus();
+            else links[Math.min(next, links.length - 1)]?.focus();
+          }}
+        >
           <div className="eyebrow">{query ? "搜索结果" : "快速跳转"}</div>
-          {matches.slice(0, 8).map((a) => (
-            <Link
-              onClick={() => {
-                setOpen(false);
-                input.current?.blur();
-              }}
-              key={a.slug}
-              href={articleHref(a.slug)}
-            >
-              <BookOpen size={16} />
-              <span>
-                {a.title}
-                <small>{chapterLabel(chapterForArticle(a.slug))}</small>
-              </span>
-              <ArrowUpRight size={14} />
-            </Link>
-          ))}
+          {matches.map((result) => {
+            // Native fragment navigation reveals a formula hidden by filters.
+            const ResultLink = result.kind === "公式" ? "a" : Link;
+            return (
+              <ResultLink
+                onClick={() => {
+                  // Restore filtered cards before the browser resolves the fragment.
+                  if (
+                    result.kind === "公式" &&
+                    window.location.pathname === "/formulas"
+                  ) {
+                    flushSync(() =>
+                      window.dispatchEvent(
+                        new Event("circuitwiki:reveal-formula"),
+                      ),
+                    );
+                  }
+                  setOpen(false);
+                  input.current?.blur();
+                }}
+                key={result.id}
+                href={result.href}
+              >
+                <BookOpen size={16} />
+                <span>
+                  <span className="search-result-kind">{result.kind}</span>
+                  <strong>{result.title}</strong>
+                  <small>{result.detail}</small>
+                </span>
+                <ArrowUpRight size={14} />
+              </ResultLink>
+            );
+          })}
           {matches.length === 0 && <p>未找到结果，试试“电容”或“相量”。</p>}
+          <div className="search-hint">
+            ↑ ↓ 选择 <span>Enter 打开 · Esc 关闭</span>
+          </div>
         </div>
       )}
     </div>
@@ -126,7 +136,6 @@ export function Header() {
             <Zap size={21} />
           </span>
           Circuit<span>Wiki</span>
-          <small>BETA</small>
         </Link>
         <div className="desktop-nav">
           <Link
@@ -137,7 +146,7 @@ export function Header() {
             }
             href="/curriculum"
           >
-            知识库
+            学习路线
           </Link>
           <Link
             className={path === "/formulas" ? "active" : ""}

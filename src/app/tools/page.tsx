@@ -3,25 +3,43 @@ import {
   RCCalculator,
   PhasorCalculator,
 } from "@/components/calculators";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { learningTools } from "@/lib/learning";
 export const metadata = { title: "电路工具" };
 export default function ToolsPage() {
   return (
-    <main id="main" className="page-container tools-page">
-      <div className="eyebrow">电路工具</div>
-      <h1>
-        电路实验室<span className="heading-dot">.</span>
-      </h1>
+    <main id="main" className="page-container tools-page platform-page">
+      <div className="platform-kicker">动手验证你的理解</div>
+      <h1>电路工具</h1>
       <p className="page-lead">
-        改变一个参数，观察一个结果。让抽象的原理变得具体。
+        选择要解决的问题，输入参数并观察结果。每个工具都配有公式和适用条件，可与知识专题一起使用。
       </p>
-      <nav className="anchor-pills">
-        <a href="#ohm">01 欧姆定律</a>
-        <a href="#rc">02 RC 响应</a>
-        <a href="#phasor">03 相量计算</a>
+      <nav className="tool-intents" aria-label="选择计算工具">
+        {learningTools.map((tool, index) => (
+          <a href={`#${tool.id}`} key={tool.id}>
+            <span>0{index + 1}</span>
+            <h2>{tool.label}</h2>
+            <p>{tool.description}</p>
+            <ArrowRight size={17} />
+          </a>
+        ))}
       </nav>
       <OhmCalculator />
+      <Link className="tool-reading-link" href="/learn/kcl-kvl">
+        复习欧姆定律与功率的参考方向
+        <ArrowUpRight size={15} />
+      </Link>
       <RCCalculator />
+      <Link className="tool-reading-link" href="/learn/rc-circuit">
+        理解时间常数与一阶电路三要素
+        <ArrowUpRight size={15} />
+      </Link>
       <PhasorCalculator />
+      <Link className="tool-reading-link" href="/learn/phasor">
+        复习有效值相量与复数运算
+        <ArrowUpRight size={15} />
+      </Link>
     </main>
   );
 }

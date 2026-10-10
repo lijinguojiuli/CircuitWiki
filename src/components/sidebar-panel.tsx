@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { Sidebar } from "./sidebar";
+import { ThemeToggle } from "./theme-toggle";
 
 function useDirectoryScroll<T extends HTMLElement>(key: string) {
   const ref = useRef<T>(null);
@@ -66,6 +67,10 @@ export function MobileDirectory({ onNavigate }: { onNavigate: () => void }) {
         <Link href="/tools" onClick={navigate}>
           电路工具
         </Link>
+      </div>
+      <div className="mobile-settings">
+        <span>外观</span>
+        <ThemeToggle />
       </div>
       <Sidebar onNavigate={navigate} />
     </div>

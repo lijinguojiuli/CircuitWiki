@@ -19,7 +19,7 @@ test("all 53 in-scope sections have live anchors and rendered instructional cont
     }
   }
   await page.goto("/curriculum");
-  await expect(page.locator("h1")).toContainText("按教材章节学习");
+  await expect(page.locator("h1")).toHaveText("学习路线");
   await expect(page.locator(".coverage-grid a")).toHaveCount(53);
   await page.locator("#chapter-7 .coverage-detail summary").click();
   await page.locator('a[href="/learn/chapter-7-summary#textbook-7-2"]').click();

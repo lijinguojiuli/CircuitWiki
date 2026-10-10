@@ -35,8 +35,8 @@ test("formula reference follows textbook chapters and removed material stays abs
   await page.keyboard.press("Escape");
   await page.goto("/curriculum");
   await expect(page.locator("#chapter-3 .card-index")).toHaveText([
-    "§3-1 · 核心",
-    "§3-4 · 核心",
-    "§3-6 · 核心",
+    "§3-1 · 章节全览",
+    "§3-4 · 知识专题",
+    "§3-6 · 知识专题",
   ]);
 });

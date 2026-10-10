@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { BookOpen, Zap } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
 import { learningChapters, lessonSectionLabel } from "@/lib/chapters";
+import { CompletionMark } from "./study-progress";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname();
@@ -51,7 +52,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                     </small>
                   )}
                 </span>
-                {article.core && <span className="core-dot" />}
+                <CompletionMark slug={slug} />
               </Link>
             );
           })}
