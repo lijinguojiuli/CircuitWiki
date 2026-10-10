@@ -7,6 +7,10 @@ import { Breadcrumb, TableOfContents, SecondaryBadge } from "@/components/ui";
 import { textbookReferences } from "@/lib/textbook";
 import { lessonKind, relatedTool } from "@/lib/learning";
 import { LessonProgress } from "@/components/study-progress";
+import { ArticleConnections } from "@/components/article-connections";
+import { BookmarkButton, ReadingProgress } from "@/components/reading-tools";
+import { pageMetadata, siteUrl } from "@/lib/seo";
+import { StructuredData } from "@/components/structured-data";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -18,7 +22,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
-  return { title: article?.title, description: article?.description };
+  return article
+    ? pageMetadata(article.title, article.description, `/learn/${slug}`)
+    : {};
 }
 export default async function KnowledgePage({
   params,
@@ -34,6 +40,40 @@ export default async function KnowledgePage({
   return (
     <>
       <main id="main" className="article">
+        <StructuredData
+          data={{
+            "@context": "https://schema.org",
+            "@type": "LearningResource",
+            name: article.title,
+            description: article.description,
+            url: `${siteUrl}/learn/${slug}`,
+            inLanguage: "zh-CN",
+            isAccessibleForFree: true,
+            learningResourceType: "知识专题",
+            publisher: { "@type": "Organization", name: "CircuitWiki" },
+          }}
+        />
+        <StructuredData
+          data={{
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "首页", item: siteUrl },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: chapterLabel(chapter),
+                item: `${siteUrl}/curriculum#${chapterId(chapter.number)}`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: article.title,
+                item: `${siteUrl}/learn/${slug}`,
+              },
+            ],
+          }}
+        />
         <Breadcrumb
           category={chapterLabel(chapter)}
           categoryHref={`/curriculum#${chapterId(chapter.number)}`}
@@ -44,6 +84,10 @@ export default async function KnowledgePage({
             {chapterLabel(chapter)} / {lessonKind(slug)}
           </div>
           <h1>{article.title}</h1>
+          <div className="article-learning-tools">
+            <ReadingProgress slug={slug} />
+            <BookmarkButton slug={slug} />
+          </div>
           <p>{article.description}</p>
           {article.secondaryTopics && (
             <div className="secondary-topic-label">
@@ -76,6 +120,10 @@ export default async function KnowledgePage({
           <summary>展开本页目录</summary>
           <TableOfContents items={sections} />
         </details>
+        <details className="mobile-connections">
+          <summary>前置知识与相关概念</summary>
+          <ArticleConnections slug={slug} />
+        </details>
         <div className="prose">
           <ArticleBody article={article} />
         </div>
@@ -99,13 +147,14 @@ export default async function KnowledgePage({
       </main>
       <aside className="right-sidebar">
         <TableOfContents items={sections} />
+        <ArticleConnections slug={slug} compact />
         <div className="toc-help">
           <span>配合学习</span>
           <p>查公式的条件与符号，再用计算验证理解。</p>
           <Link href={`/formulas#formula-chapter-${chapter.number}`}>
             本章公式速查 ↗
           </Link>
-          <Link href={`/tools#${tool.id}`}>{tool.title} ↗</Link>
+          {tool && <Link href={`/tools#${tool.id}`}>{tool.title} ↗</Link>}
         </div>
       </aside>
     </>

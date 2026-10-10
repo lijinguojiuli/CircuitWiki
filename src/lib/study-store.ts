@@ -1,91 +1,110 @@
 "use client";
-
 import { useSyncExternalStore } from "react";
-import { articles } from "./content";
-
-type StudyState = { completed: readonly string[]; lastSlug: string | null };
-const empty: StudyState = { completed: [], lastSlug: null };
-const key = "circuitwiki:study:v1";
-const validSlugs = new Set(articles.map((article) => article.slug));
+import {
+  emptyStudy,
+  isArticleSlug,
+  normalizeStudy,
+  mergeStudy,
+  type StudyState,
+} from "./study-data";
+const key = "circuitwiki:study:v2";
+const legacyKey = "circuitwiki:study:v1";
 const listeners = new Set<() => void>();
 let cachedRaw: string | null | undefined;
-let cachedState = empty;
+let cachedState = emptyStudy;
 let memoryOnly = false;
-
 function read(): StudyState {
-  if (typeof window === "undefined") return empty;
+  if (typeof window === "undefined") return emptyStudy;
   if (memoryOnly) return cachedState;
+  let raw: string | null;
   try {
-    const raw = window.localStorage.getItem(key);
-    if (raw === cachedRaw) return cachedState;
-    cachedRaw = raw;
-    const data: unknown = raw ? JSON.parse(raw) : null;
-    if (!data || typeof data !== "object") return (cachedState = empty);
-    const record = data as Record<string, unknown>;
-    cachedState = {
-      completed: Array.isArray(record.completed)
-        ? [
-            ...new Set(
-              record.completed.filter(
-                (slug): slug is string =>
-                  typeof slug === "string" && validSlugs.has(slug),
-              ),
-            ),
-          ]
-        : [],
-      lastSlug:
-        typeof record.lastSlug === "string" && validSlugs.has(record.lastSlug)
-          ? record.lastSlug
-          : null,
-    };
-    return cachedState;
+    raw =
+      window.localStorage.getItem(key) ??
+      window.localStorage.getItem(legacyKey);
   } catch {
-    // Storage may be unavailable; keep an in-memory record for this visit.
     return cachedState;
   }
+  if (raw === cachedRaw) return cachedState;
+  cachedRaw = raw;
+  try {
+    cachedState = raw ? normalizeStudy(JSON.parse(raw)) : emptyStudy;
+  } catch {
+    cachedState = emptyStudy;
+  }
+  return cachedState;
 }
-
 function subscribe(listener: () => void) {
   listeners.add(listener);
-  const onStorage = (event: StorageEvent) => {
-    if (event.key === key || event.key === null) listener();
+  const changed = (event: StorageEvent) => {
+    if (event.key === key || event.key === legacyKey || event.key === null)
+      listener();
   };
-  window.addEventListener("storage", onStorage);
+  window.addEventListener("storage", changed);
   return () => {
     listeners.delete(listener);
-    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("storage", changed);
   };
 }
-
 function write(state: StudyState) {
   cachedState = state;
   cachedRaw = JSON.stringify(state);
   try {
     window.localStorage.setItem(key, cachedRaw);
   } catch {
-    // A failed write must not be replaced by older readable storage data.
     memoryOnly = true;
   }
   listeners.forEach((listener) => listener());
 }
-
 export function recordVisit(slug: string) {
   const state = read();
-  if (validSlugs.has(slug) && state.lastSlug !== slug)
-    write({ ...state, lastSlug: slug });
+  if (
+    !isArticleSlug(slug) ||
+    (state.lastSlug === slug &&
+      state.history[0]?.slug === slug &&
+      Date.now() - Date.parse(state.history[0].visitedAt) < 60_000)
+  )
+    return;
+  const previous = state.history.find((entry) => entry.slug === slug);
+  write({
+    ...state,
+    lastSlug: slug,
+    history: [
+      {
+        slug,
+        visitedAt: new Date().toISOString(),
+        progress: previous?.progress ?? 0,
+      },
+      ...state.history.filter((entry) => entry.slug !== slug),
+    ].slice(0, 100),
+  });
 }
-
-export function toggleCompleted(slug: string) {
-  if (!validSlugs.has(slug)) return;
+export function recordReading(slug: string, progress: number) {
+  const state = read();
+  const existing = state.history.find((entry) => entry.slug === slug);
+  if (!existing || !Number.isFinite(progress) || progress <= existing.progress)
+    return;
+  write({
+    ...state,
+    history: state.history.map((entry) =>
+      entry.slug === slug
+        ? { ...entry, progress: Math.min(100, Math.round(progress)) }
+        : entry,
+    ),
+  });
+}
+function toggle(slug: string, field: "completed" | "bookmarks") {
+  if (!isArticleSlug(slug)) return;
   const state = read();
   write({
     ...state,
-    completed: state.completed.includes(slug)
-      ? state.completed.filter((item) => item !== slug)
-      : [...state.completed, slug],
+    [field]: state[field].includes(slug)
+      ? state[field].filter((item) => item !== slug)
+      : [...state[field], slug],
   });
 }
-
-export function useStudy() {
-  return useSyncExternalStore(subscribe, read, () => empty);
-}
+export const toggleCompleted = (slug: string) => toggle(slug, "completed");
+export const toggleBookmark = (slug: string) => toggle(slug, "bookmarks");
+export const importStudy = (state: StudyState) =>
+  write(mergeStudy(read(), state));
+export const useStudy = () =>
+  useSyncExternalStore(subscribe, read, () => emptyStudy);

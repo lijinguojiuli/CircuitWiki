@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { formulas } from "@/lib/formulas";
 import { FormulaCard } from "@/components/formula";
@@ -8,7 +9,12 @@ import { formulaId } from "@/lib/search";
 const formulaChapters = chapters.filter((chapter) =>
   formulas.some((formula) => formula.position[0] === chapter.number),
 );
-export const metadata = { title: "公式速查" };
+export const metadata = pageMetadata(
+  "公式速查",
+  "按教材顺序查阅69条电路公式，搜索名称与符号，理解适用条件、参数单位和教材出处。",
+  "/formulas",
+  true,
+);
 export default function FormulasPage() {
   return (
     <main id="main" className="page-container platform-page reference-page">

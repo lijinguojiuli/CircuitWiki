@@ -16,6 +16,8 @@ import { formulas } from "@/lib/formulas";
 import { learningStages, stageLessons } from "@/lib/learning";
 import { StudyResume } from "@/components/study-progress";
 import { CircuitDiagram } from "@/components/circuit-diagram";
+import { learningPaths } from "@/lib/paths";
+import { contentUpdates } from "@/lib/updates";
 
 const stageIcons = [GitBranch, Network, Activity, Radio, Layers, Network];
 export default function Home() {
@@ -30,15 +32,15 @@ export default function Home() {
             从每一个连接开始。
           </h1>
           <p className="platform-lead">
-            面向电气、电子与自动化专业学生。沿教材建立知识体系，让公式、图解与交互实验一起帮助你理解。
+            面向大学生、工程师与电子爱好者。从电路理论出发，连接概念、公式、图解与实验，建立属于自己的知识体系。
           </p>
           <div className="platform-actions">
             <Link className="button primary" href="/learn/chapter-1-summary">
               开始学习
               <ArrowRight size={17} />
             </Link>
-            <Link className="button secondary" href="/curriculum">
-              查看学习路线
+            <Link className="button secondary" href="/knowledge">
+              探索知识体系
               <ArrowUpRight size={17} />
             </Link>
           </div>
@@ -47,6 +49,20 @@ export default function Home() {
             <span>{formulas.length} 条公式</span>
             <span>教材顺序 · 逐节串联</span>
           </div>
+          <form className="home-search-form" action="/search">
+            <label htmlFor="home-search">从一个问题开始</label>
+            <div>
+              <Search size={17} />
+              <input
+                id="home-search"
+                name="q"
+                placeholder="搜索知识点、公式或符号"
+              />
+              <button type="submit" aria-label="搜索知识">
+                搜索 →
+              </button>
+            </div>
+          </form>
         </div>
         <div className="platform-preview">
           <div className="platform-preview-title">
@@ -104,6 +120,33 @@ export default function Home() {
       <section className="platform-section">
         <div className="platform-section-heading">
           <div>
+            <span className="platform-kicker">推荐学习路径</span>
+            <h2>找到适合你的起点</h2>
+            <p>从零入门、复习方法，或专注一个专题。</p>
+          </div>
+          <Link href="/paths">查看全部路径 ↗</Link>
+        </div>
+        <div className="path-grid">
+          {learningPaths.map((path) => (
+            <Link
+              className="path-card"
+              key={path.slug}
+              href={`/paths/${path.slug}`}
+            >
+              <span className="platform-kicker">{path.audience}</span>
+              <h3>{path.title}</h3>
+              <p>{path.description}</p>
+              <div>
+                <span>{path.slugs.length} 篇学习页</span>
+                <span>查看路径 →</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="platform-section">
+        <div className="platform-section-heading">
+          <div>
             <span className="platform-kicker">知识体系</span>
             <h2>把知识连成一条学习路径</h2>
             <p>六个学习阶段，沿邱关源《电路》第5版的章节顺序展开。</p>
@@ -142,7 +185,7 @@ export default function Home() {
       <section className="platform-section platform-popular">
         <div>
           <span className="platform-kicker">随手查阅</span>
-          <h2>常用知识入口</h2>
+          <h2>热门知识 · 编辑精选</h2>
           <p>
             已经有具体问题？直接进入对应专题。
             <br />
@@ -170,6 +213,27 @@ export default function Home() {
               </Link>
             );
           })}
+        </div>
+      </section>
+      <section className="platform-section">
+        <div className="platform-section-heading">
+          <div>
+            <span className="platform-kicker">持续维护</span>
+            <h2>最新内容更新</h2>
+            <p>记录真实的内容修订，帮助你及时回顾。</p>
+          </div>
+        </div>
+        <div className="content-updates">
+          {contentUpdates.map((update) => (
+            <Link href={`/learn/${update.slug}`} key={update.title}>
+              <time dateTime={update.date}>{update.date}</time>
+              <div>
+                <h3>{update.title}</h3>
+                <p>{update.description}</p>
+              </div>
+              <ArrowUpRight size={17} />
+            </Link>
+          ))}
         </div>
       </section>
       <section className="platform-method">

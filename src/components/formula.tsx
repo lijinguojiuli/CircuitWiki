@@ -58,8 +58,9 @@ export function FormulaCard({
         {emphasis === "secondary" && <SecondaryBadge />}
       </div>
       {href ? (
-        <Link href={href} aria-label={`${name}：查看知识点`}>
+        <Link href={href}>
           <Formula latex={latex} />
+          <span className="sr-only">{name}：查看知识点</span>
         </Link>
       ) : (
         <Formula latex={latex} />

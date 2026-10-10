@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import {
   OhmCalculator,
   RCCalculator,
@@ -6,7 +7,12 @@ import {
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { learningTools } from "@/lib/learning";
-export const metadata = { title: "电路工具" };
+export const metadata = pageMetadata(
+  "电路工具",
+  "使用欧姆定律、RC响应和相量计算工具，调整参数并验证电路学习中的公式与规律。",
+  "/tools",
+  true,
+);
 export default function ToolsPage() {
   return (
     <main id="main" className="page-container tools-page platform-page">

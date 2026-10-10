@@ -42,7 +42,9 @@ import { ThreePhaseSourceDiagram } from "@/components/three-phase-source-diagram
 import { SourceCombinationGuide } from "@/components/source-combination-guide";
 import { PhasorConstruction } from "@/components/phasor-construction";
 import { ThreePhaseLab } from "@/components/three-phase-lab";
+import { CodeBlock } from "@/components/primitives";
 const components: MDXComponents = {
+  pre: CodeBlock,
   ParallelResonanceDiagram,
   SinusoidalLab,
   CompensationDiagram,

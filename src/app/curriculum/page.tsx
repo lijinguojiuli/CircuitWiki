@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
@@ -11,7 +12,12 @@ import { ChapterProgress, StudyResume } from "@/components/study-progress";
 import { textbookTopics } from "@/lib/textbook-scope";
 import { learningStages, lessonKind } from "@/lib/learning";
 
-export const metadata = { title: "学习路线" };
+export const metadata = pageMetadata(
+  "学习路线",
+  "按邱关源《电路》第5版的章、节顺序组织学习，查看章节全览、专题和学习进度。",
+  "/curriculum",
+  true,
+);
 export default function Curriculum() {
   return (
     <main id="main" className="page-container platform-page curriculum-page">
@@ -28,6 +34,9 @@ export default function Curriculum() {
         </div>
       </div>
       <StudyResume />
+      <Link className="tool-reading-link" href="/paths">
+        按学习目标选择推荐路径 ↗
+      </Link>
       <section className="route-orientation" aria-label="学习路线使用说明">
         <strong>先建立全貌，再深入专题</strong>
         <p>

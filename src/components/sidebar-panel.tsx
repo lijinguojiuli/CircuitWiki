@@ -61,6 +61,15 @@ export function MobileDirectory({ onNavigate }: { onNavigate: () => void }) {
   return (
     <div className="mobile-menu" ref={ref} onScroll={remember}>
       <div className="mobile-top-links">
+        <Link href="/me" onClick={navigate}>
+          我的学习
+        </Link>
+        <Link href="/knowledge" onClick={navigate}>
+          知识体系
+        </Link>
+        <Link href="/paths" onClick={navigate}>
+          推荐路径
+        </Link>
         <Link href="/formulas" onClick={navigate}>
           公式速查
         </Link>

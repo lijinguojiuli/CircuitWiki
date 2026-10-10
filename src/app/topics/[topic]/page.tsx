@@ -1,5 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { pageMetadata } from "@/lib/seo";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ topic: string }>;
+}) {
+  const { topic } = await params;
+  return pageMetadata(
+    topic === "analog" ? "模拟电子" : "数字电路",
+    "后续工程知识领域的课程建设规划。",
+    `/topics/${topic}`,
+    false,
+  );
+}
 export function generateStaticParams() {
   return [{ topic: "analog" }, { topic: "digital" }];
 }

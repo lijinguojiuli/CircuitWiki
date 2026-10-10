@@ -84,12 +84,7 @@ export const learningTools = [
 ] as const;
 
 export function relatedTool(slug: string) {
-  if (
-    ["rc-circuit", "capacitor", "rl-circuit", "chapter-7-summary"].includes(
-      slug,
-    )
-  )
-    return learningTools[1];
+  if (["rc-circuit", "capacitor"].includes(slug)) return learningTools[1];
   if (
     [
       "phasor",
@@ -102,5 +97,6 @@ export function relatedTool(slug: string) {
     ].includes(slug)
   )
     return learningTools[2];
-  return learningTools[0];
+  if (["kcl-kvl", "chapter-1-summary"].includes(slug)) return learningTools[0];
+  return null;
 }

@@ -3,6 +3,7 @@ import { chapterForArticle, chapterLabel } from "./chapters";
 import { formulas, type FormulaEntry } from "./formulas";
 import { learningTools, lessonKind } from "./learning";
 import { textbookTopics } from "./textbook-scope";
+import { areaForArticle } from "./knowledge";
 
 export const formulaId = (formula: Pick<FormulaEntry, "position">) =>
   `formula-${formula.position.join("-")}`;
@@ -20,6 +21,8 @@ export type SearchResult = {
   kind: string;
   href: string;
   keywords: string;
+  area: string;
+  chapter: number;
 };
 
 const entries: SearchResult[] = [
@@ -30,6 +33,8 @@ const entries: SearchResult[] = [
     kind: lessonKind(article.slug),
     href: `/learn/${article.slug}`,
     keywords: article.keywords.join(" "),
+    area: areaForArticle(article.slug).id,
+    chapter: chapterForArticle(article.slug).number,
   })),
   ...textbookTopics.map((topic) => ({
     id: topic.anchor,
@@ -38,6 +43,8 @@ const entries: SearchResult[] = [
     kind: "教材小节",
     href: `/learn/${topic.slug}#${topic.anchor}`,
     keywords: topic.title,
+    area: areaForArticle(topic.slug).id,
+    chapter: topic.chapter,
   })),
   ...formulas.map((formula) => ({
     id: formulaId(formula),
@@ -46,6 +53,8 @@ const entries: SearchResult[] = [
     kind: "公式",
     href: `/formulas#${formulaId(formula)}`,
     keywords: `${formula.latex} ${formula.parameters.join(" ")} ${formula.name.includes("时间常数") ? "tau τ tao" : ""}`,
+    area: areaForArticle(formula.slug).id,
+    chapter: formula.position[0],
   })),
   ...learningTools.map((tool) => ({
     id: `tool-${tool.id}`,
@@ -54,12 +63,18 @@ const entries: SearchResult[] = [
     kind: "交互工具",
     href: `/tools#${tool.id}`,
     keywords: tool.keywords,
+    area: areaForArticle(tool.slug).id,
+    chapter: chapterForArticle(tool.slug).number,
   })),
 ];
 
-export function searchContent(query: string, limit = 8): SearchResult[] {
+export function searchContent(
+  query: string,
+  limit = 8,
+  filter: { kind?: string; area?: string } = {},
+): SearchResult[] {
   const normalized = normalizeSearch(query);
-  if (!normalized) {
+  if (!normalized && limit <= 8 && !filter.kind && !filter.area) {
     const popular = [
       "kcl-kvl",
       "nodal-analysis",
@@ -73,10 +88,16 @@ export function searchContent(query: string, limit = 8): SearchResult[] {
       .slice(0, limit);
   }
   return entries
+    .filter(
+      (entry) =>
+        (!filter.kind || entry.kind === filter.kind) &&
+        (!filter.area || entry.area === filter.area),
+    )
     .map((entry, order) => {
       const title = normalizeSearch(entry.title);
-      const score =
-        title === normalized
+      const score = !normalized
+        ? 1
+        : title === normalized
           ? 100
           : title.startsWith(normalized)
             ? 80

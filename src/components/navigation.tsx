@@ -117,6 +117,16 @@ export function Search() {
             );
           })}
           {matches.length === 0 && <p>未找到结果，试试“电容”或“相量”。</p>}
+          <Link
+            className="all-search-results"
+            href={`/search?q=${encodeURIComponent(query)}`}
+            onClick={() => {
+              setOpen(false);
+              input.current?.blur();
+            }}
+          >
+            查看全部结果与分类筛选 →
+          </Link>
           <div className="search-hint">
             ↑ ↓ 选择 <span>Enter 打开 · Esc 关闭</span>
           </div>
@@ -140,7 +150,17 @@ export function Header() {
         <div className="desktop-nav">
           <Link
             className={
-              path.startsWith("/learn") || path === "/curriculum"
+              path === "/knowledge" || path === "/graph" ? "active" : ""
+            }
+            href="/knowledge"
+          >
+            知识体系
+          </Link>
+          <Link
+            className={
+              path.startsWith("/learn") ||
+              path === "/curriculum" ||
+              path.startsWith("/paths")
                 ? "active"
                 : ""
             }
@@ -159,6 +179,9 @@ export function Header() {
           </Link>
         </div>
         <Search />
+        <Link href="/me" className="personal-entry">
+          我的学习
+        </Link>
         <ThemeToggle />
         <button
           className="menu-button"
