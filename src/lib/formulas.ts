@@ -207,7 +207,7 @@ const formulaEntries: FormulaEntry[] = [
   {
     name: "电压源、电流源的串联和并联关系",
     latex: "U_{eq}=\\sum U_{Sk},\\qquad I_{eq}=\\sum I_{Sk}",
-    position: [2, 5, 20],
+    position: [2, 5, 1],
     slug: "chapter-2-summary",
     condition:
       "串联电压源的电压按极性相加，并联电流源的电流按方向相加。理想电压源并联必须电压一致，理想电流源串联必须电流一致，否则约束矛盾。源的未约束量由外部电路决定。",

@@ -80,6 +80,7 @@ test("quick reference follows textbook sections and excludes removed topics", ()
     );
   };
   before("三角形转星形", "对称星三角变换");
+  before("电压源、电流源的串联和并联关系", "电压源并联电流源");
   before("电感储能", "RC 时间常数");
   before("有功功率", "耦合因数");
   before("耦合因数", "RLC串联谐振频率");
