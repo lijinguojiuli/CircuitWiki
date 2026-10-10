@@ -24,6 +24,7 @@ const chapterEntries: readonly Chapter[] = [
       "chapter-2-summary",
       "star-delta",
       "source-transformations",
+      "input-resistance",
       "bridge-arm",
     ],
   },
@@ -36,7 +37,7 @@ const chapterEntries: readonly Chapter[] = [
   {
     number: 4,
     title: "电路定理",
-    description: "只学§4-1至§4-4：叠加、替代、端口等效与最大功率。",
+    description: "叠加、替代、端口等效与最大功率传输。",
     slugs: ["chapter-4-summary", "superposition", "thevenin", "norton"],
   },
   {
@@ -56,7 +57,7 @@ const chapterEntries: readonly Chapter[] = [
   {
     number: 7,
     title: "一阶电路和二阶电路的时域分析",
-    description: "只学§7-1至§7-4：初始条件与一阶零输入、零状态、全响应。",
+    description: "初始条件与一阶电路的零输入、零状态、全响应。",
     slugs: ["chapter-7-summary", "rc-circuit", "rl-circuit"],
   },
   {
@@ -87,7 +88,7 @@ const chapterEntries: readonly Chapter[] = [
   {
     number: 11,
     title: "电路的频率响应",
-    description: "只学§11-2与§11-4：串联和并联谐振，其余频率响应内容跳过。",
+    description: "串联和并联谐振的条件、输入特性与支路响应。",
     slugs: ["chapter-11-summary", "rlc"],
   },
   {
@@ -127,6 +128,7 @@ export const lessonSections: Readonly<Record<string, number>> = {
   "star-delta": 4,
   "source-transformations": 6,
   "bridge-arm": 7,
+  "input-resistance": 7,
   "mesh-analysis": 4,
   "nodal-analysis": 6,
   superposition: 1,
@@ -166,3 +168,7 @@ export function chapterForArticle(slug: string): Chapter {
 export function lessonSectionLabel(slug: string) {
   return `§${chapterForArticle(slug).number}-${lessonSections[slug]}`;
 }
+
+export const learningChapters = chapters.filter(
+  (chapter) => !chapter.skipped && chapter.slugs.length > 0,
+);

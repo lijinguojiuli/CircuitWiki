@@ -4,6 +4,7 @@ export const textbookReferences: Record<
   { section: string; pages: string }
 > = {
   ...additionalReferences,
+  "input-resistance": { section: "§2-7", pages: "45–46" },
   "kcl-kvl": {
     section: "§1-3、§1-5、§1-8、§3-1、§3-2",
     pages: "12–15、20–22、53–56",

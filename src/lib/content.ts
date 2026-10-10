@@ -14,6 +14,15 @@ export type Article = {
 const articleEntries: Article[] = [
   ...additionalArticles,
   {
+    slug: "input-resistance",
+    title: "输入电阻",
+    category: "电路基础",
+    folder: "circuits",
+    description: "从指定端口看入，区分输入电阻、等效电阻和带载电压电流之比。",
+    keywords: ["输入电阻", "Rin", "Req", "端口", "测试源", "等效电阻"],
+    core: true,
+  },
+  {
     slug: "kcl-kvl",
     title: "KCL 与 KVL",
     category: "电路基础",
@@ -62,12 +71,12 @@ const articleEntries: Article[] = [
   },
   {
     slug: "thevenin",
-    title: "戴维南定理",
+    title: "戴维宁定理",
     category: "电路基础",
     folder: "circuits",
     description: "一个电压源与一个电阻，描述端口外部看到的整个电路。",
     core: true,
-    keywords: ["戴维南", "等效", "开路电压"],
+    keywords: ["戴维宁", "等效", "开路电压"],
   },
   {
     slug: "norton",

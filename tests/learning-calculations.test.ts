@@ -4,6 +4,7 @@ import {
   seriesPhasors,
   threePhaseLoad,
   sinusoid,
+  parallelPhasors,
 } from "../src/lib/learning-calculations";
 const close = (a: number, b: number) =>
   assert.ok(Math.abs(a - b) < 1e-9 * Math.max(1, Math.abs(b)), `${a} != ${b}`);
@@ -30,11 +31,28 @@ test("Y and delta use distinct phase quantities but share the line-power law", (
     star.active,
     Math.sqrt(3) * 380 * star.lineCurrent * Math.cos(Math.PI / 6),
   );
+
   close(star.apparent ** 2, star.active ** 2 + star.reactive ** 2);
   assert.ok(threePhaseLoad(380, 30, -30, "star").reactive < 0);
   assert.throws(() => threePhaseLoad(380, 0, 30, "star"));
   assert.throws(() => threePhaseLoad(380, 30, 91, "star"));
 });
+test("parallel phasors take voltage as reference and reverse reactive current direction", () => {
+  const rl = parallelPhasors(100, 100, 0),
+    rc = parallelPhasors(100, 0, 100),
+    resonance = parallelPhasors(100, 100, 100);
+  close(rl.ir, 1);
+  close(rl.il, 1);
+  close(rl.angle, -45);
+  close(rl.magnitude, Math.sqrt(2));
+  close(rc.ic, 1);
+  close(rc.angle, 45);
+  close(resonance.magnitude, 1);
+  close(resonance.angle, 0);
+  assert.throws(() => parallelPhasors(0, 100, 100));
+  assert.throws(() => parallelPhasors(100, -1, 100));
+});
+
 test("sinusoidal evaluation respects rms, units, time and phase periodicity", () => {
   const r = sinusoid(10, 50, 30, 0);
   close(r.rms, 10 / Math.sqrt(2));

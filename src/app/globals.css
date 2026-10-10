@@ -808,6 +808,52 @@ footer > span:first-child {
   color: var(--muted);
   padding: 16px 20px 0;
 }
+.formula-symbols {
+  border: 1px solid var(--border);
+  padding: 18px;
+  margin: 24px 0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.formula-symbols h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.formula-symbols p {
+  margin: 7px 0;
+}
+.formula-symbols details {
+  margin-top: 10px;
+}
+.symbol-table {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+.symbol-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.symbol-table th,
+.symbol-table td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  padding: 10px;
+}
+.symbol-table td:first-child {
+  min-width: 110px;
+}
+.source-combinations {
+  margin: 24px 0;
+}
+.source-combination h3 {
+  text-align: left;
+  margin: 4px 0 14px;
+  font-size: 15px;
+}
+.source-combination svg text {
+  font-size: 17px;
+}
 .learning-lab {
   border: 1px solid var(--border);
   padding: 20px;

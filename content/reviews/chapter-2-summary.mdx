@@ -130,6 +130,12 @@
 
 </section>
 
+### 电源组合的易错警告
+
+[四种组合分别保留什么、内部功率如何处理](/learn/source-transformations#source-combinations)。
+
+<Warning>电压源并联电流源或电阻，对外保留电压源；电流源串联电压源或电阻，对外保留电流源。电阻消耗与源内部量不能因端口等效而忽略。</Warning>
+
 ## 4. 解题步骤
 
 1. 识别端口、连接方式、激励和已知量，先画参考方向。
@@ -166,3 +172,6 @@
 ## 8. 相关知识
 
 [深入学习](/learn/star-delta) · [深入学习](/learn/source-transformations) · [深入学习](/learn/bridge-arm) · [公式速查](/formulas) · [按教材逐节定位](/curriculum)
+
+
+[输入电阻专题](/learn/input-resistance)

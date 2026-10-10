@@ -22,6 +22,38 @@ export function seriesPhasors(r: number, xl: number, xc: number, current = 1) {
   };
 }
 
+// Zero reactance marks an absent L/C branch in the teaching presets.
+export function parallelPhasors(
+  r: number,
+  xl: number,
+  xc: number,
+  voltage = 100,
+) {
+  if (
+    ![r, xl, xc, voltage].every(Number.isFinite) ||
+    r <= 0 ||
+    xl < 0 ||
+    xc < 0 ||
+    voltage <= 0
+  )
+    throw new Error("R、U须为正数，支路电抗大小须非负。");
+  const ir = voltage / r,
+    il = xl === 0 ? 0 : voltage / xl,
+    ic = xc === 0 ? 0 : voltage / xc;
+  const reactive = ic - il,
+    magnitude = Math.hypot(ir, reactive);
+  if (![ir, il, ic, reactive, magnitude].every(Number.isFinite))
+    throw new Error("结果超出数值范围。");
+  return {
+    ir,
+    il,
+    ic,
+    reactive,
+    magnitude,
+    angle: (Math.atan2(reactive, ir) * 180) / Math.PI,
+  };
+}
+
 export function threePhaseLoad(
   lineVoltage: number,
   impedance: number,

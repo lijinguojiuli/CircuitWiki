@@ -61,7 +61,7 @@ export function FormulaCard({
       <p className="muted">{condition}</p>
       {source && <p className="book-reference">{source}</p>}
       <details>
-        <summary>参数与单位</summary>
+        <summary>符号含义与单位</summary>
         <ul>
           {parameters.map((p) => (
             <li key={p}>{p}</li>

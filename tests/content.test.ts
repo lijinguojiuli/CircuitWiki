@@ -7,14 +7,15 @@ import {
   chapters,
   chapterForArticle,
   lessonSections,
+  learningChapters,
 } from "../src/lib/chapters";
 import { formulas } from "../src/lib/formulas";
 import katex from "katex";
 import { textbookTopics } from "../src/lib/textbook-scope";
 test("all registered lessons exist, contain eight sections and valid links", () => {
   const slugs = new Set(articles.map((a) => a.slug));
-  assert.equal(slugs.size, 39);
-  assert.equal(articles.filter((a) => a.core).length, 39);
+  assert.equal(slugs.size, 40);
+  assert.equal(articles.filter((a) => a.core).length, 40);
   for (const article of articles) {
     assert.ok(Number.isInteger(lessonSections[article.slug]), article.slug);
     const body = fs.readFileSync(
@@ -27,6 +28,41 @@ test("all registered lessons exist, contain eight sections and valid links", () 
     for (const match of body.matchAll(/\/learn\/([a-z0-9-]+)/g))
       assert.ok(slugs.has(match[1]), match[0]);
   }
+});
+
+test("formula symbols name their quantities and navigation contains learning content", () => {
+  assert.deepEqual(
+    learningChapters.map((chapter) => chapter.number),
+    [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12],
+  );
+  assert.equal(
+    articles.find((article) => article.slug === "thevenin")?.title,
+    "戴维宁定理",
+  );
+  assert.equal(chapterForArticle("input-resistance").number, 2);
+  const resistors = formulas.find(
+    (formula) => formula.name === "电阻的串联和并联关系",
+  )!;
+  assert.ok(
+    resistors.parameters.some(
+      (note) => note.includes("Rk") && note.includes("编号"),
+    ),
+  );
+  const input = formulas.find(
+    (formula) => formula.name === "输入电阻测试源法",
+  )!;
+  assert.equal(input.slug, "input-resistance");
+  assert.ok(
+    input.parameters.some(
+      (note) => note.includes("Req") && note.includes("端口"),
+    ),
+  );
+  assert.ok(
+    formulas.every(
+      (formula) =>
+        formula.parameters.length > 0 && !formula.condition.includes("戴维南"),
+    ),
+  );
 });
 
 test("quick reference follows textbook sections and excludes removed topics", () => {

@@ -35,7 +35,7 @@ export function CircuitDiagram({
   const names = {
     divider: "电阻分压电路",
     rc: "串联 RC 充电电路",
-    thevenin: "戴维南等效电路",
+    thevenin: "戴维宁等效电路",
     nodal: "单节点分析电路",
     mesh: "双网孔分析电路",
     rl: "串联 RL 电路",

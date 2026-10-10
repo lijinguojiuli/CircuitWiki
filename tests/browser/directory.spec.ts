@@ -67,10 +67,10 @@ test("chapter map, breadcrumbs and reading order match the textbook scope", asyn
 }) => {
   await page.goto("/curriculum");
   await expect(page.locator('.curriculum-group[id^="chapter-"]')).toHaveCount(
-    12,
+    11,
   );
-  await expect(page.locator("#chapter-5")).toContainText("已跳过");
-  await expect(page.locator("#chapter-5 a")).toHaveCount(0);
+  await expect(page.locator("#chapter-5")).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText(/只学|跳过/);
   await expect(page.locator("#chapter-11 .knowledge-card")).toHaveCount(2);
   await expect(page.locator("#chapter-11")).toContainText("RLC 串联与并联谐振");
   await page

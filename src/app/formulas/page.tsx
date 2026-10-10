@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formulas } from "@/lib/formulas";
 import { FormulaCard } from "@/components/formula";
 import { chapters, chapterLabel } from "@/lib/chapters";
+import { FormulaSymbols } from "@/components/formula-symbols";
 const formulaChapters = chapters.filter((chapter) =>
   formulas.some((formula) => formula.position[0] === chapter.number),
 );
@@ -20,6 +21,7 @@ export default function FormulasPage() {
         记号依据：《电路》第5版。小写 u、i、p 表示瞬时量；大写 U、I
         表示正弦有效值或已注明的直流恒定值。
       </p>
+      <FormulaSymbols />
       <nav className="anchor-pills" aria-label="公式章节跳转">
         {formulaChapters.map((chapter) => (
           <a href={`#formula-chapter-${chapter.number}`} key={chapter.number}>

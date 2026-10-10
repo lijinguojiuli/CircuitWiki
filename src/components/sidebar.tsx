@@ -3,8 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Zap } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
-import { chapters, lessonSectionLabel } from "@/lib/chapters";
-import { learningScopeNotes } from "@/lib/textbook-scope";
+import { learningChapters, lessonSectionLabel } from "@/lib/chapters";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname();
@@ -20,9 +19,9 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <BookOpen size={17} />
         学习路线<span>{articles.length}</span>
       </Link>
-      {chapters.map((chapter) => (
+      {learningChapters.map((chapter) => (
         <div
-          className={`nav-group${chapter.skipped ? " nav-group-skipped" : ""}`}
+          className="nav-group"
           key={chapter.number}
           data-chapter={chapter.number}
         >
@@ -30,40 +29,27 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <span>{String(chapter.number).padStart(2, "0")}</span>
             {chapter.title}
           </h3>
-          {chapter.skipped ? (
-            <p className="nav-scope">跳过本章</p>
-          ) : (
-            <>
-              {learningScopeNotes[chapter.number] && (
-                <p className="nav-scope">
-                  {learningScopeNotes[chapter.number]}
-                </p>
-              )}
-              {chapter.slugs.map((slug) => {
-                const article = articles.find((item) => item.slug === slug)!;
-                return (
-                  <Link
-                    key={slug}
-                    href={articleHref(slug)}
-                    aria-current={
-                      path === articleHref(slug) ? "page" : undefined
-                    }
-                    className={path === articleHref(slug) ? "current" : ""}
-                    onClick={onNavigate}
-                    data-textbook-section={lessonSectionLabel(slug)}
-                  >
-                    <span>
-                      <small className="nav-section" aria-hidden="true">
-                        {lessonSectionLabel(slug)}
-                      </small>
-                      {article.title}
-                    </span>
-                    {article.core && <span className="core-dot" />}
-                  </Link>
-                );
-              })}
-            </>
-          )}
+          {chapter.slugs.map((slug) => {
+            const article = articles.find((item) => item.slug === slug)!;
+            return (
+              <Link
+                key={slug}
+                href={articleHref(slug)}
+                aria-current={path === articleHref(slug) ? "page" : undefined}
+                className={path === articleHref(slug) ? "current" : ""}
+                onClick={onNavigate}
+                data-textbook-section={lessonSectionLabel(slug)}
+              >
+                <span>
+                  <small className="nav-section" aria-hidden="true">
+                    {lessonSectionLabel(slug)}
+                  </small>
+                  {article.title}
+                </span>
+                {article.core && <span className="core-dot" />}
+              </Link>
+            );
+          })}
         </div>
       ))}
       <div className="sidebar-note">

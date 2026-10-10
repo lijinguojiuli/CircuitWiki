@@ -87,10 +87,10 @@ test("all public routes render, formulas work, internal links and anchors resolv
 });
 test("search, quiz, themes and persistence", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("textbox", { name: "搜索知识点和公式" }).fill("戴维南");
+  await page.getByRole("textbox", { name: "搜索知识点和公式" }).fill("戴维宁");
   await page
     .locator(".search-results")
-    .getByRole("link", { name: /戴维南定理/ })
+    .getByRole("link", { name: /戴维宁定理/ })
     .click();
   await expect(page).toHaveURL(/thevenin/);
   await page.getByRole("button", { name: "短路", exact: true }).click();

@@ -441,10 +441,3 @@ export const textbookTopics: readonly TextbookTopic[] = [
     anchor: "textbook-12-5",
   },
 ];
-
-export const learningScopeNotes: Readonly<Record<number, string>> = {
-  "4": "只学§4-1至§4-4，§4-5至§4-7跳过。",
-  "5": "全章跳过。",
-  "7": "只学§7-1至§7-4，§7-5至§7-11跳过。",
-  "11": "仅§11-2与§11-4谐振；其余小节跳过。",
-};

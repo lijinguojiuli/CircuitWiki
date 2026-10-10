@@ -211,7 +211,7 @@ export default function Home() {
           {[
             ["KCL / KVL", "kcl-kvl"],
             ["节点电压法", "nodal-analysis"],
-            ["戴维南定理", "thevenin"],
+            ["戴维宁定理", "thevenin"],
             ["RC 一阶电路", "rc-circuit"],
             ["正弦稳态", "sinusoidal"],
             ["相量", "phasor"],

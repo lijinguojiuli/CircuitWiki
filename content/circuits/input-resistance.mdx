@@ -1,0 +1,106 @@
+## 1. 核心概念
+
+输入电阻是从指定端口看入网络时，端口电压与流入电流之间的电阻关系。先选A—B端口，再定义u为A对B的电压、i为流入A端的电流；换一个端口，看到的输入电阻可能不同。
+
+无独立源的线性电阻一端口可直接求Rin=u/i。含独立源网络求源侧等效电阻Req时，应先移去外部负载、将独立源置零；受控源及控制关系保留。此时Rin就是所选端口的Req。
+
+<Tip>
+  “输入电阻”强调从哪里看，“等效电阻Req”强调替代整个网络。它们都不是随便选一个电阻，也不是负载RL。
+</Tip>
+
+## 2. 前置知识
+
+[串并联化简](/learn/chapter-2-summary#textbook-2-3) · [电源等效变换](/learn/source-transformations) · [受控源](/learn/controlled-sources)
+
+## 3. 核心公式
+
+<span id="input-resistance-definition" />
+
+<Formula
+  latex={"R_{in}=\\frac ui"}
+  description="无独立源的线性一端口，u、i取关联参考方向。"
+/>
+<Formula
+  latex={"R_{eq}=R_{in}=\\frac{u_t}{i_t}"}
+  description="独立源置零后，加测试源；it取流入网络正端的电流。"
+/>
+
+Rin为输入电阻，Req为所选端口的等效电阻，单位Ω；ut是测试电压（V），it是测试电流（A）。下标in表示input，eq表示equivalent，t表示test，都是含义标记，不是乘法。
+
+<Warning>
+  完整含源网络某一工作点的u/i通常不是Req。例：u=12−3000iout，带载时u=9 V、iout=1
+  mA，u/iout=9 kΩ是负载值，而源侧Req仍为3 kΩ。
+</Warning>
+
+### 电源置零后的直观判断
+
+| 原组合          | 独立源置零后                     | 从原端口看入 |
+| --------------- | -------------------------------- | ------------ |
+| 理想电压源并联R | 电压源变为短路，R被旁路          | Rin=0        |
+| 理想电流源串联R | 电流源变为开路，整个支路断开     | Rin趋于∞     |
+| 含受控源网络    | 保留控制关系，不能一律开路或短路 | 用测试源计算 |
+
+<aside className="book-reference">
+  教材依据：《电路》第5版§2-7，p.45–46；数字示例为本站原创。
+</aside>
+
+## 4. 解题步骤
+
+1. 标出输入端口，移去作为外部负载的元件。
+2. 关闭独立源：电压源短路、电流源开路；保留原有电阻与受控关系。
+3. 只有电阻时，按连接关系做串并联或星三角化简。
+4. 不易化简时，加ut或it，重新求控制量并写KCL/KVL。
+5. 用ut/it求电阻，检查方向、单位；it=0时不能直接进行数值除零。
+
+## 5. 电路图
+
+<div className="port-diagram-grid">
+  <DividerPortDiagram mode="resistance" />
+  <DividerPortDiagram mode="test" />
+</div>
+
+## 6. 典型例题
+
+<Example title="两个电阻的输入电阻：直接化简与测试源核验">
+
+**题目：** 独立源置零后，A—B端口内有2 kΩ与4 kΩ并联，求输入电阻。
+
+<Formula
+  latex={"R_{in}=\\frac{2000\\times4000}{2000+4000}\\approx1333.33\\,\\Omega"}
+/>
+
+**测试源核验：** 加ut=1 V，两支路电流分别0.5 mA、0.25 mA，流入总电流0.75 mA。
+
+<Formula latex={"R_{in}=\\frac1{0.00075}\\approx1333.33\\,\\Omega"} />
+
+</Example>
+
+<Example title="含受控源时，不能只看电阻元件">
+
+1 kΩ电阻与i=guₓ的受控电流源并联，g=0.5 mS，uₓ=ut，受控电流方向由A流向B。
+
+<ControlledTestDiagram />
+<Formula
+  latex={
+    "i_t=\\frac1{1000}+0.0005\\times1=1.5\\,\\mathrm{mA},\\qquad R_{in}\\approx666.67\\,\\Omega"
+  }
+/>
+
+结果与1 kΩ不同。含受控源的输入电阻还可能为负或零，应按方程求解，不能预先强制取正。
+
+</Example>
+
+## 7. 常见错误
+
+<Warning>
+
+- 没有说明端口，就说“这个电路的输入电阻是多少”。
+- 未移去负载，或把负载RL计入源侧Req。
+- 将受控源关闭，或把原工作点的控制量冻结不变。
+- 把Req理解成所有电阻的简单相加；它由端口和连接关系共同决定。
+
+</Warning>
+
+## 8. 相关知识
+
+[电源组合警告](/learn/source-transformations#source-combinations) · [戴维宁定理](/learn/thevenin) · [本章全览](/learn/chapter-2-summary)

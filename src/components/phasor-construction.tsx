@@ -1,6 +1,6 @@
 "use client";
 import { useId, useState } from "react";
-import { seriesPhasors } from "@/lib/learning-calculations";
+import { seriesPhasors, parallelPhasors } from "@/lib/learning-calculations";
 import { fmt } from "@/lib/calculations";
 
 const cases = [
@@ -41,19 +41,49 @@ function Arrow({
 
 export function PhasorConstruction() {
   const [selected, setSelected] = useState(0),
-    [step, setStep] = useState(4);
+    [step, setStep] = useState(4),
+    [mode, setMode] = useState<"series" | "parallel">("series");
   const id = useId(),
     model = cases[selected],
-    result = seriesPhasors(model.r, model.xl, model.xc);
+    series = seriesPhasors(model.r, model.xl, model.xc),
+    parallel = parallelPhasors(
+      100,
+      selected === 1 ? 0 : 100,
+      selected === 0 ? 0 : 100,
+    ),
+    isParallel = mode === "parallel",
+    result = isParallel
+      ? {
+          ur: parallel.ir,
+          ul: parallel.il,
+          uc: parallel.ic,
+          reactive: parallel.reactive,
+          magnitude: parallel.magnitude,
+          angle: parallel.angle,
+        }
+      : series;
   const ox = 115,
     oy = 225,
-    scale = 3,
+    scale = isParallel ? 90 : 3,
     rx = ox + result.ur * scale,
-    ly = oy - result.ul * scale,
+    ly = oy - (isParallel ? -1 : 1) * result.ul * scale,
     uy = oy - result.reactive * scale;
   return (
     <section className="learning-lab phasor-construction">
-      <h3>按步骤画出电压相量多边形</h3>
+      <h3>按步骤画串联电压与并联电流</h3>
+      <div className="segmented">
+        <button aria-pressed={!isParallel} onClick={() => setMode("series")}>
+          串联：画电压
+        </button>
+        <button aria-pressed={isParallel} onClick={() => setMode("parallel")}>
+          并联：画电流
+        </button>
+      </div>
+      <p>
+        {isParallel
+          ? "U=100 V，R=100 Ω，接入的L/C支路电抗大小均为100 Ω。"
+          : "I=1 A，R=30 Ω，接入的L/C电抗大小均为40 Ω。"}
+      </p>
       <div className="segmented">
         {cases.map((item, index) => (
           <button
@@ -80,9 +110,11 @@ export function PhasorConstruction() {
         <svg
           viewBox="0 0 520 440"
           role="img"
-          aria-label={`${model.label}相量图，第${step}步`}
+          aria-label={`${isParallel ? "并联" : "串联"}${model.label}相量图，第${step}步`}
         >
-          <title>取电流为参考，按首尾相接法画电压和</title>
+          <title>
+            {isParallel ? "取电压为参考，画电流和" : "取电流为参考，画电压和"}
+          </title>
           <defs>
             <marker
               id={id}
@@ -110,7 +142,7 @@ export function PhasorConstruction() {
               y1={60}
               x2={445}
               y2={60}
-              label="İ（参考方向）"
+              label={isParallel ? "U̇（参考方向）" : "İ（参考方向）"}
               labelX={412}
               labelY={83}
             />
@@ -121,7 +153,7 @@ export function PhasorConstruction() {
                 y1={oy}
                 x2={rx}
                 y2={oy}
-                label="U̇R"
+                label={isParallel ? "İR" : "U̇R"}
                 labelX={(ox + rx) / 2}
                 labelY={oy - 12}
               />
@@ -133,7 +165,7 @@ export function PhasorConstruction() {
                 y1={oy}
                 x2={rx}
                 y2={ly}
-                label="U̇L"
+                label={isParallel ? "İL" : "U̇L"}
                 labelX={rx + 25}
                 labelY={(oy + ly) / 2}
               />
@@ -145,7 +177,7 @@ export function PhasorConstruction() {
                 y1={ly}
                 x2={rx}
                 y2={uy}
-                label="U̇C"
+                label={isParallel ? "İC" : "U̇C"}
                 labelX={rx + (result.ul ? 70 : 25)}
                 labelY={(ly + uy) / 2}
               />
@@ -157,31 +189,41 @@ export function PhasorConstruction() {
                 y1={oy}
                 x2={rx}
                 y2={uy}
-                label="U̇（总电压）"
+                label={isParallel ? "İ（总电流）" : "U̇（总电压）"}
                 labelX={rx + 65}
                 labelY={uy + (result.reactive < 0 ? 20 : -12)}
                 strong
               />
             )}
             <text x="260" y="415">
-              电压比例一致；电流箭头仅作相位参考
+              {isParallel
+                ? "电流比例一致；电压箭头仅作相位参考"
+                : "电压比例一致；电流箭头仅作相位参考"}
             </text>
           </g>
         </svg>
         <figcaption>
           {
-            [
-              "先把电流参考相量画在水平正方向。",
-              "电阻电压与电流同相，沿正实轴画。",
-              "从电阻电压末端接感性上箭头、容性下箭头；谐振时二者抵消。",
-              "从最初起点连到最终终点，就是总电压；平移保持箭头长度和方向。 ",
-            ][step - 1]
+            (isParallel
+              ? [
+                  "先把公共电压画在水平正方向。",
+                  "电阻支路电流与电压同相，沿正实轴画。",
+                  "从前一箭头末端接电感向下、电容向上的电流箭头。",
+                  "从最初起点连到最终终点，就是总电流；按KCL求和。",
+                ]
+              : [
+                  "先把电流参考相量画在水平正方向。",
+                  "电阻电压与电流同相，沿正实轴画。",
+                  "从电阻电压末端接感性上箭头、容性下箭头；谐振时二者抵消。",
+                  "从最初起点连到最终终点，就是总电压；平移保持长度和方向。",
+                ])[step - 1]
           }
         </figcaption>
       </figure>
       <p className="port-results" aria-live="polite">
-        I=1 A；UR={fmt(result.ur)} V，UL={fmt(result.ul)} V，UC={fmt(result.uc)}{" "}
-        V。总电压：{fmt(result.magnitude)}∠{fmt(result.angle)}° V。
+        {isParallel
+          ? `U=100 V；IR=${fmt(result.ur)} A，IL=${fmt(result.ul)} A，IC=${fmt(result.uc)} A。总电流：${fmt(result.magnitude)}∠${fmt(result.angle)}° A。`
+          : `I=1 A；UR=${fmt(result.ur)} V，UL=${fmt(result.ul)} V，UC=${fmt(result.uc)} V。总电压：${fmt(result.magnitude)}∠${fmt(result.angle)}° V。`}
       </p>
     </section>
   );
