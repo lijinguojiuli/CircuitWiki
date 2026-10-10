@@ -26,8 +26,8 @@
 ## 3. 核心公式
 
 <Formula
-  latex={"\\tau=RC"}
-  description="第5版 p.141；复杂一阶网络中的 R 取电容端口等效电阻 Req。"
+  latex={"\\tau=R_{eq}C"}
+  description="第5版 p.141；Req为换路后电容端口的等效电阻；简单串联RC中Req=R。"
 />
 
 <Formula
@@ -45,7 +45,7 @@
   description="第5版 p.148：零初始电压时的充电式。"
 />
 
-f 是所求响应，本站取电容电压 uC；U₀ 是初始电压，US 是直流电源电压。t≥0，切换后参数固定，Req>0。R 用 Ω、C 用 F，则 τ 用 s。
+f 是所求响应，本站取电容电压 uC；U₀ 是初始电压，US 是直流电源电压。t≥0，切换后参数固定，Req>0。Req 用 Ω、C 用 F，则 τ 用 s。
 
 <aside className="book-reference">
   教材依据：《电路》第5版 §7-2、§7-3、§7-4，书页
@@ -148,7 +148,7 @@ uC(0⁺) 是换路刚完成时的电容电压，uC(∞) 是等很久后的电压
   question="R 增大为原来的两倍，C 不变，时间常数如何变化？"
   options={["减半", "不变", "加倍"]}
   answer={2}
-  explanation="τ=RC，因此电路趋于稳态的速度变慢。"
+  explanation="τ=Req C，因此电路趋于稳态的速度变慢。"
 />
 
 ## 7. 常见错误

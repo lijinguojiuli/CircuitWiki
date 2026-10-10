@@ -10,6 +10,7 @@ export type Article = {
   keywords: string[];
   core?: boolean;
   readTime?: string;
+  secondaryTopics?: readonly string[];
 };
 const articleEntries: Article[] = [
   ...additionalArticles,
@@ -222,6 +223,7 @@ const articleEntries: Article[] = [
   },
   {
     slug: "power-factor",
+    secondaryTopics: ["并联电容补偿"],
     title: "功率因数",
     category: "正弦稳态",
     folder: "ac",
@@ -258,6 +260,7 @@ const articleEntries: Article[] = [
   },
   {
     slug: "unbalanced-three-phase",
+    secondaryTopics: ["中性点位移"],
     title: "不对称三相电路与中性点位移",
     category: "三相电路",
     folder: "three-phase",

@@ -65,6 +65,26 @@ test("formula symbols name their quantities and navigation contains learning con
   );
 });
 
+test("time constants use Req and transformer reference keeps only the ideal model", () => {
+  const rc = formulas.find((formula) => formula.name === "RC 时间常数")!;
+  const rl = formulas.find((formula) => formula.name === "RL 时间常数")!;
+  assert.equal(rc.latex, "\\tau=R_{eq}C");
+  assert.equal(rl.latex, "\\tau=\\frac{L}{R_{eq}}");
+  assert.ok(!formulas.some((formula) => formula.name === "变压器原理关系"));
+  assert.ok(formulas.some((formula) => formula.name === "理想变压器关系"));
+  assert.ok(
+    !textbookTopics.some(
+      (topic) => topic.chapter === 10 && topic.section === 4,
+    ),
+  );
+  assert.deepEqual(
+    formulas
+      .filter((formula) => formula.emphasis === "secondary")
+      .map((formula) => formula.name),
+    ["并联电容补偿", "中性点位移"],
+  );
+});
+
 test("quick reference follows textbook sections and excludes removed topics", () => {
   assert.deepEqual(
     [...new Set(formulas.map((formula) => formula.position[0]))],
@@ -125,11 +145,11 @@ test("textbook chapters preserve numbering, skip chapter 5 and restrict chapter 
 });
 
 test("every in-scope textbook section has concepts, formulas, examples and warnings", () => {
-  assert.equal(textbookTopics.length, 54);
+  assert.equal(textbookTopics.length, 53);
   assert.equal(
     new Set(textbookTopics.map((topic) => `${topic.chapter}-${topic.section}`))
       .size,
-    54,
+    53,
   );
   assert.deepEqual(
     textbookTopics

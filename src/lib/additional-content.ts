@@ -156,10 +156,10 @@ export const additionalArticles: Article[] = [
   },
   {
     slug: "chapter-10-summary",
-    title: "耦合电感与变压器全览",
+    title: "耦合电感与理想变压器全览",
     category: "正弦稳态",
     folder: "reviews",
-    description: "按教材顺序串起本章5节：概念、条件、公式、数值代入与易错点。",
+    description: "按教材顺序串起本章4节：概念、条件、公式、数值代入与易错点。",
     keywords: [
       "第10章",
       "全览",
@@ -167,7 +167,6 @@ export const additionalArticles: Article[] = [
       "互感",
       "含有耦合电感电路的计算",
       "耦合电感的功率",
-      "变压器原理",
       "理想变压器",
     ],
     core: true,
@@ -266,7 +265,7 @@ export const additionalReferences: Record<
     pages: "220起（本章各节首页见正文）",
   },
   "chapter-10-summary": {
-    section: "§10-1、§10-2、§10-3、§10-4、§10-5",
+    section: "§10-1、§10-2、§10-3、§10-5",
     pages: "252起（本章各节首页见正文）",
   },
   "chapter-11-summary": {

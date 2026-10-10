@@ -370,14 +370,6 @@ export const textbookTopics: readonly TextbookTopic[] = [
   },
   {
     chapter: 10,
-    section: 4,
-    title: "变压器原理",
-    page: 265,
-    slug: "chapter-10-summary",
-    anchor: "textbook-10-4",
-  },
-  {
-    chapter: 10,
     section: 5,
     title: "理想变压器",
     page: 268,

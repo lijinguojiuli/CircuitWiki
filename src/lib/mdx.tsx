@@ -4,7 +4,13 @@ import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import { Formula, InlineFormula, FormulaCard } from "@/components/formula";
-import { Callout, Warning, Tip, Example } from "@/components/ui";
+import {
+  Callout,
+  Warning,
+  Tip,
+  Example,
+  SecondaryTopic,
+} from "@/components/ui";
 import { CircuitDiagram } from "@/components/circuit-diagram";
 import { Quiz } from "@/components/quiz";
 import { RCCalculator, PhasorCalculator } from "@/components/calculators";
@@ -62,6 +68,7 @@ const components: MDXComponents = {
   CoupledInductorDiagram,
   ResonanceDiagram,
   Callout,
+  SecondaryTopic,
   Warning,
   Tip,
   Example,

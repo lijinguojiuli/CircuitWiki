@@ -2,7 +2,7 @@
 
 电源、线路或负载有一部分不对称，整个三相电路就不再对称。三相电流通常不能靠“算一相再旋转120°”得到。
 
-重点看Y负载的中性点：有理想中性线时 N′ 与 N 等电位；中性线断开后 N′ 可能偏移，使各相负载电压发生变化。
+Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位；中性线断开后 N′ 可能偏移，使各相负载电压发生变化。
 
 <Tip>先识别连接方式、参考方向和给定量的单位，再选公式。</Tip>
 
@@ -11,6 +11,8 @@
 [结点电压法](/learn/nodal-analysis) · [对称三相计算](/learn/balanced-three-phase)
 
 ## 3. 核心公式
+
+<SecondaryTopic title="中性点位移" id="neutral-displacement">
 
 <Formula
   latex={
@@ -23,6 +25,8 @@
   latex={"\\dot I_A=(\\dot U_A-\\dot U_{N'N})Y_A,\\quad Y_A=\\frac1{Z_A}"}
   description="由结点电位差与相量欧姆定律求各相电流，B、C同理。"
 />
+
+</SecondaryTopic>
 
 <Formula
   latex={"\\dot I_N=\\dot I_A+\\dot I_B+\\dot I_C"}
@@ -53,9 +57,13 @@
 
 ## 5. 电路图
 
-<ThreePhaseDiagram neutral={false} unbalanced />
+<SecondaryTopic title="中性线断开与位移示意">
+  <ThreePhaseDiagram neutral={false} unbalanced />
+</SecondaryTopic>
 
 ## 6. 典型例题
+
+<SecondaryTopic title="中性点位移例题">
 
 <Example title="同一负载断开中性线后的电压变化">
 
@@ -87,6 +95,10 @@
 
 </Example>
 
+</SecondaryTopic>
+
+<SecondaryTopic title="中性点位移练习">
+
 <Quiz
   question="不对称Y负载的中性线断开后，各相负载电压一定保持电源相电压吗？"
   options={["不一定，会发生中性点位移", "一定", "所有相电压都变成0"]}
@@ -94,13 +106,23 @@
   explanation="负载中性点不再由理想中性线固定，应重新用KCL求它的电位。"
 />
 
+</SecondaryTopic>
+
 <Example title="不对称Δ逐支路计算，不能套√3">
 
 **题目：** UAB=100∠0° V，UBC=100∠−120° V，UCA=100∠120° V；RAB=10 Ω、RBC=20 Ω、RCA=10 Ω，忽略线路阻抗。
 
-<Formula latex={"\\dot I_{AB}=10,\\quad\\dot I_{BC}=-2.5-j4.330,\\quad\\dot I_{CA}=-5+j8.660\\quad(\\mathrm A)"} />
+<Formula
+  latex={
+    "\\dot I_{AB}=10,\\quad\\dot I_{BC}=-2.5-j4.330,\\quad\\dot I_{CA}=-5+j8.660\\quad(\\mathrm A)"
+  }
+/>
 <Formula latex={"\\dot I_A=\\dot I_{AB}-\\dot I_{CA}=15-j8.660\\,\\mathrm A"} />
-<Formula latex={"\\dot I_B=-12.5-j4.330\\,\\mathrm A,\\quad\\dot I_C=-2.5+j12.990\\,\\mathrm A"} />
+<Formula
+  latex={
+    "\\dot I_B=-12.5-j4.330\\,\\mathrm A,\\quad\\dot I_C=-2.5+j12.990\\,\\mathrm A"
+  }
+/>
 
 **核验：** 三线电流相量和为0，但其有效值不全相等。三相有功功率为100²/10+100²/20+100²/10=2500 W。
 
@@ -120,6 +142,5 @@
 ## 8. 相关知识
 
 [前置：结点电压法](/learn/nodal-analysis) · [相关：三相功率](/learn/three-phase-power) · [返回：对称三相计算](/learn/balanced-three-phase)
-
 
 [本章逐节复习](/learn/chapter-12-summary)

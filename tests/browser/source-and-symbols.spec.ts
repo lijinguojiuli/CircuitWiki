@@ -22,17 +22,15 @@ test("source combinations, input resistance and symbol explanations are availabl
   await expect(page.locator(".prose")).toContainText("1333.33");
   await expect(page.locator(".prose")).toContainText("666.67");
   await page.goto("/formulas");
-  await expect(page.locator(".formula-card")).toHaveCount(70);
+  await expect(page.locator(".formula-card")).toHaveCount(69);
   await expect(page.locator(".formula-symbols")).toContainText("Req");
   await expect(page.locator(".formula-symbols")).toContainText("Rk");
-  const card = page
-    .locator(".formula-card")
-    .filter({
-      has: page.getByRole("heading", {
-        name: "电阻的串联和并联关系",
-        exact: true,
-      }),
-    });
+  const card = page.locator(".formula-card").filter({
+    has: page.getByRole("heading", {
+      name: "电阻的串联和并联关系",
+      exact: true,
+    }),
+  });
   await card.locator("summary").click();
   await expect(card).toContainText("k是编号，不是乘法");
   await page.goto("/curriculum");

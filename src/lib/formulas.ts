@@ -3,6 +3,7 @@ export type FormulaEntry = {
   latex: string;
   position: readonly [chapter: number, section: number, sequence: number];
   supplemental?: boolean;
+  emphasis?: "secondary";
   slug: string;
   condition: string;
   parameters: string[];
@@ -149,6 +150,22 @@ const formulaEntries: FormulaEntry[] = [
     source: "第5版 p.39，§2-4",
   },
   {
+    name: "电压源、电流源的串联和并联关系",
+    latex: "U_{eq}=\\sum U_{Sk},\\qquad I_{eq}=\\sum I_{Sk}",
+    position: [2, 5, 1],
+    slug: "chapter-2-summary",
+    condition:
+      "串联电压源的电压按极性相加，并联电流源的电流按方向相加。理想电压源并联必须电压一致，理想电流源串联必须电流一致，否则约束矛盾。源的未约束量由外部电路决定。",
+    parameters: [
+      "Ueq：串联电压源组合的等效电压，单位V",
+      "USk：第k个电压源按统一极性取符号的电压，单位V",
+      "Ieq：并联电流源组合的等效电流，单位A",
+      "ISk：第k个电流源按统一方向取符号的电流，单位A",
+      "eq表示equivalent（等效），k是编号，Σ是代数求和",
+    ],
+    source: "第5版§2-5（本节始于p.41），按同一参考方向整理",
+  },
+  {
     name: "电压源并联电流源",
     latex: "u=U_S",
     position: [2, 5, 2],
@@ -203,22 +220,6 @@ const formulaEntries: FormulaEntry[] = [
       "R：原组合内部的电阻，单位Ω；原有压降或损耗仍应在原网络中计算",
     ],
     source: "由教材理想源定义与§2-5、§2-6的端口关系推得",
-  },
-  {
-    name: "电压源、电流源的串联和并联关系",
-    latex: "U_{eq}=\\sum U_{Sk},\\qquad I_{eq}=\\sum I_{Sk}",
-    position: [2, 5, 1],
-    slug: "chapter-2-summary",
-    condition:
-      "串联电压源的电压按极性相加，并联电流源的电流按方向相加。理想电压源并联必须电压一致，理想电流源串联必须电流一致，否则约束矛盾。源的未约束量由外部电路决定。",
-    parameters: [
-      "Ueq：串联电压源组合的等效电压，单位V",
-      "USk：第k个电压源按统一极性取符号的电压，单位V",
-      "Ieq：并联电流源组合的等效电流，单位A",
-      "ISk：第k个电流源按统一方向取符号的电流，单位A",
-      "eq表示equivalent（等效），k是编号，Σ是代数求和",
-    ],
-    source: "第5版§2-5（本节始于p.41），按同一参考方向整理",
   },
   {
     name: "电源等效变换",
@@ -510,13 +511,14 @@ const formulaEntries: FormulaEntry[] = [
   },
   {
     name: "RC 时间常数",
-    latex: "\\tau=RC",
+    latex: "\\tau=R_{eq}C",
     position: [7, 2, 1],
     slug: "rc-circuit",
-    condition: "R 为电容端口看到的等效电阻，R>0。",
+    condition:
+      "Req为换路后从电容端口看入的等效电阻，Req>0；独立源置零，受控关系保留。",
     parameters: [
       "τ：指数响应变化快慢的时间尺度，单位s，不是完全充满的时间",
-      "R：从电容端口看入、独立源置零后的等效电阻，也记Req，单位Ω",
+      "Req：换路后从电容端口看入、独立源置零后的等效电阻，单位Ω",
       "C：被分析电容的电容量，单位F",
     ],
     source: "第5版 p.141，§7-2",
@@ -526,7 +528,8 @@ const formulaEntries: FormulaEntry[] = [
     latex: "\\tau=\\frac{L}{R_{eq}}",
     position: [7, 2, 2],
     slug: "rl-circuit",
-    condition: "R为电感端口看到的等效电阻，Req>0；独立源置零、受控关系保留。",
+    condition:
+      "Req为换路后电感端口看到的等效电阻，Req>0；独立源置零、受控关系保留。",
     parameters: [
       "τ：指数响应的时间常数，单位s",
       "L：被分析电感的电感量，单位H",
@@ -772,6 +775,7 @@ const formulaEntries: FormulaEntry[] = [
       "φ1、φ2：补偿前、后电源侧电压与电流的相位差；两者三角函数要用同一角度制",
     ],
     source: "第5版p.241，等价写法",
+    emphasis: "secondary",
   },
   {
     name: "复功率关系",
@@ -847,22 +851,6 @@ const formulaEntries: FormulaEntry[] = [
       "互感项±与同名端、电流方向的约定一致；式中i是瞬时电流",
     ],
     source: "第5版§10-3（本节始于p.262），按同一参考方向整理",
-  },
-  {
-    name: "变压器原理关系",
-    latex:
-      "(R_1+j\\omega L_1)\\dot I_1+j\\omega M\\dot I_2=\\dot U_1,\\quad j\\omega M\\dot I_1+(R_2+j\\omega L_2+Z_L)\\dot I_2=0",
-    position: [10, 4, 20],
-    slug: "chapter-10-summary",
-    condition:
-      "实际变压器用耦合线圈描述，绕组电阻带来铜耗，漏磁使k小于1，磁化支路需要电流。一次、二次回路通过互阻抗jωM联系。负载会反映到一次侧，开路、短路状态要区分。",
-    parameters: [
-      "U̇1：一次侧施加的有效值电压相量，单位V",
-      "İ1、İ2：按两侧均流入同名端约定的电流相量，单位A",
-      "R1、R2：绕组电阻，单位Ω；L1、L2、M：自感与互感，单位H",
-      "ZL：二次侧外部负载阻抗，单位Ω；ω单位rad/s",
-    ],
-    source: "第5版§10-4（本节始于p.265），按同一参考方向整理",
   },
   {
     name: "理想变压器关系",
@@ -988,6 +976,7 @@ const formulaEntries: FormulaEntry[] = [
       "该式对应中性线断开并忽略线路阻抗的Y负载",
     ],
     source: "第5版 p.309，§12-4",
+    emphasis: "secondary",
   },
   {
     name: "三相有功功率",

@@ -120,7 +120,7 @@ export default function Home() {
           <div className="hero-wave">
             <div>
               <span>电容充电响应 uC</span>
-              <strong>τ = RC</strong>
+              <strong>τ = Req C</strong>
             </div>
             <svg viewBox="0 0 430 125" role="img" aria-label="电容充电示意波形">
               <path

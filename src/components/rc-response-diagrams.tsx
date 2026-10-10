@@ -66,7 +66,7 @@ function Wave({ initial, source }: { initial: number; source: number }) {
           5τ
         </text>
         <text x="76" y="143">
-          τ = RC，t ≥ 0
+          τ = Req C，t ≥ 0
         </text>
       </g>
     </svg>

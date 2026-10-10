@@ -1,6 +1,32 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Lightbulb, TriangleAlert, Info } from "lucide-react";
+export function SecondaryBadge() {
+  return <span className="secondary-badge">非重点</span>;
+}
+export function SecondaryTopic({
+  title,
+  id,
+  children,
+}: {
+  title: string;
+  id?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section
+      className="secondary-topic"
+      id={id}
+      data-learning-emphasis="secondary"
+    >
+      <div className="secondary-topic-label">
+        <SecondaryBadge />
+        <strong>{title}</strong>
+      </div>
+      {children}
+    </section>
+  );
+}
 export function Callout({
   children,
   title = "提示",
@@ -56,11 +82,13 @@ export function KnowledgeCard({
   description,
   href,
   index,
+  secondaryTopics,
 }: {
   title: string;
   description: string;
   href: string;
   index?: string;
+  secondaryTopics?: readonly string[];
 }) {
   return (
     <Link className="knowledge-card" href={href}>
@@ -68,6 +96,12 @@ export function KnowledgeCard({
       <ArrowUpRight className="card-arrow" size={20} />
       <h3>{title}</h3>
       <p>{description}</p>
+      {secondaryTopics && (
+        <div className="secondary-topic-label">
+          <SecondaryBadge />
+          <span>{secondaryTopics.join("、")}</span>
+        </div>
+      )}
       <span className="card-link">探索知识模块 →</span>
     </Link>
   );

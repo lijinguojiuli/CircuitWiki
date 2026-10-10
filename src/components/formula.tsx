@@ -1,5 +1,6 @@
 import katex from "katex";
 import Link from "next/link";
+import { SecondaryBadge } from "./ui";
 export function Formula({
   latex,
   children,
@@ -40,6 +41,7 @@ export function FormulaCard({
   parameters,
   href,
   source,
+  emphasis,
 }: {
   name: string;
   latex: string;
@@ -47,10 +49,14 @@ export function FormulaCard({
   parameters: string[];
   href?: string;
   source?: string;
+  emphasis?: "secondary";
 }) {
   return (
-    <div className="formula-card">
-      <h3>{name}</h3>
+    <div className="formula-card" data-emphasis={emphasis}>
+      <div className="formula-card-heading">
+        <h3>{name}</h3>
+        {emphasis === "secondary" && <SecondaryBadge />}
+      </div>
       {href ? (
         <Link href={href} aria-label={`${name}：查看知识点`}>
           <Formula latex={latex} />

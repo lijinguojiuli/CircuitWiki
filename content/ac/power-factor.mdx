@@ -1,8 +1,8 @@
 ## 1. 核心概念
 
-瞬时功率含平均分量与两倍频振荡分量。有功P表示平均能量转换，无功Q描述储能往返，视在S=UI。功率因数λ=cosφZ。并联电容补偿减少电源无功电流，但不改变理想负载的有功需求。
+正弦条件下，功率因数λ是电压、电流相位差的余弦，也等于有功功率P与视在功率S之比。同样的P和电压U下，功率因数越低，电源电流越大。
 
-U、I用有效值；先判感性Q>0或容性Q＜0，再算P/Q/S与补偿量。
+U、I使用有效值。先理解功率因数与电流的关系，再进行具体数值计算。
 
 ## 2. 前置知识
 
@@ -46,15 +46,20 @@ U、I用有效值；先判感性Q>0或容性Q＜0，再算P/Q/S与补偿量。
 
 </div>
 
-### 并联电容补偿
+<SecondaryTopic title="并联电容补偿" id="capacitor-compensation">
 
-<Formula latex={"C=\\frac{P(\\tan\\phi_1-\\tan\\phi_2)}{\\omega U^2}"} description="第5版p.241的等价写法；理想正弦单相并联补偿，U为负载端有效电压。" />
+<Formula
+  latex={"C=\\frac{P(\\tan\\phi_1-\\tan\\phi_2)}{\\omega U^2}"}
+  description="第5版p.241的等价写法；理想正弦单相并联补偿，U为负载端有效电压。"
+/>
 
 φ1、φ2分别为补偿前后电源侧功率因数角；电容吸收的无功为负。不能把补偿后的电源电流当成原负载电流。
 
+</SecondaryTopic>
+
 ## 4. 解题步骤
 
-1. U、I用有效值；先判感性Q>0或容性Q＜0，再算P/Q/S与补偿量。
+1. 确认正弦条件以及P、U、λ的定义与单位。
 2. 画出结点、端口和电压电流参考方向，区分已知与待求量。
 3. 统一SI单位，使用与当前模型对应的元件关系。
 4. 将公式按未知量整理后代入，保留中间结果以便回查。
@@ -62,21 +67,37 @@ U、I用有效值；先判感性Q>0或容性Q＜0，再算P/Q/S与补偿量。
 
 ## 5. 电路图
 
-<CompensationDiagram />
+<SecondaryTopic title="并联补偿示意">
+  <CompensationDiagram />
+</SecondaryTopic>
 
 ## 6. 典型例题
+
+<SecondaryTopic title="并联电容补偿例题">
 
 <Example title="求并联补偿电容及电源电流">
 
 **题目：** 正弦单相负载P=1 kW、U=220 V、f=50 Hz，功率因数从0.8提高到1，求并联电容。
 
-<Formula latex={"\\tan\\phi_1=0.75,\\quad Q_C=-P\\tan\\phi_1=-750\\,\\mathrm{var}"} />
-<Formula latex={"C=\\frac{750}{2\\pi\\times50\\times220^2}\\approx49.33\\,\\mathrm{\\mu F}"} />
-<Formula latex={"I_{\\text{补偿前}}=\\frac{1000}{220\\times0.8}=5.682\\,\\mathrm A,\\quad I_{\\text{补偿后}}=\\frac{1000}{220}=4.545\\,\\mathrm A"} />
+<Formula
+  latex={"\\tan\\phi_1=0.75,\\quad Q_C=-P\\tan\\phi_1=-750\\,\\mathrm{var}"}
+/>
+<Formula
+  latex={
+    "C=\\frac{750}{2\\pi\\times50\\times220^2}\\approx49.33\\,\\mathrm{\\mu F}"
+  }
+/>
+<Formula
+  latex={
+    "I_{\\text{补偿前}}=\\frac{1000}{220\\times0.8}=5.682\\,\\mathrm A,\\quad I_{\\text{补偿后}}=\\frac{1000}{220}=4.545\\,\\mathrm A"
+  }
+/>
 
 **核验：** 负载有功仍为1 kW，改善的是电源侧无功和电流。若目标不是1，应保留tanφ2；容性过补偿仍可能增大电流。
 
 </Example>
+
+</SecondaryTopic>
 
 ## 7. 常见错误
 
@@ -87,6 +108,5 @@ U、I用有效值；先判感性Q>0或容性Q＜0，再算P/Q/S与补偿量。
 ## 8. 相关知识
 
 [前置知识](/learn/power) → [继续学习](/learn/impedance) · [公式速查](/formulas)
-
 
 [本章逐节复习](/learn/chapter-9-summary)

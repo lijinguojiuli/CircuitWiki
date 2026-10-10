@@ -121,7 +121,7 @@ test("three calculators recompute and explain invalid inputs", async ({
   await expect(ohm.locator(".results")).toContainText("0.006");
   const rc = page.locator("#rc");
   await expect(rc.locator(".rc-stats")).toContainText("0.1 s");
-  await rc.getByLabel("电阻 R").fill("2000");
+  await rc.getByLabel("等效电阻 Req").fill("2000");
   await expect(rc.locator(".rc-stats")).toContainText("0.2 s");
   await expect(rc.locator(".recharts-line-curve")).toBeVisible();
   await rc.getByLabel("电容 C").fill("-1");

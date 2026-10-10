@@ -50,6 +50,7 @@ export default function Curriculum() {
                   key={a.slug}
                   title={a.title}
                   description={a.description}
+                  secondaryTopics={a.secondaryTopics}
                   href={articleHref(a.slug)}
                   index={`${lessonSectionLabel(a.slug)} · ${a.core ? "核心" : "导读"}${a.slug === "bridge-arm" ? " · 补充例题" : ""}`}
                 />

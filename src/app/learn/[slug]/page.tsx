@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { articles, sections, articleHref } from "@/lib/content";
 import { ArticleBody } from "@/lib/mdx";
 import { chapterForArticle, chapterLabel, chapterId } from "@/lib/chapters";
-import { Breadcrumb, TableOfContents } from "@/components/ui";
+import { Breadcrumb, TableOfContents, SecondaryBadge } from "@/components/ui";
 import { textbookReferences } from "@/lib/textbook";
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -42,6 +42,12 @@ export default async function KnowledgePage({
           </div>
           <h1>{article.title}</h1>
           <p>{article.description}</p>
+          {article.secondaryTopics && (
+            <div className="secondary-topic-label">
+              <SecondaryBadge />
+              <span>{article.secondaryTopics.join("、")}</span>
+            </div>
+          )}
           <div className="article-meta">
             <span>
               ◷ {article.readTime ?? (article.core ? "8–12" : "3–5")} 分钟

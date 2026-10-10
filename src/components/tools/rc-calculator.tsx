@@ -29,9 +29,12 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
     <section className={`calculator ${compact ? "compact" : ""}`} id="rc">
       <div className="eyebrow">RC 响应计算</div>
       <h2>看见电容充电的过程</h2>
-      <p>零初始电压，t=0接入恒定直流电源。调整参数，观察 0–5τ 内的响应。</p>
+      <p>
+        Req为电容端口等效电阻；本串联模型中Req=R。零初始电压，t=0接入恒定直流电源。调整参数，观察
+        0–5τ 内的响应。
+      </p>
       <div className="fields">
-        <Field label="电阻 R" unit="Ω" value={r} onChange={setR} />
+        <Field label="等效电阻 Req" unit="Ω" value={r} onChange={setR} />
         <Field label="电容 C" unit="μF" value={c} onChange={setC} />
         <Field label="输入电压 U_S" unit="V" value={vin} onChange={setU_S} />
       </div>
@@ -114,7 +117,7 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
       )}
       <Formula
         description="第5版 p.148；零初始电压的直流充电响应。"
-        latex={"u_C=U_S\\left(1-e^{-t/\\tau}\\right),\\quad\\tau=RC"}
+        latex={"u_C=U_S\\left(1-e^{-t/\\tau}\\right),\\quad\\tau=R_{eq}C"}
       />
     </section>
   );

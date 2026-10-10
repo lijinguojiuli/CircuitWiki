@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { textbookTopics } from "../../src/lib/textbook-scope";
 
-test("all 54 in-scope sections have live anchors and rendered instructional content", async ({
+test("all 53 in-scope sections have live anchors and rendered instructional content", async ({
   page,
 }) => {
   for (const chapter of [
@@ -13,14 +13,14 @@ test("all 54 in-scope sections have live anchors and rendered instructional cont
     for (const topic of topics) {
       const block = page.locator(`#${topic.anchor}`);
       await expect(block.locator("h3")).toContainText(topic.title);
-      await expect(block.locator(".katex")).toHaveCount(1);
+      expect(await block.locator(".katex").count()).toBeGreaterThan(0);
       await expect(block).toContainText("代入示例");
       await expect(block.locator(".warning")).toHaveCount(1);
     }
   }
   await page.goto("/curriculum");
   await expect(page.locator("h1")).toContainText("按教材章节学习");
-  await expect(page.locator(".coverage-grid a")).toHaveCount(54);
+  await expect(page.locator(".coverage-grid a")).toHaveCount(53);
   await page.locator("#chapter-7 .coverage-detail summary").click();
   await page.locator('a[href="/learn/chapter-7-summary#textbook-7-2"]').click();
   await expect(page).toHaveURL(/#textbook-7-2$/);

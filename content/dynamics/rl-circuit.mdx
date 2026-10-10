@@ -11,8 +11,8 @@
 ## 3. 核心公式
 
 <Formula
-  latex={"\\tau=\\frac{L}{R}"}
-  description="第5版 p.144；复杂网络用电感端口等效电阻 Req。"
+  latex={"\\tau=\\frac{L}{R_{eq}}"}
+  description="第5版 p.144；Req为换路后电感端口的等效电阻；简单串联RL中Req=R。"
 />
 
 <Formula
@@ -20,7 +20,7 @@
   description="第5版式（7-6），本页取 f=iL。"
 />
 
-R 的单位 Ω，L 的单位 H，τ 的单位 s；切换后参数保持固定，Req>0。求电感电流时，f(0₊)、f(∞) 均用 A。
+Req 的单位 Ω，L 的单位 H，τ 的单位 s；切换后参数保持固定，Req>0。求电感电流时，f(0₊)、f(∞) 均用 A。
 
 <aside className="book-reference">
   教材依据：《电路》第5版 §7-2、§7-4，书页
@@ -29,7 +29,7 @@ R 的单位 Ω，L 的单位 H，τ 的单位 s；切换后参数保持固定，
 
 ### 先读懂符号
 
-初始电流、最终电流和时间常数决定整个过程。注意 RL 的时间常数为 L/R，而不是 R×L。
+初始电流、最终电流和时间常数决定整个过程。注意 RL 的时间常数为 L/Req，而不是 R×L。
 
 <div className="formula-usage">
 
@@ -78,7 +78,7 @@ R 的单位 Ω，L 的单位 H，τ 的单位 s；切换后参数保持固定，
 
 ## 7. 常见错误
 
-<Warning>RL 的时间常数为 L/R，不是 RL 的乘积。</Warning>
+<Warning>RL 的时间常数为 L/Req，不是 RL 的乘积。</Warning>
 
 ## 8. 相关知识
 

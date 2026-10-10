@@ -45,6 +45,11 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                     {lessonSectionLabel(slug)}
                   </small>
                   {article.title}
+                  {article.secondaryTopics && (
+                    <small className="nav-secondary" aria-hidden="true">
+                      {article.secondaryTopics.join("、")} · 非重点
+                    </small>
+                  )}
                 </span>
                 {article.core && <span className="core-dot" />}
               </Link>
