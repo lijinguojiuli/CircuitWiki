@@ -13,15 +13,15 @@
 - 三条真实可用的推荐路径：基础入门、分析方法复习、相量到三相；保持所选文章的教材顺序。
 - 我的学习：收藏、阅读历史、最远阅读位置、当前页阅读进度、手动完成；支持JSON导出与合并导入。v1完成记录兼容至v2，无需登录；不自动跨设备同步。
 - 文章目录使用共享布局，切换文章保留滚动位置；刷新和重新打开移动目录也可恢复位置。
-- 40 个本地 MDX 学习页面，包含11篇逐节全览及复数、相量图专题；53个范围内教材小节均提供概念、条件、公式、代入示例和易错点。
+- 59 个本地 MDX 学习页面：53 个教材小节独立成页，另有 6 篇补充专题；原章节聚合讲解已拆入对应小节。每节均包含概念、条件、公式、代入示例和易错点。
 - 三栏知识布局、当前文章高亮、面包屑、8 节页内目录、上一篇/下一篇和知识互链。移动端可展开目录。
 - KaTeX 公式、参数和单位展开、按教材章、节顺序的公式速查，以及关联知识页入口。
 - SVG 元件及分压、RC、RL、节点分析、双网孔、戴维宁等效电路，以及教材电源符号对照与易错提示。
 - 欧姆定律与功率计算、RC 实时响应图、相量双向转换和加减计算，包含空值、数值范围与物理条件校验。
-- 全站搜索按相关度排列知识专题、教材小节、公式与工具，支持 Ctrl/Cmd+K、方向键、Enter 和 Esc；完整搜索页支持内容类型、知识分类和更多结果，公式结果可直接定位卡片。
+- 全站搜索按相关度排列教材小节、补充专题、提高题、公式与工具，支持 Ctrl/Cmd+K、方向键、Enter 和 Esc；完整搜索页支持内容类型、知识分类和更多结果，公式结果可直接定位卡片。
 - 公式速查支持名称、符号和章节筛选，保留教材顺序、单位与条件，提供空结果恢复和稳定链接。
 - Light / Dark / System 主题、持久化、系统主题变化同步、响应式布局、键盘焦点和跳过导航。
-- 核心课的交互小测验与即时解释。
+- 53 道原创综合提高题，其中 15 道综合挑战、38 道综合提高；每道题含至少三个任务、可选提示、分步解答、结果与数值校验。提高题库支持按章节和难度筛选，搜索可直接定位题目。
 - KCL页面的多回路演示可切换元件支路与串联组合计数，并高亮6条回路，区分3个网孔与更大的回路。
 
 - 叠加定理补充功率交叉项与适用情况；戴维宁提供开路、短路、输入电阻和测试源两种求解方法。
@@ -32,7 +32,7 @@
 
 模拟电子、数字电路的旧课程规划链接仍可访问，已从首页学习入口中移除。无账户、数据库和外部服务密钥。产品审查与优化记录见 [docs/product-review.md](docs/product-review.md)。
 
-本轮改造先完成[产品诊断报告](docs/CircuitWiki-产品诊断报告.md)，再按[分阶段实施记录](docs/分阶段实施记录.md)落地。[产品架构与设计系统](docs/产品架构与设计系统.md)说明信息层级和组件约定。AI仅预留[服务契约](docs/AI学习助手接口.md)，尚未接入模型。SEO包含逐页canonical、Open Graph、站点地图、robots和知识页JSON-LD。
+平台改造先完成[产品诊断报告](docs/CircuitWiki-产品诊断报告.md)，再按[分阶段实施记录](docs/分阶段实施记录.md)落地。[产品架构与设计系统](docs/产品架构与设计系统.md)说明信息层级和组件约定。AI仅预留[服务契约](docs/AI学习助手接口.md)，尚未接入模型。SEO包含逐页canonical、Open Graph、站点地图、robots和知识页JSON-LD。此次小节拆分与提高题验收见 [小节与提高题验收](docs/小节与提高题验收.md)。旧章节链接及教材节号锚点会跳转到独立小节，旧收藏和历史迁移到新入口；聚合页完成记录归档保留，避免误将全部小节标成完成。
 
 ## 技术栈
 
@@ -75,34 +75,43 @@ npm start
 ```text
 CircuitWiki/
 ├── content/
-│   ├── circuits/          # 10 篇电路基础 MDX
-│   ├── dynamics/          # 4 篇动态电路 MDX
-│   ├── ac/                # 6 篇正弦稳态 MDX
-│   └── three-phase/       # 教材第十二章5篇 MDX
+│   ├── circuits/          # 基础分析、端口等效及补充专题
+│   ├── dynamics/          # 电容、电感、RC/RL专题
+│   ├── ac/                # 相量、功率、谐振专题
+│   ├── sections/          # 新增30个独立教材小节
+│   └── three-phase/       # 第十二章5个小节
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx       # 首页
-│   │   ├── learn/[slug]/  # 静态知识页面
-│   │   ├── curriculum/   # 学习路线
-│   │   ├── formulas/     # 公式速查
+│   │   ├── learn/[slug]/  # 59个静态知识页及旧链接兼容
+│   │   ├── curriculum/   # 按教材顺序的53小节目录
+│   │   ├── practice/     # 提高题入口与筛选
+│   │   ├── formulas/     # 69条公式速查
+│   │   ├── knowledge/    # 知识体系
+│   │   ├── paths/        # 学习路径
+│   │   ├── graph/        # 知识关系
+│   │   ├── me/           # 个人学习记录
 │   │   ├── tools/        # 三个计算器
-│   │   ├── topics/       # 后续课程规划
-│   │   └── globals.css   # 主题变量与响应式样式
+│   │   ├── globals.css   # 全局主题
+│   │   └── challenges.css # 提高题样式
 │   ├── components/
 │   │   ├── tools/        # 独立计算器与输入组件
+│   │   ├── challenge-problem.tsx # 提示、解答、校验面板
+│   │   ├── problem-diagrams.tsx # 题目电路、有向图及相量图
 │   │   ├── formula.tsx
 │   │   ├── circuit-diagram.tsx
 │   │   ├── navigation.tsx
-│   │   ├── quiz.tsx
 │   │   └── ui.tsx
 │   └── lib/
-│       ├── chapters.ts   # 教材1—12章与阅读顺序
-│       ├── textbook-scope.ts # 53个学习小节与跳过范围
-│       ├── additional-content.ts # 逐节全览与专题元数据
-│       ├── content.ts    # 导航/搜索/页面元数据
+│       ├── chapters.ts   # 教材章号与小节顺序
+│       ├── textbook-scope.ts # 53个教材小节及学习范围
+│       ├── content.ts    # 页面与导航元数据
+│       ├── challenges/   # 原创题、轻量索引与独立数值检查
+│       ├── legacy-lessons.ts # 旧聚合页面链接映射
 │       ├── formulas.ts   # 公式目录
-│       ├── calculations.ts # 无 UI 的计算函数
-│       └── mdx.tsx       # MDX 读取与组件映射
+│       ├── study-data.ts # 学习记录与版本迁移
+│       ├── calculations.ts # 无UI的计算函数
+│       └── mdx.tsx       # MDX读取与组件映射
 ├── tests/                # 数值、内容与浏览器测试
 ├── docs/screenshots/     # 实际运行截图
 ├── docs/verification.md  # 验收记录和当前限制
@@ -112,7 +121,7 @@ CircuitWiki/
 
 ## 截图
 
-`docs/screenshots/platform-*.png` 保存当前知识平台的实际浏览器截图，覆盖首页、知识树、学习路径、关系图、搜索、个人学习、手机端和深色模式。`product-*.png`和其他文件为此前版本与科学图示验收记录。
+`docs/screenshots/sections-*.png` 保存此次53小节与提高题的实际浏览器截图，覆盖题库、电桥、三网孔、超级结点、两次换路、相量、三相、手机端和深色模式。`platform-*.png` 与其他截图为此前的平台与科学图示验收记录。
 
 ![首页](docs/screenshots/platform-home.png)
 
@@ -120,6 +129,8 @@ CircuitWiki/
 
 ```bash
 npx playwright install chromium
+node tests/capture-sections.mjs
+# 平台整体截图
 node tests/capture-platform.mjs
 ```
 
@@ -127,8 +138,8 @@ Windows 已安装 Edge 时，可设置 `$env:PLAYWRIGHT_CHANNEL='msedge'` 后运
 
 ## 如何新增知识文章
 
-1. 在 `content/circuits`、`content/dynamics`、`content/ac`、`content/reviews` 或 `content/three-phase` 添加对应 slug 的 `.mdx` 文件。
-2. 在 `src/lib/content.ts` 的 `articleEntries` 增加元数据，并将 slug 加入 `src/lib/chapters.ts` 对应章的 `slugs`。在同一文件的 `lessonSections` 中设置主教材节号，目录和上一篇/下一篇按章、节排序；同节条目按 slugs 的声明顺序排列；`folder` 必须与文件目录一致。`keywords` 用于搜索；产品中的“章节全览 / 知识专题 / 综合例题”由 `src/lib/learning.ts` 的 `lessonKind` 统一区分。
+1. 在 `content/sections` 或对应学科目录添加 slug 对应的 `.mdx` 文件。
+2. 在 `src/lib/content.ts` 的 `entries` 增加元数据：`folder`、`textbookSection`、`supplemental` 等。主教材小节还需加入 `src/lib/textbook-scope.ts` 与 `src/lib/chapters.ts` 的对应章 `slugs`；额外专题设置 `supplemental: true`，在章位置映射中登记，不重复计入53节。`keywords` 用于搜索，页面类型统一为“教材小节 / 补充专题”。
 3. 保持下面的 8 个二级标题，编号自动映射到 `section-1` 至 `section-8`，供目录定位。
 4. 使用 `/learn/slug` 链接，运行测试与构建。无需手动增加页面路由。
 
@@ -179,6 +190,12 @@ LaTeX 放入 JavaScript 字符串时反斜杠须转义，例如 `<Formula latex=
 
 向 `src/lib/formulas.ts` 的 `formulaEntries` 添加 `FormulaEntry`：`name`、`latex`、`position: [章号, 节号, 节内顺序]`、目标文章 `slug`、适用条件 `condition`、含单位的 `parameters`、教材出处 `source`。公式页面按 position 自动排序并按教材章节展示；原创补充例题标记 `supplemental: true`。公式名称也会进入文章搜索索引。
 
+## 如何新增提高题
+
+在 `src/lib/challenges/data.json` 添加符合 `Challenge` 类型的题目，填入题设、任务、提示、至少三步解答、答案及独立检查数据；同步 `catalogue.ts` 的轻量题目索引。在对应 MDX 的“典型例题”中调用 `<ChallengeProblem id="章-节" />`。解答在服务端渲染，默认折叠，不把整套解答带入客户端搜索数据。
+
+用 `network` 描述结点、元件支路、导线路径和参考方向；特殊拓扑可独立为组件。用 `phasors` 添加求解后的同量纲相量图。检查数据采用原方程残差、图的回路关联关系、能量或功率公式；必须独立核对文字解答和连接图，不要只比较复制的结果。题目须标明原创或实际来源，不能将改编内容冒称教材原题或考试真题。
+
 ## 如何新增电路图
 
 在 `src/components/circuit-symbols.tsx` 中复用 `Wire`、`Resistor`、`Capacitor`、`Inductor`、`VoltageSource`、`CurrentSource`、`Ground`、`Node`。在 `circuit-diagram.tsx` 增加 `CircuitKind` 类型并组合新拓扑。电源沿用第5版图1-8、图1-10。使用 `viewBox` 与 `currentColor`，不要写死浅色背景；添加 SVG title、图注与参考方向。复杂电路日后可以独立成组件或替换专业绘图库。
@@ -204,7 +221,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-浏览器测试访问 `http://localhost:3000`，需先启动服务。默认使用 Chromium；本次 Windows 验收使用 Edge Chromium。包括全部路由、MDX、公式、内部链接和页内锚点、搜索、测验、主题持久化、系统主题跟随、三个计算器和 390px 移动端。
+浏览器测试访问 `http://localhost:3000`，需先启动服务。默认使用 Chromium；本次 Windows 验收使用 Edge Chromium。包括全部路由、MDX、公式、内部链接和页内锚点、搜索、提高题与折叠解答、主题持久化、系统主题跟随、三个计算器和 390px 移动端。
 
 `npm run format` 统一格式。TypeScript 开启 strict。计算精度为 JavaScript 双精度，显示约 6 位有效数字，属于教学计算而非专业 SPICE 仿真。
 
@@ -220,11 +237,11 @@ npm run test:e2e
 ## 后续开发与已知限制
 
 - 增加更多完整推导、多难度题库、模拟/数字电子课程。
-- 当前学习范围内的53个教材小节均有逐节讲解；全览侧重概念、适用条件和数值应用，更多证明与习题可以继续扩展。
+- 当前学习范围内的53个教材小节均独立成页并有综合提高题；每节目前一道原创综合题，更多题型、严格证明与多套练习可继续扩展。
 - 时间常数统一写作τRC=ReqC、τRL=L/Req；变压器内容采用理想模型，中性点位移与并联电容补偿标记为非重点。
 - 第4章限§4-1至§4-4；第7章限§7-1至§7-4；第5章跳过；第11章仅§11-2、§11-4。
 - 增加非零初始条件、放电与 RL/RLC 响应工具，以及更丰富的电路拓扑。
-- 按需添加学习进度本地存储、搜索拼音/模糊匹配、收藏和无障碍审计。
+- 后续可增强搜索拼音/模糊匹配、账户同步和无障碍审计；本地学习进度与收藏已经实现。
 - 当前搜索是本地标题/关键词/公式名匹配，不是文章全文搜索。
 - 当前标准路由与浏览器交互未发现阻塞问题；尚未在 Safari / Firefox 和实体手机上验证。
 - `npm audit --omit=dev` 为 0 漏洞。完整审计提示 5 个 high 记录，来自开发期 `eslint-config-next → fast-glob → micromatch → braces` 同一依赖链；当前 braces 稳定版 3.0.3 尚无修复版。没有使用 `audit fix --force` 降级 Next lint 配置。此依赖不进入生产运行包；后续升级需继续关注上游修复。

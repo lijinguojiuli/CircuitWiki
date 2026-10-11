@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-10-1">
+
 ## 1. 核心概念
 
 变化的线圈电流可在另一线圈产生互感电压。同名端标记同向磁耦合端，符号取决于电流相对黑点的方向和电压参考。耦合因数k在0至1之间，互感M的单位H。
@@ -7,6 +9,23 @@
 ## 2. 前置知识
 
 [电感基础](/learn/inductor) · [KVL与参考方向](/learn/kcl-kvl) · [相量法](/learn/phasor)
+
+### 本小节教材要点
+
+**概念与条件：** 变化的线圈电流可在另一线圈产生互感电压。同名端标记同向磁耦合端，符号取决于电流相对黑点的方向和电压参考。耦合因数k在0至1之间，互感M的单位H。
+
+<Formula
+  latex={
+    "k=\\frac{M}{\\sqrt{L_1L_2}},\\quad u_1=L_1\\frac{\\mathrm di_1}{\\mathrm dt}\\pm M\\frac{\\mathrm di_2}{\\mathrm dt}"
+  }
+  description="教材§10-1（本节起始书页252）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 两电流均流入同名端且采用关联电压时取正；一入一出时取负。
+
+**代入示例：** L1=20 mH、L2=80 mH、M=20 mH，k=0.5；di1/dt=3 A/s、di2/dt=1 A/s时同向u1=0.08 V。
+
+<Warning>把同名端黑点当成两个线圈的导线连接。</Warning>
 
 ## 3. 核心公式
 
@@ -50,6 +69,8 @@ L₁=20 mH、L₂=80 mH、M=20 mH，统一换成H后：
 
 ## 6. 典型例题
 
+<ChallengeProblem id="10-1" />
+
 <Example title="同名端决定加磁还是去磁">
 
 **题目：** L1=20 mH、L2=80 mH、M=20 mH。求耦合因数与两种串联等效电感。
@@ -77,5 +98,6 @@ L₁=20 mH、L₂=80 mH、M=20 mH，统一换成H后：
 
 [电感基础](/learn/inductor) → [相量法](/learn/phasor) · [第10章学习入口](/curriculum#chapter-10) · [下一章：RLC串联谐振](/learn/rlc)
 
+[本章小节目录](/curriculum#chapter-10)
 
-[本章逐节复习](/learn/chapter-10-summary)
+</section>

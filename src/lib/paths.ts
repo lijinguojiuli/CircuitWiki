@@ -1,4 +1,5 @@
-import { articles } from "./content";
+import { articles, curriculumArticles } from "./content";
+import { chapterForArticle } from "./chapters";
 
 export type LearningPath = {
   slug: string;
@@ -15,23 +16,11 @@ const entries: LearningPath[] = [
     title: "从零建立电路分析基础",
     audience: "初学者",
     description: "从参考方向和基本定律出发，逐步掌握等效、分析方法与电路定理。",
-    prerequisite: "能进行基础代数运算；从第一章全览开始。",
+    prerequisite: "能进行基础代数运算；从§1-1开始。",
     outcome: "看懂参考方向，选择节点或网孔法，并建立端口等效。",
-    slugs: [
-      "chapter-1-summary",
-      "kcl-kvl",
-      "chapter-2-summary",
-      "star-delta",
-      "source-transformations",
-      "input-resistance",
-      "chapter-3-summary",
-      "mesh-analysis",
-      "nodal-analysis",
-      "chapter-4-summary",
-      "superposition",
-      "thevenin",
-      "norton",
-    ],
+    slugs: curriculumArticles
+      .filter((article) => chapterForArticle(article.slug).number <= 4)
+      .map((article) => article.slug),
   },
   {
     slug: "analysis-review",
@@ -78,6 +67,11 @@ const entries: LearningPath[] = [
 export const learningPaths = entries.map((entry) => ({
   ...entry,
   slugs: articles
-    .filter((article) => entry.slugs.includes(article.slug))
+    .filter((article) =>
+      entry.slug === "ac-to-three-phase"
+        ? !article.supplemental &&
+          [8, 9, 11, 12].includes(chapterForArticle(article.slug).number)
+        : entry.slugs.includes(article.slug),
+    )
     .map((article) => article.slug),
 }));

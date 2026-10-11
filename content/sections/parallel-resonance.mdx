@@ -1,0 +1,57 @@
+<section className="textbook-topic" id="textbook-11-4">
+
+## 1. 核心概念
+
+**概念与条件：** 本节采用教材G、L、C并联模型。谐振条件是总导纳虚部为0，感性支路与容性支路电流相互抵消。固定端电压下电源电流最小，输入阻抗最大为1/G，支路电流仍可很大。
+
+本页对应教材 §11-4，从定义、适用条件到综合计算逐步展开。
+
+## 2. 前置知识
+
+[RLC串联电路的谐振](/learn/series-resonance)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "Y=G+j\\left(\\omega C-\\frac1{\\omega L}\\right),\\quad\\omega_0=\\frac1{\\sqrt{LC}},\\quad Z(\\omega_0)=\\frac1G"
+  }
+  description="教材§11-4（本节起始书页290）；按教材参考方向整理的教学写法。"
+/>
+
+<SectionFormulaCards chapter={11} section={4} />
+
+**怎样使用：** 并联先加导纳，求虚部为0的频率，再分别算源电流、IL和IC；电感串联损耗模型需重新求导纳。
+
+**代入示例：** R=100 Ω、L=10 mH、C=1 μF、U=10 V，ω0=10000 rad/s，电源电流0.1 A，IL=IC=0.1 A且相位相反。
+
+## 4. 解题步骤
+
+1. 列出题目已知量，注明单位、参考方向和本节适用条件。
+2. 并联先加导纳，求虚部为0的频率，再分别算源电流、IL和IC；电感串联损耗模型需重新求导纳。
+3. 对未知量建立独立关系，不把条件不同的公式混用。
+4. 代入后检查符号、量纲、极限或功率/能量平衡。
+
+## 5. 电路图
+
+<ParallelResonanceDiagram />
+
+以上图解用于理解本节的结构或物理关系；下面提高题的具体连接、数值和参考方向以题干为准。
+
+## 6. 典型例题
+
+<ChallengeProblem id="11-4" />
+
+## 7. 常见错误
+
+<Warning>
+  把串联谐振的电流最大结论照搬到并联输入电流，或对任何含损耗拓扑都套相同公式。
+</Warning>
+
+## 8. 相关知识
+
+下一小节：[三相电路](/learn/three-phase-basics)
+
+[本章逐节目录](/curriculum#chapter-11) · [本章公式速查](/formulas#formula-chapter-11)
+
+</section>

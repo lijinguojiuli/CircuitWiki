@@ -1,6 +1,7 @@
 import { articles } from "./content";
 import { formulas } from "./formulas";
 import { textbookReferences } from "./textbook";
+import { chapterForArticle, lessonSections } from "./chapters";
 export type LearningAssistantContext = {
   slug: string;
   title: string;
@@ -32,7 +33,16 @@ export function learningAssistantContext(
     title: article.title,
     source: { book: "邱关源《电路》第5版", ...textbookReferences[slug] },
     formulas: formulas
-      .filter((formula) => formula.slug === slug)
+      .filter(
+        (formula) =>
+          formula.slug === slug ||
+          (formula.position[0] === chapterForArticle(slug).number &&
+            formula.position[1] === lessonSections[slug]) ||
+          (article.supplemental &&
+            ["rc-circuit", "rl-circuit"].includes(slug) &&
+            formula.position[0] === 7 &&
+            formula.position[1] === 2),
+      )
       .map(({ name, latex, condition }) => ({ name, latex, condition })),
   };
 }

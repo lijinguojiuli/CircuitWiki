@@ -1,0 +1,246 @@
+.challenge-problem {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 24px 0 32px;
+  padding: 24px;
+  background: var(--surface);
+  scroll-margin-top: 110px;
+}
+.challenge-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.challenge-heading > div {
+  flex: 1;
+  min-width: min(240px, 100%);
+}
+.prose .challenge-heading h3 {
+  font-size: 21px;
+  margin: 8px 0 0;
+  line-height: 1.65;
+}
+.challenge-given {
+  margin-top: 20px;
+}
+.challenge-given > strong {
+  font-size: 13px;
+}
+.prose .challenge-given p {
+  font-size: 15px;
+  margin: 10px 0 16px;
+  line-height: 1.95;
+}
+.challenge-tasks {
+  padding-left: 24px;
+  margin: 20px 0;
+}
+.challenge-tasks li {
+  padding-left: 3px;
+  margin: 9px 0;
+  line-height: 1.9;
+}
+.challenge-hints,
+.challenge-solution {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin: 14px 0;
+  overflow: hidden;
+}
+.challenge-hints > summary,
+.challenge-solution > summary {
+  padding: 13px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--soft);
+  min-height: 44px;
+}
+.challenge-hints > ul {
+  padding: 4px 22px 8px 36px;
+  font-size: 14px;
+}
+.challenge-solution > div {
+  padding: 6px 20px 18px;
+}
+.challenge-step {
+  margin: 20px 0 24px;
+}
+.challenge-step h4 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.prose .challenge-step p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+.challenge-step .formula,
+.challenge-answer .formula {
+  padding: 16px 10px;
+  background: var(--soft);
+  border-radius: 5px;
+}
+.challenge-answer {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  margin-top: 24px;
+}
+.challenge-answer > strong {
+  font-size: 14px;
+}
+.prose .challenge-source,
+.prose .challenge-check-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.85;
+  margin: 16px 0 0;
+}
+.challenge-source > a {
+  display: inline-block;
+  margin-left: 10px;
+}
+.problem-schematic {
+  margin: 20px 0;
+  padding: 12px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.problem-schematic svg {
+  width: 100%;
+  height: auto;
+  max-height: none;
+}
+.diagram-pan-hint {
+  display: none;
+}
+.problem-phasor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.problem-phasor svg {
+  width: 100%;
+  height: auto;
+}
+.section-formula-cards .formula-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin: 16px 0;
+}
+.sidebar-supplements {
+  margin: 8px 0 18px 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.sidebar-supplements > summary {
+  padding: 8px 12px;
+}
+.sidebar-supplements a {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: var(--text);
+}
+.sidebar-supplements a[aria-current="page"] {
+  background: var(--soft);
+  font-weight: 600;
+}
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+.practice-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.practice-card:hover {
+  background: var(--soft);
+  border-color: var(--muted);
+}
+.practice-card > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.practice-card > div > .platform-kicker {
+  margin-right: auto;
+}
+.practice-card h2 {
+  font-size: 18px;
+  line-height: 1.7;
+}
+.practice-card > span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: auto;
+}
+.practice-toolbar select {
+  max-width: min(420px, 100%);
+}
+.practice-references {
+  margin-top: 36px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+}
+.practice-references summary {
+  font-weight: 600;
+}
+.practice-references p {
+  color: var(--muted);
+  margin-top: 14px;
+}
+.practice-references ul {
+  padding-left: 22px;
+}
+.practice-references li {
+  margin: 10px 0;
+}
+@media (max-width: 1150px) {
+  .header .personal-entry {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .challenge-problem {
+    padding: 18px;
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+  .prose .challenge-heading h3 {
+    font-size: 19px;
+  }
+  .challenge-solution > div {
+    padding: 4px 14px 14px;
+  }
+  .problem-phasor-grid,
+  .practice-grid {
+    grid-template-columns: 1fr;
+  }
+  .problem-schematic {
+    padding: 0;
+  }
+  .problem-schematic svg {
+    min-width: 580px;
+  }
+  .diagram-pan-hint {
+    display: block;
+  }
+  .practice-toolbar select {
+    width: 100%;
+    max-width: 100%;
+  }
+}

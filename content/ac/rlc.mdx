@@ -52,8 +52,14 @@
 
 ### 并联谐振（§11-4）
 
-<Formula latex={"Y=G+j\\left(\\omega C-\\frac1{\\omega L}\\right),\\qquad\\operatorname{Im}Y=0"} />
-<Formula latex={"\\omega_0=\\frac1{\\sqrt{LC}},\\qquad Z(\\omega_0)=\\frac1G"} />
+<Formula
+  latex={
+    "Y=G+j\\left(\\omega C-\\frac1{\\omega L}\\right),\\qquad\\operatorname{Im}Y=0"
+  }
+/>
+<Formula
+  latex={"\\omega_0=\\frac1{\\sqrt{LC}},\\qquad Z(\\omega_0)=\\frac1G"}
+/>
 
 本节采用教材G、L、C并联模型。固定端电压下，输入电流最小、输入阻抗最大；电感和电容支路电流可以很大。若电阻与电感串联后再并联电容，需要重新计算总导纳。
 
@@ -73,15 +79,23 @@
 
 ## 6. 典型例题
 
+<ChallengeProblem id="11-2" />
+
 <Example title="同一L、C分别判断串联与并联谐振">
 
 **串联：** L=10 mH、C=1 μF、R=10 Ω，输入5 V有效值。ω0=10000 rad/s，f0≈1591.55 Hz；I=0.5 A，Q=10，UL=UC=50 V。
 
-<Formula latex={"Q_s=\\frac{\\omega_0L}{R}=10,\\quad U_L=U_C=Q_sU=50\\,\\mathrm V"} />
+<Formula
+  latex={"Q_s=\\frac{\\omega_0L}{R}=10,\\quad U_L=U_C=Q_sU=50\\,\\mathrm V"}
+/>
 
 **并联：** L、C相同，但R=1 kΩ与L、C并联，端电压10 V。谐振时源电流仅10 mA，电感和电容支路电流各100 mA，方向相反。
 
-<Formula latex={"I_S=GU=0.01\\,\\mathrm A,\\quad I_L=\\frac{U}{\\omega_0L}=0.1\\,\\mathrm A,\\quad I_C=\\omega_0CU=0.1\\,\\mathrm A"} />
+<Formula
+  latex={
+    "I_S=GU=0.01\\,\\mathrm A,\\quad I_L=\\frac{U}{\\omega_0L}=0.1\\,\\mathrm A,\\quad I_C=\\omega_0CU=0.1\\,\\mathrm A"
+  }
+/>
 
 **核验：** 串联输入阻抗最小、并联输入阻抗最大；分量抵消不等于分量本身为零。这里并联模型是独立G、L、C三支路，不是电感串联损耗电阻的另一种拓扑。
 
@@ -95,5 +109,4 @@
 
 [前置知识：阻抗与导纳](/learn/impedance) → [继续学习：三相电路](/learn/three-phase-basics) · [第11章：仅学习谐振](/curriculum#chapter-11) · [公式速查](/formulas)
 
-
-[本章逐节复习](/learn/chapter-11-summary)
+[本章逐节复习](/learn/series-resonance)

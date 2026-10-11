@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { articles, sections, articleHref } from "@/lib/content";
+import {
+  articles,
+  curriculumArticles,
+  sections,
+  articleHref,
+} from "@/lib/content";
 import { ArticleBody } from "@/lib/mdx";
 import { chapterForArticle, chapterLabel, chapterId } from "@/lib/chapters";
 import { Breadcrumb, TableOfContents, SecondaryBadge } from "@/components/ui";
@@ -11,9 +16,15 @@ import { ArticleConnections } from "@/components/article-connections";
 import { BookmarkButton, ReadingProgress } from "@/components/reading-tools";
 import { pageMetadata, siteUrl } from "@/lib/seo";
 import { StructuredData } from "@/components/structured-data";
+import { legacyChapterTargets } from "@/lib/legacy-lessons";
+import { textbookTopics } from "@/lib/textbook-scope";
+import { LegacyLessonRedirect } from "@/components/legacy-lesson-redirect";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return [
+    ...articles.map((a) => ({ slug: a.slug })),
+    ...Object.keys(legacyChapterTargets).map((slug) => ({ slug })),
+  ];
 }
 export async function generateMetadata({
   params,
@@ -21,6 +32,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (legacyChapterTargets[slug])
+    return pageMetadata(
+      "教材小节导航",
+      "打开对应的教材小节。",
+      `/learn/${legacyChapterTargets[slug]}`,
+      false,
+    );
   const article = articles.find((a) => a.slug === slug);
   return article
     ? pageMetadata(article.title, article.description, `/learn/${slug}`)
@@ -32,11 +50,26 @@ export default async function KnowledgePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (legacyChapterTargets[slug]) {
+    const target = legacyChapterTargets[slug];
+    const chapter = chapterForArticle(target);
+    return (
+      <LegacyLessonRedirect
+        target={target}
+        topics={textbookTopics
+          .filter((topic) => topic.chapter === chapter.number)
+          .map(({ slug, anchor }) => ({ slug, anchor }))}
+      />
+    );
+  }
   const index = articles.findIndex((a) => a.slug === slug);
   if (index < 0) notFound();
   const article = articles[index];
   const chapter = chapterForArticle(slug);
   const tool = relatedTool(slug);
+  const readingIndex = curriculumArticles.findIndex(
+    (item) => item.textbookSection === article.textbookSection,
+  );
   return (
     <>
       <main id="main" className="article">
@@ -110,11 +143,14 @@ export default async function KnowledgePage({
           <a href="#section-1">理解概念</a>
           <a href="#section-3">查看公式</a>
           <a href="#section-6">跟着例题练习</a>
-          {!slug.startsWith("chapter-") && (
-            <Link href={`/learn/chapter-${chapter.number}-summary`}>
-              本章全览 ↗
-            </Link>
-          )}
+          <a
+            href={`#challenge-${article.slug === "rl-circuit" ? "7-3" : article.textbookSection}`}
+          >
+            做综合提高题
+          </a>
+          <Link href={`/curriculum#chapter-${chapter.number}`}>
+            本章小节目录 ↗
+          </Link>
         </nav>
         <details className="mobile-toc">
           <summary>展开本页目录</summary>
@@ -129,18 +165,18 @@ export default async function KnowledgePage({
         </div>
         <LessonProgress slug={slug} />
         <nav className="prev-next" aria-label="文章翻页">
-          {index > 0 ? (
-            <Link href={articleHref(articles[index - 1].slug)}>
+          {readingIndex > 0 ? (
+            <Link href={articleHref(curriculumArticles[readingIndex - 1].slug)}>
               <small>← 上一篇</small>
-              {articles[index - 1].title}
+              {curriculumArticles[readingIndex - 1].title}
             </Link>
           ) : (
             <span />
           )}
-          {index < articles.length - 1 && (
-            <Link href={articleHref(articles[index + 1].slug)}>
+          {readingIndex < curriculumArticles.length - 1 && (
+            <Link href={articleHref(curriculumArticles[readingIndex + 1].slug)}>
               <small>下一篇 →</small>
-              {articles[index + 1].title}
+              {curriculumArticles[readingIndex + 1].title}
             </Link>
           )}
         </nav>

@@ -3,22 +3,27 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { ArrowRight, BookOpen, Check, CircleCheck } from "lucide-react";
-import { articles } from "@/lib/content";
+import { articles, curriculumArticles } from "@/lib/content";
 import { chapterForArticle } from "@/lib/chapters";
 import { recordVisit, toggleCompleted, useStudy } from "@/lib/study-store";
 
 export function StudyResume() {
   const { completed, lastSlug } = useStudy();
   const last = articles.find((article) => article.slug === lastSlug);
-  const lastIndex = articles.findIndex((article) => article.slug === lastSlug);
+  const lastIndex = curriculumArticles.findIndex(
+    (article) => article.textbookSection === last?.textbookSection,
+  );
   const next =
     last && completed.includes(last.slug)
-      ? articles
+      ? curriculumArticles
           .slice(lastIndex + 1)
           .find((article) => !completed.includes(article.slug))
       : undefined;
-  const target = next ?? last ?? articles[0];
-  const done = completed.length === articles.length;
+  const target = next ?? last ?? curriculumArticles[0];
+  const completedCount = curriculumArticles.filter((article) =>
+    completed.includes(article.slug),
+  ).length;
+  const done = completedCount === curriculumArticles.length;
   return (
     <section className="study-resume" aria-label="我的学习">
       <div className="study-resume-icon">
@@ -42,12 +47,12 @@ export function StudyResume() {
         <p>
           {last
             ? `第 ${chapterForArticle(target.slug).number} 章 · 学习记录保存在当前浏览器`
-            : "先读章节全览，再深入专题；用例题和交互实验检查理解。"}
+            : "按教材小节学习概念，再用综合提高题检验理解。"}
         </p>
       </div>
       <div className="study-resume-action">
         <span>
-          {completed.length} / {articles.length} 篇已完成
+          {completedCount} / {curriculumArticles.length} 小节已完成
         </span>
         <Link className="button primary" href={`/learn/${target.slug}`}>
           {last ? "继续学习" : "开始学习"}

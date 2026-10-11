@@ -2,8 +2,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Zap } from "lucide-react";
-import { articles, articleHref } from "@/lib/content";
-import { learningChapters, lessonSectionLabel } from "@/lib/chapters";
+import { articles, curriculumArticles, articleHref } from "@/lib/content";
+import {
+  learningChapters,
+  lessonSectionLabel,
+  chapterForArticle,
+} from "@/lib/chapters";
 import { CompletionMark } from "./study-progress";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
@@ -18,7 +22,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         onClick={onNavigate}
       >
         <BookOpen size={17} />
-        学习路线<span>{articles.length}</span>
+        学习路线<span>{curriculumArticles.length}</span>
       </Link>
       {learningChapters.map((chapter) => (
         <div
@@ -56,6 +60,37 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               </Link>
             );
           })}
+          {articles.some(
+            (article) =>
+              article.supplemental &&
+              chapterForArticle(article.slug).number === chapter.number,
+          ) && (
+            <details className="sidebar-supplements" open>
+              <summary>补充专题</summary>
+              {articles
+                .filter(
+                  (article) =>
+                    article.supplemental &&
+                    chapterForArticle(article.slug).number === chapter.number,
+                )
+                .map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={articleHref(article.slug)}
+                    onClick={onNavigate}
+                    aria-current={
+                      path === articleHref(article.slug) ? "page" : undefined
+                    }
+                    className={
+                      path === articleHref(article.slug) ? "current" : ""
+                    }
+                  >
+                    <span>{article.title}</span>
+                    <CompletionMark slug={article.slug} />
+                  </Link>
+                ))}
+            </details>
+          )}
         </div>
       ))}
       <div className="sidebar-note">

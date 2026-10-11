@@ -1,6 +1,14 @@
 // Editorial maintenance log, based on the corresponding content commits.
 export const contentUpdates = [
   {
+    date: "2026-10-11",
+    title: "53个教材小节独立学习，新增53道综合提高题",
+    description:
+      "每节提供原创多步题、可选提示与分步解答，章节聚合讲解已融入对应小节。",
+    slug: "nodal-analysis",
+    revision: "sections-20261011",
+  },
+  {
     date: "2026-10-10",
     title: "统一 RC / RL 时间常数的等效电阻记号",
     description: "补充 Req 的端口含义与时间常数条件。",

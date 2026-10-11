@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/graph",
     "/formulas",
     "/tools",
+    "/practice",
     ...learningPaths.map((path) => `/paths/${path.slug}`),
     ...articles.map((article) => `/learn/${article.slug}`),
   ].map((path) => ({ url: siteUrl + path }));

@@ -37,7 +37,7 @@ test("source combinations, input resistance and symbol explanations are availabl
   await expect(page.locator("#chapter-5")).toHaveCount(0);
   await expect(page.locator("main")).not.toContainText(/只学|跳过|戴维南/);
   await page.goto("/learn/thevenin");
-  await expect(page.locator("h1")).toHaveText("戴维宁定理");
+  await expect(page.locator("h1")).toHaveText("戴维宁定理和诺顿定理");
   await expect(page.locator('.left-sidebar [data-chapter="5"]')).toHaveCount(0);
 });
 

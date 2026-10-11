@@ -1,0 +1,53 @@
+<section className="textbook-topic" id="textbook-1-5">
+
+## 1. 核心概念
+
+**概念与条件：** 线性电阻在关联方向下满足欧姆定律。电导G是电阻R的倒数。正电阻总吸收功率；非关联方向下伏安关系要带负号。短路电阻为0，开路可视为无穷大电阻，但不能随意用除零运算。
+
+本页对应教材 §1-5，从定义、适用条件到综合计算逐步展开。
+
+## 2. 前置知识
+
+[电路元件](/learn/circuit-elements)
+
+## 3. 核心公式
+
+<Formula
+  latex={"u=Ri,\\quad G=\\frac1R,\\quad p=Ri^2=\\frac{u^2}{R}"}
+  description="教材§1-5（本节起始书页13）；按教材参考方向整理的教学写法。"
+/>
+
+<SectionFormulaCards chapter={1} section={5} />
+
+**怎样使用：** 使用Ω、A、V统一单位，再检查电压电流是否关联。
+
+**代入示例：** R=2 kΩ、u=6 V，则i=3 mA，p=18 mW，G=0.5 mS。
+
+## 4. 解题步骤
+
+1. 列出题目已知量，注明单位、参考方向和本节适用条件。
+2. 使用Ω、A、V统一单位，再检查电压电流是否关联。
+3. 对未知量建立独立关系，不把条件不同的公式混用。
+4. 代入后检查符号、量纲、极限或功率/能量平衡。
+
+## 5. 电路图
+
+<CircuitDiagram type="divider" />
+
+以上图解用于理解本节的结构或物理关系；下面提高题的具体连接、数值和参考方向以题干为准。
+
+## 6. 典型例题
+
+<ChallengeProblem id="1-5" />
+
+## 7. 常见错误
+
+<Warning>将kΩ数值直接当Ω，或在非关联方向下仍写u=Ri。</Warning>
+
+## 8. 相关知识
+
+下一小节：[电压源和电流源](/learn/independent-sources)
+
+[本章逐节目录](/curriculum#chapter-1) · [本章公式速查](/formulas#formula-chapter-1)
+
+</section>

@@ -1,4 +1,5 @@
 import { articles } from "./content";
+import { legacyChapterTargets } from "./legacy-lessons";
 export type ReadingEntry = {
   slug: string;
   visitedAt: string;
@@ -10,6 +11,7 @@ export type StudyState = {
   bookmarks: readonly string[];
   history: readonly ReadingEntry[];
   lastSlug: string | null;
+  retiredCompleted?: readonly string[];
 };
 export const emptyStudy: StudyState = {
   version: 2,
@@ -19,6 +21,14 @@ export const emptyStudy: StudyState = {
   lastSlug: null,
 };
 const valid = new Set(articles.map((article) => article.slug));
+const storedSlug = (value: unknown) =>
+  typeof value === "string"
+    ? valid.has(value)
+      ? value
+      : Object.hasOwn(legacyChapterTargets, value)
+        ? legacyChapterTargets[value]
+        : null
+    : null;
 export const isArticleSlug = (value: unknown): value is string =>
   typeof value === "string" && valid.has(value);
 export function normalizeStudy(value: unknown): StudyState {
@@ -28,21 +38,32 @@ export function normalizeStudy(value: unknown): StudyState {
   if (data.version !== undefined && data.version !== 1 && data.version !== 2)
     throw new Error("不支持此学习记录版本。");
   if (!Array.isArray(data.completed)) throw new Error("缺少有效的完成列表。");
-  const slugs = (items: unknown) =>
-    Array.isArray(items) ? [...new Set(items.filter(isArticleSlug))] : [];
+  const slugs = (items: unknown, migrate = false) =>
+    Array.isArray(items)
+      ? [
+          ...new Set(
+            items
+              .map((item) =>
+                migrate ? storedSlug(item) : isArticleSlug(item) ? item : null,
+              )
+              .filter((item): item is string => item !== null),
+          ),
+        ]
+      : [];
   const history: ReadingEntry[] = [];
   for (const item of Array.isArray(data.history) ? data.history : []) {
     if (!item || typeof item !== "object") continue;
     const record = item as Record<string, unknown>;
+    const slug = storedSlug(record.slug);
     if (
-      !isArticleSlug(record.slug) ||
+      !slug ||
       typeof record.visitedAt !== "string" ||
       !Number.isFinite(Date.parse(record.visitedAt)) ||
-      history.some((entry) => entry.slug === record.slug)
+      history.some((entry) => entry.slug === slug)
     )
       continue;
     history.push({
-      slug: record.slug,
+      slug,
       visitedAt: record.visitedAt,
       progress:
         typeof record.progress === "number" && Number.isFinite(record.progress)
@@ -54,11 +75,23 @@ export function normalizeStudy(value: unknown): StudyState {
   return {
     version: 2,
     completed: slugs(data.completed),
-    bookmarks: slugs(data.bookmarks),
+    bookmarks: slugs(data.bookmarks, true),
     history: history.slice(0, 100),
-    lastSlug: isArticleSlug(data.lastSlug)
-      ? data.lastSlug
-      : (history[0]?.slug ?? null),
+    lastSlug: storedSlug(data.lastSlug) ?? history[0]?.slug ?? null,
+    retiredCompleted: [
+      ...new Set(
+        [
+          ...(Array.isArray(data.retiredCompleted)
+            ? data.retiredCompleted
+            : []),
+          ...data.completed,
+        ].filter(
+          (item): item is string =>
+            typeof item === "string" &&
+            Object.hasOwn(legacyChapterTargets, item),
+        ),
+      ),
+    ],
   };
 }
 export function parseStudyImport(text: string): StudyState {
@@ -92,6 +125,12 @@ export function mergeStudy(
     version: 2,
     completed: [...new Set([...current.completed, ...incoming.completed])],
     bookmarks: [...new Set([...current.bookmarks, ...incoming.bookmarks])],
+    retiredCompleted: [
+      ...new Set([
+        ...(current.retiredCompleted ?? []),
+        ...(incoming.retiredCompleted ?? []),
+      ]),
+    ],
     history: [...bySlug.values()],
     lastSlug: current.lastSlug ?? incoming.lastSlug,
   });

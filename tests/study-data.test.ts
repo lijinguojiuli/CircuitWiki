@@ -82,6 +82,37 @@ test("history merge preserves the latest visit and furthest reading independentl
   assert.equal(merged.history[0].visitedAt, "2026-10-10T12:00:00Z");
   assert.equal(merged.history[0].progress, 90);
 });
+
+test("removed aggregate-page records migrate without falsely completing a chapter", () => {
+  const migrated = normalizeStudy({
+    completed: ["chapter-7-summary", "kcl-kvl"],
+    bookmarks: ["chapter-7-summary"],
+    lastSlug: "chapter-7-summary",
+    history: [
+      {
+        slug: "chapter-7-summary",
+        visitedAt: "2026-10-10T00:00:00Z",
+        progress: 80,
+      },
+    ],
+  });
+  assert.deepEqual(migrated.completed, ["kcl-kvl"]);
+  assert.deepEqual(migrated.retiredCompleted, ["chapter-7-summary"]);
+  assert.deepEqual(migrated.bookmarks, ["initial-conditions"]);
+  assert.equal(migrated.history[0].slug, "initial-conditions");
+  assert.equal(migrated.lastSlug, "initial-conditions");
+  const invalid = normalizeStudy({
+    completed: [],
+    bookmarks: ["__proto__", "constructor"],
+    lastSlug: "constructor",
+    history: [
+      { slug: "__proto__", visitedAt: "2026-10-10T00:00:00Z", progress: 80 },
+    ],
+  });
+  assert.deepEqual(invalid.bookmarks, []);
+  assert.deepEqual(invalid.history, []);
+  assert.equal(invalid.lastSlug, null);
+});
 test("reserved assistant context contains verifiable lesson and formula sources", () => {
   const context = learningAssistantContext("rc-circuit")!;
   assert.ok(context.source.section.includes("7-"));

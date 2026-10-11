@@ -72,17 +72,14 @@ test("chapter map, breadcrumbs and reading order match the textbook scope", asyn
   await expect(page.locator("#chapter-5")).toHaveCount(0);
   await expect(page.locator("main")).not.toContainText(/只学|跳过/);
   await expect(page.locator("#chapter-11 .knowledge-card")).toHaveCount(2);
-  await expect(page.locator("#chapter-11")).toContainText("RLC 串联与并联谐振");
-  await page
-    .locator("#chapter-10")
-    .getByRole("link", { name: /耦合电感与同名端/ })
-    .click();
+  await expect(page.locator("#chapter-11")).toContainText("RLC串联电路的谐振");
+  await page.locator('#chapter-10 a[href="/learn/coupled-inductors"]').click();
   await expect(page.locator(".breadcrumb")).toContainText("第10章");
   await expect(page.locator('nav[aria-label="文章翻页"]')).toContainText(
-    "串联与并联谐振全览",
+    "含有耦合电感电路的计算",
   );
   await page.goto("/learn/norton");
   await expect(page.locator('nav[aria-label="文章翻页"]')).toContainText(
-    "储能元件全览",
+    "最大功率传输定理",
   );
 });

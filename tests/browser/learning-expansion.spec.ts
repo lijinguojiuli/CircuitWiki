@@ -4,25 +4,24 @@ import { textbookTopics } from "../../src/lib/textbook-scope";
 test("all 53 in-scope sections have live anchors and rendered instructional content", async ({
   page,
 }) => {
-  for (const chapter of [
-    ...new Set(textbookTopics.map((topic) => topic.chapter)),
-  ]) {
-    await page.goto(`/learn/chapter-${chapter}-summary`);
-    const topics = textbookTopics.filter((topic) => topic.chapter === chapter);
-    await expect(page.locator(".textbook-topic")).toHaveCount(topics.length);
-    for (const topic of topics) {
-      const block = page.locator(`#${topic.anchor}`);
-      await expect(block.locator("h3")).toContainText(topic.title);
-      expect(await block.locator(".katex").count()).toBeGreaterThan(0);
-      await expect(block).toContainText("代入示例");
-      await expect(block.locator(".warning")).toHaveCount(1);
-    }
+  for (const topic of textbookTopics) {
+    await page.goto(`/learn/${topic.slug}`);
+    await expect(page.locator("h1")).toHaveText(topic.title);
+    await expect(page.locator(".textbook-topic")).toHaveCount(1);
+    const block = page.locator(`#${topic.anchor}`);
+    expect(await block.locator(".katex").count()).toBeGreaterThan(0);
+    await expect(block).toContainText("代入示例");
+    expect(await block.locator(".warning").count()).toBeGreaterThan(0);
+    await expect(block.locator(".challenge-problem")).toHaveAttribute(
+      "data-challenge-id",
+      `${topic.chapter}-${topic.section}`,
+    );
   }
   await page.goto("/curriculum");
   await expect(page.locator("h1")).toHaveText("学习路线");
   await expect(page.locator(".coverage-grid a")).toHaveCount(53);
   await page.locator("#chapter-7 .coverage-detail summary").click();
-  await page.locator('a[href="/learn/chapter-7-summary#textbook-7-2"]').click();
+  await page.locator('a[href="/learn/zero-input#textbook-7-2"]').click();
   await expect(page).toHaveURL(/#textbook-7-2$/);
   await expect(page.locator("#textbook-7-2")).toBeInViewport();
 });

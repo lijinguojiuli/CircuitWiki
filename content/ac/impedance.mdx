@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-9-1">
+
 ## 1. 核心概念
 
 阻抗Z=R+jX描述电压相量与电流相量的比，导纳Y=G+jB是Z的倒数。串联加阻抗，并联加导纳；1/(R+jX)不能分别取实虚部倒数。电抗与电纳的符号相反。
@@ -7,6 +9,21 @@
 ## 2. 前置知识
 
 [进入前置知识](/learn/phasor)
+
+### 本小节教材要点
+
+**概念与条件：** 阻抗Z=R+jX描述电压相量与电流相量的比，导纳Y=G+jB是Z的倒数。串联加阻抗，并联加导纳；1/(R+jX)不能分别取实虚部倒数。电抗与电纳的符号相反。
+
+<Formula
+  latex={"Z=\\frac{\\dot U}{\\dot I},\\quad Y=\\frac1Z=\\frac{R-jX}{R^2+X^2}"}
+  description="教材§9-1（本节起始书页220）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 先确认串并联，再选Z或Y表示；转换后检查Ω与S及感容性。
+
+**代入示例：** Z=3+j4 Ω，则Y=(3−j4)/25=0.12−j0.16 S；并联两个该阻抗等效1.5+j2 Ω。
+
+<Warning>把导纳误写成1/R+j/X，或把电纳B与电抗X使用同一符号。</Warning>
 
 ## 3. 核心公式
 
@@ -76,15 +93,23 @@ Z 是电压相量与电流相量的比值，单位 Ω；Y=1/Z 是导纳，单位
 
 ## 5. 电路图
 
-<CircuitDiagram type="rc" sourceLabel="u_S" caption="串联RC可先相加R与电容阻抗" />
+<CircuitDiagram
+  type="rc"
+  sourceLabel="u_S"
+  caption="串联RC可先相加R与电容阻抗"
+/>
 
 ## 6. 典型例题
+
+<ChallengeProblem id="9-1" />
 
 <Example title="并联RC先求导纳">
 
 **题目：** R=1 kΩ、C=1 μF并联，ω=1000 rad/s，求等效阻抗。
 
-<Formula latex={"Y=\\frac1{1000}+j1000\\times10^{-6}=0.001+j0.001\\,\\mathrm S"} />
+<Formula
+  latex={"Y=\\frac1{1000}+j1000\\times10^{-6}=0.001+j0.001\\,\\mathrm S"}
+/>
 <Formula latex={"Z=\\frac1Y=500-j500=707.107\\angle(-45^\\circ)\\,\\Omega"} />
 
 **核验：** 结果虚部为负，是容性。若这两个元件是串联，结果则为1000−j1000 Ω，连接方式不同不能互换。
@@ -99,5 +124,6 @@ Z 是电压相量与电流相量的比值，单位 Ω；Y=1/Z 是导纳，单位
 
 [前置知识](/learn/phasor) → [继续学习](/learn/rlc) · [公式速查](/formulas)
 
+[本章小节目录](/curriculum#chapter-9)
 
-[本章逐节复习](/learn/chapter-9-summary)
+</section>

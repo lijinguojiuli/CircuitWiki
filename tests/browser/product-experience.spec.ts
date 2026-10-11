@@ -13,7 +13,7 @@ test("first visit has actionable entry points and completion resumes the next le
     .locator(".study-resume")
     .getByRole("link", { name: "开始学习" })
     .click();
-  await expect(page).toHaveURL(/chapter-1-summary/);
+  await expect(page).toHaveURL(/circuit-model/);
   await expect(
     page.getByRole("button", { name: "标记为已完成", exact: true }),
   ).toHaveAttribute("aria-pressed", "false");
@@ -24,22 +24,24 @@ test("first visit has actionable entry points and completion resumes the next le
   ).toHaveAttribute("aria-pressed", "true");
   await page.goto("/");
   const resume = page.locator(".study-resume");
-  await expect(resume).toContainText("1 / 40 篇已完成");
+  await expect(resume).toContainText("1 / 53 小节已完成");
   await expect(resume.getByRole("link", { name: "继续学习" })).toHaveAttribute(
     "href",
-    "/learn/controlled-sources",
+    "/learn/reference-directions",
   );
   await page.goto("/curriculum");
   await expect(page.locator("#chapter-1 .chapter-progress")).toHaveText(
-    "1 / 3",
+    "1 / 8",
   );
   await expect(page.locator("#chapter-1 .lesson-complete")).toHaveCount(1);
-  await page.goto("/learn/chapter-1-summary");
+  await page.goto("/learn/circuit-model");
   await page
     .getByRole("button", { name: "已完成 · 撤销标记", exact: true })
     .click();
   await page.goto("/");
-  await expect(page.locator(".study-resume")).toContainText("0 / 40 篇已完成");
+  await expect(page.locator(".study-resume")).toContainText(
+    "0 / 53 小节已完成",
+  );
 });
 
 test("formula filters preserve textbook order, reveal symbols and recover empty results", async ({
@@ -119,7 +121,7 @@ test("reading navigation follows the current section without changing the lesson
       .locator(".left-sidebar")
       .evaluate((element) => element.scrollTop),
   ).toBe(before);
-  await expect(page.locator(".lesson-shortcuts")).toContainText("本章全览");
+  await expect(page.locator(".lesson-shortcuts")).toContainText("本章小节目录");
 });
 
 test("damaged or unavailable local storage does not prevent reading and recording progress", async ({
@@ -187,9 +189,11 @@ test("completion updates across tabs in the same browser", async ({
     .getByRole("button", { name: "标记为已完成", exact: true })
     .click();
   await expect(page.locator("#chapter-1 .chapter-progress")).toHaveText(
-    "1 / 3",
+    "1 / 8",
   );
-  await expect(page.locator(".study-resume")).toContainText("1 / 40 篇已完成");
+  await expect(page.locator(".study-resume")).toContainText(
+    "1 / 53 小节已完成",
+  );
   await lesson.close();
 });
 

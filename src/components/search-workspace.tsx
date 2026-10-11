@@ -53,16 +53,11 @@ function SearchResults({ initialQuery }: { initialQuery: string }) {
             }}
           >
             <option value="">全部类型</option>
-            {[
-              "知识专题",
-              "章节全览",
-              "综合例题",
-              "教材小节",
-              "公式",
-              "交互工具",
-            ].map((value) => (
-              <option key={value}>{value}</option>
-            ))}
+            {["补充专题", "提高题", "教材小节", "公式", "交互工具"].map(
+              (value) => (
+                <option key={value}>{value}</option>
+              ),
+            )}
           </select>
         </label>
         <label>

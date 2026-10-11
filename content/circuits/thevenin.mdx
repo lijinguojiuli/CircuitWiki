@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-4-3">
+
 ## 1. 核心概念
 
 线性含源一端口对外部负载的作用，可以用一个开路电压 uoc 与一个输入电阻 Req 的串联组合表示。等效保持端口电压、电流关系，特别适合负载变化时的计算。
@@ -9,6 +11,21 @@
 ## 2. 前置知识
 
 [KCL / KVL](/learn/kcl-kvl) · [节点电压法](/learn/nodal-analysis) · [叠加定理](/learn/superposition) · [受控源](/learn/controlled-sources)
+
+### 本小节教材要点
+
+**概念与条件：** 线性一端口可用开路电压串联输入电阻，或短路电流并联输入电阻表示。两种模型保持负载端伏安特性。先移去负载，再求参数；受控源保留。
+
+<Formula
+  latex={"u=u_{oc}-R_{eq}i,\\quad u_{oc}=R_{eq}i_{sc}"}
+  description="教材§4-3（本节起始书页90）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 采用开路电压加输入电阻，或开路电压加短路电流两种路线；0/0情形改加测试源。
+
+**代入示例：** uoc=8 V、isc=6 mA，Req=4/3 kΩ；接2 kΩ负载得2.4 mA、4.8 V。
+
+<Warning>将负载电阻算进原网络输入电阻，或直接以带载电压作为uoc。</Warning>
 
 ## 3. 核心公式
 
@@ -78,6 +95,8 @@
 
 ## 6. 典型例题
 
+<ChallengeProblem id="4-3" />
+
 <Example title="同一分压网络，用两种方法求解">
 
 **题目：** US=12 V，上臂R₁=2 kΩ，下臂R₂=4 kΩ，负载从A接到B。求等效参数，以及RL=2 kΩ时的负载电流、电压。
@@ -140,13 +159,6 @@
 
 </Example>
 
-<Quiz
-  question="求Req时，理想独立电压源应如何处理？"
-  options={["开路", "短路", "保持原电压"]}
-  answer={1}
-  explanation="独立电压源置零相当于短路；受控源及其控制关系仍须保留。"
-/>
-
 ## 7. 常见错误
 
 <Warning>
@@ -163,5 +175,6 @@
 
 [诺顿定理](/learn/norton) · [电源等效变换](/learn/source-transformations) · [受控源](/learn/controlled-sources) · [含源桥臂例题](/learn/bridge-arm)
 
+[本章小节目录](/curriculum#chapter-4)
 
-[本章逐节复习](/learn/chapter-4-summary)
+</section>

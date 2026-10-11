@@ -3,6 +3,7 @@ import "katex/dist/katex.min.css";
 import "./globals.css";
 import "./platform.css";
 import "./design-system.css";
+import "./challenges.css";
 import Link from "next/link";
 import { pageMetadata, siteUrl } from "@/lib/seo";
 import { Providers } from "@/components/providers";

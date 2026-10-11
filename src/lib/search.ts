@@ -2,7 +2,7 @@ import { articles } from "./content";
 import { chapterForArticle, chapterLabel } from "./chapters";
 import { formulas, type FormulaEntry } from "./formulas";
 import { learningTools, lessonKind } from "./learning";
-import { textbookTopics } from "./textbook-scope";
+import { challengeIndex } from "./challenges/catalogue";
 import { areaForArticle } from "./knowledge";
 
 export const formulaId = (formula: Pick<FormulaEntry, "position">) =>
@@ -36,15 +36,15 @@ const entries: SearchResult[] = [
     area: areaForArticle(article.slug).id,
     chapter: chapterForArticle(article.slug).number,
   })),
-  ...textbookTopics.map((topic) => ({
-    id: topic.anchor,
-    title: topic.title,
-    detail: `§${topic.chapter}-${topic.section} · 章节全览中的小节`,
-    kind: "教材小节",
-    href: `/learn/${topic.slug}#${topic.anchor}`,
-    keywords: topic.title,
-    area: areaForArticle(topic.slug).id,
-    chapter: topic.chapter,
+  ...challengeIndex.map((problem) => ({
+    id: `challenge-${problem.id}`,
+    title: problem.title,
+    detail: `§${problem.id} · ${problem.difficulty}`,
+    kind: "提高题",
+    href: `/learn/${problem.slug}#challenge-${problem.id}`,
+    keywords: `综合 难题 ${problem.title}`,
+    area: areaForArticle(problem.slug).id,
+    chapter: problem.chapter,
   })),
   ...formulas.map((formula) => ({
     id: formulaId(formula),
@@ -109,7 +109,7 @@ export function searchContent(
       // Prefer dedicated lessons to overlapping chapter summaries.
       return {
         entry,
-        score: score + (score > 0 && entry.kind === "知识专题" ? 5 : 0),
+        score: score + (score > 0 && entry.kind === "教材小节" ? 5 : 0),
         order,
       };
     })

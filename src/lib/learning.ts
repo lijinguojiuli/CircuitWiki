@@ -42,11 +42,9 @@ export const learningStages = [
 ] as const;
 
 export function lessonKind(slug: string) {
-  return slug.startsWith("chapter-")
-    ? "章节全览"
-    : slug === "bridge-arm"
-      ? "综合例题"
-      : "知识专题";
+  return articles.find((article) => article.slug === slug)?.supplemental
+    ? "补充专题"
+    : "教材小节";
 }
 
 export function stageLessons(chapterNumbers: readonly number[]) {
@@ -92,11 +90,11 @@ export function relatedTool(slug: string) {
       "impedance",
       "complex-euler",
       "phasor-diagrams",
-      "chapter-8-summary",
-      "chapter-9-summary",
+      "phasor-laws",
+      "sinusoidal-analysis",
     ].includes(slug)
   )
     return learningTools[2];
-  if (["kcl-kvl", "chapter-1-summary"].includes(slug)) return learningTools[0];
+  if (["kcl-kvl", "circuit-model"].includes(slug)) return learningTools[0];
   return null;
 }

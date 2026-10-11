@@ -28,15 +28,20 @@ test("formula reference follows textbook chapters and removed material stays abs
   await page.goto("/learn/three-phase-power");
   await expect(page.locator("h1")).toHaveText("三相电路的功率");
   await expect(page.locator("body")).not.toContainText("二瓦");
-  await page.getByRole("button", { name: "1800 W", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("回答正确");
+  await page.locator("#challenge-12-5 .challenge-solution summary").click();
+  await expect(page.locator("#challenge-12-5 .challenge-answer")).toContainText(
+    "16750.4",
+  );
   await page.getByRole("textbox", { name: "搜索知识点和公式" }).fill("二瓦计");
   await expect(page.locator(".search-results")).toContainText("未找到结果");
   await page.keyboard.press("Escape");
   await page.goto("/curriculum");
   await expect(page.locator("#chapter-3 .card-index")).toHaveText([
-    "§3-1 · 章节全览",
-    "§3-4 · 知识专题",
-    "§3-6 · 知识专题",
+    "§3-1 · 教材小节",
+    "§3-2 · 教材小节",
+    "§3-3 · 教材小节",
+    "§3-4 · 教材小节",
+    "§3-5 · 教材小节",
+    "§3-6 · 教材小节",
   ]);
 });

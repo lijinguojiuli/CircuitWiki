@@ -17,13 +17,11 @@ test("Req notation, ideal transformer scope and secondary topic labels render co
   await expect(
     page.locator(".formula-card h3").filter({ hasText: "理想变压器" }),
   ).toHaveCount(1);
-  const rc = page
-    .locator(".formula-card")
-    .filter({
-      has: page.getByRole("heading", { name: "RC 时间常数", exact: true }),
-    });
+  const rc = page.locator(".formula-card").filter({
+    has: page.getByRole("heading", { name: "RC 时间常数", exact: true }),
+  });
   await expect(rc.locator("annotation")).toHaveText("\\tau=R_{eq}C");
-  await page.goto("/learn/chapter-10-summary");
+  await page.goto("/learn/ideal-transformer");
   await expect(page.locator("#textbook-10-4")).toHaveCount(0);
   await expect(page.locator("#textbook-10-5")).toContainText("理想变压器");
   await page.goto("/learn/power-factor");

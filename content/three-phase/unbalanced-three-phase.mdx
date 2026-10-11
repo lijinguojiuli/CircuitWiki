@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-12-4">
+
 ## 1. 核心概念
 
 电源、线路或负载有一部分不对称，整个三相电路就不再对称。三相电流通常不能靠“算一相再旋转120°”得到。
@@ -9,6 +11,27 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 ## 2. 前置知识
 
 [结点电压法](/learn/nodal-analysis) · [对称三相计算](/learn/balanced-three-phase)
+
+### 本小节教材要点
+
+**概念与条件：** 不对称Y负载有理想中性线时各相电压由电源固定；中性线断开时负载中性点位移，各相电压需用结点法求。Δ负载每相跨在线端间，应先分别算支路电流，再用KCL求线电流。
+
+<SecondaryTopic title="中性点位移">
+
+<Formula
+  latex={
+    "\\dot U_{N\\prime N}=\\frac{\\dot U_AY_A+\\dot U_BY_B+\\dot U_CY_C}{Y_A+Y_B+Y_C}"
+  }
+  description="教材§12-4（本节起始书页308）；按教材参考方向整理的教学写法。"
+/>
+
+</SecondaryTopic>
+
+**怎样使用：** Y先判断中性线状态，Δ先看各线电压；计及线路阻抗时写完整结点方程，不盲用忽略线路的位移式。
+
+**代入示例：** 平衡线电压100 V，Δ电阻RAB=10 Ω、RBC=20 Ω、RCA=10 Ω，各支路电流大小10、5、10 A，线电流必须按对应相量相减。
+
+<Warning>对不对称Δ继续用每条线电流等于某相电流√3倍。</Warning>
 
 ## 3. 核心公式
 
@@ -63,6 +86,8 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 
 ## 6. 典型例题
 
+<ChallengeProblem id="12-4" />
+
 <SecondaryTopic title="中性点位移例题">
 
 <Example title="同一负载断开中性线后的电压变化">
@@ -98,13 +123,6 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 </SecondaryTopic>
 
 <SecondaryTopic title="中性点位移练习">
-
-<Quiz
-  question="不对称Y负载的中性线断开后，各相负载电压一定保持电源相电压吗？"
-  options={["不一定，会发生中性点位移", "一定", "所有相电压都变成0"]}
-  answer={0}
-  explanation="负载中性点不再由理想中性线固定，应重新用KCL求它的电位。"
-/>
 
 </SecondaryTopic>
 
@@ -143,4 +161,6 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 
 [前置：结点电压法](/learn/nodal-analysis) · [相关：三相功率](/learn/three-phase-power) · [返回：对称三相计算](/learn/balanced-three-phase)
 
-[本章逐节复习](/learn/chapter-12-summary)
+[本章小节目录](/curriculum#chapter-12)
+
+</section>

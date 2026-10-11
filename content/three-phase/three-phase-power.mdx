@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-12-5">
+
 ## 1. 核心概念
 
 三相总复功率等于各相复功率之和。对称时三相贡献相同，先算一相再乘3。
@@ -9,6 +11,23 @@
 ## 2. 前置知识
 
 [交流功率](/learn/power) · [线量与相量](/learn/line-phase) · [不对称三相概念](/learn/unbalanced-three-phase)
+
+### 本小节教材要点
+
+**概念与条件：** 三相总复功率为各相复功率之和，P与Q分别相加。对称时可用三倍相功率或√3线值式；一般不对称情况先算各相。这里保留普通功率计算，不加入功率测量扩展。
+
+<Formula
+  latex={
+    "\\overline S=\\overline S_A+\\overline S_B+\\overline S_C,\\qquad P=\\sqrt3U_lI_l\\cos\\phi"
+  }
+  description="教材§12-5（本节起始书页310）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 确认线值、相值与对称条件，U、I用有效值；总视在功率应由总复功率求模。
+
+**代入示例：** 对称380 V、10 A、功率因数0.8感性负载，P≈5.265 kW、Q≈3.949 kvar、S≈6.582 kVA。
+
+<Warning>把三个视在功率大小一般直接相加，或漏乘3/√3。</Warning>
 
 ## 3. 核心公式
 
@@ -64,6 +83,8 @@ Uₚ、Iₚ是相电压、相电流有效值，Uₗ、Iₗ是线有效值。功�
 
 ## 6. 典型例题
 
+<ChallengeProblem id="12-5" />
+
 <Example title="用线值计算对称三相功率">
 
 **题目：** 对称三相负载，线电压380 V、线电流10 A，功率因数0.8（感性）。求总有功功率P、无功功率Q和视在功率S。
@@ -88,13 +109,6 @@ Uₚ、Iₚ是相电压、相电流有效值，Uₗ、Iₗ是线有效值。功�
 
 </Example>
 
-<Quiz
-  question="对称三相负载每相吸收600 W，总有功功率是多少？"
-  options={["1800 W", "600 W", "约1039 W"]}
-  answer={0}
-  explanation="对称时三相贡献相同，总功率为3×600=1800 W。"
-/>
-
 ## 7. 常见错误
 
 <Warning>
@@ -110,5 +124,6 @@ Uₚ、Iₚ是相电压、相电流有效值，Uₗ、Iₗ是线有效值。功�
 
 [前置：交流功率](/learn/power) · [相关：功率因数](/learn/power-factor) · [相关：对称三相计算](/learn/balanced-three-phase)
 
+[本章小节目录](/curriculum#chapter-12)
 
-[本章逐节复习](/learn/chapter-12-summary)
+</section>

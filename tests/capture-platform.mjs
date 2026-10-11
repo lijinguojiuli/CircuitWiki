@@ -19,7 +19,7 @@ for (const [name, route] of [
   await page.goto("http://localhost:3000" + route);
   if (route.includes("graph"))
     await page
-      .getByRole("heading", { name: "节点电压法", exact: true })
+      .getByRole("heading", { name: "结点电压法", exact: true })
       .waitFor();
   if (route.includes("search"))
     await page.getByLabel("内容类型", { exact: true }).selectOption("公式");

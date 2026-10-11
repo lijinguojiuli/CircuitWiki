@@ -1,0 +1,55 @@
+<section className="textbook-topic" id="textbook-10-2">
+
+## 1. 核心概念
+
+**概念与条件：** 互感项将两支路方程耦合，不能把每个线圈独立当作jωL处理。串联同向时等效电感L1+L2+2M，反向时L1+L2−2M；更一般的网络要按同名端写联立相量方程。
+
+本页对应教材 §10-2，从定义、适用条件到综合计算逐步展开。
+
+## 2. 前置知识
+
+[互感](/learn/coupled-inductors)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "L_{eq}=L_1+L_2\\pm2M,\\quad\\dot U_1=j\\omega L_1\\dot I_1\\pm j\\omega M\\dot I_2"
+  }
+  description="教材§10-2（本节起始书页257）；按教材参考方向整理的教学写法。"
+/>
+
+<SectionFormulaCards chapter={10} section={2} />
+
+**怎样使用：** 先辨同名端和电流方向，写自感项与互感项，再列KVL；只有特定拓扑可直接去耦。
+
+**代入示例：** L1=20 mH、L2=80 mH、M=20 mH，串联同向为140 mH，反向为60 mH。
+
+## 4. 解题步骤
+
+1. 列出题目已知量，注明单位、参考方向和本节适用条件。
+2. 先辨同名端和电流方向，写自感项与互感项，再列KVL；只有特定拓扑可直接去耦。
+3. 对未知量建立独立关系，不把条件不同的公式混用。
+4. 代入后检查符号、量纲、极限或功率/能量平衡。
+
+## 5. 电路图
+
+<CoupledInductorDiagram />
+
+以上图解用于理解本节的结构或物理关系；下面提高题的具体连接、数值和参考方向以题干为准。
+
+## 6. 典型例题
+
+<ChallengeProblem id="10-2" />
+
+## 7. 常见错误
+
+<Warning>不检查拓扑就把±M随意分摊到某个电阻或电感支路。</Warning>
+
+## 8. 相关知识
+
+下一小节：[耦合电感的功率](/learn/coupled-power)
+
+[本章逐节目录](/curriculum#chapter-10) · [本章公式速查](/formulas#formula-chapter-10)
+
+</section>

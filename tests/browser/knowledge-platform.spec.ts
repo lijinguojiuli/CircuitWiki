@@ -6,11 +6,11 @@ test("knowledge tree and local graph expose valid directional relationships", as
 }) => {
   await page.goto("/knowledge");
   await expect(page.locator(".knowledge-area")).toHaveCount(6);
-  await expect(page.locator(".knowledge-area .knowledge-card")).toHaveCount(40);
+  await expect(page.locator(".knowledge-area .knowledge-card")).toHaveCount(59);
   await page.goto("/graph#nodal-analysis");
-  await expect(page.locator(".graph-center h2")).toHaveText("节点电压法");
+  await expect(page.locator(".graph-center h2")).toHaveText("结点电压法");
   await expect(page.locator(".graph-column").first()).toContainText(
-    "KCL 与 KVL",
+    "基尔霍夫定律",
   );
   await expect(page.locator(".graph-column").last()).toContainText(
     "戴维宁定理",
@@ -18,9 +18,9 @@ test("knowledge tree and local graph expose valid directional relationships", as
   await page
     .locator(".graph-column")
     .first()
-    .getByRole("button", { name: /KCL 与 KVL/ })
+    .getByRole("button", { name: /基尔霍夫定律/ })
     .click();
-  await expect(page.locator(".graph-center h2")).toHaveText("KCL 与 KVL");
+  await expect(page.locator(".graph-center h2")).toHaveText("基尔霍夫定律");
   await page.getByRole("button", { name: "文本列表视图" }).click();
   await expect(page.locator(".graph-neighborhood")).toHaveClass(
     /graph-as-list/,
@@ -38,9 +38,9 @@ test("recommended routes contain real lessons and scoped learning outcomes", asy
   await expect(page.locator(".path-card")).toHaveCount(3);
   await page.locator('a[href="/paths/foundations"]').click();
   await expect(page.locator(".path-brief")).toContainText("学完能做什么");
-  await expect(page.locator(".path-lessons .knowledge-card")).toHaveCount(13);
+  await expect(page.locator(".path-lessons .knowledge-card")).toHaveCount(25);
   await page.getByRole("link", { name: "开始这条路径 →" }).click();
-  await expect(page).toHaveURL(/chapter-1-summary/);
+  await expect(page).toHaveURL(/circuit-model/);
 });
 
 test("legacy records, bookmarks, reading history and export/import work together", async ({

@@ -6,14 +6,13 @@ export type TextbookTopic = {
   slug: string;
   anchor: string;
 };
-
 export const textbookTopics: readonly TextbookTopic[] = [
   {
     chapter: 1,
     section: 1,
     title: "电路和电路模型",
     page: 7,
-    slug: "chapter-1-summary",
+    slug: "circuit-model",
     anchor: "textbook-1-1",
   },
   {
@@ -21,7 +20,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "电流和电压的参考方向",
     page: 9,
-    slug: "chapter-1-summary",
+    slug: "reference-directions",
     anchor: "textbook-1-2",
   },
   {
@@ -29,7 +28,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "电功率和能量",
     page: 11,
-    slug: "chapter-1-summary",
+    slug: "power-energy",
     anchor: "textbook-1-3",
   },
   {
@@ -37,7 +36,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "电路元件",
     page: 12,
-    slug: "chapter-1-summary",
+    slug: "circuit-elements",
     anchor: "textbook-1-4",
   },
   {
@@ -45,7 +44,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "电阻元件",
     page: 13,
-    slug: "chapter-1-summary",
+    slug: "resistor",
     anchor: "textbook-1-5",
   },
   {
@@ -53,7 +52,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 6,
     title: "电压源和电流源",
     page: 16,
-    slug: "chapter-1-summary",
+    slug: "independent-sources",
     anchor: "textbook-1-6",
   },
   {
@@ -61,7 +60,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 7,
     title: "受控电源",
     page: 18,
-    slug: "chapter-1-summary",
+    slug: "controlled-sources",
     anchor: "textbook-1-7",
   },
   {
@@ -69,7 +68,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 8,
     title: "基尔霍夫定律",
     page: 20,
-    slug: "chapter-1-summary",
+    slug: "kcl-kvl",
     anchor: "textbook-1-8",
   },
   {
@@ -77,7 +76,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "引言",
     page: 32,
-    slug: "chapter-2-summary",
+    slug: "equivalence-introduction",
     anchor: "textbook-2-1",
   },
   {
@@ -85,7 +84,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "电路的等效变换",
     page: 32,
-    slug: "chapter-2-summary",
+    slug: "equivalent-circuits",
     anchor: "textbook-2-2",
   },
   {
@@ -93,7 +92,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "电阻的串联和并联",
     page: 33,
-    slug: "chapter-2-summary",
+    slug: "series-parallel",
     anchor: "textbook-2-3",
   },
   {
@@ -101,7 +100,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "电阻的Y形联结和Δ形联结的等效变换",
     page: 37,
-    slug: "chapter-2-summary",
+    slug: "star-delta",
     anchor: "textbook-2-4",
   },
   {
@@ -109,7 +108,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "电压源、电流源的串联和并联",
     page: 41,
-    slug: "chapter-2-summary",
+    slug: "source-connections",
     anchor: "textbook-2-5",
   },
   {
@@ -117,7 +116,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 6,
     title: "实际电源的两种模型及其等效变换",
     page: 42,
-    slug: "chapter-2-summary",
+    slug: "source-transformations",
     anchor: "textbook-2-6",
   },
   {
@@ -125,7 +124,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 7,
     title: "输入电阻",
     page: 45,
-    slug: "chapter-2-summary",
+    slug: "input-resistance",
     anchor: "textbook-2-7",
   },
   {
@@ -133,7 +132,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "电路的图",
     page: 52,
-    slug: "chapter-3-summary",
+    slug: "circuit-graphs",
     anchor: "textbook-3-1",
   },
   {
@@ -141,7 +140,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "KCL和KVL的独立方程数",
     page: 54,
-    slug: "chapter-3-summary",
+    slug: "independent-equations",
     anchor: "textbook-3-2",
   },
   {
@@ -149,7 +148,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "支路电流法",
     page: 58,
-    slug: "chapter-3-summary",
+    slug: "branch-current",
     anchor: "textbook-3-3",
   },
   {
@@ -157,7 +156,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "网孔电流法",
     page: 60,
-    slug: "chapter-3-summary",
+    slug: "mesh-analysis",
     anchor: "textbook-3-4",
   },
   {
@@ -165,7 +164,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "回路电流法",
     page: 64,
-    slug: "chapter-3-summary",
+    slug: "loop-current",
     anchor: "textbook-3-5",
   },
   {
@@ -173,7 +172,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 6,
     title: "结点电压法",
     page: 69,
-    slug: "chapter-3-summary",
+    slug: "nodal-analysis",
     anchor: "textbook-3-6",
   },
   {
@@ -181,7 +180,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "叠加定理",
     page: 82,
-    slug: "chapter-4-summary",
+    slug: "superposition",
     anchor: "textbook-4-1",
   },
   {
@@ -189,7 +188,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "替代定理",
     page: 88,
-    slug: "chapter-4-summary",
+    slug: "substitution",
     anchor: "textbook-4-2",
   },
   {
@@ -197,7 +196,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "戴维宁定理和诺顿定理",
     page: 90,
-    slug: "chapter-4-summary",
+    slug: "thevenin",
     anchor: "textbook-4-3",
   },
   {
@@ -205,7 +204,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "最大功率传输定理",
     page: 97,
-    slug: "chapter-4-summary",
+    slug: "maximum-power",
     anchor: "textbook-4-4",
   },
   {
@@ -213,7 +212,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "电容元件",
     page: 126,
-    slug: "chapter-6-summary",
+    slug: "capacitor",
     anchor: "textbook-6-1",
   },
   {
@@ -221,7 +220,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "电感元件",
     page: 129,
-    slug: "chapter-6-summary",
+    slug: "inductor",
     anchor: "textbook-6-2",
   },
   {
@@ -229,7 +228,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "电容、电感元件的串联与并联",
     page: 131,
-    slug: "chapter-6-summary",
+    slug: "storage-networks",
     anchor: "textbook-6-3",
   },
   {
@@ -237,7 +236,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "动态电路的方程及其初始条件",
     page: 137,
-    slug: "chapter-7-summary",
+    slug: "initial-conditions",
     anchor: "textbook-7-1",
   },
   {
@@ -245,7 +244,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "一阶电路的零输入响应",
     page: 140,
-    slug: "chapter-7-summary",
+    slug: "zero-input",
     anchor: "textbook-7-2",
   },
   {
@@ -253,7 +252,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "一阶电路的零状态响应",
     page: 147,
-    slug: "chapter-7-summary",
+    slug: "zero-state",
     anchor: "textbook-7-3",
   },
   {
@@ -261,7 +260,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "一阶电路的全响应",
     page: 152,
-    slug: "chapter-7-summary",
+    slug: "complete-response",
     anchor: "textbook-7-4",
   },
   {
@@ -269,7 +268,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "复数",
     page: 202,
-    slug: "chapter-8-summary",
+    slug: "complex-euler",
     anchor: "textbook-8-1",
   },
   {
@@ -277,7 +276,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "正弦量",
     page: 205,
-    slug: "chapter-8-summary",
+    slug: "sinusoidal",
     anchor: "textbook-8-2",
   },
   {
@@ -285,7 +284,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "相量法的基础",
     page: 208,
-    slug: "chapter-8-summary",
+    slug: "phasor",
     anchor: "textbook-8-3",
   },
   {
@@ -293,7 +292,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "电路定律的相量形式",
     page: 211,
-    slug: "chapter-8-summary",
+    slug: "phasor-laws",
     anchor: "textbook-8-4",
   },
   {
@@ -301,7 +300,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "阻抗和导纳",
     page: 220,
-    slug: "chapter-9-summary",
+    slug: "impedance",
     anchor: "textbook-9-1",
   },
   {
@@ -309,7 +308,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "电路的相量图",
     page: 226,
-    slug: "chapter-9-summary",
+    slug: "phasor-diagrams",
     anchor: "textbook-9-2",
   },
   {
@@ -317,7 +316,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "正弦稳态电路的分析",
     page: 227,
-    slug: "chapter-9-summary",
+    slug: "sinusoidal-analysis",
     anchor: "textbook-9-3",
   },
   {
@@ -325,7 +324,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "正弦稳态电路的功率",
     page: 233,
-    slug: "chapter-9-summary",
+    slug: "power",
     anchor: "textbook-9-4",
   },
   {
@@ -333,7 +332,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "复功率",
     page: 238,
-    slug: "chapter-9-summary",
+    slug: "complex-power",
     anchor: "textbook-9-5",
   },
   {
@@ -341,7 +340,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 6,
     title: "最大功率传输",
     page: 241,
-    slug: "chapter-9-summary",
+    slug: "ac-maximum-power",
     anchor: "textbook-9-6",
   },
   {
@@ -349,7 +348,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "互感",
     page: 252,
-    slug: "chapter-10-summary",
+    slug: "coupled-inductors",
     anchor: "textbook-10-1",
   },
   {
@@ -357,7 +356,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "含有耦合电感电路的计算",
     page: 257,
-    slug: "chapter-10-summary",
+    slug: "coupled-analysis",
     anchor: "textbook-10-2",
   },
   {
@@ -365,7 +364,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "耦合电感的功率",
     page: 262,
-    slug: "chapter-10-summary",
+    slug: "coupled-power",
     anchor: "textbook-10-3",
   },
   {
@@ -373,7 +372,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "理想变压器",
     page: 268,
-    slug: "chapter-10-summary",
+    slug: "ideal-transformer",
     anchor: "textbook-10-5",
   },
   {
@@ -381,7 +380,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "RLC串联电路的谐振",
     page: 281,
-    slug: "chapter-11-summary",
+    slug: "series-resonance",
     anchor: "textbook-11-2",
   },
   {
@@ -389,7 +388,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "RLC并联谐振电路",
     page: 290,
-    slug: "chapter-11-summary",
+    slug: "parallel-resonance",
     anchor: "textbook-11-4",
   },
   {
@@ -397,7 +396,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 1,
     title: "三相电路",
     page: 301,
-    slug: "chapter-12-summary",
+    slug: "three-phase-basics",
     anchor: "textbook-12-1",
   },
   {
@@ -405,7 +404,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 2,
     title: "线电压（电流）与相电压（电流）的关系",
     page: 303,
-    slug: "chapter-12-summary",
+    slug: "line-phase",
     anchor: "textbook-12-2",
   },
   {
@@ -413,7 +412,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 3,
     title: "对称三相电路的计算",
     page: 306,
-    slug: "chapter-12-summary",
+    slug: "balanced-three-phase",
     anchor: "textbook-12-3",
   },
   {
@@ -421,7 +420,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 4,
     title: "不对称三相电路的概念",
     page: 308,
-    slug: "chapter-12-summary",
+    slug: "unbalanced-three-phase",
     anchor: "textbook-12-4",
   },
   {
@@ -429,7 +428,7 @@ export const textbookTopics: readonly TextbookTopic[] = [
     section: 5,
     title: "三相电路的功率",
     page: 310,
-    slug: "chapter-12-summary",
+    slug: "three-phase-power",
     anchor: "textbook-12-5",
   },
 ];

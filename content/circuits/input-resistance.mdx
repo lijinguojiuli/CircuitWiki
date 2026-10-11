@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-2-7">
+
 ## 1. 核心概念
 
 输入电阻是从指定端口看入网络时，端口电压与流入电流之间的电阻关系。先选A—B端口，再定义u为A对B的电压、i为流入A端的电流；换一个端口，看到的输入电阻可能不同。
@@ -10,7 +12,22 @@
 
 ## 2. 前置知识
 
-[串并联化简](/learn/chapter-2-summary#textbook-2-3) · [电源等效变换](/learn/source-transformations) · [受控源](/learn/controlled-sources)
+[串并联化简](/learn/series-parallel) · [电源等效变换](/learn/source-transformations) · [受控源](/learn/controlled-sources)
+
+### 本小节教材要点
+
+**概念与条件：** 独立源置零后，从指定端口看入的电压与流入电流之比是输入电阻。只有电阻时可直接化简；含受控源要保留控制关系，必要时加测试源。含受控源的输入电阻可能为负或零。
+
+<Formula
+  latex={"R_{in}=\\frac{u_t}{i_t}"}
+  description="教材§2-7（本节起始书页45）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 测试电流取流入正端；先求控制量再求测试电流，不能用任意带载点的u/i替代。
+
+**代入示例：** 1 kΩ电阻并联i=0.5 mS×ut的受控源，取ut=1 V，it=1.5 mA，输入电阻约666.67 Ω。
+
+<Warning>将开路电压0与短路电流0相除；应改用测试源法。</Warning>
 
 ## 3. 核心公式
 
@@ -61,6 +78,8 @@ Rin为输入电阻，Req为所选端口的等效电阻，单位Ω；ut是测试�
 
 ## 6. 典型例题
 
+<ChallengeProblem id="2-7" />
+
 <Example title="两个电阻的输入电阻：直接化简与测试源核验">
 
 **题目：** 独立源置零后，A—B端口内有2 kΩ与4 kΩ并联，求输入电阻。
@@ -103,4 +122,6 @@ Rin为输入电阻，Req为所选端口的等效电阻，单位Ω；ut是测试�
 
 ## 8. 相关知识
 
-[电源组合警告](/learn/source-transformations#source-combinations) · [戴维宁定理](/learn/thevenin) · [本章全览](/learn/chapter-2-summary)
+[电源组合警告](/learn/source-transformations#source-combinations) · [戴维宁定理](/learn/thevenin) · [本章小节目录](/curriculum#chapter-2)
+
+</section>

@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-3-6">
+
 ## 1. 核心概念
 
 节点电压法以各节点相对参考节点的电压为未知量。用欧姆定律将支路电流表示成节点电压差，再对节点写 KCL。
@@ -11,6 +13,21 @@
 [KCL 与欧姆定律](/learn/kcl-kvl) · [电流源等效](/learn/norton)
 
 [先分清结点、支路与参考结点](/learn/kcl-kvl#topology-definitions)
+
+### 本小节教材要点
+
+**概念与条件：** 选参考结点后，其余结点电位是未知量；支路电流由两端结点电压差除以电阻。自导为正，互导为负；无接地理想电压源需用超级结点及电压约束。
+
+<Formula
+  latex={"\\sum_k G_{nk}u_{nk}=i_{Snn}"}
+  description="教材§3-6（本节起始书页69）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 先选参考结点，把电流源注入方向统一为正；含电压源时补足约束，不强行套纯电导形式。
+
+**代入示例：** 一个结点通过2 kΩ与4 kΩ接地，3 mA注入，得u/2000+u/4000=0.003，因此u=4 V。
+
+<Warning>重复对已经带负号的互导再减一次。</Warning>
 
 ## 3. 核心公式
 
@@ -107,6 +124,8 @@ uₙ 是正在分析的结点电压，uₖ 是相邻结点电压，Rₙₖ 是�
 
 ## 6. 典型例题
 
+<ChallengeProblem id="3-6" />
+
 <Example title="电压源与电流源共同作用的节点">
 
 **题目：** 求图中 A 点电压。右侧 1 mA 电流源向上注入，通过 R₃ 流向 A。
@@ -136,13 +155,6 @@ uₙ 是正在分析的结点电压，uₖ 是相邻结点电压，Rₙₖ 是�
 
 </Example>
 
-<Quiz
-  question="参考节点的电压应该设为多少？"
-  options={["0 V", "电源电压", "任意未知数"]}
-  answer={0}
-  explanation="参考节点定义为 0 V，其他节点电压均相对它测量。"
-/>
-
 ## 7. 常见错误
 
 <SourceSymbolGuide />
@@ -159,5 +171,6 @@ uₙ 是正在分析的结点电压，uₖ 是相邻结点电压，Rₙₖ 是�
 
 [前置：KCL](/learn/kcl-kvl) → [后续：阻抗与正弦节点分析](/learn/impedance) · [相关：网孔电流法](/learn/mesh-analysis)
 
+[本章小节目录](/curriculum#chapter-3)
 
-[本章逐节复习](/learn/chapter-3-summary)
+</section>

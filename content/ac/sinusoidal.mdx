@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-8-2">
+
 ## 1. 核心概念
 
 正弦量由峰值、角频率和初相位决定。有效值用于同频正弦功率和有效值相量。先把sin改为共同的cos参考，再提取初相位；相位超前通常对应波形向左移动。不同频率的两量不能用一个固定相位差描述。
@@ -7,6 +9,23 @@
 ## 2. 前置知识
 
 [进入前置知识](/learn/kcl-kvl)
+
+### 本小节教材要点
+
+**概念与条件：** 正弦量由峰值、角频率和初相位决定。有效值用于同频正弦功率和有效值相量。先把sin改为共同的cos参考，再提取初相位；相位超前通常对应波形向左移动。不同频率的两量不能用一个固定相位差描述。
+
+<Formula
+  latex={
+    "u=U_m\\cos(\\omega t+\\phi),\\quad U=\\frac{U_m}{\\sqrt2},\\quad\\omega=2\\pi f,\\quad T=\\frac1f"
+  }
+  description="教材§8-2（本节起始书页205）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 识别幅值是否已经含√2，统一角度单位，再计算频率、周期与指定时刻瞬时值。
+
+**代入示例：** u=10√2 sin(100πt+60°) V=10√2 cos(100πt−30°) V；U=10 V，f=50 Hz，T=20 ms，u(0)=12.247 V。
+
+<Warning>sin转cos时错误加90°；正确sinθ=cos(θ−90°)。</Warning>
 
 ## 3. 核心公式
 
@@ -64,14 +83,24 @@ Um 是峰值，U 是有效值，ω 是角频率，f 是每秒振动次数。不�
 
 ## 6. 典型例题
 
+<ChallengeProblem id="8-2" />
+
 <Example title="把正弦表达式读成可计算的参数">
 
 **题目：** u(t)=10√2 sin(100πt+60°) V，求余弦形式、有效值、频率、周期以及t=0与5 ms时的电压。
 
 <Formula latex={"u(t)=10\\sqrt2\\cos(100\\pi t-30^\\circ)\\,\\mathrm V"} />
-<Formula latex={"U=10\\,\\mathrm V,\\quad f=\\frac{100\\pi}{2\\pi}=50\\,\\mathrm{Hz},\\quad T=20\\,\\mathrm{ms}"} />
+<Formula
+  latex={
+    "U=10\\,\\mathrm V,\\quad f=\\frac{100\\pi}{2\\pi}=50\\,\\mathrm{Hz},\\quad T=20\\,\\mathrm{ms}"
+  }
+/>
 <Formula latex={"u(0)=10\\sqrt2\\cos(-30^\\circ)=12.247\\,\\mathrm V"} />
-<Formula latex={"u(5\\,\\mathrm{ms})=10\\sqrt2\\cos(90^\\circ-30^\\circ)=7.071\\,\\mathrm V"} />
+<Formula
+  latex={
+    "u(5\\,\\mathrm{ms})=10\\sqrt2\\cos(90^\\circ-30^\\circ)=7.071\\,\\mathrm V"
+  }
+/>
 
 **相位怎么看：** 相对cos(100πt)，初相位为−30°，滞后时间30/(360×50)=1.667 ms。代入时100πt算出的弧度与初相位必须换成同一单位。
 
@@ -85,5 +114,6 @@ Um 是峰值，U 是有效值，ω 是角频率，f 是每秒振动次数。不�
 
 [前置知识](/learn/kcl-kvl) → [继续学习](/learn/phasor) · [公式速查](/formulas)
 
+[本章小节目录](/curriculum#chapter-8)
 
-[本章逐节复习](/learn/chapter-8-summary)
+</section>

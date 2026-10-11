@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-2-6">
+
 ## 1. 核心概念
 
 实际电源常用两种线性模型：电压源与电阻串联，或电流源与电阻并联。满足参数与方向关系时，它们对外部负载的端口伏安特性相同，可以互相转换。
@@ -9,6 +11,23 @@
 ## 2. 前置知识
 
 [KCL / KVL](/learn/kcl-kvl) · [串并联与结点](/learn/kcl-kvl#topology-definitions)
+
+### 本小节教材要点
+
+**概念与条件：** 电压源串联电阻与电流源并联同一电阻，可以保持二端口伏安关系。电流源方向从等效电压源负端指向正端。变换对象必须是完整组合，控制变量和外部引线不能被消去。
+
+<Formula
+  latex={"I_S=\\frac{U_S}{R},\\quad U_S=RI_S,\\quad u=U_S-Ri"}
+  description="教材§2-6（本节起始书页42）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 圈定完整组合、固定端口和方向、保留电阻，再接回外部负载。
+
+**代入示例：** 12 V串联3 kΩ可换为4 mA并联3 kΩ；接6 kΩ负载，两种模型都给出8 V、4/3 mA。
+
+<Warning>
+  只转换理想源而删掉电阻，或强行转换没有相应串并联电阻的理想源。
+</Warning>
 
 ## 3. 核心公式
 
@@ -84,6 +103,8 @@
 
 ## 6. 典型例题
 
+<ChallengeProblem id="2-6" />
+
 <Example title="同一负载，用两种模型验算">
 
 **题目：** US=12 V，R=3 kΩ，负载RL=6 kΩ。求负载电流与电压，再转成电流源模型检查。
@@ -106,13 +127,6 @@
 
 </Example>
 
-<Quiz
-  question="5 mA电流源并联2 kΩ，等效电压源的电压是多少？"
-  options={["10 V", "2.5 V", "0.01 V"]}
-  answer={0}
-  explanation="US=RIS=2000×0.005=10 V，2 kΩ保留为串联电阻。"
-/>
-
 ## 7. 常见错误
 
 <Warning>
@@ -128,4 +142,6 @@
 
 [戴维宁定理](/learn/thevenin) · [诺顿定理](/learn/norton) · [受控源](/learn/controlled-sources) · [桥臂式含源一端口](/learn/bridge-arm) · [输入电阻](/learn/input-resistance)
 
-[本章逐节复习](/learn/chapter-2-summary)
+[本章小节目录](/curriculum#chapter-2)
+
+</section>

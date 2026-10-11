@@ -57,6 +57,7 @@ test("all public routes render, formulas work, internal links and anchors resolv
     "/formulas",
     "/tools",
     "/curriculum",
+    "/practice",
     "/topics/analog",
     "/topics/digital",
   ]) {
@@ -93,8 +94,10 @@ test("search, quiz, themes and persistence", async ({ page }) => {
     .locator('a[href="/learn/thevenin"]')
     .click();
   await expect(page).toHaveURL(/thevenin/);
-  await page.getByRole("button", { name: "短路", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("回答正确");
+  await page.locator("#challenge-4-3 .challenge-solution summary").click();
+  await expect(page.locator("#challenge-4-3 .challenge-answer")).toContainText(
+    "15",
+  );
   await page.getByRole("button", { name: "Dark 深色", exact: true }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
   await page.reload();
@@ -160,7 +163,7 @@ test("mobile navigation and no page overflow", async ({ page }) => {
   await expect(page.locator(".mobile-menu")).toBeVisible();
   await page
     .locator(".mobile-menu")
-    .getByRole("link", { name: "节点电压法", exact: true })
+    .getByRole("link", { name: "结点电压法", exact: true })
     .click();
   await expect(page).toHaveURL(/nodal-analysis/);
   await expect(page.locator(".mobile-menu")).toHaveCount(0);

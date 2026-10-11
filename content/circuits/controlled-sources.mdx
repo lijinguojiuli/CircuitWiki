@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-1-7">
+
 ## 1. 核心概念
 
 受控源的输出不是独立给定的常数，而由电路中另一处电压或电流决定。教材用菱形表示受控源，与独立源的圆圈区分。
@@ -9,6 +11,21 @@
 ## 2. 前置知识
 
 [电压、电流参考方向](/learn/kcl-kvl) · [节点电压法](/learn/nodal-analysis)
+
+### 本小节教材要点
+
+**概念与条件：** 四类线性受控源由另一处电压或电流控制：VCVS、VCCS、CCVS、CCCS。菱形用于区分独立源。叠加和求输入电阻时保留控制关系，控制量随当前电路重新求值。
+
+<Formula
+  latex={"u=\\mu u_x,\\quad i=gu_x,\\quad u=ri_x,\\quad i=\\beta i_x"}
+  description="教材§1-7（本节起始书页18）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 先标控制变量及方向，再检查系数单位：µ、β无量纲，g为S，r为Ω。
+
+**代入示例：** g=0.5 mS、ux=2 V，则受控电流为1 mA；ux改为−2 V时为−1 mA。
+
+<Warning>关闭独立源时一并删除受控源；保留受控源不等于冻结原控制量。</Warning>
 
 ## 3. 核心公式
 
@@ -58,6 +75,8 @@
 
 ## 6. 典型例题
 
+<ChallengeProblem id="1-7" />
+
 <Example title="保留受控源，求输入电阻">
 
 **题目：** 1 kΩ电阻与VCCS并联在A-B之间，i=guₓ从A流向B，uₓ=uAB，g=0.5 mS。网络没有独立源，求输入电阻。
@@ -82,13 +101,6 @@
 
 </Example>
 
-<Quiz
-  question="受控源i=βiₓ，β=20、iₓ=0.2 mA时，输出电流为多少？"
-  options={["4 mA", "0.01 mA", "40 A"]}
-  answer={0}
-  explanation="β无量纲，i=20×0.2 mA=4 mA。"
-/>
-
 ## 7. 常见错误
 
 <Warning>
@@ -104,5 +116,6 @@
 
 [叠加定理](/learn/superposition) · [戴维宁与测试源法](/learn/thevenin#thevenin-two-methods) · [电源等效变换](/learn/source-transformations)
 
+[本章小节目录](/curriculum#chapter-1)
 
-[本章逐节复习](/learn/chapter-1-summary)
+</section>

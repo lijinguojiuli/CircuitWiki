@@ -51,6 +51,36 @@ export const articlesInArea = (id: string) =>
 
 // Only real conceptual dependencies are directed. Chapter order is a separate model.
 const prerequisiteEntries: Record<string, readonly string[]> = {
+  "circuit-model": [],
+  "reference-directions": ["circuit-model"],
+  "power-energy": ["reference-directions"],
+  "circuit-elements": ["reference-directions"],
+  resistor: ["circuit-elements"],
+  "independent-sources": ["reference-directions"],
+  "equivalence-introduction": ["kcl-kvl"],
+  "equivalent-circuits": ["resistor", "kcl-kvl"],
+  "series-parallel": ["resistor", "kcl-kvl"],
+  "source-connections": ["independent-sources"],
+  "circuit-graphs": ["kcl-kvl"],
+  "independent-equations": ["circuit-graphs"],
+  "branch-current": ["independent-equations", "kcl-kvl"],
+  "loop-current": ["circuit-graphs", "mesh-analysis"],
+  substitution: ["kcl-kvl"],
+  "maximum-power": ["thevenin"],
+  "storage-networks": ["capacitor", "inductor"],
+  "initial-conditions": ["capacitor", "inductor"],
+  "zero-input": ["initial-conditions", "input-resistance"],
+  "zero-state": ["zero-input"],
+  "complete-response": ["zero-state"],
+  "phasor-laws": ["phasor", "capacitor", "inductor"],
+  "sinusoidal-analysis": ["impedance", "nodal-analysis"],
+  "complex-power": ["power"],
+  "ac-maximum-power": ["complex-power", "thevenin"],
+  "coupled-analysis": ["coupled-inductors", "impedance"],
+  "coupled-power": ["coupled-analysis", "power"],
+  "ideal-transformer": ["coupled-inductors", "impedance"],
+  "series-resonance": ["impedance", "phasor-diagrams"],
+  "parallel-resonance": ["series-resonance", "impedance"],
   "controlled-sources": ["kcl-kvl"],
   "kcl-kvl": [],
   "star-delta": ["kcl-kvl"],
@@ -98,15 +128,25 @@ export function knowledgeRelations(slug: string) {
   const subsequent = articles
     .filter((article) => prerequisitesFor(article.slug).includes(slug))
     .map((article) => article.slug);
-  const candidates = slug.startsWith("chapter-")
-    ? chapter.slugs
-    : [
-        ...(relatedEntries[slug] ?? []),
-        ...Object.entries(relatedEntries)
-          .filter(([, values]) => values.includes(slug))
-          .map(([key]) => key),
-        `chapter-${chapter.number}-summary`,
-      ];
+  const position = chapter.slugs.indexOf(slug);
+  const neighbors = chapter.slugs.filter(
+    (_, index) => Math.abs(index - position) === 1,
+  );
+  const candidates = [
+    ...(relatedEntries[slug] ?? []),
+    ...Object.entries(relatedEntries)
+      .filter(([, values]) => values.includes(slug))
+      .map(([key]) => key),
+    ...neighbors,
+    ...articles
+      .filter(
+        (article) =>
+          article.supplemental &&
+          article.textbookSection ===
+            articles.find((item) => item.slug === slug)?.textbookSection,
+      )
+      .map((article) => article.slug),
+  ];
   return {
     prerequisites,
     subsequent,

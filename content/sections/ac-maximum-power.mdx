@@ -1,0 +1,55 @@
+<section className="textbook-topic" id="textbook-9-6">
+
+## 1. 核心概念
+
+**概念与条件：** 固定频率下把源侧化为Uoc与Zeq=Req+jXeq。若负载R、X均可调且Req>0，最佳负载是共轭匹配；若只能调纯电阻，最佳RL是源阻抗的模。约束不同，结论不同。
+
+本页对应教材 §9-6，从定义、适用条件到综合计算逐步展开。
+
+## 2. 前置知识
+
+[复功率](/learn/complex-power)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "Z_L=Z_{eq}^*,\\quad P_{max}=\\frac{U_{oc}^2}{4R_{eq}};\\qquad X_L=0:\\ R_L=|Z_{eq}|"
+  }
+  description="教材§9-6（本节起始书页241）；按教材参考方向整理的教学写法。"
+/>
+
+<SectionFormulaCards chapter={9} section={6} />
+
+**怎样使用：** 先明确允许调电阻、电抗还是两者，再写负载有功功率并选相应匹配条件。
+
+**代入示例：** Zeq=3+j4 Ω、Uoc=12 V：复负载最佳为3−j4 Ω，Pmax=12 W；只允许纯电阻时最佳RL=5 Ω。
+
+## 4. 解题步骤
+
+1. 列出题目已知量，注明单位、参考方向和本节适用条件。
+2. 先明确允许调电阻、电抗还是两者，再写负载有功功率并选相应匹配条件。
+3. 对未知量建立独立关系，不把条件不同的公式混用。
+4. 代入后检查符号、量纲、极限或功率/能量平衡。
+
+## 5. 电路图
+
+<PhasorConstruction />
+
+以上图解用于理解本节的结构或物理关系；下面提高题的具体连接、数值和参考方向以题干为准。
+
+## 6. 典型例题
+
+<ChallengeProblem id="9-6" />
+
+## 7. 常见错误
+
+<Warning>无论负载约束如何都直接令RL=Req。</Warning>
+
+## 8. 相关知识
+
+下一小节：[互感](/learn/coupled-inductors)
+
+[本章逐节目录](/curriculum#chapter-9) · [本章公式速查](/formulas#formula-chapter-9)
+
+</section>

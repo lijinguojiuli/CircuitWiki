@@ -1,0 +1,55 @@
+<section className="textbook-topic" id="textbook-8-4">
+
+## 1. 核心概念
+
+**概念与条件：** 在同频线性正弦稳态中，KCL、KVL仍成立，但变量换成相量；R、L、C的伏安关系分别对应R、jωL、1/(jωC)。电感电压超前电流90°，电容电压滞后电流90°。
+
+本页对应教材 §8-4，从定义、适用条件到综合计算逐步展开。
+
+## 2. 前置知识
+
+[相量法的基础](/learn/phasor)
+
+## 3. 核心公式
+
+<Formula
+  latex={
+    "\\sum\\dot I=0,\\quad\\sum\\dot U=0,\\quad\\dot U_R=R\\dot I,\\quad\\dot U_L=j\\omega L\\dot I,\\quad\\dot U_C=\\frac{\\dot I}{j\\omega C}"
+  }
+  description="教材§8-4（本节起始书页211）；按教材参考方向整理的教学写法。"
+/>
+
+<SectionFormulaCards chapter={8} section={4} />
+
+**怎样使用：** 把原图变成相量电路，保持原参考方向；用复阻抗代替储能元件后按直流分析方法列式。
+
+**代入示例：** ω=1000 rad/s、L=10 mH，ZL=j10 Ω；C=100 μF，ZC=−j10 Ω；R=100 Ω，ZR=100 Ω。
+
+## 4. 解题步骤
+
+1. 列出题目已知量，注明单位、参考方向和本节适用条件。
+2. 把原图变成相量电路，保持原参考方向；用复阻抗代替储能元件后按直流分析方法列式。
+3. 对未知量建立独立关系，不把条件不同的公式混用。
+4. 代入后检查符号、量纲、极限或功率/能量平衡。
+
+## 5. 电路图
+
+<PhasorConstruction />
+
+以上图解用于理解本节的结构或物理关系；下面提高题的具体连接、数值和参考方向以题干为准。
+
+## 6. 典型例题
+
+<ChallengeProblem id="8-4" />
+
+## 7. 常见错误
+
+<Warning>遗漏1/j=−j，使电容被误算成感性。</Warning>
+
+## 8. 相关知识
+
+下一小节：[阻抗和导纳](/learn/impedance)
+
+[本章逐节目录](/curriculum#chapter-8) · [本章公式速查](/formulas#formula-chapter-8)
+
+</section>

@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-6-1">
+
 ## 1. 核心概念
 
 电容用电场储能。线性电容的电荷与电压成正比，电流与电压变化率成正比。有限电流作用下电容电压连续；直流稳态中电容电流为0，但端电压和储能未必为0。
@@ -7,6 +9,23 @@
 ## 2. 前置知识
 
 [进入前置知识](/learn/kcl-kvl)
+
+### 本小节教材要点
+
+**概念与条件：** 电容用电场储能。线性电容的电荷与电压成正比，电流与电压变化率成正比。有限电流作用下电容电压连续；直流稳态中电容电流为0，但端电压和储能未必为0。
+
+<Formula
+  latex={
+    "q=Cu,\\quad i=C\\frac{\\mathrm du}{\\mathrm dt},\\quad W_C=\\frac12Cu^2"
+  }
+  description="教材§6-1（本节起始书页126）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 先确定电压极性与电流关联方向，区分瞬间与稳态；积分求电压时不要漏初值。
+
+**代入示例：** C=100 μF、u=5 V，电荷0.5 mC，储能1.25 mJ；若du/dt=20 V/s，i=2 mA。
+
+<Warning>把直流稳态开路误解成电容电压一定为零。</Warning>
 
 ## 3. 核心公式
 
@@ -78,14 +97,20 @@ du/dt 是每秒电压变化多少伏；W 是电场储能。使用关联参考方
 
 ## 6. 典型例题
 
+<ChallengeProblem id="6-1" />
+
 <Example title="由电流积分求电压和储能">
 
 **题目：** C=100 μF，初始电压1 V，恒定2 mA流入正端，持续0.1 s。求末电压与末储能。
 
 **思路：** 恒定电流使电压线性变化，电压增量为it/C；初始电压必须另外保留。
 
-<Formula latex={"u_C(0.1)=1+\\frac{0.002\\times0.1}{100\\times10^{-6}}=3\\,\\mathrm V"} />
-<Formula latex={"W_C=\\frac12\\times100\\times10^{-6}\\times3^2=0.45\\,\\mathrm{mJ}"} />
+<Formula
+  latex={"u_C(0.1)=1+\\frac{0.002\\times0.1}{100\\times10^{-6}}=3\\,\\mathrm V"}
+/>
+<Formula
+  latex={"W_C=\\frac12\\times100\\times10^{-6}\\times3^2=0.45\\,\\mathrm{mJ}"}
+/>
 
 **核验：** 初始储能0.05 mJ，增加0.40 mJ；储能变化取决于电压平方，不能简单按电压增量的平方计算。
 
@@ -99,5 +124,6 @@ du/dt 是每秒电压变化多少伏；W 是电场储能。使用关联参考方
 
 [前置知识](/learn/kcl-kvl) → [继续学习](/learn/rc-circuit) · [公式速查](/formulas)
 
+[本章小节目录](/curriculum#chapter-6)
 
-[本章逐节复习](/learn/chapter-6-summary)
+</section>

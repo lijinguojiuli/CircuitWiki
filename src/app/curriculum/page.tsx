@@ -14,7 +14,7 @@ import { learningStages, lessonKind } from "@/lib/learning";
 
 export const metadata = pageMetadata(
   "学习路线",
-  "按邱关源《电路》第5版的章、节顺序组织学习，查看章节全览、专题和学习进度。",
+  "按邱关源《电路》第5版的章、节顺序组织学习，逐小节查看知识、综合提高题和学习进度。",
   "/curriculum",
   true,
 );
@@ -34,13 +34,16 @@ export default function Curriculum() {
         </div>
       </div>
       <StudyResume />
+      <Link className="tool-reading-link" href="/practice">
+        按章节练习53道综合提高题 ↗
+      </Link>
       <Link className="tool-reading-link" href="/paths">
         按学习目标选择推荐路径 ↗
       </Link>
       <section className="route-orientation" aria-label="学习路线使用说明">
-        <strong>先建立全貌，再深入专题</strong>
+        <strong>每个小节都能学习，也能独立练习</strong>
         <p>
-          每章的“章节全览”串联本章知识；专题提供更详细的图解、例题与交互。展开逐节清单，可按教材节号查找。
+          按教材节号依次学习，每节包含讲解、公式、图解和综合提高题。需要集中练习时，可按章节进入提高题库。
         </p>
       </section>
       <nav className="route-stages" aria-label="学习阶段跳转">

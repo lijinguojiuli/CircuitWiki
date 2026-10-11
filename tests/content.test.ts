@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { articles, sections } from "../src/lib/content";
+import { articles, curriculumArticles, sections } from "../src/lib/content";
 import {
   chapters,
   chapterForArticle,
@@ -14,8 +14,8 @@ import katex from "katex";
 import { textbookTopics } from "../src/lib/textbook-scope";
 test("all registered lessons exist, contain eight sections and valid links", () => {
   const slugs = new Set(articles.map((a) => a.slug));
-  assert.equal(slugs.size, 40);
-  assert.equal(articles.filter((a) => a.core).length, 40);
+  assert.equal(slugs.size, 59);
+  assert.equal(articles.filter((a) => a.core).length, 59);
   for (const article of articles) {
     assert.ok(Number.isInteger(lessonSections[article.slug]), article.slug);
     const body = fs.readFileSync(
@@ -37,7 +37,7 @@ test("formula symbols name their quantities and navigation contains learning con
   );
   assert.equal(
     articles.find((article) => article.slug === "thevenin")?.title,
-    "戴维宁定理",
+    "戴维宁定理和诺顿定理",
   );
   assert.equal(chapterForArticle("input-resistance").number, 2);
   const resistors = formulas.find(
@@ -128,12 +128,15 @@ test("textbook chapters preserve numbering, skip chapter 5 and restrict chapter 
   );
   assert.equal(chapters[4].skipped, true);
   assert.deepEqual(chapters[4].slugs, []);
-  assert.deepEqual(chapters[10].slugs, ["chapter-11-summary", "rlc"]);
+  assert.deepEqual(chapters[10].slugs, [
+    "series-resonance",
+    "parallel-resonance",
+  ]);
   const assigned = chapters.flatMap((chapter) => chapter.slugs);
   assert.equal(new Set(assigned).size, assigned.length);
   assert.deepEqual(
     assigned,
-    articles.map((article) => article.slug),
+    curriculumArticles.map((article) => article.slug),
   );
   for (const chapter of chapters.filter((item) => !item.skipped))
     assert.ok(chapter.slugs.length > 0);
@@ -141,7 +144,7 @@ test("textbook chapters preserve numbering, skip chapter 5 and restrict chapter 
   assert.equal(chapterForArticle("phasor").number, 8);
   assert.equal(chapterForArticle("impedance").number, 9);
   assert.equal(chapterForArticle("coupled-inductors").number, 10);
-  assert.equal(chapterForArticle("rlc").number, 11);
+  assert.equal(chapterForArticle("series-resonance").number, 11);
 });
 
 test("every in-scope textbook section has concepts, formulas, examples and warnings", () => {

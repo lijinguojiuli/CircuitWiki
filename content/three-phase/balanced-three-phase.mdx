@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-12-3">
+
 ## 1. 核心概念
 
 当三相电源、三条线路阻抗、三相负载均对称时，可以把整个三相系统归结为一相计算，再按相差120°写出另两相。
@@ -9,6 +11,23 @@
 ## 2. 前置知识
 
 [线量与相量](/learn/line-phase) · [阻抗与导纳](/learn/impedance) · [星三角变换](/learn/star-delta)
+
+### 本小节教材要点
+
+**概念与条件：** 电源、线路和负载全部对称时可用一相法。Y负载直接按相分析；Δ负载可先用ZΔ/3变为等效Y，再计入线路阻抗。真实Δ支路电流要回到原连接，不能与等效Y电流混淆。
+
+<Formula
+  latex={
+    "\\dot I_A=\\frac{\\dot U_A}{Z_l+Z_Y},\\qquad Z_Y=\\frac{Z_\\Delta}{3}"
+  }
+  description="教材§12-3（本节起始书页306）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 标明使用电源端还是负载端线电压，计入线路压降后求负载电压；另两相依次旋转120°。
+
+**代入示例：** 相同线电压与相同阻抗30 Ω时，Δ线电流是Y线电流3倍；若要端口等效，Δ每相阻抗必须是Y的3倍。
+
+<Warning>把改变接法但保持同一阻抗误认为等效Y-Δ变换。</Warning>
 
 ## 3. 核心公式
 
@@ -57,6 +76,8 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 
 ## 6. 典型例题
 
+<ChallengeProblem id="12-3" />
+
 <Example title="用一相法计算对称Y负载">
 
 **题目：** 电源相电压100∠0° V，忽略线路阻抗，三相Y负载均为 Z=3+j4 Ω。求三条线电流与中性线电流。
@@ -87,21 +108,22 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 
 **题目：** 对称线电压380 V、每相电阻30 Ω，忽略线路阻抗，比较两种接法。
 
-<Formula latex={"Y: U_p=\\frac{380}{\\sqrt3}=219.393\\,\\mathrm V,\\quad I_l=I_p=7.313\\,\\mathrm A"} />
-<Formula latex={"\\Delta: U_p=380\\,\\mathrm V,\\quad I_p=12.667\\,\\mathrm A,\\quad I_l=\\sqrt3I_p=21.939\\,\\mathrm A"} />
+<Formula
+  latex={
+    "Y: U_p=\\frac{380}{\\sqrt3}=219.393\\,\\mathrm V,\\quad I_l=I_p=7.313\\,\\mathrm A"
+  }
+/>
+<Formula
+  latex={
+    "\\Delta: U_p=380\\,\\mathrm V,\\quad I_p=12.667\\,\\mathrm A,\\quad I_l=\\sqrt3I_p=21.939\\,\\mathrm A"
+  }
+/>
 
 **结论：** 相阻抗不变而改变接法，Δ线电流是Y的3倍。若要求端口等效，应取ZΔ=3ZY，而不是保持相阻抗不变。
 
 </Example>
 
 <ThreePhaseDiagram connection="delta" />
-
-<Quiz
-  question="对称Δ阻抗每相为9+j12 Ω，等效Y每相是多少？"
-  options={["3+j4 Ω", "27+j36 Ω", "9+j12 Ω"]}
-  answer={0}
-  explanation="保持线端口等效时，每相Δ阻抗除以3。"
-/>
 
 ## 7. 常见错误
 
@@ -118,5 +140,6 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 
 [前置：线量与相量](/learn/line-phase) → [后续：不对称三相](/learn/unbalanced-three-phase) · [相关：三相功率](/learn/three-phase-power)
 
+[本章小节目录](/curriculum#chapter-12)
 
-[本章逐节复习](/learn/chapter-12-summary)
+</section>

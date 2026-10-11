@@ -1,3 +1,5 @@
+<section className="textbook-topic" id="textbook-6-2">
+
 ## 1. 核心概念
 
 电感用磁场储能。理想线性电感的端电压与电流变化率成正比；有限电压作用下电感电流连续。直流稳态中端电压为0，但电流和储能可以非零。
@@ -7,6 +9,23 @@
 ## 2. 前置知识
 
 [进入前置知识](/learn/kcl-kvl)
+
+### 本小节教材要点
+
+**概念与条件：** 电感用磁场储能。理想线性电感的端电压与电流变化率成正比；有限电压作用下电感电流连续。直流稳态中端电压为0，但电流和储能可以非零。
+
+<Formula
+  latex={
+    "\\Psi=Li,\\quad u=L\\frac{\\mathrm di}{\\mathrm dt},\\quad W_L=\\frac12Li^2"
+  }
+  description="教材§6-2（本节起始书页129）；按教材参考方向整理的教学写法。"
+/>
+
+**怎样使用：** 先求换路前电感电流，再用连续性作为换路后初值；不能把电感短路的稳态结论用于任意瞬间。
+
+**代入示例：** L=20 mH、i=2 A，储能0.04 J；di/dt=100 A/s时端电压2 V。
+
+<Warning>把电感电压连续当成换路定律，正确连续量是电感电流。</Warning>
 
 ## 3. 核心公式
 
@@ -76,11 +95,17 @@ di/dt 是每秒电流变化多少安；W 是磁场储能。使用关联参考方
 
 ## 6. 典型例题
 
+<ChallengeProblem id="6-2" />
+
 <Example title="从电压求电流变化率">
 
 **题目：** L=10 mH，初始电流0.2 A，关联电压2 V保持0.5 ms，求末电流与储能。
 
-<Formula latex={"\\frac{\\mathrm di}{\\mathrm dt}=\\frac2{0.01}=200\\,\\mathrm{A/s},\\quad i_L=0.2+200\\times0.0005=0.3\\,\\mathrm A"} />
+<Formula
+  latex={
+    "\\frac{\\mathrm di}{\\mathrm dt}=\\frac2{0.01}=200\\,\\mathrm{A/s},\\quad i_L=0.2+200\\times0.0005=0.3\\,\\mathrm A"
+  }
+/>
 <Formula latex={"W_L=\\frac12\\times0.01\\times0.3^2=0.45\\,\\mathrm{mJ}"} />
 
 **核验：** 电流增量为0.1 A。电压保持有限，因此电流连续变化，不在接通瞬间直接跳到0.3 A。
@@ -95,5 +120,6 @@ di/dt 是每秒电流变化多少安；W 是磁场储能。使用关联参考方
 
 [前置知识](/learn/kcl-kvl) → [继续学习](/learn/rl-circuit) · [公式速查](/formulas)
 
+[本章小节目录](/curriculum#chapter-6)
 
-[本章逐节复习](/learn/chapter-6-summary)
+</section>

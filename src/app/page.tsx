@@ -35,7 +35,7 @@ export default function Home() {
             面向大学生、工程师与电子爱好者。从电路理论出发，连接概念、公式、图解与实验，建立属于自己的知识体系。
           </p>
           <div className="platform-actions">
-            <Link className="button primary" href="/learn/chapter-1-summary">
+            <Link className="button primary" href="/learn/circuit-model">
               开始学习
               <ArrowRight size={17} />
             </Link>
@@ -238,12 +238,13 @@ export default function Home() {
       </section>
       <section className="platform-method">
         <span className="platform-kicker">推荐学习方式</span>
-        <h2>读概念 → 看公式 → 跟例题 → 做验证</h2>
+        <h2>读概念 → 独立做题 → 查看思路 → 验证结果</h2>
         <p>
-          知识页中保留前置知识、解题步骤和常见错误。遇到卡点，回到对应概念；理解后，标记完成并继续下一页。
+          53
+          个教材小节，每节都有综合提高题。先尝试完整分析，再展开提示和解答；遇到卡点，沿前置知识补齐理解。
         </p>
-        <Link href="/curriculum">
-          找到你的起点
+        <Link href="/practice">
+          进入综合提高题库
           <ArrowRight size={16} />
         </Link>
       </section>

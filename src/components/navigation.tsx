@@ -149,6 +149,12 @@ export function Header() {
         </Link>
         <div className="desktop-nav">
           <Link
+            className={path === "/practice" ? "active" : ""}
+            href="/practice"
+          >
+            提高题
+          </Link>
+          <Link
             className={
               path === "/knowledge" || path === "/graph" ? "active" : ""
             }
