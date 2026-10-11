@@ -159,6 +159,9 @@ export function ProblemSchematic({
             const vertical =
               Math.abs(segment.b[1] - segment.a[1]) >
               Math.abs(segment.b[0] - segment.a[0]);
+            const polaritySide = vertical
+              ? Math.sign(dy) || 1
+              : Math.sign(dx) || 1;
             const labelOnLeft =
               x > (branch.kind === "controlled-current" ? 570 : 470) &&
               branch.kind !== "voltage";
@@ -180,6 +183,15 @@ export function ProblemSchematic({
                       y="-10"
                       width="50"
                       height="20"
+                      fill="var(--surface)"
+                    />
+                  )}
+                  {branch.kind === "element" && (
+                    <rect
+                      x="-40"
+                      y="-30"
+                      width="80"
+                      height="60"
                       fill="var(--surface)"
                     />
                   )}
@@ -231,14 +243,14 @@ export function ProblemSchematic({
                 {branch.kind === "voltage" && (
                   <g stroke="none" fill="currentColor" fontSize="15">
                     <text
-                      x={x - 14 * dx - 32 * dy}
-                      y={y - 14 * dy + 32 * dx + 5}
+                      x={x - 14 * dx - 32 * dy * polaritySide}
+                      y={y - 14 * dy + 32 * dx * polaritySide + 5}
                     >
                       +
                     </text>
                     <text
-                      x={x + 14 * dx - 32 * dy}
-                      y={y + 14 * dy + 32 * dx + 5}
+                      x={x + 14 * dx - 32 * dy * polaritySide}
+                      y={y + 14 * dy + 32 * dx * polaritySide + 5}
                     >
                       −
                     </text>
@@ -271,6 +283,7 @@ export function ProblemSchematic({
               x={node.x}
               y={node.y}
               label={node.id === network.ground ? "" : node.id}
+              labelOffset={node.labelOffset}
             />
           ))}
           {network.arrows?.map((arrow, index) => {
@@ -303,17 +316,28 @@ export function ProblemSchematic({
               </g>
             );
           })}
-          {network.notes?.map((note, index) => (
-            <text
-              key={`note-${index}`}
-              x={note.x}
-              y={note.y}
-              fill="currentColor"
-              stroke="none"
-            >
-              {note.text}
-            </text>
-          ))}
+          {network.notes?.map((note, index) =>
+            note.text === "•" ? (
+              <circle
+                key={`note-${index}`}
+                cx={note.x}
+                cy={note.y - 5}
+                r={3}
+                fill="currentColor"
+                stroke="none"
+              />
+            ) : (
+              <text
+                key={`note-${index}`}
+                x={note.x}
+                y={note.y}
+                fill="currentColor"
+                stroke="none"
+              >
+                {note.text}
+              </text>
+            ),
+          )}
           {network.ground &&
             (() => {
               const node = network.nodes.find(
@@ -324,11 +348,15 @@ export function ProblemSchematic({
         </g>
       </svg>
       <figcaption>
-        箭头表示题设电流正方向，电压源按“+”“−”标注极性；
-        {network.ground
-          ? `结点${network.ground}为参考结点。`
-          : "端口与参考方向以题干为准。"}
-        全部数值与连接条件见题干。
+        {network.caption ?? (
+          <>
+            箭头表示题设电流正方向，电压源按“+”“−”标注极性；
+            {network.ground
+              ? `结点${network.ground}为参考结点。`
+              : "端口与参考方向以题干为准。"}
+            全部数值与连接条件见题干。
+          </>
+        )}
         <span className="diagram-pan-hint">窄屏可左右滑动查看完整图。</span>
       </figcaption>
     </figure>

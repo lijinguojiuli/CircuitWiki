@@ -5,6 +5,33 @@ const multiply = ([a, b]: ComplexPair, [c, d]: ComplexPair): ComplexPair => [
 ];
 export function checkResiduals(check: ProblemCheck): number[] {
   switch (check.kind) {
+    case "polar": {
+      const angle = (check.angleDegrees * Math.PI) / 180;
+      return [
+        check.magnitude * Math.cos(angle) - check.real,
+        check.magnitude * Math.sin(angle) - check.imag,
+      ];
+    }
+    case "topology": {
+      const nodes = [...new Set(check.edges.flat())];
+      const visited = new Set<string>();
+      const walk = (node: string) => {
+        if (visited.has(node)) return;
+        visited.add(node);
+        for (const [a, b] of check.edges) {
+          if (a === node) walk(b);
+          if (b === node) walk(a);
+        }
+      };
+      walk(nodes[0]);
+      return [
+        nodes.length - check.expectedNodes,
+        check.edges.length - check.expectedBranches,
+        nodes.length - 1 - check.expectedKCL,
+        check.edges.length - nodes.length + 1 - check.expectedKVL,
+        visited.size - nodes.length,
+      ];
+    }
     case "exponentialIntegral":
       return [
         (check.amplitude / check.rate) *

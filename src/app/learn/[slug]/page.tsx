@@ -1,3 +1,4 @@
+import { textbookExerciseIds } from "@/lib/challenges/coverage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -10,7 +11,7 @@ import { ArticleBody } from "@/lib/mdx";
 import { chapterForArticle, chapterLabel, chapterId } from "@/lib/chapters";
 import { Breadcrumb, TableOfContents, SecondaryBadge } from "@/components/ui";
 import { textbookReferences } from "@/lib/textbook";
-import { lessonKind, relatedTool } from "@/lib/learning";
+import { lessonLocationLabel, relatedTool } from "@/lib/learning";
 import { LessonProgress } from "@/components/study-progress";
 import { ArticleConnections } from "@/components/article-connections";
 import { BookmarkButton, ReadingProgress } from "@/components/reading-tools";
@@ -67,6 +68,7 @@ export default async function KnowledgePage({
   const article = articles[index];
   const chapter = chapterForArticle(slug);
   const tool = relatedTool(slug);
+  const textbookExercise = textbookExerciseIds(slug)[0];
   const readingIndex = curriculumArticles.findIndex(
     (item) => item.textbookSection === article.textbookSection,
   );
@@ -113,9 +115,7 @@ export default async function KnowledgePage({
           title={article.title}
         />
         <div className="article-header">
-          <div className="eyebrow">
-            {chapterLabel(chapter)} / {lessonKind(slug)}
-          </div>
+          <div className="eyebrow">{lessonLocationLabel(slug)}</div>
           <h1>{article.title}</h1>
           <div className="article-learning-tools">
             <ReadingProgress slug={slug} />
@@ -144,9 +144,9 @@ export default async function KnowledgePage({
           <a href="#section-3">查看公式</a>
           <a href="#section-6">跟着例题练习</a>
           <a
-            href={`#challenge-${article.slug === "rl-circuit" ? "7-3" : article.textbookSection}`}
+            href={`#challenge-${textbookExercise ?? (article.slug === "rl-circuit" ? "7-3" : article.textbookSection)}`}
           >
-            做综合提高题
+            {textbookExercise ? "做教材配套题" : "做综合提高题"}
           </a>
           <Link href={`/curriculum#chapter-${chapter.number}`}>
             本章小节目录 ↗

@@ -10,6 +10,11 @@ import {
 } from "../src/lib/challenges";
 import { checkResiduals } from "../src/lib/challenges/verify";
 import { articles, curriculumArticles } from "../src/lib/content";
+import {
+  textbookExerciseIds,
+  sectionExercises,
+} from "../src/lib/challenges/coverage";
+import { chapterForArticle } from "../src/lib/chapters";
 import { textbookTopics } from "../src/lib/textbook-scope";
 
 test("all 53 studied sections own a complete independent page and original challenge", () => {
@@ -76,6 +81,8 @@ test("problem circuit graphs have valid terminals and textbook source/resistor s
     "controlled-current",
     "capacitor",
     "inductor",
+    "wire",
+    "element",
   ]);
   for (const problem of challenges)
     for (const network of [
@@ -95,16 +102,45 @@ test("problem circuit graphs have valid terminals and textbook source/resistor s
 });
 
 test("selected textbook exercises retain provenance, diagrams, tasks and learning takeaways", () => {
-  assert.equal(textbookChallenges.length, 10);
-  assert.equal(new Set(challenges.map((problem) => problem.id)).size, 63);
+  assert.equal(textbookChallenges.length, 43);
+  assert.equal(new Set(challenges.map((problem) => problem.id)).size, 96);
   for (const problem of textbookChallenges) {
     assert.ok(problem.source?.exercise && problem.source.pages, problem.id);
-    assert.ok(problem.network || problem.networks?.length, problem.id);
+    assert.ok(problem.given.length > 20, problem.id);
     assert.ok(
       problem.tasks.length >= 2 &&
         problem.steps.length >= 3 &&
         problem.takeaway,
       problem.id,
+    );
+  }
+});
+
+test("all 53 main sections contain at least one relevant textbook-sourced exercise", () => {
+  assert.deepEqual(
+    Object.keys(sectionExercises).sort(),
+    curriculumArticles.map((article) => article.slug).sort(),
+  );
+  for (const article of curriculumArticles) {
+    const ids = textbookExerciseIds(article.slug);
+    assert.ok(ids.length > 0, article.slug);
+    assert.ok(sectionExercises[article.slug].focus.length > 10, article.slug);
+    for (const id of ids) {
+      const problem = textbookChallenges.find((item) => item.id === id);
+      assert.ok(problem?.source, id);
+      assert.equal(
+        problem.chapter,
+        chapterForArticle(article.slug).number,
+        `${article.slug}: wrong chapter`,
+      );
+    }
+    const body = fs.readFileSync(
+      path.join("content", article.folder, article.slug + ".mdx"),
+      "utf8",
+    );
+    assert.ok(
+      body.includes(`<TextbookExercises slug="${article.slug}" />`),
+      article.slug,
     );
   }
 });

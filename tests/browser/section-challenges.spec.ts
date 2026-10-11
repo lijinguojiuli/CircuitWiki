@@ -8,7 +8,7 @@ test("textbook directory shows every section and no aggregate lessons", async ({
   );
   await expect(page.locator("main")).not.toContainText("全览");
   await page.goto("/practice");
-  await expect(page.locator(".practice-card")).toHaveCount(10);
+  await expect(page.locator(".practice-card")).toHaveCount(43);
   await page.getByLabel("题目来源", { exact: true }).selectOption("original");
   await expect(page.locator(".practice-card")).toHaveCount(53);
   await page.getByLabel("练习章节", { exact: true }).selectOption("7");

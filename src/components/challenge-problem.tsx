@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Formula } from "./formula";
 import { Tag } from "./primitives";
-import { getChallenge } from "@/lib/challenges";
+import { getChallenge, textbookSourceReference } from "@/lib/challenges";
 import {
   ProblemSchematic,
   ProblemPhasorDiagram,
@@ -15,7 +15,9 @@ export function ChallengeProblem({ id }: { id: string }) {
       id={`challenge-${id}`}
       className="challenge-problem"
       aria-label={
-        problem.source ? `教材习题${problem.source.exercise}` : `§${id}提高题`
+        problem.source
+          ? textbookSourceReference(problem.source)
+          : `§${id}提高题`
       }
       data-challenge-id={id}
       data-problem-source={problem.source ? "textbook" : "original"}
@@ -24,7 +26,7 @@ export function ChallengeProblem({ id }: { id: string }) {
         <div>
           <span className="platform-kicker">
             {problem.source
-              ? `教材第5版 · 习题${problem.source.exercise} · 书页${problem.source.pages}`
+              ? `教材第5版 · ${textbookSourceReference(problem.source)} · 书页${problem.source.pages}`
               : `§${id} · 本站原创`}
           </span>
           <h3>{problem.title}</h3>
@@ -99,7 +101,7 @@ export function ChallengeProblem({ id }: { id: string }) {
       </details>
       <p className="challenge-source">
         {problem.source
-          ? `来源：邱关源、罗先觉《电路》第5版，习题${problem.source.exercise}，书页${problem.source.pages}。${problem.source.note}`
+          ? `来源：邱关源、罗先觉《电路》第5版，${textbookSourceReference(problem.source)}，书页${problem.source.pages}。${problem.source.note}`
           : `知识范围依据邱关源《电路》第5版 §${id}；题干、数值和解答为本站原创，并非教材原题或考试真题。`}
         <Link href="/practice">浏览全部提高题 →</Link>
       </p>

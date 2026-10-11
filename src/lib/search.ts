@@ -40,7 +40,7 @@ const entries: SearchResult[] = [
     id: `challenge-${problem.id}`,
     title: problem.title,
     detail: problem.exercise
-      ? `教材习题${problem.exercise} · 第5版书页${problem.pages}`
+      ? `${problem.reference ?? `习题${problem.exercise}`} · 第5版书页${problem.pages}`
       : `§${problem.id} · ${problem.difficulty}`,
     kind: "提高题",
     href: `/learn/${problem.slug}#challenge-${problem.id}`,

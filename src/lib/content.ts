@@ -490,7 +490,7 @@ const entries: Article[] = [
     title: "动态电路的方程及其初始条件",
     folder: "sections",
     category: "动态电路",
-    description: "本学习范围只考虑一阶电路。",
+    description: "用电容电压与电感电流确定换路后的初始状态。",
     keywords: [
       "动态电路的方程及其初始条件",
       "§7-1",

@@ -1,5 +1,1075 @@
 [
   {
+    "id": "book-1-11",
+    "chapter": 1,
+    "section": 1,
+    "title": "习题1-11：用集总模型计算输电损耗",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "按教材题设，两根输电导线每根27 Ω，允许电流1 kA，首端线间电压1000 kV。将水电站、线路和受端分别作为电源、两只线路电阻和负载模型。",
+    "tasks": [
+      "求额定电流下可送到受端的功率。",
+      "求传输效率，并说明为什么两根导线电阻都要计入。"
+    ],
+    "hints": [
+      "线间电压跨越去、回两根导线组成的完整回路。",
+      "这些数值是教材题设，不是对当前实际输电工程参数的说明。"
+    ],
+    "steps": [
+      {
+        "title": "建立回路模型",
+        "latex": "R_{\\mathrm{line}}=27+27=54\\,\\Omega",
+        "explanation": "负载以一个二端模型表示，不必知道其内部结构。"
+      },
+      {
+        "title": "求受端电压与功率",
+        "latex": "U_2=10^6-10^3(54)=946000\\,V,\\quad P_2=U_2I=946\\,MW",
+        "explanation": "两根导线的压降都从首端线间电压中扣除。"
+      },
+      {
+        "title": "检查损耗与效率",
+        "latex": "P_{\\mathrm{loss}}=I^2R=54\\,MW,\\quad\\eta=\\frac{946}{1000}=94.6\\%",
+        "explanation": "受端功率加损耗等于首端功率，满足功率平衡。"
+      }
+    ],
+    "answer": "P_2=946\\,MW,\\quad\\eta=94.6\\%",
+    "checks": [
+      {
+        "kind": "power",
+        "terms": [
+          [1000000.0, -1000],
+          [946000, 1000],
+          [54, 1000000.0]
+        ],
+        "expected": 0
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 110,
+          "y": 70
+        },
+        {
+          "id": "A",
+          "x": 620,
+          "y": 70
+        },
+        {
+          "id": "B",
+          "x": 620,
+          "y": 320
+        },
+        {
+          "id": "0",
+          "x": 110,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "U₁ = 1000 kV"
+        },
+        {
+          "from": "S",
+          "to": "A",
+          "kind": "resistor",
+          "label": "27 Ω"
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "element",
+          "label": "受端负载"
+        },
+        {
+          "from": "B",
+          "to": "0",
+          "kind": "resistor",
+          "label": "27 Ω",
+          "labelOffset": [0, 65]
+        }
+      ],
+      "ground": "0",
+      "arrows": [
+        {
+          "from": [190, 48],
+          "to": [250, 48],
+          "label": "1 kA"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-11",
+      "pages": "28",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "这些数值是教材题设，不是对当前实际输电工程参数的说明。"
+  },
+  {
+    "id": "book-1-1",
+    "chapter": 1,
+    "section": 2,
+    "title": "习题1-1：关联方向与发出、吸收功率",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "图(a)中i流入电压正端；图(b)中i从电压正端流出。说明参考方向是否关联、ui代表什么功率，并判断(a)u>0且i<0、(b)u>0且i>0时元件的实际功率。",
+    "tasks": [
+      "分别判断关联参考方向，并写吸收功率表达式。",
+      "按题设符号判断两种情况下元件是吸收还是发出功率。"
+    ],
+    "hints": [
+      "正、负端和电流箭头只是参考约定。",
+      "始终先写吸收功率，再看计算结果的符号。"
+    ],
+    "steps": [
+      {
+        "title": "图(a)：电流进入正端",
+        "latex": "p_{\\mathrm{abs}}=ui",
+        "explanation": "为关联参考方向，ui是吸收功率；ui<0表示实际发出。"
+      },
+      {
+        "title": "图(b)：电流离开正端",
+        "latex": "p_{\\mathrm{abs}}=-ui",
+        "explanation": "为非关联参考方向，ui是发出功率；不能仍用ui当吸收功率。"
+      },
+      {
+        "title": "代入符号判断",
+        "latex": "(a)\\ ui<0\\Rightarrow p_{\\mathrm{abs}}<0;\\quad(b)\\ -ui<0\\Rightarrow p_{\\mathrm{abs}}<0",
+        "explanation": "题设两种情形都表示元件发出功率。负参考电流不代表物理电流不存在。"
+      }
+    ],
+    "answer": "(a),(b)\\text{题设情形均发出功率}",
+    "checks": [
+      {
+        "kind": "power",
+        "terms": [[1, -1]],
+        "expected": -1
+      },
+      {
+        "kind": "power",
+        "terms": [[-1, 1]],
+        "expected": -1
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-1",
+      "pages": "25",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "始终先写吸收功率，再看计算结果的符号。",
+    "networks": [
+      {
+        "title": "教材图1-1(a)：电流流入正端",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "element",
+              "label": "二端元件"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [55, 180],
+              "to": [130, 180],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材图1-1(b)：电流流出正端",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "element",
+              "label": "二端元件"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [130, 180],
+              "to": [55, 180],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "book-1-4-ab",
+    "chapter": 1,
+    "section": 4,
+    "title": "习题1-4(a、b)：同一电阻，参考方向不同怎样写VCR",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材习题1-4(a)、(b)：(a)10 kΩ电阻的i进入u的正端；(b)10 Ω电阻的i流出u的正端。按图中参考方向写u与i的约束方程。",
+    "tasks": [
+      "写出两幅图的伏安关系。",
+      "若电流均取2 mA，求两图中的参考电压（本站补充）。"
+    ],
+    "hints": [
+      "写u=Ri之前，先检查是否关联参考方向。",
+      "参考电流或电压为负，不代表元件是负电阻；应结合参考约定判断。"
+    ],
+    "steps": [
+      {
+        "title": "关联方向",
+        "latex": "u_a=10^4i_a",
+        "explanation": "电阻值以Ω代入，i使用A。"
+      },
+      {
+        "title": "非关联方向",
+        "latex": "u_b=-10i_b",
+        "explanation": "电流从正端流出，所以关联伏安关系要补负号。"
+      },
+      {
+        "title": "以2 mA检验",
+        "latex": "u_a=20\\,V,\\quad u_b=-0.02\\,V",
+        "explanation": "两只电阻都吸收正功率，不能仅凭参考电压为负判断发出功率。"
+      }
+    ],
+    "answer": "u_a=10^4i_a,\\quad u_b=-10i_b",
+    "checks": [
+      {
+        "kind": "number",
+        "actual": 20.0,
+        "expected": 20
+      },
+      {
+        "kind": "number",
+        "actual": -0.02,
+        "expected": -0.02
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-4(a、b)",
+      "pages": "26",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "参考电流或电压为负，不代表元件是负电阻；应结合参考约定判断。",
+    "networks": [
+      {
+        "title": "教材1-4(a)：10 kΩ，关联参考方向",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "resistor",
+              "label": "10 kΩ"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [55, 180],
+              "to": [130, 180],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材1-4(b)：10 Ω，非关联参考方向",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "resistor",
+              "label": "10 Ω"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [130, 180],
+              "to": [55, 180],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "book-1-4-cf",
+    "chapter": 1,
+    "section": 6,
+    "title": "习题1-4(c–f)：源的约束量与参考方向",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材1-4(c)至(f)：图(c)源左正右负10 V；图(d)源左负右正5 V，u仍左正右负；图(e)、(f)电流源均从左向右10 mA，外部i参考方向分别向右和向左。写出u、i约束。",
+    "tasks": [
+      "分别写出四幅图能直接确定的u或i。",
+      "说明另一端口量为何不能仅由源的额定值确定。"
+    ],
+    "hints": [
+      "电压源约束电压，电流源约束电流。",
+      "额定值与参考量的方向一致为正，反向为负。"
+    ],
+    "steps": [
+      {
+        "title": "两个电压源",
+        "latex": "(c)\\ u=10\\,V;\\qquad(d)\\ u=-5\\,V",
+        "explanation": "这两图的电流均由外电路决定。"
+      },
+      {
+        "title": "两个电流源",
+        "latex": "(e)\\ i=10\\,mA;\\qquad(f)\\ i=-10\\,mA",
+        "explanation": "这两图的端电压均由外电路决定。"
+      },
+      {
+        "title": "不要额外制造约束",
+        "latex": "u=U_S\\ \\not\\Rightarrow i=0,\\qquad i=I_S\\ \\not\\Rightarrow u=0",
+        "explanation": "短路电压源或开路电流源需要检查理想约束相容性。"
+      }
+    ],
+    "answer": "(c)\\ 10V,\\ (d)\\ -5V,\\ (e)\\ 10mA,\\ (f)\\ -10mA",
+    "checks": [
+      {
+        "kind": "number",
+        "actual": -5,
+        "expected": -5
+      },
+      {
+        "kind": "number",
+        "actual": -0.01,
+        "expected": -0.01
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-4(c–f)",
+      "pages": "26",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "额定值与参考量的方向一致为正，反向为负。",
+    "networks": [
+      {
+        "title": "教材1-4(c)",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "voltage",
+              "label": "10 V"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [55, 150],
+              "to": [130, 150],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材1-4(d)",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "b",
+              "to": "a",
+              "kind": "voltage",
+              "label": "5 V"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [55, 150],
+              "to": [130, 150],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材1-4(e)",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "current",
+              "label": "10 mA"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [55, 150],
+              "to": [130, 150],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "+"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材1-4(f)",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 180
+            },
+            {
+              "id": "b",
+              "x": 600,
+              "y": 180
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "current",
+              "label": "10 mA"
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [130, 150],
+              "to": [55, 150],
+              "label": "i"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 218,
+              "text": "−"
+            },
+            {
+              "x": 600,
+              "y": 218,
+              "text": "+"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "book-1-9-a",
+    "chapter": 1,
+    "section": 7,
+    "title": "习题1-9-a：电压控制电流源能否等效成电阻",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材1-9(a)的a、b端口内，20 Ω电阻与VCCS并联。U=uab，受控电流源由a流向b，电流为0.2U A。问该二端组合能否看作电阻，并求输入电阻。",
+    "tasks": [
+      "用端口电压U表示流入a端的总电流。",
+      "求输入电阻，并解释为什么不能把受控源置零。"
+    ],
+    "hints": [
+      "控制量就是本端口电压U，控制关系不能删除。",
+      "先求总电导，再取倒数。"
+    ],
+    "steps": [
+      {
+        "title": "两支路电流相加",
+        "latex": "I=\\frac U{20}+0.2U=0.25U",
+        "explanation": "0.2的单位为S；两个支路电流都取a→b方向。"
+      },
+      {
+        "title": "得到端口关系",
+        "latex": "U=4I,\\quad R_{in}=4\\,\\Omega",
+        "explanation": "这是端口等效，不意味着受控源内部就是一只电阻。"
+      },
+      {
+        "title": "用测试电压核验",
+        "latex": "U_t=1\\,V\\Rightarrow I_R=0.05A,\\ I_S=0.2A,\\ I_t=0.25A",
+        "explanation": "受控源是端口关系的一部分；把它关掉会错误得到20 Ω。"
+      }
+    ],
+    "answer": "R_{in}=4\\,\\Omega",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [[0.25]],
+        "rhs": [1],
+        "solution": [4]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 160,
+          "y": 70
+        },
+        {
+          "id": "b",
+          "x": 160,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "resistor",
+          "label": "20 Ω",
+          "via": [
+            [380, 70],
+            [380, 320]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "controlled-current",
+          "label": "0.2 U (A)",
+          "via": [
+            [620, 70],
+            [620, 320]
+          ],
+          "symbolSegment": 1,
+          "labelOffset": [0, -45]
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-9-a",
+      "pages": "27–28",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "先求总电导，再取倒数。"
+  },
+  {
+    "id": "book-1-8-ab",
+    "chapter": 1,
+    "section": 8,
+    "title": "习题1-8(a、b)：端口电流改变方向后，怎样列KCL",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材1-8(a)、(b)：6 A电流源从b注入a，与2 Ω电阻并联。图(a)端口2 A流入a；图(b)端口2 A流出a。取U=uab，求U并讨论功率平衡。",
+    "tasks": [
+      "分别列a结点KCL并求电阻电流与U。",
+      "检验源、电阻与端口的功率关系。"
+    ],
+    "hints": [
+      "统一把电阻电流取a→b方向。",
+      "端口向网络送入还是从网络取出功率，要结合U和端口电流的代数方向。"
+    ],
+    "steps": [
+      {
+        "title": "图(a)：两股电流都注入a",
+        "latex": "I_R=6+2=8A,\\quad U=2(8)=16V",
+        "explanation": "电阻吸收128 W，电流源发出96 W，余下32 W由外端口送入。"
+      },
+      {
+        "title": "图(b)：端口从a抽出2 A",
+        "latex": "I_R=6-2=4A,\\quad U=8V",
+        "explanation": "电阻吸收32 W，电流源发出48 W，网络向外端口输出16 W。"
+      },
+      {
+        "title": "检查功率代数和",
+        "latex": "(a)\\ 128-96-32=0;\\qquad(b)\\ 32-48+16=0",
+        "explanation": "不能只把电路内画出的两个元件功率相加后要求为0，还须计入外端口交换的功率。"
+      }
+    ],
+    "answer": "U_a=16V,\\quad U_b=8V",
+    "checks": [
+      {
+        "kind": "power",
+        "terms": [
+          [128, 1],
+          [-96, 1],
+          [-32, 1]
+        ],
+        "expected": 0
+      },
+      {
+        "kind": "power",
+        "terms": [
+          [32, 1],
+          [-48, 1],
+          [16, 1]
+        ],
+        "expected": 0
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "1-8(a、b)",
+      "pages": "27",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "端口向网络送入还是从网络取出功率，要结合U和端口电流的代数方向。",
+    "networks": [
+      {
+        "title": "教材1-8(a)：端口电流流入",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 70
+            },
+            {
+              "id": "b",
+              "x": 160,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "b",
+              "to": "a",
+              "kind": "current",
+              "label": "6 A",
+              "via": [
+                [370, 320],
+                [370, 70]
+              ],
+              "symbolSegment": 1
+            },
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "resistor",
+              "label": "2 Ω",
+              "via": [
+                [620, 70],
+                [620, 320]
+              ],
+              "symbolSegment": 1
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [60, 70],
+              "to": [140, 70],
+              "label": "2 A"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 105,
+              "text": "+"
+            },
+            {
+              "x": 160,
+              "y": 352,
+              "text": "−"
+            }
+          ]
+        }
+      },
+      {
+        "title": "教材1-8(b)：端口电流流出",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 160,
+              "y": 70
+            },
+            {
+              "id": "b",
+              "x": 160,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "b",
+              "to": "a",
+              "kind": "current",
+              "label": "6 A",
+              "via": [
+                [370, 320],
+                [370, 70]
+              ],
+              "symbolSegment": 1
+            },
+            {
+              "from": "a",
+              "to": "b",
+              "kind": "resistor",
+              "label": "2 Ω",
+              "via": [
+                [620, 70],
+                [620, 320]
+              ],
+              "symbolSegment": 1
+            }
+          ],
+          "ground": null,
+          "arrows": [
+            {
+              "from": [140, 70],
+              "to": [60, 70],
+              "label": "2 A"
+            }
+          ],
+          "notes": [
+            {
+              "x": 160,
+              "y": 105,
+              "text": "+"
+            },
+            {
+              "x": 160,
+              "y": 352,
+              "text": "−"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "book-2-4-a",
+    "chapter": 2,
+    "section": 3,
+    "title": "习题2-4(a)：理想导线会使哪只电阻被短路",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材2-4(a)：R1=R2=1 Ω，R3=R4=2 Ω，R5=4 Ω。a到右侧上结点有R1、R2两支；a到右侧下结点有R3；R4接在右侧上、下结点间，而两点还有一条理想导线相连；下结点经R5接b。",
+    "tasks": [
+      "先标同一电位的结点，判断R4是否参与输入电阻。",
+      "求a、b端输入电阻。"
+    ],
+    "hints": [
+      "元件两端被导线直接连接时，该元件端电压为零。",
+      "三只从a接向同一结点的电阻应并联，不能凭上下位置串联。"
+    ],
+    "steps": [
+      {
+        "title": "合并导线结点",
+        "latex": "u_{R4}=0,\\quad i_{R4}=0",
+        "explanation": "R4被理想导线短接，求端口电阻时可去掉。"
+      },
+      {
+        "title": "合并a与公共结点之间的并联",
+        "latex": "R_{aX}=\\left(1+1+\\frac12\\right)^{-1}=0.4\\,\\Omega",
+        "explanation": "R1、R2、R3接在同一对结点。"
+      },
+      {
+        "title": "与端口下方R5串联",
+        "latex": "R_{ab}=0.4+4=4.4\\,\\Omega",
+        "explanation": "输入端口始终为a、b；不要把R5漏掉。"
+      }
+    ],
+    "answer": "R_{ab}=4.4\\,\\Omega",
+    "checks": [
+      {
+        "kind": "equivalentNetwork",
+        "family": "R",
+        "terminals": ["a", "b"],
+        "branches": [
+          {
+            "from": "a",
+            "to": "X",
+            "value": 1
+          },
+          {
+            "from": "a",
+            "to": "X",
+            "value": 1
+          },
+          {
+            "from": "a",
+            "to": "X",
+            "value": 2
+          },
+          {
+            "from": "X",
+            "to": "b",
+            "value": 4
+          }
+        ],
+        "expected": 4.4
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 100,
+          "y": 180
+        },
+        {
+          "id": "X",
+          "x": 480,
+          "y": 100
+        },
+        {
+          "id": "Y",
+          "x": 560,
+          "y": 280
+        },
+        {
+          "id": "b",
+          "x": 100,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₁=1 Ω",
+          "via": [[100, 100]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₂=1 Ω",
+          "via": [[480, 180]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "a",
+          "to": "Y",
+          "kind": "resistor",
+          "label": "R₃=2 Ω",
+          "labelOffset": [0, 10]
+        },
+        {
+          "from": "X",
+          "to": "Y",
+          "kind": "resistor",
+          "label": "R₄=2 Ω",
+          "via": [[560, 100]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "X",
+          "to": "Y",
+          "kind": "wire",
+          "label": "短接导线",
+          "via": [
+            [690, 100],
+            [690, 280]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "Y",
+          "to": "b",
+          "kind": "resistor",
+          "label": "R₅=4 Ω",
+          "via": [[560, 320]],
+          "symbolSegment": 1,
+          "labelOffset": [0, 65]
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "2-4(a)",
+      "pages": "47–48",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "三只从a接向同一结点的电阻应并联，不能凭上下位置串联。"
+  },
+  {
     "id": "book-2-5",
     "title": "习题2-5：不平衡电桥的两条变换路径",
     "chapter": 2,
@@ -131,6 +1201,970 @@
       "note": "题设与连接依据用户提供的邱关源、罗先觉《电路》第5版；图形重绘、分步解答及校验由本站整理。"
     },
     "takeaway": "星三角变换的精华是保留三个外端子的关系。画出变换后的连接，再判断串并联，比背公式后凭外观合并可靠。"
+  },
+  {
+    "id": "book-2-2",
+    "chapter": 2,
+    "section": 5,
+    "title": "习题2-2：理想源约束下，哪些电阻会影响外部响应",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材2-2：电流源IS与R1串联，随后向并联R2、R3供电；下方理想电压源US与R4并联。全部参数已知且为正。求R2的电压u2、向下电流i2，并判断R1增大影响哪些量。",
+    "tasks": ["求u2及i2。", "R1增大时，指出发生变化与保持不变的元件量。"],
+    "hints": [
+      "理想电流源约束串联电流，R1不改变送入R2、R3的总电流。",
+      "理想电压源约束并联端电压，R4的电压由US决定。"
+    ],
+    "steps": [
+      {
+        "title": "先用电流约束",
+        "latex": "i_2+i_3=I_S,\\quad u_2=I_S\\frac{R_2R_3}{R_2+R_3}",
+        "explanation": "并联电阻两端电压相同。"
+      },
+      {
+        "title": "求R2支路电流",
+        "latex": "i_2=I_S\\frac{R_3}{R_2+R_3},\\quad i_3=I_S\\frac{R_2}{R_2+R_3}",
+        "explanation": "分流按电导成正比，也可写成对侧电阻的比例。"
+      },
+      {
+        "title": "判断R1变化的影响",
+        "latex": "u_{R1}=I_SR_1,\\quad u_{\\mathrm{current\\ source}}=I_SR_1+u_2-U_S",
+        "explanation": "R1增大使自身压降和电流源端电压增大；各支路电流及其余电阻电压不变。"
+      }
+    ],
+    "answer": "u_2=I_S(R_2\\parallel R_3),\\quad i_2=I_S\\frac{R_3}{R_2+R_3}",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [1, 1],
+          [2, -3]
+        ],
+        "rhs": [1, 0],
+        "solution": [0.6, 0.4]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 110,
+          "y": 70
+        },
+        {
+          "id": "T",
+          "x": 400,
+          "y": 70
+        },
+        {
+          "id": "a",
+          "x": 110,
+          "y": 280
+        },
+        {
+          "id": "b",
+          "x": 400,
+          "y": 280
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "S",
+          "kind": "current",
+          "label": "IS"
+        },
+        {
+          "from": "S",
+          "to": "T",
+          "kind": "resistor",
+          "label": "R₁"
+        },
+        {
+          "from": "T",
+          "to": "b",
+          "kind": "resistor",
+          "label": "R₂"
+        },
+        {
+          "from": "T",
+          "to": "b",
+          "kind": "resistor",
+          "label": "R₃",
+          "via": [
+            [650, 70],
+            [650, 280]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "voltage",
+          "label": "US"
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "resistor",
+          "label": "R₄",
+          "via": [
+            [110, 350],
+            [400, 350]
+          ],
+          "symbolSegment": 1,
+          "labelOffset": [0, 62]
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "2-2",
+      "pages": "47",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "理想电压源约束并联端电压，R4的电压由US决定。"
+  },
+  {
+    "id": "book-2-7",
+    "chapter": 2,
+    "section": 6,
+    "title": "习题2-7：电源等效保留端口，但内部功率是否相同",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材2-7：两支路分别为24 V串12 kΩ、6 V串6 kΩ，电源正端朝上，两支路共同向2 kΩ负载供电。求等效电流源和电阻、负载电流功率，并比较两图内部电阻损耗。",
+    "tasks": [
+      "将两个实际电源变为并联形式，求总等效参数。",
+      "求负载电流和功率，并比较原网络与等效网络的内部电阻损耗。"
+    ],
+    "hints": [
+      "先分开变换两支路，再合并并联电流源与电导。",
+      "端口等效保持负载量，不保证内部损耗保持。"
+    ],
+    "steps": [
+      {
+        "title": "各源变换后合并",
+        "latex": "I_S=\\frac{24}{12k}+\\frac6{6k}=3mA,\\quad R=12k\\parallel6k=4k\\Omega",
+        "explanation": "两个电流源均向上供电。"
+      },
+      {
+        "title": "带上2 kΩ负载",
+        "latex": "U=3mA(4k\\parallel2k)=4V,\\quad I_3=2mA,\\quad P_3=8mW",
+        "explanation": "负载端电压、电流与原网络一致。"
+      },
+      {
+        "title": "比较内部损耗",
+        "latex": "P_{R1}+P_{R2}=\\frac{20^2}{12k}+\\frac{2^2}{6k}=34mW,\\quad P_R=\\frac{4^2}{4k}=4mW",
+        "explanation": "相差30 mW，说明不能借等效图求原网络内部功率。"
+      }
+    ],
+    "answer": "I_S=3mA,\\ R=4k\\Omega,\\ I_3=2mA,\\ P_3=8mW",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [[0.00075]],
+        "rhs": [0.003],
+        "solution": [4]
+      },
+      {
+        "kind": "power",
+        "terms": [
+          [-24, 0.0016666666666666668],
+          [-6, 0.0003333333333333333],
+          [12000, 2.7777777777777783e-6],
+          [6000, 1.1111111111111111e-7],
+          [2000, 4e-6]
+        ],
+        "expected": 0
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 170,
+          "y": 70
+        },
+        {
+          "id": "X",
+          "x": 170,
+          "y": 230
+        },
+        {
+          "id": "Y",
+          "x": 410,
+          "y": 230
+        },
+        {
+          "id": "0",
+          "x": 410,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "X",
+          "kind": "resistor",
+          "label": "12 kΩ"
+        },
+        {
+          "from": "X",
+          "to": "0",
+          "kind": "voltage",
+          "label": "24 V",
+          "via": [[170, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "Y",
+          "kind": "resistor",
+          "label": "6 kΩ",
+          "via": [[410, 70]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "Y",
+          "to": "0",
+          "kind": "voltage",
+          "label": "6 V"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "2 kΩ",
+          "via": [
+            [650, 70],
+            [650, 340]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": "0"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "2-7",
+      "pages": "47、49",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "端口等效保持负载量，不保证内部损耗保持。"
+  },
+  {
+    "id": "book-3-4",
+    "chapter": 3,
+    "section": 1,
+    "title": "习题3-4：四结点六支路网络的树与独立方程",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材题3-4的图有结点1、2、3、4，支路e1:1→3，e2:2→1，e3:3→4，e4:1→4，e5:2→4，e6:3→2。要求列出全部16个树；本站补充独立方程数检查。",
+    "tasks": [
+      "说明树需要几条树支，指出四组合法的树。",
+      "解释为什么总共有16个树，并求独立KCL、KVL方程数。"
+    ],
+    "hints": [
+      "树必须覆盖全部结点且不含闭合回路。",
+      "有三条边还不够，形成三角形的组合会遗漏第四个结点。"
+    ],
+    "steps": [
+      {
+        "title": "由结点数确定树支数",
+        "latex": "n=4,\\ b=6,\\quad b_t=n-1=3",
+        "explanation": "任取三边共有20种组合。"
+      },
+      {
+        "title": "排除四个三角形",
+        "latex": "\\binom63-4=16,\\quad\\{123,124,125,135\\}\\text{均为树}",
+        "explanation": "不合法的三角形组合是126、134、245、356；其他16组连通全部结点。"
+      },
+      {
+        "title": "独立方程数",
+        "latex": "N_{KCL}=3,\\quad N_{KVL}=6-4+1=3",
+        "explanation": "六条支路的独立约束由三个KCL与三个KVL构成。"
+      }
+    ],
+    "answer": "b_t=3,\\quad N_{\\mathrm{tree}}=16,\\quad N_{KCL}=N_{KVL}=3",
+    "checks": [
+      {
+        "kind": "topology",
+        "edges": [
+          ["1", "3"],
+          ["2", "1"],
+          ["3", "4"],
+          ["1", "4"],
+          ["2", "4"],
+          ["3", "2"]
+        ],
+        "expectedNodes": 4,
+        "expectedBranches": 6,
+        "expectedKCL": 3,
+        "expectedKVL": 3
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "1",
+          "x": 110,
+          "y": 110
+        },
+        {
+          "id": "2",
+          "x": 350,
+          "y": 110
+        },
+        {
+          "id": "3",
+          "x": 600,
+          "y": 110
+        },
+        {
+          "id": "4",
+          "x": 350,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "1",
+          "to": "3",
+          "kind": "wire",
+          "label": "e₁",
+          "via": [
+            [110, 40],
+            [600, 40]
+          ],
+          "symbolSegment": 1,
+          "labelOffset": [0, 12]
+        },
+        {
+          "from": "2",
+          "to": "1",
+          "kind": "wire",
+          "label": "e₂"
+        },
+        {
+          "from": "3",
+          "to": "4",
+          "kind": "wire",
+          "label": "e₃"
+        },
+        {
+          "from": "1",
+          "to": "4",
+          "kind": "wire",
+          "label": "e₄"
+        },
+        {
+          "from": "2",
+          "to": "4",
+          "kind": "wire",
+          "label": "e₅"
+        },
+        {
+          "from": "3",
+          "to": "2",
+          "kind": "wire",
+          "label": "e₆"
+        }
+      ],
+      "ground": null,
+      "arrows": [
+        {
+          "from": [300, 40],
+          "to": [350, 40],
+          "label": ""
+        },
+        {
+          "from": [242.00000000000003, 110.0],
+          "to": [210.8, 110.0],
+          "label": ""
+        },
+        {
+          "from": [487.5, 204.5],
+          "to": [455.0, 231.79999999999998],
+          "label": ""
+        },
+        {
+          "from": [218.0, 204.5],
+          "to": [249.2, 231.79999999999998],
+          "label": ""
+        },
+        {
+          "from": [350.0, 204.5],
+          "to": [350.0, 231.79999999999998],
+          "label": ""
+        },
+        {
+          "from": [487.5, 110.0],
+          "to": [455.0, 110.0],
+          "label": ""
+        }
+      ],
+      "caption": "每条带编号的边是一条支路；结点与方向在题干中定义。较大的外回路不等于一个网孔。"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "3-4",
+      "pages": "75–76",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "有三条边还不够，形成三角形的组合会遗漏第四个结点。"
+  },
+  {
+    "id": "book-3-7",
+    "chapter": 3,
+    "section": 3,
+    "title": "习题3-7：支路电流法求桥形网络电流",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材图3-7：R1=R2=10 Ω，R3=4 Ω，R4=R5=8 Ω，R6=2 Ω；中支路20 V源上正下负，顶支路40 V源左正右负。i3、i5均取向下。",
+    "tasks": [
+      "按教材指定方法求i5。",
+      "用另一组独立方程复核目标电流（本站补充）。"
+    ],
+    "hints": [
+      "公共支路电流是回路电流的代数和。",
+      "参考方向统一后，电源项的正负由绕行方向决定。"
+    ],
+    "steps": [
+      {
+        "title": "统一支路方向与KCL",
+        "latex": "i_1+i_2+i_6=0,\\quad-i_2+i_3+i_4=0,\\quad-i_6-i_4+i_5=0",
+        "explanation": "i1取A→地，i2取A→B，i4取B→C，i6取顶支路A→C。"
+      },
+      {
+        "title": "选择三个独立回路",
+        "latex": "\\begin{aligned}-10i_1+10i_2+4i_3&=-20\\\\-4i_3+8i_4+8i_5&=20\\\\-10i_2-8i_4+2i_6&=-40\\end{aligned}",
+        "explanation": "分别对应左下、右下和上方三个回路。"
+      },
+      {
+        "title": "用网孔或回路变量压缩方程",
+        "latex": "\\begin{bmatrix}20&-10&-8\\\\-10&24&-4\\\\-8&-4&20\\end{bmatrix}\\begin{bmatrix}m_t\\\\m_l\\\\m_r\\end{bmatrix}=\\begin{bmatrix}-40\\\\-20\\\\20\\end{bmatrix}",
+        "explanation": "三个网孔均顺时针。网孔组也是一组合法的独立回路；i5=mr，i3=ml−mr。"
+      },
+      {
+        "title": "解出目标电流并解释方向",
+        "latex": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+        "explanation": "两者为负，说明实际电流均向上；不同分析方法应给出同一物理结果。"
+      }
+    ],
+    "answer": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [1, 1, 0, 0, 0, 1],
+          [0, -1, 1, 1, 0, 0],
+          [0, 0, 0, -1, 1, -1],
+          [-10, 10, 4, 0, 0, 0],
+          [0, 0, -4, 8, 8, 0],
+          [0, -10, 0, -8, 0, 2]
+        ],
+        "rhs": [0, 0, 0, -20, 20, -40],
+        "solution": [
+          2.5078369905956115, 1.1285266457680252, -1.5517241379310338,
+          2.6802507836990594, -0.9561128526645762, -3.6363636363636367
+        ]
+      },
+      {
+        "kind": "linear",
+        "matrix": [
+          [20, -10, -8],
+          [-10, 24, -4],
+          [-8, -4, 20]
+        ],
+        "rhs": [-40, -20, 20],
+        "solution": [
+          -3.636363636363636, -2.507836990595611, -0.9561128526645767
+        ]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 110,
+          "y": 150
+        },
+        {
+          "id": "B",
+          "x": 360,
+          "y": 150
+        },
+        {
+          "id": "C",
+          "x": 640,
+          "y": 150
+        },
+        {
+          "id": "X",
+          "x": 460,
+          "y": 60
+        },
+        {
+          "id": "S",
+          "x": 360,
+          "y": 260
+        },
+        {
+          "id": "0",
+          "x": 360,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₁=10 Ω",
+          "via": [[110, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "resistor",
+          "label": "R₂=10 Ω"
+        },
+        {
+          "from": "B",
+          "to": "S",
+          "kind": "resistor",
+          "label": "R₃=4 Ω",
+          "labelOffset": [0, -40]
+        },
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "20 V",
+          "labelOffset": [0, 5]
+        },
+        {
+          "from": "B",
+          "to": "C",
+          "kind": "resistor",
+          "label": "R₄=8 Ω"
+        },
+        {
+          "from": "C",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₅=8 Ω",
+          "via": [[640, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₆=2 Ω",
+          "via": [[110, 60]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "X",
+          "to": "C",
+          "kind": "voltage",
+          "label": "40 V",
+          "via": [[640, 60]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "0",
+      "arrows": [
+        {
+          "from": [395, 185],
+          "to": [395, 220],
+          "label": "i₃"
+        },
+        {
+          "from": [680, 190],
+          "to": [680, 230],
+          "label": "i₅"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "3-7",
+      "pages": "76–77",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "参考方向统一后，电源项的正负由绕行方向决定。"
+  },
+  {
+    "id": "book-3-8",
+    "chapter": 3,
+    "section": 4,
+    "title": "习题3-8：网孔电流法求桥形网络电流",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材图3-7：R1=R2=10 Ω，R3=4 Ω，R4=R5=8 Ω，R6=2 Ω；中支路20 V源上正下负，顶支路40 V源左正右负。i3、i5均取向下。",
+    "tasks": [
+      "按教材指定方法求i5。",
+      "用另一组独立方程复核目标电流（本站补充）。"
+    ],
+    "hints": [
+      "公共支路电流是回路电流的代数和。",
+      "参考方向统一后，电源项的正负由绕行方向决定。"
+    ],
+    "steps": [
+      {
+        "title": "统一支路方向与KCL",
+        "latex": "i_1+i_2+i_6=0,\\quad-i_2+i_3+i_4=0,\\quad-i_6-i_4+i_5=0",
+        "explanation": "i1取A→地，i2取A→B，i4取B→C，i6取顶支路A→C。"
+      },
+      {
+        "title": "选择三个独立回路",
+        "latex": "\\begin{aligned}-10i_1+10i_2+4i_3&=-20\\\\-4i_3+8i_4+8i_5&=20\\\\-10i_2-8i_4+2i_6&=-40\\end{aligned}",
+        "explanation": "分别对应左下、右下和上方三个回路。"
+      },
+      {
+        "title": "用网孔或回路变量压缩方程",
+        "latex": "\\begin{bmatrix}20&-10&-8\\\\-10&24&-4\\\\-8&-4&20\\end{bmatrix}\\begin{bmatrix}m_t\\\\m_l\\\\m_r\\end{bmatrix}=\\begin{bmatrix}-40\\\\-20\\\\20\\end{bmatrix}",
+        "explanation": "三个网孔均顺时针。网孔组也是一组合法的独立回路；i5=mr，i3=ml−mr。"
+      },
+      {
+        "title": "解出目标电流并解释方向",
+        "latex": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+        "explanation": "两者为负，说明实际电流均向上；不同分析方法应给出同一物理结果。"
+      }
+    ],
+    "answer": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [1, 1, 0, 0, 0, 1],
+          [0, -1, 1, 1, 0, 0],
+          [0, 0, 0, -1, 1, -1],
+          [-10, 10, 4, 0, 0, 0],
+          [0, 0, -4, 8, 8, 0],
+          [0, -10, 0, -8, 0, 2]
+        ],
+        "rhs": [0, 0, 0, -20, 20, -40],
+        "solution": [
+          2.5078369905956115, 1.1285266457680252, -1.5517241379310338,
+          2.6802507836990594, -0.9561128526645762, -3.6363636363636367
+        ]
+      },
+      {
+        "kind": "linear",
+        "matrix": [
+          [20, -10, -8],
+          [-10, 24, -4],
+          [-8, -4, 20]
+        ],
+        "rhs": [-40, -20, 20],
+        "solution": [
+          -3.636363636363636, -2.507836990595611, -0.9561128526645767
+        ]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 110,
+          "y": 150
+        },
+        {
+          "id": "B",
+          "x": 360,
+          "y": 150
+        },
+        {
+          "id": "C",
+          "x": 640,
+          "y": 150
+        },
+        {
+          "id": "X",
+          "x": 460,
+          "y": 60
+        },
+        {
+          "id": "S",
+          "x": 360,
+          "y": 260
+        },
+        {
+          "id": "0",
+          "x": 360,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₁=10 Ω",
+          "via": [[110, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "resistor",
+          "label": "R₂=10 Ω"
+        },
+        {
+          "from": "B",
+          "to": "S",
+          "kind": "resistor",
+          "label": "R₃=4 Ω",
+          "labelOffset": [0, -40]
+        },
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "20 V",
+          "labelOffset": [0, 5]
+        },
+        {
+          "from": "B",
+          "to": "C",
+          "kind": "resistor",
+          "label": "R₄=8 Ω"
+        },
+        {
+          "from": "C",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₅=8 Ω",
+          "via": [[640, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₆=2 Ω",
+          "via": [[110, 60]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "X",
+          "to": "C",
+          "kind": "voltage",
+          "label": "40 V",
+          "via": [[640, 60]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "0",
+      "arrows": [
+        {
+          "from": [395, 185],
+          "to": [395, 220],
+          "label": "i₃"
+        },
+        {
+          "from": [680, 190],
+          "to": [680, 230],
+          "label": "i₅"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "3-8",
+      "pages": "76–77",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "参考方向统一后，电源项的正负由绕行方向决定。"
+  },
+  {
+    "id": "book-3-9",
+    "chapter": 3,
+    "section": 5,
+    "title": "习题3-9：回路电流法求桥形网络电流",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材图3-7：R1=R2=10 Ω，R3=4 Ω，R4=R5=8 Ω，R6=2 Ω；中支路20 V源上正下负，顶支路40 V源左正右负。i3、i5均取向下。",
+    "tasks": [
+      "用回路电流法求i3。",
+      "用另一组独立方程复核目标电流（本站补充）。"
+    ],
+    "hints": [
+      "公共支路电流是回路电流的代数和。",
+      "参考方向统一后，电源项的正负由绕行方向决定。"
+    ],
+    "steps": [
+      {
+        "title": "统一支路方向与KCL",
+        "latex": "i_1+i_2+i_6=0,\\quad-i_2+i_3+i_4=0,\\quad-i_6-i_4+i_5=0",
+        "explanation": "i1取A→地，i2取A→B，i4取B→C，i6取顶支路A→C。"
+      },
+      {
+        "title": "选择三个独立回路",
+        "latex": "\\begin{aligned}-10i_1+10i_2+4i_3&=-20\\\\-4i_3+8i_4+8i_5&=20\\\\-10i_2-8i_4+2i_6&=-40\\end{aligned}",
+        "explanation": "分别对应左下、右下和上方三个回路。"
+      },
+      {
+        "title": "用网孔或回路变量压缩方程",
+        "latex": "\\begin{bmatrix}20&-10&-8\\\\-10&24&-4\\\\-8&-4&20\\end{bmatrix}\\begin{bmatrix}m_t\\\\m_l\\\\m_r\\end{bmatrix}=\\begin{bmatrix}-40\\\\-20\\\\20\\end{bmatrix}",
+        "explanation": "三个网孔均顺时针。网孔组也是一组合法的独立回路；i5=mr，i3=ml−mr。"
+      },
+      {
+        "title": "解出目标电流并解释方向",
+        "latex": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+        "explanation": "两者为负，说明实际电流均向上；不同分析方法应给出同一物理结果。"
+      }
+    ],
+    "answer": "i_5=-0.956113\\,A,\\quad i_3=-1.55172\\,A",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [1, 1, 0, 0, 0, 1],
+          [0, -1, 1, 1, 0, 0],
+          [0, 0, 0, -1, 1, -1],
+          [-10, 10, 4, 0, 0, 0],
+          [0, 0, -4, 8, 8, 0],
+          [0, -10, 0, -8, 0, 2]
+        ],
+        "rhs": [0, 0, 0, -20, 20, -40],
+        "solution": [
+          2.5078369905956115, 1.1285266457680252, -1.5517241379310338,
+          2.6802507836990594, -0.9561128526645762, -3.6363636363636367
+        ]
+      },
+      {
+        "kind": "linear",
+        "matrix": [
+          [20, -10, -8],
+          [-10, 24, -4],
+          [-8, -4, 20]
+        ],
+        "rhs": [-40, -20, 20],
+        "solution": [
+          -3.636363636363636, -2.507836990595611, -0.9561128526645767
+        ]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 110,
+          "y": 150
+        },
+        {
+          "id": "B",
+          "x": 360,
+          "y": 150
+        },
+        {
+          "id": "C",
+          "x": 640,
+          "y": 150
+        },
+        {
+          "id": "X",
+          "x": 460,
+          "y": 60
+        },
+        {
+          "id": "S",
+          "x": 360,
+          "y": 260
+        },
+        {
+          "id": "0",
+          "x": 360,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₁=10 Ω",
+          "via": [[110, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "resistor",
+          "label": "R₂=10 Ω"
+        },
+        {
+          "from": "B",
+          "to": "S",
+          "kind": "resistor",
+          "label": "R₃=4 Ω",
+          "labelOffset": [0, -40]
+        },
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "20 V",
+          "labelOffset": [0, 5]
+        },
+        {
+          "from": "B",
+          "to": "C",
+          "kind": "resistor",
+          "label": "R₄=8 Ω"
+        },
+        {
+          "from": "C",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R₅=8 Ω",
+          "via": [[640, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₆=2 Ω",
+          "via": [[110, 60]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "X",
+          "to": "C",
+          "kind": "voltage",
+          "label": "40 V",
+          "via": [[640, 60]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "0",
+      "arrows": [
+        {
+          "from": [395, 185],
+          "to": [395, 220],
+          "label": "i₃"
+        },
+        {
+          "from": [680, 190],
+          "to": [680, 230],
+          "label": "i₅"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "3-9",
+      "pages": "76–77",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "参考方向统一后，电源项的正负由绕行方向决定。"
   },
   {
     "id": "book-3-19-a",
@@ -450,6 +2484,121 @@
     "takeaway": "叠加的是同一参考方向下的代数分响应。把式子先写成“激励系数”的形式，更容易检查哪个电源的贡献应为负。"
   },
   {
+    "id": "book-fig-4-7",
+    "chapter": 4,
+    "section": 2,
+    "title": "图解练习4-7：用已知支路状态进行替代",
+    "difficulty": "教材图解练习",
+    "secondary": false,
+    "given": "教材图4-7(a)为20 V源串6 Ω、8 Ω支路、4 Ω串4 V源三支路并联，两个源上正下负。先求右支路电压和电流，再分别用理想电压源和电流源替代整个右支路，检查其他支路。",
+    "tasks": [
+      "求右支路端电压u3与向下电流i3。",
+      "分别作电压源替代和电流源替代，并说明成立条件。"
+    ],
+    "hints": [
+      "替代保持的是原工作状态，不是任意负载下的端口特性。",
+      "被替代的整个右支路包括4 Ω和4 V源。"
+    ],
+    "steps": [
+      {
+        "title": "先求原工作点",
+        "latex": "\\frac{u-20}{6}+\\frac u8+\\frac{u-4}{4}=0\\Rightarrow u=8V",
+        "explanation": "得到i1=2 A、i2=1 A、i3=1 A。"
+      },
+      {
+        "title": "替代整个右支路",
+        "latex": "u_S=u_3=8V\\quad\\text{或}\\quad i_S=i_3=1A",
+        "explanation": "电压源上正下负，电流源取向下；其余网络保持原电压、电流。"
+      },
+      {
+        "title": "检验其余网络",
+        "latex": "i_1=\\frac{20-8}{6}=2A,\\quad i_2=8/8=1A",
+        "explanation": "不要把8 V替代源作为原右支路对所有外接条件都成立的戴维宁源。"
+      }
+    ],
+    "answer": "u_3=8V,\\quad i_3=1A",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [[0.5416666666666666]],
+        "rhs": [4.333333333333334],
+        "solution": [8]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 160,
+          "y": 70
+        },
+        {
+          "id": "X",
+          "x": 160,
+          "y": 230
+        },
+        {
+          "id": "Y",
+          "x": 620,
+          "y": 230
+        },
+        {
+          "id": "0",
+          "x": 390,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "X",
+          "kind": "resistor",
+          "label": "6 Ω"
+        },
+        {
+          "from": "X",
+          "to": "0",
+          "kind": "voltage",
+          "label": "20 V",
+          "via": [[160, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "8 Ω",
+          "via": [[390, 70]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "A",
+          "to": "Y",
+          "kind": "resistor",
+          "label": "4 Ω",
+          "via": [[620, 70]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "Y",
+          "to": "0",
+          "kind": "voltage",
+          "label": "4 V",
+          "via": [[620, 340]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "0"
+    },
+    "source": {
+      "kind": "figure",
+      "exercise": "4-7",
+      "pages": "89–90",
+      "note": "电路与推导依据教材指定图；问题由本站据图整理，不冒称教材章末原题。"
+    },
+    "takeaway": "被替代的整个右支路包括4 Ω和4 V源。"
+  },
+  {
     "id": "book-4-9-a",
     "title": "习题4-9(a)：开路端口不等于拆掉内部电阻",
     "chapter": 4,
@@ -589,6 +2738,315 @@
       "note": "题设与连接依据用户提供的邱关源、罗先觉《电路》第5版；图形重绘、分步解答及校验由本站整理。"
     },
     "takeaway": "戴维宁题最关键的是先划清“原网络”和“外接负载”。开路、短路只改变外端口条件，内部元件仍在。"
+  },
+  {
+    "id": "book-4-15",
+    "chapter": 4,
+    "section": 4,
+    "title": "习题4-15：梯形含源网络的最大负载功率",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材图4-15：75 V源经理想线路与5 Ω、2 Ω、1.2 Ω依次串联通向负载RL。5 Ω之后有20 Ω接地，2 Ω之后有24 Ω接地，负载下端接地。求使负载功率最大的RL及最大功率。",
+    "tasks": [
+      "求负载端开路电压和源置零后的等效电阻。",
+      "求最佳负载与最大功率。"
+    ],
+    "hints": [
+      "开路时最右1.2 Ω没有电流，但仍属于源侧。",
+      "求Req时它要与左侧化简结果串联。"
+    ],
+    "steps": [
+      {
+        "title": "先求开路电压",
+        "latex": "U_A=52V,\\quad I_{24}=\\frac{52}{2+24}=2A,\\quad u_{oc}=48V",
+        "explanation": "右端1.2 Ω无压降，所以开路端电压等于24 Ω上电压。"
+      },
+      {
+        "title": "源置零求端口电阻",
+        "latex": "R_{eq}=1.2+[24\\parallel(2+(5\\parallel20))]=6\\,\\Omega",
+        "explanation": "逐级向端口化简，保留所有源侧元件。"
+      },
+      {
+        "title": "应用最大功率条件",
+        "latex": "R_L=6\\,\\Omega,\\quad P_{\\max}=\\frac{48^2}{4(6)}=96W",
+        "explanation": "负载电压为24 V，电流4 A，可再用UI核对。"
+      }
+    ],
+    "answer": "R_L=6\\,\\Omega,\\quad P_{\\max}=96W",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [0.75, -0.5],
+          [-0.5, 0.5416666666666666]
+        ],
+        "rhs": [15.0, 0],
+        "solution": [52, 48]
+      },
+      {
+        "kind": "equivalentNetwork",
+        "family": "R",
+        "terminals": ["a", "b"],
+        "branches": [
+          {
+            "from": "a",
+            "to": "B",
+            "value": 1.2
+          },
+          {
+            "from": "B",
+            "to": "b",
+            "value": 24
+          },
+          {
+            "from": "B",
+            "to": "A",
+            "value": 2
+          },
+          {
+            "from": "A",
+            "to": "b",
+            "value": 5
+          },
+          {
+            "from": "A",
+            "to": "b",
+            "value": 20
+          }
+        ],
+        "expected": 6
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 70,
+          "y": 70
+        },
+        {
+          "id": "A",
+          "x": 260,
+          "y": 70
+        },
+        {
+          "id": "B",
+          "x": 470,
+          "y": 70
+        },
+        {
+          "id": "a",
+          "x": 680,
+          "y": 70
+        },
+        {
+          "id": "0",
+          "x": 470,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "75 V",
+          "via": [[70, 320]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "S",
+          "to": "A",
+          "kind": "resistor",
+          "label": "5 Ω"
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "resistor",
+          "label": "2 Ω"
+        },
+        {
+          "from": "B",
+          "to": "a",
+          "kind": "resistor",
+          "label": "1.2 Ω"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "20 Ω",
+          "via": [[260, 320]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "B",
+          "to": "0",
+          "kind": "resistor",
+          "label": "24 Ω"
+        }
+      ],
+      "ground": "0"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "4-15",
+      "pages": "110–111",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "求Req时它要与左侧化简结果串联。"
+  },
+  {
+    "id": "book-6-10",
+    "title": "习题6-10：并联电感总初值为零，是否就无储能",
+    "chapter": 6,
+    "section": 3,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "无互感电感L1=6 H、L2=1.5 H并联，i1、i2均取a→b。i1(0)=2 A、i2(0)=−2 A。共同电压u(t)=6e^(−2t) V，正端为a，t以秒计。",
+    "tasks": ["求等效电感L及输入电流i(t)。", "分别求i1(t)、i2(t)，并校验KCL。"],
+    "hints": [
+      "总初始电流是代数和，不是把幅值相加。",
+      "每一支路用自己的L及自己的初始电流积分。"
+    ],
+    "steps": [
+      {
+        "title": "求等效参数和端口初值",
+        "latex": "L_{eq}=\\frac{6\\times1.5}{6+1.5}=1.2\\,H,\\quad i(0)=2-2=0",
+        "explanation": "i(0)=0只描述端口，不能据此说两电感各自没有储能。"
+      },
+      {
+        "title": "分别积分共同电压",
+        "latex": "\\int_0^t6e^{-2\\xi}d\\xi=3(1-e^{-2t}),\\quad i_1=2.5-0.5e^{-2t},\\quad i_2=-2e^{-2t}\\quad(A)",
+        "explanation": "两支路电流变化率不同，初值的符号必须保留。"
+      },
+      {
+        "title": "校验KCL和等效伏安关系",
+        "latex": "i=i_1+i_2=2.5(1-e^{-2t}),\\quad L_{eq}\\frac{di}{dt}=1.2(5e^{-2t})=6e^{-2t}",
+        "explanation": "端口电流与等效电感的计算一致。"
+      },
+      {
+        "title": "看清内部储能（本站补充）",
+        "latex": "W_{\\mathrm{original}}(0)=\\frac12(6)(2)^2+\\frac12(1.5)(-2)^2=15\\,J,\\quad W_{eq}(0)=0",
+        "explanation": "初始支路电流相互抵消，但两个电感都存有能量。这是端口等效与内部状态不等同的典型例子。"
+      }
+    ],
+    "answer": "L_{eq}=1.2\\,H,\\quad i=2.5(1-e^{-2t})\\,A",
+    "checks": [
+      {
+        "kind": "equivalentNetwork",
+        "family": "L",
+        "terminals": ["a", "b"],
+        "branches": [
+          {
+            "from": "a",
+            "to": "b",
+            "value": 6
+          },
+          {
+            "from": "a",
+            "to": "b",
+            "value": 1.5
+          }
+        ],
+        "expected": 1.2
+      },
+      {
+        "kind": "inductorEnergy",
+        "inductance": 6,
+        "current": 2,
+        "expected": 12
+      },
+      {
+        "kind": "inductorEnergy",
+        "inductance": 1.5,
+        "current": -2,
+        "expected": 3
+      },
+      {
+        "kind": "transient",
+        "initial": 0,
+        "final": 2.5,
+        "tau": 0.5,
+        "time": 1,
+        "expected": 2.161661791908468
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 140,
+          "y": 70
+        },
+        {
+          "id": "b",
+          "x": 140,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "inductor",
+          "label": "L₁ = 6 H",
+          "via": [
+            [370, 70],
+            [370, 320]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "inductor",
+          "label": "L₂ = 1.5 H",
+          "via": [
+            [620, 70],
+            [620, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": null,
+      "arrows": [
+        {
+          "from": [50, 70],
+          "to": [120, 70],
+          "label": "i"
+        },
+        {
+          "from": [340, 105],
+          "to": [340, 145],
+          "label": "i₁"
+        },
+        {
+          "from": [590, 105],
+          "to": [590, 145],
+          "label": "i₂"
+        }
+      ],
+      "notes": [
+        {
+          "x": 140,
+          "y": 110,
+          "text": "+"
+        },
+        {
+          "x": 140,
+          "y": 352,
+          "text": "−"
+        }
+      ]
+    },
+    "source": {
+      "exercise": "6-10",
+      "pages": "135–136",
+      "note": "题设与连接依据用户提供的邱关源、罗先觉《电路》第5版；图形重绘、分步解答及校验由本站整理。"
+    },
+    "takeaway": "“端口初值为零”与“所有元件初始储能为零”不是一回事。这个区别比单纯背并联电感公式更重要。"
   },
   {
     "id": "book-6-8",
@@ -987,155 +3445,151 @@
     "takeaway": "参数等效和初始状态必须一起保留。先求端口量，再回原元件积分，才能得到每只电容的实际电压。"
   },
   {
-    "id": "book-6-10",
-    "title": "习题6-10：并联电感总初值为零，是否就无储能",
-    "chapter": 6,
-    "section": 3,
+    "id": "book-7-1-a",
+    "chapter": 7,
+    "section": 1,
+    "title": "习题7-1(a)：换路前后，哪些量连续",
     "difficulty": "教材习题",
     "secondary": false,
-    "given": "无互感电感L1=6 H、L2=1.5 H并联，i1、i2均取a→b。i1(0)=2 A、i2(0)=−2 A。共同电压u(t)=6e^(−2t) V，正端为a，t以秒计。",
-    "tasks": ["求等效电感L及输入电流i(t)。", "分别求i1(t)、i2(t)，并校验KCL。"],
+    "given": "选做教材7-1(a)：开关在位置1时10 V源经10 Ω向2 F电容充电，已达稳态；t=0切换到位置2，电阻左端接到上负下正的5 V源。uC取上正下负，iC取向下。",
+    "tasks": [
+      "求uC(0+)与iC(0+)。",
+      "求10 Ω电阻的参考电压，并校验换路后KVL（本站补充）。"
+    ],
     "hints": [
-      "总初始电流是代数和，不是把幅值相加。",
-      "每一支路用自己的L及自己的初始电流积分。"
+      "旧稳态电容开路，先求uC(0−)。",
+      "电容电压连续，不代表电容电流也连续。"
     ],
     "steps": [
       {
-        "title": "求等效参数和端口初值",
-        "latex": "L_{eq}=\\frac{6\\times1.5}{6+1.5}=1.2\\,H,\\quad i(0)=2-2=0",
-        "explanation": "i(0)=0只描述端口，不能据此说两电感各自没有储能。"
+        "title": "确定电容初值",
+        "latex": "u_C(0^-)=10V,\\quad u_C(0^+)=10V",
+        "explanation": "换路前电流为0，10 Ω没有压降。"
       },
       {
-        "title": "分别积分共同电压",
-        "latex": "\\int_0^t6e^{-2\\xi}d\\xi=3(1-e^{-2t}),\\quad i_1=2.5-0.5e^{-2t},\\quad i_2=-2e^{-2t}\\quad(A)",
-        "explanation": "两支路电流变化率不同，初值的符号必须保留。"
+        "title": "按新电路求电流",
+        "latex": "i_C(0^+)=\\frac{-5-10}{10}=-1.5A",
+        "explanation": "负值表示实际电流向上，电容正在放电。"
       },
       {
-        "title": "校验KCL和等效伏安关系",
-        "latex": "i=i_1+i_2=2.5(1-e^{-2t}),\\quad L_{eq}\\frac{di}{dt}=1.2(5e^{-2t})=6e^{-2t}",
-        "explanation": "端口电流与等效电感的计算一致。"
-      },
-      {
-        "title": "看清内部储能（本站补充）",
-        "latex": "W_{\\mathrm{original}}(0)=\\frac12(6)(2)^2+\\frac12(1.5)(-2)^2=15\\,J,\\quad W_{eq}(0)=0",
-        "explanation": "初始支路电流相互抵消，但两个电感都存有能量。这是端口等效与内部状态不等同的典型例子。"
+        "title": "核对电压与KVL",
+        "latex": "u_R(0^+)=-15V,\\quad-5=u_R+u_C=-15+10",
+        "explanation": "不能把5 V源上端误当成+5 V。"
       }
     ],
-    "answer": "L_{eq}=1.2\\,H,\\quad i=2.5(1-e^{-2t})\\,A",
+    "answer": "u_C(0^+)=10V,\\quad i_C(0^+)=-1.5A",
     "checks": [
       {
-        "kind": "equivalentNetwork",
-        "family": "L",
-        "terminals": ["a", "b"],
-        "branches": [
-          {
-            "from": "a",
-            "to": "b",
-            "value": 6
-          },
-          {
-            "from": "a",
-            "to": "b",
-            "value": 1.5
-          }
-        ],
-        "expected": 1.2
-      },
-      {
-        "kind": "inductorEnergy",
-        "inductance": 6,
-        "current": 2,
-        "expected": 12
-      },
-      {
-        "kind": "inductorEnergy",
-        "inductance": 1.5,
-        "current": -2,
-        "expected": 3
-      },
-      {
-        "kind": "transient",
-        "initial": 0,
-        "final": 2.5,
-        "tau": 0.5,
-        "time": 1,
-        "expected": 2.161661791908468
+        "kind": "linear",
+        "matrix": [[10]],
+        "rhs": [-15],
+        "solution": [-1.5]
       }
     ],
-    "network": {
-      "nodes": [
-        {
-          "id": "a",
-          "x": 140,
-          "y": 70
-        },
-        {
-          "id": "b",
-          "x": 140,
-          "y": 320
-        }
-      ],
-      "branches": [
-        {
-          "from": "a",
-          "to": "b",
-          "kind": "inductor",
-          "label": "L₁ = 6 H",
-          "via": [
-            [370, 70],
-            [370, 320]
-          ],
-          "symbolSegment": 1
-        },
-        {
-          "from": "a",
-          "to": "b",
-          "kind": "inductor",
-          "label": "L₂ = 1.5 H",
-          "via": [
-            [620, 70],
-            [620, 320]
-          ],
-          "symbolSegment": 1
-        }
-      ],
-      "ground": null,
-      "arrows": [
-        {
-          "from": [50, 70],
-          "to": [120, 70],
-          "label": "i"
-        },
-        {
-          "from": [340, 105],
-          "to": [340, 145],
-          "label": "i₁"
-        },
-        {
-          "from": [590, 105],
-          "to": [590, 145],
-          "label": "i₂"
-        }
-      ],
-      "notes": [
-        {
-          "x": 140,
-          "y": 110,
-          "text": "+"
-        },
-        {
-          "x": 140,
-          "y": 352,
-          "text": "−"
-        }
-      ]
-    },
+    "network": null,
     "source": {
-      "exercise": "6-10",
-      "pages": "135–136",
-      "note": "题设与连接依据用户提供的邱关源、罗先觉《电路》第5版；图形重绘、分步解答及校验由本站整理。"
+      "kind": "exercise",
+      "exercise": "7-1(a)",
+      "pages": "190",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
     },
-    "takeaway": "“端口初值为零”与“所有元件初始储能为零”不是一回事。这个区别比单纯背并联电感公式更重要。"
+    "takeaway": "电容电压连续，不代表电容电流也连续。",
+    "networks": [
+      {
+        "title": "换路前：位置1，10 V源",
+        "network": {
+          "nodes": [
+            {
+              "id": "S",
+              "x": 130,
+              "y": 70
+            },
+            {
+              "id": "A",
+              "x": 620,
+              "y": 70
+            },
+            {
+              "id": "0",
+              "x": 390,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "S",
+              "to": "0",
+              "kind": "voltage",
+              "label": "10 V",
+              "via": [[130, 320]],
+              "symbolSegment": 0
+            },
+            {
+              "from": "S",
+              "to": "A",
+              "kind": "resistor",
+              "label": "10 Ω"
+            },
+            {
+              "from": "A",
+              "to": "0",
+              "kind": "capacitor",
+              "label": "2 F",
+              "via": [[620, 320]],
+              "symbolSegment": 0
+            }
+          ],
+          "ground": "0"
+        }
+      },
+      {
+        "title": "换路后：位置2，上端电位−5 V",
+        "network": {
+          "nodes": [
+            {
+              "id": "S",
+              "x": 130,
+              "y": 70
+            },
+            {
+              "id": "A",
+              "x": 620,
+              "y": 70
+            },
+            {
+              "id": "0",
+              "x": 390,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "0",
+              "to": "S",
+              "kind": "voltage",
+              "label": "5 V",
+              "via": [[130, 320]],
+              "symbolSegment": 1
+            },
+            {
+              "from": "S",
+              "to": "A",
+              "kind": "resistor",
+              "label": "10 Ω"
+            },
+            {
+              "from": "A",
+              "to": "0",
+              "kind": "capacitor",
+              "label": "2 F",
+              "via": [[620, 320]],
+              "symbolSegment": 0
+            }
+          ],
+          "ground": "0"
+        }
+      }
+    ]
   },
   {
     "id": "book-7-4",
@@ -1328,6 +3782,665 @@
     ]
   },
   {
+    "id": "book-fig-7-12",
+    "chapter": 7,
+    "section": 3,
+    "title": "图解练习7-12：电流源驱动的RL零状态响应",
+    "difficulty": "教材图解练习",
+    "secondary": false,
+    "given": "依据教材图7-12整理：t=0前短接支路闭合，电感初始电流为0；t=0短接支路打开。换路后理想直流电流源IS经串联Rs驱动R与L并联。R、L为正，求iL及uL。",
+    "tasks": [
+      "从KCL和电感伏安关系建立一阶方程。",
+      "求时间常数、iL(t)、uL(t)，并判断Rs是否影响电感响应。"
+    ],
+    "hints": [
+      "理想电流源串联Rs后，输出电流仍为IS。",
+      "求Req时电流源置零开路，Rs不形成从电感端口看入的通路。"
+    ],
+    "steps": [
+      {
+        "title": "建立状态方程",
+        "latex": "I_S=\\frac{u_L}{R}+i_L,\\quad u_L=L\\frac{di_L}{dt}\\Rightarrow\\frac LR\\frac{di_L}{dt}+i_L=I_S",
+        "explanation": "共同电压由R和L分担电流的关系决定。"
+      },
+      {
+        "title": "使用初值和终值",
+        "latex": "i_L(0^+)=0,\\quad i_L(\\infty)=I_S,\\quad R_{eq}=R,\\quad\\tau=\\frac L{R_{eq}}",
+        "explanation": "Rs改变电流源所需端电压，但不改变这个理想模型的输出电流。"
+      },
+      {
+        "title": "写出两个响应",
+        "latex": "i_L=I_S(1-e^{-t/\\tau}),\\qquad u_L=RI_Se^{-t/\\tau}",
+        "explanation": "t=0时电感电流为0，但其电压可以为R IS；直流稳态电感电压为0。"
+      }
+    ],
+    "answer": "i_L=I_S(1-e^{-tR/L}),\\quad u_L=RI_Se^{-tR/L}",
+    "checks": [
+      {
+        "kind": "transient",
+        "initial": 0,
+        "final": 2,
+        "tau": 0.5,
+        "time": 0.5,
+        "expected": 1.2642411176571153
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 130,
+          "y": 70
+        },
+        {
+          "id": "A",
+          "x": 420,
+          "y": 70
+        },
+        {
+          "id": "0",
+          "x": 420,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "0",
+          "to": "S",
+          "kind": "current",
+          "label": "IS",
+          "via": [[130, 320]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "S",
+          "to": "A",
+          "kind": "resistor",
+          "label": "Rs"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "inductor",
+          "label": "L",
+          "via": [
+            [650, 70],
+            [650, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": "0",
+      "caption": "图示换路后的连接；换路前短接支路已移去。电流与初始条件按题干规定。"
+    },
+    "source": {
+      "kind": "figure",
+      "exercise": "7-12",
+      "pages": "149",
+      "note": "电路与推导依据教材指定图；问题由本站据图整理，不冒称教材章末原题。"
+    },
+    "takeaway": "求Req时电流源置零开路，Rs不形成从电感端口看入的通路。"
+  },
+  {
+    "id": "book-ex-7-4",
+    "chapter": 7,
+    "section": 4,
+    "title": "例7-4：含源RL一阶电路的全响应",
+    "difficulty": "教材例题",
+    "secondary": false,
+    "given": "教材例7-4：US=10 V、IS=2 A、R=2 Ω、L=4 H。开关原来断开，电流源与电感成环；t=0闭合后，10 V源经2 Ω接到电流源与电感并联端口。IS向下，iL也取向下，求iL及供电支路电流i。",
+    "tasks": ["求电感电流的三要素，写iL(t)。", "按KCL求电阻支路电流i(t)。"],
+    "hints": [
+      "换路前iL与向下电流源的电流方向相反。",
+      "Req由电感端口在独立源置零后的网络决定。"
+    ],
+    "steps": [
+      {
+        "title": "确定初值",
+        "latex": "i_L(0^+)=i_L(0^-)=-2A",
+        "explanation": "初值为负，不能因为题给IS=2 A就把iL初值写成+2 A。"
+      },
+      {
+        "title": "求端口等效与终值",
+        "latex": "u_{oc}=10-(2)(2)=6V,\\quad R_{eq}=2\\,\\Omega,\\quad i_L(\\infty)=3A,\\quad\\tau=4/2=2s",
+        "explanation": "电感端口等效为6 V串联2 Ω。"
+      },
+      {
+        "title": "写全响应并回代KCL",
+        "latex": "i_L=3-5e^{-t/2}\\quad(A),\\qquad i=I_S+i_L=5-5e^{-t/2}\\quad(A)",
+        "explanation": "初始i=0；足够久以后iL=3 A，电阻支路5 A。"
+      }
+    ],
+    "answer": "i_L=3-5e^{-0.5t}\\,A,\\quad i=5-5e^{-0.5t}\\,A",
+    "checks": [
+      {
+        "kind": "transient",
+        "initial": -2,
+        "final": 3,
+        "tau": 2,
+        "time": 2,
+        "expected": 1.1606027941427883
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 110,
+          "y": 70
+        },
+        {
+          "id": "A",
+          "x": 410,
+          "y": 70
+        },
+        {
+          "id": "0",
+          "x": 410,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "10 V",
+          "via": [[110, 320]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "S",
+          "to": "A",
+          "kind": "resistor",
+          "label": "2 Ω"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "current",
+          "label": "2 A"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "inductor",
+          "label": "4 H",
+          "via": [
+            [650, 70],
+            [650, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": "0",
+      "caption": "图示开关闭合后的连接；iL以向下为正，初始电流为−2 A。"
+    },
+    "source": {
+      "kind": "example",
+      "exercise": "7-4",
+      "pages": "154",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "Req由电感端口在独立源置零后的网络决定。"
+  },
+  {
+    "id": "book-8-1",
+    "chapter": 8,
+    "section": 1,
+    "title": "习题8-1：复数的模与象限判断",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材8-1给出F1=−5−j5，F2=−4+j3，F3=20+j40，F4=j10，F5=−3，F6=2.78−j9.20。将它们化为极坐标形式。",
+    "tasks": ["分别求六个复数的模。", "按实部、虚部的符号判断象限，求辐角。"],
+    "hints": [
+      "arctan(b/a)不能独自决定象限。",
+      "负实轴的辐角可取180°或−180°，不能写成0°。"
+    ],
+    "steps": [
+      {
+        "title": "先求模",
+        "latex": "|F|=\\sqrt{a^2+b^2}",
+        "explanation": "例如F1的模是√50，不是−10或0。"
+      },
+      {
+        "title": "结合象限求角",
+        "latex": "\\arg F_1=-135^\\circ,\\quad\\arg F_2=143.130^\\circ",
+        "explanation": "F1在第三象限，F2在第二象限。"
+      },
+      {
+        "title": "列出全部结果",
+        "latex": "\\begin{aligned}F_1=7.07107\\angle(-135^\\circ)\\\\F_2=5\\angle(143.13^\\circ)\\\\F_3=44.7214\\angle(63.4349^\\circ)\\\\F_4=10\\angle(90^\\circ)\\\\F_5=3\\angle(180^\\circ)\\\\F_6=9.61085\\angle(-73.1866^\\circ)\\end{aligned}",
+        "explanation": "可将每个结果用r cosθ+jr sinθ回算实、虚部。"
+      }
+    ],
+    "answer": "\\begin{aligned}F_1=7.07107\\angle(-135^\\circ)\\\\F_2=5\\angle(143.13^\\circ)\\\\F_3=44.7214\\angle(63.4349^\\circ)\\\\F_4=10\\angle(90^\\circ)\\\\F_5=3\\angle(180^\\circ)\\\\F_6=9.61085\\angle(-73.1866^\\circ)\\end{aligned}",
+    "checks": [
+      {
+        "kind": "polar",
+        "real": -5.0,
+        "imag": -5.0,
+        "magnitude": 7.0710678118654755,
+        "angleDegrees": -135.0
+      },
+      {
+        "kind": "polar",
+        "real": -4.0,
+        "imag": 3.0,
+        "magnitude": 5.0,
+        "angleDegrees": 143.13010235415598
+      },
+      {
+        "kind": "polar",
+        "real": 20.0,
+        "imag": 40.0,
+        "magnitude": 44.721359549995796,
+        "angleDegrees": 63.43494882292201
+      },
+      {
+        "kind": "polar",
+        "real": 0.0,
+        "imag": 10.0,
+        "magnitude": 10.0,
+        "angleDegrees": 90.0
+      },
+      {
+        "kind": "polar",
+        "real": -3.0,
+        "imag": 0.0,
+        "magnitude": 3.0,
+        "angleDegrees": 180.0
+      },
+      {
+        "kind": "polar",
+        "real": 2.78,
+        "imag": -9.2,
+        "magnitude": 9.610848037504285,
+        "angleDegrees": -73.1865526493316
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "8-1",
+      "pages": "217",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "负实轴的辐角可取180°或−180°，不能写成0°。",
+    "phasors": [
+      {
+        "unit": "复数单位",
+        "caption": "F1、F2在复平面的象限",
+        "vectors": [
+          {
+            "label": "F1",
+            "real": -5,
+            "imag": -5
+          },
+          {
+            "label": "F2",
+            "real": -4,
+            "imag": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "book-8-7",
+    "chapter": 8,
+    "section": 2,
+    "title": "习题8-7：由相量恢复瞬时量并求相位差",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材8-7：同频电压有效值相量U1=50∠30° V，U2=100∠−150° V，频率f=100 Hz。",
+    "tasks": [
+      "写出u1(t)、u2(t)的时域表达式。",
+      "求两电压的相位差，并说明它们是否同相。"
+    ],
+    "hints": [
+      "相量的模是有效值，恢复瞬时量需乘√2。",
+      "两初相位相差180°，不是幅值相差两倍就代表同相。"
+    ],
+    "steps": [
+      {
+        "title": "恢复共同时间因子",
+        "latex": "\\omega=2\\pi f=200\\pi\\;rad/s,\\quad T=0.01s",
+        "explanation": "所有角度运算要保持统一约定。"
+      },
+      {
+        "title": "恢复峰值",
+        "latex": "u_1=50\\sqrt2\\cos(200\\pi t+30^\\circ),\\quad u_2=100\\sqrt2\\cos(200\\pi t-150^\\circ)\\;(V)",
+        "explanation": "没有共同频率，就不能只靠相量恢复完整瞬时量。"
+      },
+      {
+        "title": "求相位关系",
+        "latex": "\\varphi_1-\\varphi_2=180^\\circ,\\qquad u_2(t)=-2u_1(t)",
+        "explanation": "二者反相；这个式子同时给出了幅值比例。"
+      }
+    ],
+    "answer": "\\Delta\\varphi=180^\\circ,\\quad u_2=-2u_1",
+    "checks": [
+      {
+        "kind": "polar",
+        "real": 43.30127018922194,
+        "imag": 25,
+        "magnitude": 50,
+        "angleDegrees": 30
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "8-7",
+      "pages": "217",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "两初相位相差180°，不是幅值相差两倍就代表同相。",
+    "phasors": [
+      {
+        "unit": "V",
+        "caption": "同频相量相差180°",
+        "vectors": [
+          {
+            "label": "U1",
+            "real": 43.30127018922194,
+            "imag": 25
+          },
+          {
+            "label": "U2",
+            "real": -86.60254037844388,
+            "imag": -50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "book-ex-8-2",
+    "chapter": 8,
+    "section": 3,
+    "title": "例8-2：相量相同，瞬时量就一定相同吗",
+    "difficulty": "教材例题",
+    "secondary": false,
+    "given": "教材例8-2：i1=14.14 cos(314t+30°) A，i2=−14.14 sin(1000t−60°) A。写两者对应的有效值相量。教材14.14是10√2的约数。",
+    "tasks": [
+      "统一余弦参考，提取有效值和初相位。",
+      "说明为何不能仅因两个复数相量相同，就把两个不同频率的电流等同。"
+    ],
+    "hints": [
+      "先处理负号和sin到cos的变换。",
+      "相量省略了共同时间因子，频率信息还要另外保留。"
+    ],
+    "steps": [
+      {
+        "title": "把第二个电流改写为余弦",
+        "latex": "-\\sin(1000t-60^\\circ)=\\cos(1000t+30^\\circ)",
+        "explanation": "负号会再转180°，不是只减去90°。"
+      },
+      {
+        "title": "提取有效值相量",
+        "latex": "\\dot I_1=\\dot I_2\\approx10\\angle30^\\circ\\,A",
+        "explanation": "两者作为复数的有效值与初相位相同。"
+      },
+      {
+        "title": "保留各自频率",
+        "latex": "\\omega_1=314,\\quad\\omega_2=1000\\quad(rad/s),\\qquad i_1(t)\\not\\equiv i_2(t)",
+        "explanation": "不能把它们放到同一次同频相量加法中。"
+      }
+    ],
+    "answer": "\\dot I_1=\\dot I_2\\approx10\\angle30^\\circ A,\\quad i_1\\not\\equiv i_2",
+    "checks": [
+      {
+        "kind": "polar",
+        "real": 8.658946240738535,
+        "imag": 4.9992449429888905,
+        "magnitude": 9.998489885977781,
+        "angleDegrees": 30
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "example",
+      "exercise": "8-2",
+      "pages": "210–211",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "相量省略了共同时间因子，频率信息还要另外保留。"
+  },
+  {
+    "id": "book-ex-8-4",
+    "chapter": 8,
+    "section": 4,
+    "title": "例8-4：用相量KVL求串联RLC电压",
+    "difficulty": "教材例题",
+    "secondary": false,
+    "given": "教材例8-4：iS=5√2 cos(1000t+30°) A，R=30 Ω、L=0.12 H、C=12.5 μF。求uad、ubd。电流源驱动串联R、L、C，b在R、L之间，d为电容下端。",
+    "tasks": [
+      "建立相量形式的元件关系，求Uad、Ubd。",
+      "恢复两个电压的瞬时表达式。"
+    ],
+    "hints": [
+      "R、L、C的电压与共同电流分别同相、超前90°、滞后90°。",
+      "KVL相加的是复数相量，不是三个电压的有效值大小。"
+    ],
+    "steps": [
+      {
+        "title": "写电流相量与阻抗",
+        "latex": "\\dot I=5\\angle30^\\circ A,\\quad Z_R=30,\\ Z_L=j120,\\ Z_C=-j80\\quad(\\Omega)",
+        "explanation": "峰值5√2转换为有效值5。"
+      },
+      {
+        "title": "合成电压",
+        "latex": "\\dot U_{bd}=j40\\dot I=200\\angle120^\\circ V,\\quad\\dot U_{ad}=(30+j40)\\dot I=250\\angle83.1301^\\circ V",
+        "explanation": "先合并L、C的相反电抗，避免把600 V与400 V直接相加。"
+      },
+      {
+        "title": "恢复瞬时电压",
+        "latex": "u_{bd}=200\\sqrt2\\cos(1000t+120^\\circ),\\quad u_{ad}=250\\sqrt2\\cos(1000t+83.1301^\\circ)\\quad(V)",
+        "explanation": "两个结果均须补回相同的1000t。"
+      }
+    ],
+    "answer": "\\dot U_{ad}=250\\angle83.1301^\\circ V,\\quad\\dot U_{bd}=200\\angle120^\\circ V",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [[[30.0, 40.0]]],
+        "rhs": [[29.903810567665815, 248.20508075688775]],
+        "solution": [[4.330127018922194, 2.4999999999999996]]
+      },
+      {
+        "kind": "complexLinear",
+        "matrix": [[[0.0, 40.0]]],
+        "rhs": [[-99.99999999999999, 173.20508075688775]],
+        "solution": [[4.330127018922194, 2.4999999999999996]]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 100,
+          "y": 70
+        },
+        {
+          "id": "b",
+          "x": 330,
+          "y": 70
+        },
+        {
+          "id": "c",
+          "x": 650,
+          "y": 70
+        },
+        {
+          "id": "d",
+          "x": 330,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "d",
+          "to": "a",
+          "kind": "current",
+          "label": "iS",
+          "via": [[100, 320]],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "resistor",
+          "label": "30 Ω"
+        },
+        {
+          "from": "b",
+          "to": "c",
+          "kind": "inductor",
+          "label": "0.12 H"
+        },
+        {
+          "from": "c",
+          "to": "d",
+          "kind": "capacitor",
+          "label": "12.5 μF",
+          "via": [[650, 320]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "example",
+      "exercise": "8-4",
+      "pages": "215–216",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "KVL相加的是复数相量，不是三个电压的有效值大小。"
+  },
+  {
+    "id": "book-9-3",
+    "chapter": 9,
+    "section": 1,
+    "title": "习题9-3：从瞬时量识别输入阻抗和等效元件",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材9-3四种一端口：(1)u=200 cos314t，i=10 cos314t；(2)u=10 cos(10t+45°)，i=2 cos(10t+90°)；(3)u=100 cos(2t+60°)，i=5 cos(2t−30°)；(4)u=40 cos(100t+17°)，i=8 sin(100t+π/2)。电压V、电流A，均为关联方向。",
+    "tasks": [
+      "分别求输入阻抗Z和导纳Y。",
+      "说明各自可用什么R、L、C串联模型等效。"
+    ],
+    "hints": [
+      "阻抗用同频电压与电流相量之比。",
+      "第二种容性模型不能把C误写成|X|/ω，电容满足|XC|=1/(ωC)。"
+    ],
+    "steps": [
+      {
+        "title": "统一参考并相除",
+        "latex": "Z_1=20,\\quad Z_2=5\\angle(-45^\\circ),\\quad Z_3=j20,\\quad Z_4=5\\angle17^\\circ\\quad(\\Omega)",
+        "explanation": "第四种i=8 cos100t；峰值比与有效值比一致，但计算功率时仍必须用有效值。"
+      },
+      {
+        "title": "写导纳",
+        "latex": "Y_1=0.05,\\quad Y_2=0.2\\angle45^\\circ,\\quad Y_3=-j0.05,\\quad Y_4=0.2\\angle(-17^\\circ)\\quad(S)",
+        "explanation": "倒数运算会反转阻抗角。"
+      },
+      {
+        "title": "恢复等效元件",
+        "latex": "(1)\\ R=20\\Omega;\\quad(2)\\ R=3.53553\\Omega,\\ C=0.0282843F;\\quad(3)\\ L=10H;\\quad(4)\\ R=4.78152\\Omega,\\ L=0.0146186H",
+        "explanation": "每种L、C换算都使用该小题自己的角频率。"
+      }
+    ],
+    "answer": "Z=(20,\\ 3.53553-j3.53553,\\ j20,\\ 4.78152+j1.46186)\\,\\Omega",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [[[20.0, 0.0]]],
+        "rhs": [[200.0, 0.0]],
+        "solution": [[10.0, 0.0]]
+      },
+      {
+        "kind": "complexLinear",
+        "matrix": [[[3.5355339059327378, -3.5355339059327378]]],
+        "rhs": [[7.0710678118654755, 7.0710678118654755]],
+        "solution": [[0.0, 2.0]]
+      },
+      {
+        "kind": "complexLinear",
+        "matrix": [[[4.922784477141924e-15, 20.0]]],
+        "rhs": [[50.000000000000014, 86.60254037844386]],
+        "solution": [[4.330127018922194, -2.4999999999999996]]
+      },
+      {
+        "kind": "complexLinear",
+        "matrix": [[[4.781523779815177, 1.4618585236136838]]],
+        "rhs": [[38.252190238521415, 11.69486818890947]],
+        "solution": [[8.0, 0.0]]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 160,
+          "y": 90
+        },
+        {
+          "id": "b",
+          "x": 160,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "element",
+          "label": "无独立源一端口 N",
+          "via": [
+            [600, 90],
+            [600, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": null,
+      "arrows": [
+        {
+          "from": [60, 90],
+          "to": [140, 90],
+          "label": "i"
+        }
+      ],
+      "notes": [
+        {
+          "x": 160,
+          "y": 125,
+          "text": "+"
+        },
+        {
+          "x": 160,
+          "y": 352,
+          "text": "−"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "9-3",
+      "pages": "244",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "第二种容性模型不能把C误写成|X|/ω，电容满足|XC|=1/(ωC)。"
+  },
+  {
     "id": "book-9-5",
     "title": "习题9-5：先画相量关系，再反求未知感抗",
     "chapter": 9,
@@ -1492,6 +4605,1431 @@
         ]
       }
     ]
+  },
+  {
+    "id": "book-9-8",
+    "chapter": 9,
+    "section": 3,
+    "title": "习题9-8：复阻抗串并联与支路电流",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材9-8：U=8 V，Z=1−j0.5 Ω串联在输入端，后接Z1=1+j Ω与Z2=3−j Ω的并联组合。求各支路电流、输入导纳并作相量图。本站以U为0°参考。",
+    "tasks": [
+      "先化简输入阻抗，再求总电流。",
+      "求两个并联支路电流，检查相量KCL与输入导纳。"
+    ],
+    "hints": [
+      "并联先求复数乘积除以复数之和。",
+      "总输入可以呈纯阻性，但内部支路电流仍可能带相位。"
+    ],
+    "steps": [
+      {
+        "title": "复阻抗化简",
+        "latex": "Z_p=\\frac{(1+j)(3-j)}{4}=1+j0.5,\\quad Z_{in}=2\\Omega",
+        "explanation": "与串联Z的负虚部抵消。"
+      },
+      {
+        "title": "求支路电流",
+        "latex": "\\dot I=4A,\\quad\\dot U_p=4+j2V,\\quad\\dot I_1=3-j1A,\\quad\\dot I_2=1+j1A",
+        "explanation": "两个支路共同电压为Up，不能把输入8 V直接分别除以Z1和Z2。"
+      },
+      {
+        "title": "检验与输入导纳",
+        "latex": "\\dot I_1+\\dot I_2=4=\\dot I,\\qquad Y_{in}=0.5S",
+        "explanation": "虚部电流相互抵消，总电流与输入电压同相。"
+      }
+    ],
+    "answer": "\\dot I=4A,\\quad\\dot I_1=3-jA,\\quad\\dot I_2=1+jA,\\quad Y_{in}=0.5S",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [
+          [
+            [1.0, 1.0],
+            [0.0, 0.0]
+          ],
+          [
+            [0.0, 0.0],
+            [3.0, -1.0]
+          ]
+        ],
+        "rhs": [
+          [4.0, 2.0],
+          [4.0, 2.0]
+        ],
+        "solution": [
+          [3.0, -1.0],
+          [1.0, 1.0]
+        ]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 110,
+          "y": 70
+        },
+        {
+          "id": "A",
+          "x": 410,
+          "y": 70
+        },
+        {
+          "id": "0",
+          "x": 410,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "8∠0° V",
+          "via": [[110, 320]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "S",
+          "to": "A",
+          "kind": "impedance",
+          "label": "1−j0.5 Ω"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "impedance",
+          "label": "1+j Ω"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "impedance",
+          "label": "3−j Ω",
+          "via": [
+            [650, 70],
+            [650, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": "0"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "9-8",
+      "pages": "245–246",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "总输入可以呈纯阻性，但内部支路电流仍可能带相位。",
+    "phasors": [
+      {
+        "unit": "A",
+        "caption": "两支路电流的虚部抵消",
+        "vectors": [
+          {
+            "label": "I1",
+            "real": 3,
+            "imag": -1
+          },
+          {
+            "label": "I2",
+            "real": 1,
+            "imag": 1
+          },
+          {
+            "label": "I",
+            "real": 4,
+            "imag": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "book-9-22",
+    "chapter": 9,
+    "section": 4,
+    "title": "习题9-22：由有功功率和支路电压反求复功率",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材9-22：R1=R2=10 Ω、L=0.25 H、C=10⁻³ F。R1与L串联，后接R2与C并联。并联端电压有效值20 V，输入有功功率120 W。求U2/US与电源发出的复功率。图中已知读数用文字表达，不绘表计圆圈。",
+    "tasks": [
+      "由有功功率确定角频率与输入电流。",
+      "求电源电压、传输电压比和电源复功率。"
+    ],
+    "hints": [
+      "电容不消耗平均有功，120 W来自两只电阻。",
+      "选U2为相位参考，先求并联支路电流。"
+    ],
+    "steps": [
+      {
+        "title": "建立有功方程",
+        "latex": "\\dot I=2+j0.02\\omega,\\quad P=10|\\dot I|^2+\\frac{20^2}{10}=80+0.004\\omega^2=120",
+        "explanation": "解得ω=100 rad/s，所以I=2+j2 A。"
+      },
+      {
+        "title": "求源电压与电压比",
+        "latex": "\\dot U_S=20+(10+j25)(2+j2)=-10+j70V,\\quad\\frac{\\dot U_2}{\\dot U_S}=-0.04-j0.28",
+        "explanation": "电压比包含幅值与相位，不能只用20除以源电压模来代替完整复比。"
+      },
+      {
+        "title": "计算复功率",
+        "latex": "\\overline S_{\\mathrm{source}}=\\dot U_S\\dot I^*=120+j160\\quad(VA)",
+        "explanation": "实部与已知120 W一致；虚部为160 var，视在功率为200 VA。"
+      }
+    ],
+    "answer": "\\frac{\\dot U_2}{\\dot U_S}=-0.04-j0.28,\\quad\\overline S_{\\mathrm{source}}=120+j160VA",
+    "checks": [
+      {
+        "kind": "acPower",
+        "voltage": [-10, 70],
+        "current": [2, 2],
+        "expectedP": 120,
+        "expectedQ": 160
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 90,
+          "y": 80
+        },
+        {
+          "id": "X",
+          "x": 300,
+          "y": 80
+        },
+        {
+          "id": "A",
+          "x": 500,
+          "y": 80
+        },
+        {
+          "id": "0",
+          "x": 500,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "U̇S",
+          "via": [[90, 320]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "S",
+          "to": "X",
+          "kind": "resistor",
+          "label": "10 Ω"
+        },
+        {
+          "from": "X",
+          "to": "A",
+          "kind": "inductor",
+          "label": "0.25 H"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "resistor",
+          "label": "10 Ω"
+        },
+        {
+          "from": "A",
+          "to": "0",
+          "kind": "capacitor",
+          "label": "1 mF",
+          "via": [
+            [650, 80],
+            [650, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": "0",
+      "notes": [
+        {
+          "x": 560,
+          "y": 360,
+          "text": "U₂=20 V，P=120 W"
+        }
+      ]
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "9-22",
+      "pages": "249",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "选U2为相位参考，先求并联支路电流。"
+  },
+  {
+    "id": "book-9-19",
+    "chapter": 9,
+    "section": 6,
+    "title": "习题9-19：只能调纯电阻时，最大功率条件是什么",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材9-19：理想源US=200∠0° V，并联三个支路：20 Ω电阻、j50 Ω电感、j10 Ω与可变正电阻R串联。R为多大时电源发出的总有功功率最大？",
+    "tasks": ["写总有功功率关于R的函数。", "求最佳R与最大总有功功率。"],
+    "hints": [
+      "固定20 Ω支路的功率不随R改变，理想电感平均有功为0。",
+      "此题只允许调整纯电阻，不能按同时可调R、X的共轭匹配处理。"
+    ],
+    "steps": [
+      {
+        "title": "分开固定与可变有功",
+        "latex": "P(R)=\\frac{200^2}{20}+\\frac{200^2R}{R^2+10^2}",
+        "explanation": "目标是电源总有功功率，不只是可变电阻功率。"
+      },
+      {
+        "title": "求可变部分的驻点",
+        "latex": "\\frac{d}{dR}\\frac R{R^2+100}=\\frac{100-R^2}{(R^2+100)^2}=0\\Rightarrow R=10\\Omega",
+        "explanation": "R>0范围内，该点为最大值。"
+      },
+      {
+        "title": "检查总有功",
+        "latex": "P_{\\max}=2000+2000=4000W",
+        "explanation": "固定20 Ω消耗2000 W，可变R最多吸收2000 W。"
+      }
+    ],
+    "answer": "R=10\\Omega,\\quad P_{\\max}=4000W",
+    "checks": [
+      {
+        "kind": "acPower",
+        "voltage": [200, 0],
+        "current": [20, -14],
+        "expectedP": 4000,
+        "expectedQ": 2800
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "S",
+          "x": 150,
+          "y": 150
+        },
+        {
+          "id": "X",
+          "x": 650,
+          "y": 150
+        },
+        {
+          "id": "0",
+          "x": 480,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "voltage",
+          "label": "200∠0° V",
+          "via": [[150, 340]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "resistor",
+          "label": "20 Ω",
+          "via": [
+            [330, 150],
+            [330, 340]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "S",
+          "to": "0",
+          "kind": "inductor",
+          "label": "j50 Ω",
+          "via": [[480, 150]],
+          "symbolSegment": 1,
+          "labelOffset": [0, -42]
+        },
+        {
+          "from": "S",
+          "to": "X",
+          "kind": "inductor",
+          "label": "j10 Ω",
+          "via": [
+            [150, 60],
+            [650, 60]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "X",
+          "to": "0",
+          "kind": "resistor",
+          "label": "R",
+          "via": [[650, 340]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "0"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "9-19",
+      "pages": "248–249",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "此题只允许调整纯电阻，不能按同时可调R、X的共轭匹配处理。"
+  },
+  {
+    "id": "book-10-7",
+    "chapter": 10,
+    "section": 1,
+    "title": "习题10-7：由同向、反向串联测量求互感",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材10-7：两个线圈串联接50 Hz、220 V正弦源。同向串联电流2.7 A、吸收有功218.7 W；反向串联电流7 A。求互感M。线圈电阻只产生有功损耗，参数在两次连接中不变。",
+    "tasks": [
+      "由同向数据求线圈总电阻。",
+      "分别求同向、反向电抗，并由差值求M。"
+    ],
+    "hints": [
+      "有功功率必须使用有效值电流。",
+      "反向串联的等效电感为L1+L2−2M，对无源线圈取非负值。"
+    ],
+    "steps": [
+      {
+        "title": "求总电阻",
+        "latex": "R_1+R_2=\\frac{218.7}{2.7^2}=30\\Omega",
+        "explanation": "先把铜耗与电抗影响分开。"
+      },
+      {
+        "title": "由阻抗模求两种电抗",
+        "latex": "X_+=75.7577\\Omega,\\quad X_-=9.36777\\Omega",
+        "explanation": "分别用√((U/I)²−R²)，不能用U/I直接当作电抗。"
+      },
+      {
+        "title": "取电抗差求互感",
+        "latex": "X_+-X_-=4\\omega M\\Rightarrow M=52.8314mH",
+        "explanation": "按题给读数直接求得约52.8 mH；输入读数只有有限有效数字，结果不宜报告过多位。"
+      }
+    ],
+    "answer": "M\\approx52.8314mH",
+    "checks": [
+      {
+        "kind": "linear",
+        "matrix": [
+          [1, 2],
+          [1, -2]
+        ],
+        "rhs": [0.24114430568597406, 0.029818535861825413],
+        "solution": [0.13548142077389974, 0.052831442456037166]
+      },
+      {
+        "kind": "power",
+        "terms": [[29.999999999999993, 7.290000000000001]],
+        "expected": 218.7
+      }
+    ],
+    "network": null,
+    "source": {
+      "kind": "exercise",
+      "exercise": "10-7",
+      "pages": "273",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "反向串联的等效电感为L1+L2−2M，对无源线圈取非负值。",
+    "networks": [
+      {
+        "title": "同向串联",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 90,
+              "y": 90
+            },
+            {
+              "id": "X",
+              "x": 230,
+              "y": 90
+            },
+            {
+              "id": "Y",
+              "x": 350,
+              "y": 90
+            },
+            {
+              "id": "Z",
+              "x": 470,
+              "y": 90
+            },
+            {
+              "id": "W",
+              "x": 620,
+              "y": 90
+            },
+            {
+              "id": "b",
+              "x": 90,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "X",
+              "kind": "resistor",
+              "label": "R₁+R₂"
+            },
+            {
+              "from": "X",
+              "to": "Y",
+              "kind": "inductor",
+              "label": "L₁"
+            },
+            {
+              "from": "Y",
+              "to": "Z",
+              "kind": "wire",
+              "label": ""
+            },
+            {
+              "from": "Z",
+              "to": "W",
+              "kind": "inductor",
+              "label": "L₂"
+            },
+            {
+              "from": "W",
+              "to": "b",
+              "kind": "wire",
+              "label": "",
+              "via": [[620, 320]]
+            }
+          ],
+          "ground": null,
+          "notes": [
+            {
+              "x": 262,
+              "y": 112,
+              "text": "•"
+            },
+            {
+              "x": 517,
+              "y": 112,
+              "text": "•"
+            },
+            {
+              "x": 420,
+              "y": 175,
+              "text": "M；同向串联"
+            }
+          ],
+          "arrows": [
+            {
+              "from": [30, 90],
+              "to": [75, 90],
+              "label": "I"
+            }
+          ],
+          "caption": "黑点表示同名端。两种连接只有第二线圈的端子方向改变，电阻及自感参数不变。"
+        }
+      },
+      {
+        "title": "反向串联",
+        "network": {
+          "nodes": [
+            {
+              "id": "a",
+              "x": 90,
+              "y": 90
+            },
+            {
+              "id": "X",
+              "x": 230,
+              "y": 90
+            },
+            {
+              "id": "Y",
+              "x": 350,
+              "y": 90
+            },
+            {
+              "id": "Z",
+              "x": 470,
+              "y": 90
+            },
+            {
+              "id": "W",
+              "x": 620,
+              "y": 90
+            },
+            {
+              "id": "b",
+              "x": 90,
+              "y": 320
+            }
+          ],
+          "branches": [
+            {
+              "from": "a",
+              "to": "X",
+              "kind": "resistor",
+              "label": "R₁+R₂"
+            },
+            {
+              "from": "X",
+              "to": "Y",
+              "kind": "inductor",
+              "label": "L₁"
+            },
+            {
+              "from": "Y",
+              "to": "Z",
+              "kind": "wire",
+              "label": ""
+            },
+            {
+              "from": "Z",
+              "to": "W",
+              "kind": "inductor",
+              "label": "L₂"
+            },
+            {
+              "from": "W",
+              "to": "b",
+              "kind": "wire",
+              "label": "",
+              "via": [[620, 320]]
+            }
+          ],
+          "ground": null,
+          "notes": [
+            {
+              "x": 262,
+              "y": 112,
+              "text": "•"
+            },
+            {
+              "x": 573,
+              "y": 112,
+              "text": "•"
+            },
+            {
+              "x": 420,
+              "y": 175,
+              "text": "M；反向串联"
+            }
+          ],
+          "arrows": [
+            {
+              "from": [30, 90],
+              "to": [75, 90],
+              "label": "I"
+            }
+          ],
+          "caption": "黑点表示同名端。两种连接只有第二线圈的端子方向改变，电阻及自感参数不变。"
+        }
+      }
+    ]
+  },
+  {
+    "id": "book-10-8",
+    "chapter": 10,
+    "section": 2,
+    "title": "习题10-8(1、2)：反向串联耦合线圈的电压与功率",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材10-8的(1)、(2)，并补充功率校验：R1=R2=100 Ω，L1=3 H，L2=10 H，M=5 H，U=220 V，ω=100 rad/s。按原图两线圈反向串联，电流从a流入。线圈端电压包括该线圈的电阻和电感。",
+    "tasks": [
+      "求两线圈端电压，解释为何某个线圈的无功可以为负。",
+      "证明本题等效电感为正，并校验总复功率（本站补充）。"
+    ],
+    "hints": [
+      "电流进入一个线圈的同名端、另一个的异名端，所以互感项取负。",
+      "两个线圈不能分别只按jωL处理。"
+    ],
+    "steps": [
+      {
+        "title": "先求串联等效",
+        "latex": "L_{eq}=3+10-2(5)=3H,\\quad Z=200+j300\\Omega,\\quad\\dot I=\\frac{220}{200+j300}",
+        "explanation": "无源耦合要求M²≤L1L2，本题25<30，且L1≠L2，因此本题Leq严格大于0。"
+      },
+      {
+        "title": "回到各线圈求端电压",
+        "latex": "\\dot U_1=(100-j200)\\dot I=-67.6923-j118.462V,\\quad\\dot U_2=(100+j500)\\dot I=287.692+j118.462V",
+        "explanation": "U1+U2=220 V；纯电感端口的互感作用会改变各自无功符号。"
+      },
+      {
+        "title": "核对复功率",
+        "latex": "\\overline S_1=37.2308-j74.4615VA,\\quad\\overline S_2=37.2308+j186.154VA",
+        "explanation": "两者实部都为线圈电阻的正有功，虚部相加等于总电感无功。"
+      }
+    ],
+    "answer": "\\dot I=0.338462-j0.507692A,\\quad L_<function eq at 0x000001CF23767560>=3H,\\quad\\overline S_1+\\overline S_2=74.4615+j111.692VA",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [[[200.0, 300.0]]],
+        "rhs": [[220.0, 0.0]],
+        "solution": [[0.3384615384615385, -0.5076923076923077]]
+      },
+      {
+        "kind": "acPower",
+        "voltage": [-67.69230769230768, -118.46153846153845],
+        "current": [0.3384615384615385, -0.5076923076923077],
+        "expectedP": 37.230769230769226,
+        "expectedQ": -74.46153846153845
+      },
+      {
+        "kind": "acPower",
+        "voltage": [287.6923076923077, 118.46153846153845],
+        "current": [0.3384615384615385, -0.5076923076923077],
+        "expectedP": 37.230769230769226,
+        "expectedQ": 186.15384615384613
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 90,
+          "y": 90
+        },
+        {
+          "id": "X",
+          "x": 230,
+          "y": 90
+        },
+        {
+          "id": "Y",
+          "x": 350,
+          "y": 90
+        },
+        {
+          "id": "Z",
+          "x": 470,
+          "y": 90
+        },
+        {
+          "id": "W",
+          "x": 620,
+          "y": 90
+        },
+        {
+          "id": "b",
+          "x": 90,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "X",
+          "kind": "resistor",
+          "label": "R₁=100 Ω"
+        },
+        {
+          "from": "X",
+          "to": "Y",
+          "kind": "inductor",
+          "label": "L₁=3 H"
+        },
+        {
+          "from": "Y",
+          "to": "Z",
+          "kind": "resistor",
+          "label": "R₂=100 Ω"
+        },
+        {
+          "from": "Z",
+          "to": "W",
+          "kind": "inductor",
+          "label": "L₂=10 H"
+        },
+        {
+          "from": "W",
+          "to": "b",
+          "kind": "wire",
+          "label": "",
+          "via": [[620, 320]]
+        }
+      ],
+      "ground": null,
+      "notes": [
+        {
+          "x": 262,
+          "y": 112,
+          "text": "•"
+        },
+        {
+          "x": 573,
+          "y": 112,
+          "text": "•"
+        },
+        {
+          "x": 420,
+          "y": 175,
+          "text": "M=5 H；串联反向"
+        }
+      ],
+      "arrows": [
+        {
+          "from": [30, 90],
+          "to": [75, 90],
+          "label": "I"
+        }
+      ],
+      "caption": "黑点为同名端；电流进入L1的异名端、L2的同名端，互感项取负。"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "10-8(1、2)",
+      "pages": "273–274",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "两个线圈不能分别只按jωL处理。"
+  },
+  {
+    "id": "book-10-17",
+    "chapter": 10,
+    "section": 5,
+    "title": "习题10-17：用匝比实现电阻匹配",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材10-17：理想电流源IS与50 Ω并联，驱动变比n:1的理想变压器，次级接10 Ω电阻。求使10 Ω负载获得最大功率的n。图中两绕组仅通过理想变压器关系耦合。",
+    "tasks": [
+      "把次级负载折合到一次侧，求最佳n。",
+      "写出最大负载功率关于IS的表达式（本站补充）。"
+    ],
+    "hints": [
+      "阻抗折合乘n²，不是乘n。",
+      "理想变压器不损耗有功，折合电阻获得的功率就是原负载功率。"
+    ],
+    "steps": [
+      {
+        "title": "折合次级电阻",
+        "latex": "R_L^\\prime=10n^2\\Omega",
+        "explanation": "n=N1/N2。"
+      },
+      {
+        "title": "与源侧电阻匹配",
+        "latex": "10n^2=50\\Rightarrow n=\\sqrt5\\approx2.23607",
+        "explanation": "用变比改变源看到的负载，而不是改变实际10 Ω电阻。"
+      },
+      {
+        "title": "求最大功率",
+        "latex": "P_{\\max}=\\frac{(50I_S)^2}{4(50)}=12.5I_S^2\\quad(W)",
+        "explanation": "IS使用有效值A。"
+      }
+    ],
+    "answer": "n=\\sqrt5,\\quad P_{\\max}=12.5I_S^2W",
+    "checks": [
+      {
+        "kind": "equivalentNetwork",
+        "family": "R",
+        "terminals": ["a", "b"],
+        "branches": [
+          {
+            "from": "a",
+            "to": "b",
+            "value": 50
+          },
+          {
+            "from": "a",
+            "to": "b",
+            "value": 50
+          }
+        ],
+        "expected": 25
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 100,
+          "y": 70
+        },
+        {
+          "id": "B",
+          "x": 100,
+          "y": 320
+        },
+        {
+          "id": "C",
+          "x": 480,
+          "y": 70
+        },
+        {
+          "id": "D",
+          "x": 480,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "B",
+          "to": "A",
+          "kind": "current",
+          "label": "IS"
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "resistor",
+          "label": "50 Ω",
+          "via": [
+            [240, 70],
+            [240, 320]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "kind": "inductor",
+          "label": "初级",
+          "via": [
+            [370, 70],
+            [370, 320]
+          ],
+          "symbolSegment": 1,
+          "labelOffset": [0, -65]
+        },
+        {
+          "from": "C",
+          "to": "D",
+          "kind": "inductor",
+          "label": "次级",
+          "labelOffset": [0, 40]
+        },
+        {
+          "from": "C",
+          "to": "D",
+          "kind": "resistor",
+          "label": "10 Ω",
+          "via": [
+            [680, 70],
+            [680, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": null,
+      "notes": [
+        {
+          "x": 350,
+          "y": 165,
+          "text": "•"
+        },
+        {
+          "x": 500,
+          "y": 165,
+          "text": "•"
+        },
+        {
+          "x": 425,
+          "y": 80,
+          "text": "n : 1"
+        },
+        {
+          "x": 425,
+          "y": 365,
+          "text": "理想变压器：无导电连接，阻抗按n²折合"
+        }
+      ],
+      "caption": "左右回路通过理想变压器约束耦合，黑点为同名端。"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "10-17",
+      "pages": "276–277",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "理想变压器不损耗有功，折合电阻获得的功率就是原负载功率。"
+  },
+  {
+    "id": "book-11-3",
+    "chapter": 11,
+    "section": 2,
+    "title": "习题11-3(3、4)：串联谐振的频率与品质因数",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材11-3的谐振频率与Q值问题：RLC串联，R=1 Ω，L=0.01 H，C=1 μF。",
+    "tasks": ["求谐振角频率与频率。", "求品质因数Q，说明谐振时输入阻抗。"],
+    "hints": ["感抗与容抗抵消决定谐振。", "ω0是rad/s，f0是Hz，二者相差2π。"],
+    "steps": [
+      {
+        "title": "令总电抗为零",
+        "latex": "\\omega_0L=\\frac1{\\omega_0C}\\Rightarrow\\omega_0=10^4rad/s",
+        "explanation": "C=10⁻⁶ F，不能把μF数值直接当成F。"
+      },
+      {
+        "title": "换算为频率",
+        "latex": "f_0=\\frac{10^4}{2\\pi}\\approx1591.55Hz",
+        "explanation": "角频率与频率不能混用。"
+      },
+      {
+        "title": "品质因数与输入阻抗",
+        "latex": "Q=\\frac{\\omega_0L}{R}=100,\\quad Z(\\omega_0)=1\\Omega",
+        "explanation": "谐振时感、容元件电压可以分别达到输入电压的Q倍。"
+      }
+    ],
+    "answer": "\\omega_0=10000rad/s,\\ f_0\\approx1591.55Hz,\\ Q=100",
+    "checks": [
+      {
+        "kind": "resonance",
+        "L": 0.01,
+        "C": 1e-6,
+        "omega": 10000.0
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 100,
+          "y": 70
+        },
+        {
+          "id": "X",
+          "x": 300,
+          "y": 70
+        },
+        {
+          "id": "Y",
+          "x": 620,
+          "y": 70
+        },
+        {
+          "id": "b",
+          "x": 100,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "X",
+          "kind": "resistor",
+          "label": "1 Ω"
+        },
+        {
+          "from": "X",
+          "to": "Y",
+          "kind": "inductor",
+          "label": "0.01 H"
+        },
+        {
+          "from": "Y",
+          "to": "b",
+          "kind": "capacitor",
+          "label": "1 μF",
+          "via": [[620, 320]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "11-3(3、4)",
+      "pages": "297",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "ω0是rad/s，f0是Hz，二者相差2π。"
+  },
+  {
+    "id": "book-11-4",
+    "chapter": 11,
+    "section": 4,
+    "title": "习题11-4(谐振与Q)：并联谐振的导纳抵消",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "选做教材11-4的谐振频率与Q值问题：R、L、C并联，R=10 kΩ，L=1 mH，C=0.1 μF。",
+    "tasks": [
+      "从总导纳虚部为零求谐振频率。",
+      "求品质因数，并说明输入电阻与支路电流的关系。"
+    ],
+    "hints": [
+      "并联宜写导纳，谐振时是电纳抵消。",
+      "电源电流小不意味着电感、电容支路电流小。"
+    ],
+    "steps": [
+      {
+        "title": "写总导纳",
+        "latex": "Y=\\frac1{10^4}+j\\left(\\omega10^{-7}-\\frac1{\\omega10^{-3}}\\right)",
+        "explanation": "电纳为ωC−1/(ωL)，电导为1/R。"
+      },
+      {
+        "title": "令电纳为零",
+        "latex": "\\omega_0C-\\frac1{\\omega_0L}=0\\Rightarrow\\omega_0=10^5rad/s,\\quad f_0\\approx15915.5Hz",
+        "explanation": "L=10⁻³ H，C=10⁻⁷ F。"
+      },
+      {
+        "title": "求Q与谐振输入电阻",
+        "latex": "Q=\\frac R{\\omega_0L}=100,\\quad Z(\\omega_0)=R=10k\\Omega",
+        "explanation": "固定端电压时，两个储能支路电流大小相等、方向相反，其模可为电源电流的Q倍。"
+      }
+    ],
+    "answer": "\\omega_0=100000rad/s,\\quad Q=100,\\quad Z(\\omega_0)=10k\\Omega",
+    "checks": [
+      {
+        "kind": "resonance",
+        "L": 0.001,
+        "C": 1e-7,
+        "omega": 100000.0
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "a",
+          "x": 100,
+          "y": 70
+        },
+        {
+          "id": "b",
+          "x": 100,
+          "y": 320
+        }
+      ],
+      "branches": [
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "resistor",
+          "label": "10 kΩ",
+          "via": [
+            [310, 70],
+            [310, 320]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "inductor",
+          "label": "1 mH",
+          "via": [
+            [470, 70],
+            [470, 320]
+          ],
+          "symbolSegment": 1
+        },
+        {
+          "from": "a",
+          "to": "b",
+          "kind": "capacitor",
+          "label": "0.1 μF",
+          "via": [
+            [660, 70],
+            [660, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": null
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "11-4(谐振与Q)",
+      "pages": "297",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "电源电流小不意味着电感、电容支路电流小。"
+  },
+  {
+    "id": "book-12-1",
+    "chapter": 12,
+    "section": 1,
+    "title": "习题12-1：对称Y负载与线、相量关系",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材12-1：对称星形负载Z=165+j84 Ω，每条端线阻抗Zl=2+j1 Ω，中性线ZN=1+j1 Ω，电源线电压380 V。求负载电流和线电压，并作相量图。本站取正序、UA为0°参考。",
+    "tasks": [
+      "求三条线电流与中性线电流。",
+      "求负载端线电压，区分电源线电压、负载相电压与负载线电压。"
+    ],
+    "hints": [
+      "先用380/√3得到电源相电压。",
+      "对称条件下中性线电流为0，ZN没有压降。"
+    ],
+    "steps": [
+      {
+        "title": "每相等效与线电流",
+        "latex": "\\dot I_A=\\frac{380/\\sqrt3}{167+j85}=1.04342-j0.531082A",
+        "explanation": "Y负载的线电流等于相电流；IB、IC分别由IA旋转−120°、+120°得到。"
+      },
+      {
+        "title": "求负载相电压",
+        "latex": "\\dot U_{AN^\\prime}=\\dot I_A(165+j84)=216.775+j0.0187441V,\\quad\\dot I_N=0",
+        "explanation": "端线压降不能省略，因此负载端线电压不是直接380 V。"
+      },
+      {
+        "title": "合成负载线电压",
+        "latex": "\\dot U_{AB}^\\prime=\\sqrt3\\angle30^\\circ\\dot U_{AN^\\prime}=325.147+j187.761V",
+        "explanation": "这里使用Y连接的正序线、相电压关系。"
+      }
+    ],
+    "answer": "|\\dot I_A|=1.1708A,\\quad|\\dot U_{AB}^\\prime|=375.466V,\\quad I_N=0",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [[[167.0, 85.0]]],
+        "rhs": [[219.3931022920578, 0.0]],
+        "solution": [[1.0434199488173848, -0.531082009877112]]
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 70,
+          "y": 70
+        },
+        {
+          "id": "B",
+          "x": 70,
+          "y": 170
+        },
+        {
+          "id": "C",
+          "x": 70,
+          "y": 270
+        },
+        {
+          "id": "A′",
+          "x": 330,
+          "y": 70
+        },
+        {
+          "id": "B′",
+          "x": 330,
+          "y": 170
+        },
+        {
+          "id": "C′",
+          "x": 330,
+          "y": 270
+        },
+        {
+          "id": "N′",
+          "x": 650,
+          "y": 170
+        },
+        {
+          "id": "N",
+          "x": 70,
+          "y": 340
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "A′",
+          "kind": "impedance",
+          "label": "2+j1 Ω"
+        },
+        {
+          "from": "B",
+          "to": "B′",
+          "kind": "impedance",
+          "label": "2+j1 Ω"
+        },
+        {
+          "from": "C",
+          "to": "C′",
+          "kind": "impedance",
+          "label": "2+j1 Ω"
+        },
+        {
+          "from": "A′",
+          "to": "N′",
+          "kind": "impedance",
+          "label": "165+j84 Ω",
+          "via": [[650, 70]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "B′",
+          "to": "N′",
+          "kind": "impedance",
+          "label": "165+j84 Ω"
+        },
+        {
+          "from": "C′",
+          "to": "N′",
+          "kind": "impedance",
+          "label": "165+j84 Ω",
+          "via": [[650, 270]],
+          "symbolSegment": 0
+        },
+        {
+          "from": "N",
+          "to": "N′",
+          "kind": "impedance",
+          "label": "1+j1 Ω",
+          "via": [[650, 340]],
+          "symbolSegment": 0
+        }
+      ],
+      "ground": "N"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "12-1",
+      "pages": "312",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "对称条件下中性线电流为0，ZN没有压降。"
+  },
+  {
+    "id": "book-12-2",
+    "chapter": 12,
+    "section": 3,
+    "title": "习题12-2：有端线阻抗的对称Δ负载",
+    "difficulty": "教材习题",
+    "secondary": false,
+    "given": "教材12-2：电源端线电压380 V，三角形负载每相Z=4.5+j14 Ω，每条端线Zl=1.5+j2 Ω。求线电流和负载相电流，并作相量图；本站补充计算负载复功率。采用正序、源相电压UA为0°参考。",
+    "tasks": [
+      "先作Δ→Y等效，用一相法求线电流。",
+      "回到原Δ求相电流；补充计算负载复功率并检查端线损耗。"
+    ],
+    "hints": [
+      "Δ→Y后每相阻抗为Z/3。",
+      "一相等效中的电流是线电流，不能直接当成原Δ支路电流。"
+    ],
+    "steps": [
+      {
+        "title": "转为一相等效",
+        "latex": "Z_Y=1.5+j\\frac{14}3,\\quad\\dot I_A=\\frac{380/\\sqrt3}{3+j20/3}=12.3152-j27.3671A",
+        "explanation": "端线阻抗与等效Y每相阻抗串联。"
+      },
+      {
+        "title": "还原Δ相电流",
+        "latex": "\\dot I_{AB}=\\frac{\\dot I_A}{\\sqrt3}\\angle30^\\circ=14.0578-j10.1285A",
+        "explanation": "正序Δ线电流滞后对应相电流30°；IB、IC由IA依次旋转得到。"
+      },
+      {
+        "title": "求负载功率（本站补充）",
+        "latex": "\\overline S_L=3|\\dot I_{AB}|^2Z=4052.81+j12608.7VA",
+        "explanation": "也可用3|IA|²(Z/3)校验；端线有功损耗须另加3|IA|²×1.5，不能算成负载功率。"
+      }
+    ],
+    "answer": "|\\dot I_A|=30.0104A,\\quad|\\dot I_{AB}|=17.3265A,\\quad\\overline S_L=4052.81+j12608.7VA",
+    "checks": [
+      {
+        "kind": "complexLinear",
+        "matrix": [[[3.0, 6.666666666666667]]],
+        "rhs": [[219.3931022920578, 0.0]],
+        "solution": [[12.315205326165403, -27.367122947034233]]
+      },
+      {
+        "kind": "acPower",
+        "voltage": [205.0586983927376, 151.23124225316238],
+        "current": [14.057810563290602, -10.128467918423564],
+        "multiplier": 3,
+        "expectedP": 4052.806652806653,
+        "expectedQ": 12608.731808731809
+      }
+    ],
+    "network": {
+      "nodes": [
+        {
+          "id": "A",
+          "x": 70,
+          "y": 70
+        },
+        {
+          "id": "B",
+          "x": 70,
+          "y": 170
+        },
+        {
+          "id": "C",
+          "x": 70,
+          "y": 320
+        },
+        {
+          "id": "A′",
+          "x": 390,
+          "y": 70
+        },
+        {
+          "id": "B′",
+          "x": 390,
+          "y": 170,
+          "labelOffset": [-25, -15]
+        },
+        {
+          "id": "C′",
+          "x": 390,
+          "y": 320,
+          "labelOffset": [-25, -15]
+        }
+      ],
+      "branches": [
+        {
+          "from": "A",
+          "to": "A′",
+          "kind": "impedance",
+          "label": "1.5+j2 Ω"
+        },
+        {
+          "from": "B",
+          "to": "B′",
+          "kind": "impedance",
+          "label": "1.5+j2 Ω"
+        },
+        {
+          "from": "C",
+          "to": "C′",
+          "kind": "impedance",
+          "label": "1.5+j2 Ω",
+          "labelOffset": [0, 65]
+        },
+        {
+          "from": "A′",
+          "to": "B′",
+          "kind": "impedance",
+          "label": "4.5+j14 Ω"
+        },
+        {
+          "from": "B′",
+          "to": "C′",
+          "kind": "impedance",
+          "label": "4.5+j14 Ω"
+        },
+        {
+          "from": "A′",
+          "to": "C′",
+          "kind": "impedance",
+          "label": "4.5+j14 Ω",
+          "via": [
+            [650, 70],
+            [650, 320]
+          ],
+          "symbolSegment": 1
+        }
+      ],
+      "ground": null,
+      "caption": "原Δ负载展开为矩形：三条负载分别跨A′B′、B′C′、A′C′。三条端线从左侧分别接入。"
+    },
+    "source": {
+      "kind": "exercise",
+      "exercise": "12-2",
+      "pages": "312",
+      "note": "依据用户提供的《电路》第5版；图形重绘，解答与校验由本站整理。"
+    },
+    "takeaway": "一相等效中的电流是线电流，不能直接当成原Δ支路电流。"
   },
   {
     "id": "book-12-9",

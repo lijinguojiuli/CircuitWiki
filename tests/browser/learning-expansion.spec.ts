@@ -11,6 +11,12 @@ test("all 53 in-scope sections have live anchors and rendered instructional cont
     const block = page.locator(`#${topic.anchor}`);
     expect(await block.locator(".katex").count()).toBeGreaterThan(0);
     await expect(block).toContainText("代入示例");
+    const exercises = block.locator(`[data-textbook-section="${topic.slug}"]`);
+    await expect(exercises).toContainText("本节重点");
+    expect(
+      await exercises.locator('[data-problem-source="textbook"]').count(),
+      topic.slug,
+    ).toBeGreaterThan(0);
     expect(await block.locator(".warning").count()).toBeGreaterThan(0);
     await expect(
       block.locator('.challenge-problem[data-problem-source="original"]'),

@@ -10,6 +10,7 @@ export type ChallengeIndexEntry = {
   sourceKind?: "original" | "textbook";
   exercise?: string;
   pages?: string;
+  reference?: string;
 };
 const originalChallengeIndex: ChallengeIndexEntry[] = [
   {
@@ -503,3 +504,6 @@ export const challengeIndex: ChallengeIndexEntry[] = [
     a.section - b.section ||
     Number(!a.exercise) - Number(!b.exercise),
 );
+
+export const textbookGroupCount = textbookIndex.length;
+export const originalGroupCount = originalChallengeIndex.length;

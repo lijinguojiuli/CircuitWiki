@@ -106,11 +106,20 @@ export function Ground({ x, y, label = "0 V" }: PartProps) {
     </g>
   );
 }
-export function Node({ x, y, label = "" }: PartProps) {
+export function Node({
+  x,
+  y,
+  label = "",
+  labelOffset = [0, -15],
+}: PartProps & { labelOffset?: [number, number] }) {
   return (
     <g>
       <circle cx={x} cy={y} r="4" fill="currentColor" />
-      <SymbolLabel x={x} y={y - 15} label={label} />
+      <SymbolLabel
+        x={x + labelOffset[0]}
+        y={y + labelOffset[1]}
+        label={label}
+      />
     </g>
   );
 }

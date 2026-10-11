@@ -1,10 +1,14 @@
 import { pageMetadata } from "@/lib/seo";
-import { challengeIndex } from "@/lib/challenges/catalogue";
+import {
+  challengeIndex,
+  textbookGroupCount,
+  originalGroupCount,
+} from "@/lib/challenges/catalogue";
 import { learningChapters } from "@/lib/chapters";
 import { PracticeCatalogue } from "@/components/practice-catalogue";
 export const metadata = pageMetadata(
   "教材习题与提高练习",
-  "10道教材带图选题与53道原创练习，保留题号、书页、参考方向、分步解答和关键判断。",
+  `53个教材小节均有教材来源配套题；${textbookGroupCount}组教材习题、例题及图解练习与${originalGroupCount}道原创题分类展示。`,
   "/practice",
 );
 export default function PracticePage() {
@@ -13,9 +17,12 @@ export default function PracticePage() {
       <span className="platform-kicker">从理解概念，到独立解题</span>
       <h1>教材习题与提高练习</h1>
       <p className="platform-lead">
-        先练教材中的典型带图计算题，再用原创题检验迁移。每题保留电路连接、参考方向和关键解题步骤，教材题号与书页可以回查。
+        先按本节知识完成教材习题、例题或图解练习，再用原创题检验迁移。每题保留电路连接、参考方向和关键解题步骤，教材题号与书页可以回查。
       </p>
-      <p className="muted">10道教材选题 · 53道原创练习 · 提示与解答按需展开</p>
+      <p className="muted">
+        53节全部配题 · {textbookGroupCount}组教材来源练习 · {originalGroupCount}
+        道原创题
+      </p>
       <PracticeCatalogue
         problems={challengeIndex}
         chapters={learningChapters.map(({ number, title }) => ({
@@ -26,7 +33,7 @@ export default function PracticePage() {
       <details className="practice-references">
         <summary>教材、配套课程与其他练习来源</summary>
         <p>
-          标注“教材习题”的题目依据用户提供的邱关源、罗先觉《电路》第5版选取，电路图重绘，本站解答另行推导；标注“本站原创”的53题保持独立来源。配套课程可用于延伸学习，本站节号仍按教材排列。
+          教材内容分为章末习题、书中例题、依据书中图整理的练习，分别标明题号、例号或图号。连接与参数依据用户提供的第5版，图形重绘、本站解答另行推导；标注“本站原创”的53题保持独立来源。配套课程可用于延伸学习，本站节号仍按教材排列。
         </p>
         <ul>
           <li>

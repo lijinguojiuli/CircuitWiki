@@ -2,6 +2,14 @@
 export const contentUpdates = [
   {
     date: "2026-10-11",
+    title: "53节全部配教材题，卡片显示实际教材章节",
+    description:
+      "43组教材习题、例题与图解练习逐节关联，保留来源和本节完成重点。",
+    slug: "circuit-model",
+    revision: "section-coverage-20261011",
+  },
+  {
+    date: "2026-10-11",
     title: "新增教材带图选题与四种储能元件等效图",
     description:
       "10道教材习题保留题号与书页，按连接、方法、方程、检验展开解答。",

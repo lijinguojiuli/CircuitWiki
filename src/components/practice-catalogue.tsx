@@ -58,6 +58,8 @@ export function PracticeCatalogue({
           >
             <option value="">全部题型</option>
             <option>教材习题</option>
+            <option>教材例题</option>
+            <option>教材图解练习</option>
             <option>综合提高</option>
             <option>综合挑战</option>
           </select>
@@ -86,7 +88,7 @@ export function PracticeCatalogue({
             <div>
               <span className="platform-kicker">
                 {problem.exercise
-                  ? `教材习题 ${problem.exercise}`
+                  ? (problem.reference ?? `习题${problem.exercise}`)
                   : `§${problem.chapter}-${problem.section}`}
               </span>
               <Tag tone="muted">{problem.difficulty}</Tag>

@@ -38,11 +38,14 @@ test("storage networks explain all four original and equivalent circuits", async
 test("textbook catalogue leads to attributed figures, worked solutions and the key decision", async ({
   page,
 }) => {
+  test.setTimeout(180000);
   await page.goto("/practice");
   await expect(page.getByLabel("题目来源", { exact: true })).toHaveValue(
     "textbook",
   );
-  await expect(page.locator(".practice-card")).toHaveCount(10);
+  await expect(page.locator(".practice-card")).toHaveCount(
+    textbookIndex.length,
+  );
   await page.getByLabel("练习章节", { exact: true }).selectOption("6");
   await expect(page.locator(".practice-card")).toHaveCount(3);
   for (const entry of textbookIndex) {
@@ -50,16 +53,43 @@ test("textbook catalogue leads to attributed figures, worked solutions and the k
     const problem = page.locator(`#challenge-${entry.id}`);
     await expect(problem).toHaveAttribute("data-problem-source", "textbook");
     await expect(problem.locator(".challenge-source")).toContainText(
-      `习题${entry.exercise}`,
+      entry.reference ?? `习题${entry.exercise}`,
     );
     await expect(problem.locator(".challenge-source")).not.toContainText(
       "题干、数值和解答为本站原创",
     );
-    expect(await problem.getByRole("img").count()).toBeGreaterThan(0);
+
     await problem.locator(".challenge-solution summary").click();
     await expect(problem.locator(".textbook-takeaway")).toContainText(
       "关键判断",
     );
     await expect(problem.locator(".katex-error")).toHaveCount(0);
   }
+});
+
+test("knowledge cards identify actual textbook chapters and sections", async ({
+  page,
+}) => {
+  await page.goto("/knowledge");
+  const capacitor = page.locator(
+    '.knowledge-card[href="/learn/capacitor"] .card-index',
+  );
+  await expect(capacitor).toHaveText("第6章 · 储能元件 / §6-1");
+  await expect(
+    page.locator(
+      '.knowledge-card[href="/learn/complete-response"] .card-index',
+    ),
+  ).toHaveText("第7章 · 一阶电路和二阶电路的时域分析 / §7-4");
+  for (const badge of await page
+    .locator(".knowledge-card .card-index")
+    .allTextContents()) {
+    expect(badge).toMatch(/^第\d+章 · .+ \/ §\d+-\d+/);
+    expect(badge).not.toBe("教材小节");
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
 });

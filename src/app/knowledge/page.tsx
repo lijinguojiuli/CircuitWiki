@@ -3,7 +3,7 @@ import Link from "next/link";
 import { articles } from "@/lib/content";
 import { knowledgeAreas, articlesInArea } from "@/lib/knowledge";
 import { KnowledgeCard } from "@/components/ui";
-import { lessonKind } from "@/lib/learning";
+import { lessonLocationLabel } from "@/lib/learning";
 export const metadata = pageMetadata(
   "知识体系",
   "按学科主题发现电路知识，沿前置、后续与相关关系建立知识体系。",
@@ -52,7 +52,7 @@ export default function KnowledgePage() {
                 title={article.title}
                 description={article.description}
                 href={`/learn/${article.slug}`}
-                index={lessonKind(article.slug)}
+                index={lessonLocationLabel(article.slug)}
                 secondaryTopics={article.secondaryTopics}
               />
             ))}

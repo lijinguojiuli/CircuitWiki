@@ -1,5 +1,10 @@
 import { articles } from "./content";
-import { learningChapters } from "./chapters";
+import {
+  learningChapters,
+  chapterForArticle,
+  chapterLabel,
+  lessonSectionLabel,
+} from "./chapters";
 
 /** Stages orient the learner; chapters and lessons retain textbook order. */
 export const learningStages = [
@@ -45,6 +50,12 @@ export function lessonKind(slug: string) {
   return articles.find((article) => article.slug === slug)?.supplemental
     ? "补充专题"
     : "教材小节";
+}
+
+export function lessonLocationLabel(slug: string) {
+  const article = articles.find((item) => item.slug === slug);
+  const location = `${chapterLabel(chapterForArticle(slug))} / ${lessonSectionLabel(slug)}`;
+  return article?.supplemental ? `${location} · 补充专题` : location;
 }
 
 export function stageLessons(chapterNumbers: readonly number[]) {

@@ -2,15 +2,11 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { articles, articleHref } from "@/lib/content";
-import {
-  learningChapters,
-  chapterId,
-  lessonSectionLabel,
-} from "@/lib/chapters";
+import { learningChapters, chapterId } from "@/lib/chapters";
 import { KnowledgeCard } from "@/components/ui";
 import { ChapterProgress, StudyResume } from "@/components/study-progress";
 import { textbookTopics } from "@/lib/textbook-scope";
-import { learningStages, lessonKind } from "@/lib/learning";
+import { learningStages, lessonLocationLabel } from "@/lib/learning";
 
 export const metadata = pageMetadata(
   "学习路线",
@@ -99,7 +95,7 @@ export default function Curriculum() {
                     description={article.description}
                     secondaryTopics={article.secondaryTopics}
                     href={articleHref(article.slug)}
-                    index={`${lessonSectionLabel(article.slug)} · ${lessonKind(article.slug)}`}
+                    index={lessonLocationLabel(article.slug)}
                     slug={article.slug}
                   />
                 ))}

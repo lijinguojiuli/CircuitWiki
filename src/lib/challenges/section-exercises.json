@@ -1,0 +1,214 @@
+{
+  "circuit-model": {
+    "ids": ["book-1-11"],
+    "focus": "把实际线路抽象为电源、导线电阻与负载，保留完整去、回电流路径。"
+  },
+  "reference-directions": {
+    "ids": ["book-1-1"],
+    "focus": "先区分关联与非关联参考方向，再解释电压、电流的正负号。"
+  },
+  "power-energy": {
+    "ids": ["book-1-1"],
+    "focus": "用统一的吸收功率约定判断元件发出还是吸收功率。"
+  },
+  "circuit-elements": {
+    "ids": ["book-1-4-ab"],
+    "focus": "从元件伏安约束出发，检查参考方向与单位，不额外引入电路约束。"
+  },
+  "resistor": {
+    "ids": ["book-1-4-ab"],
+    "focus": "从元件伏安约束出发，检查参考方向与单位，不额外引入电路约束。"
+  },
+  "independent-sources": {
+    "ids": ["book-1-4-cf"],
+    "focus": "明确源直接约束的量与仍由外电路决定的量。"
+  },
+  "controlled-sources": {
+    "ids": ["book-1-9-a"],
+    "focus": "保留控制量，先建立完整端口关系，再判断能否等效为电阻。"
+  },
+  "kcl-kvl": {
+    "ids": ["book-1-8-ab"],
+    "focus": "按参考方向列KCL，并用端口功率平衡交叉检查符号。"
+  },
+  "equivalence-introduction": {
+    "ids": ["book-2-4-a"],
+    "focus": "认清理想导线连接的同一结点，保留a、b端口，再判断短接、串联和并联。"
+  },
+  "equivalent-circuits": {
+    "ids": ["book-2-4-a"],
+    "focus": "认清理想导线连接的同一结点，保留a、b端口，再判断短接、串联和并联。"
+  },
+  "series-parallel": {
+    "ids": ["book-2-4-a"],
+    "focus": "认清理想导线连接的同一结点，保留a、b端口，再判断短接、串联和并联。"
+  },
+  "star-delta": {
+    "ids": ["book-2-5"],
+    "focus": "用两条变换路径求同一端口的电阻，检查外端子的身份是否保留。"
+  },
+  "source-connections": {
+    "ids": ["book-2-2"],
+    "focus": "分别识别理想电流源串联、理想电压源并联时保持不变的外部量。"
+  },
+  "source-transformations": {
+    "ids": ["book-2-7"],
+    "focus": "先变换再合并源；负载响应等效不代表内部功率等效。"
+  },
+  "input-resistance": {
+    "ids": ["book-2-4-a"],
+    "focus": "只从指定a、b端口看入，化简后得到端口输入电阻。"
+  },
+  "circuit-graphs": {
+    "ids": ["book-3-4"],
+    "focus": "分清结点、支路、树与连支，检查连通性和是否形成闭合回路。"
+  },
+  "independent-equations": {
+    "ids": ["book-3-4"],
+    "focus": "先数n、b，再确定独立KCL与KVL方程数；不要把所有回路都当成独立。"
+  },
+  "branch-current": {
+    "ids": ["book-3-7"],
+    "focus": "以支路电流为未知量，联立独立KCL、KVL求目标支路电流。"
+  },
+  "mesh-analysis": {
+    "ids": ["book-3-8"],
+    "focus": "选统一顺时针网孔电流，公共电阻上的电流用网孔电流之差表示。"
+  },
+  "loop-current": {
+    "ids": ["book-3-9"],
+    "focus": "选择一组独立回路，再由回路电流的代数和还原目标支路电流。"
+  },
+  "nodal-analysis": {
+    "ids": ["book-3-19-a"],
+    "focus": "优先利用已知源和简单结点约束，减少未知电压。"
+  },
+  "superposition": {
+    "ids": ["book-4-2"],
+    "focus": "各独立源分别作用时，保留同一目标电压极性，再叠加代数分响应。"
+  },
+  "substitution": {
+    "ids": ["book-fig-4-7"],
+    "focus": "先求当前支路的电压、电流，再用匹配当前状态的源替代整个支路。"
+  },
+  "thevenin": {
+    "ids": ["book-4-9-a"],
+    "focus": "开路外端口时保留全部内部元件，再求uoc、Req与isc。"
+  },
+  "maximum-power": {
+    "ids": ["book-4-15"],
+    "focus": "区分源侧网络与外接负载，用戴维宁参数建立最大负载功率条件。"
+  },
+  "capacitor": {
+    "ids": ["book-6-9"],
+    "focus": "本节先用i=Cdu/dt或积分式求各电容电压，并保留每只电容初值；等效参数可在§6-3复核。"
+  },
+  "inductor": {
+    "ids": ["book-6-10"],
+    "focus": "本节先按u=Ldi/dt分别求两电感电流，再用KCL检查总电流。"
+  },
+  "storage-networks": {
+    "ids": ["book-6-8"],
+    "focus": "由内到外逐步化简，并用6-9、6-10继续检查初始状态如何保留。"
+  },
+  "initial-conditions": {
+    "ids": ["book-7-1-a"],
+    "focus": "初值由换路前稳态确定，再用换路后的KCL/KVL求其余瞬间量。"
+  },
+  "zero-input": {
+    "ids": ["book-7-4"],
+    "focus": "外激励移除后，由初始储能产生响应，Req取换路后网络。"
+  },
+  "zero-state": {
+    "ids": ["book-fig-7-12"],
+    "focus": "初始储能状态为零，从外激励与一阶方程求建流过程。"
+  },
+  "complete-response": {
+    "ids": ["book-ex-7-4"],
+    "focus": "同时保留初始状态和外激励，用三要素求全响应，再还原目标支路。"
+  },
+  "complex-euler": {
+    "ids": ["book-8-1"],
+    "focus": "根据实、虚部确定象限，再计算模与辐角。"
+  },
+  "sinusoidal": {
+    "ids": ["book-8-7"],
+    "focus": "区分峰值、有效值、频率与初相位，并写出完整瞬时表达式。"
+  },
+  "phasor": {
+    "ids": ["book-ex-8-2"],
+    "focus": "同频是相量运算的前提；相同复数不能代替不同频率的瞬时函数。"
+  },
+  "phasor-laws": {
+    "ids": ["book-ex-8-4"],
+    "focus": "用元件相量伏安关系与KVL求解，再恢复瞬时量。"
+  },
+  "impedance": {
+    "ids": ["book-9-3"],
+    "focus": "用同频相量之比求Z、Y，再在给定频率下换回等效元件参数。"
+  },
+  "phasor-diagrams": {
+    "ids": ["book-9-5"],
+    "focus": "先选已知支路作为参考，用电流与电压的几何关系反推未知参数。"
+  },
+  "sinusoidal-analysis": {
+    "ids": ["book-9-8"],
+    "focus": "在复数域化简串并联网络，再回到原支路求电流。"
+  },
+  "power": {
+    "ids": ["book-9-22"],
+    "focus": "先用电阻有功求未知量，区分有效值、平均有功和无功。"
+  },
+  "complex-power": {
+    "ids": ["book-9-22"],
+    "focus": "重点完成后半部分：用US·I的共轭计算复功率，并检查实部是否等于已知有功。"
+  },
+  "ac-maximum-power": {
+    "ids": ["book-9-19"],
+    "focus": "辨明可调参数只有纯电阻，按这一约束优化总有功。"
+  },
+  "coupled-inductors": {
+    "ids": ["book-10-7"],
+    "focus": "同向与反向连接改变互感项符号，用两次测量的差分离出M。"
+  },
+  "coupled-analysis": {
+    "ids": ["book-10-8"],
+    "focus": "按黑点与参考方向写互感项，先求总电流，再回到各线圈求电压。"
+  },
+  "coupled-power": {
+    "ids": ["book-10-8"],
+    "focus": "重点检查两个线圈各自的复功率及其代数和，不把互感项遗漏。"
+  },
+  "ideal-transformer": {
+    "ids": ["book-10-17"],
+    "focus": "用n²折合阻抗，在不改变真实负载的前提下实现匹配。"
+  },
+  "series-resonance": {
+    "ids": ["book-11-3"],
+    "focus": "只处理本节的谐振频率、品质因数与谐振输入性质。"
+  },
+  "parallel-resonance": {
+    "ids": ["book-11-4"],
+    "focus": "从总导纳虚部为零出发，区分电源电流与储能支路电流。"
+  },
+  "three-phase-basics": {
+    "ids": ["book-12-1"],
+    "focus": "先识别电源、端线、负载和中性线，再判断对称条件下各自的量。"
+  },
+  "line-phase": {
+    "ids": ["book-12-1"],
+    "focus": "分别求电源相电压、负载相电压和负载线电压，正确使用√3和30°关系。"
+  },
+  "balanced-three-phase": {
+    "ids": ["book-12-2"],
+    "focus": "先用Δ→Y的一相等效求线电流，再回原Δ求相电流。"
+  },
+  "unbalanced-three-phase": {
+    "ids": ["book-12-9"],
+    "focus": "从不相同支路的相量与KCL出发，分别判断负载与线电流的对称性。"
+  },
+  "three-phase-power": {
+    "ids": ["book-12-2"],
+    "focus": "重点完成本站功率延伸问：用原Δ相电流计算负载复功率，并与端线损耗分开。"
+  }
+}

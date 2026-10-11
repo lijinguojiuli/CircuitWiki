@@ -271,3 +271,14 @@
   font-size: 14px;
   line-height: 1.85;
 }
+
+.textbook-section-focus {
+  border-left: 3px solid var(--text);
+  background: var(--soft);
+  padding: 14px 18px;
+  line-height: 1.9;
+}
+.knowledge-card .card-index {
+  padding-right: 30px;
+  line-height: 1.8;
+}

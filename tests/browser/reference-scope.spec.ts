@@ -36,12 +36,9 @@ test("formula reference follows textbook chapters and removed material stays abs
   await expect(page.locator(".search-results")).toContainText("未找到结果");
   await page.keyboard.press("Escape");
   await page.goto("/curriculum");
-  await expect(page.locator("#chapter-3 .card-index")).toHaveText([
-    "§3-1 · 教材小节",
-    "§3-2 · 教材小节",
-    "§3-3 · 教材小节",
-    "§3-4 · 教材小节",
-    "§3-5 · 教材小节",
-    "§3-6 · 教材小节",
-  ]);
+  await expect(page.locator("#chapter-3 .card-index")).toHaveText(
+    [1, 2, 3, 4, 5, 6].map(
+      (section) => `第3章 · 电阻电路的一般分析 / §3-${section}`,
+    ),
+  );
 });

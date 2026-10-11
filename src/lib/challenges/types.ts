@@ -1,6 +1,21 @@
 export type ComplexPair = [number, number];
 export type ProblemCheck =
   | {
+      kind: "polar";
+      real: number;
+      imag: number;
+      magnitude: number;
+      angleDegrees: number;
+    }
+  | {
+      kind: "topology";
+      edges: [string, string][];
+      expectedNodes: number;
+      expectedBranches: number;
+      expectedKCL: number;
+      expectedKVL: number;
+    }
+  | {
       kind: "exponentialIntegral";
       amplitude: number;
       rate: number;
@@ -79,7 +94,7 @@ export type ProblemCheck =
     }
   | { kind: "resonance"; L: number; C: number; omega: number };
 export type ProblemNetwork = {
-  nodes: { id: string; x: number; y: number }[];
+  nodes: { id: string; x: number; y: number; labelOffset?: [number, number] }[];
   branches: {
     from: string;
     to: string;
@@ -90,7 +105,10 @@ export type ProblemNetwork = {
       | "current"
       | "controlled-current"
       | "capacitor"
-      | "inductor";
+      | "inductor"
+      | "wire"
+      | "element";
+    // Plain wires and unspecified two-terminal elements appear in textbook models.
     label: string;
     via?: [number, number][];
     symbolSegment?: number;
@@ -99,6 +117,7 @@ export type ProblemNetwork = {
   ground: string | null;
   arrows?: { from: [number, number]; to: [number, number]; label: string }[];
   notes?: { x: number; y: number; text: string }[];
+  caption?: string;
 };
 export type ProblemPhasors = {
   unit: string;
@@ -110,7 +129,8 @@ export type Challenge = {
   title: string;
   chapter: number;
   section: number;
-  difficulty: "综合提高" | "综合挑战" | "教材习题";
+  difficulty:
+    "综合提高" | "综合挑战" | "教材习题" | "教材例题" | "教材图解练习";
   secondary: boolean;
   given: string;
   tasks: string[];
@@ -120,7 +140,12 @@ export type Challenge = {
   checks: ProblemCheck[];
   network: ProblemNetwork | null;
   phasors?: ProblemPhasors[];
-  source?: { exercise: string; pages: string; note: string };
+  source?: {
+    exercise: string;
+    pages: string;
+    note: string;
+    kind?: "exercise" | "example" | "figure";
+  };
   takeaway?: string;
   networks?: { title: string; network: ProblemNetwork }[];
 };
