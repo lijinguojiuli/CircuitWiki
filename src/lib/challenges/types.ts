@@ -112,6 +112,7 @@ export type ProblemNetwork = {
     label: string;
     via?: [number, number][];
     symbolSegment?: number;
+    polaritySide?: 1 | -1;
     labelOffset?: [number, number];
   }[];
   ground: string | null;

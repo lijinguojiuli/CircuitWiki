@@ -18,7 +18,7 @@ export function ParallelBranchDiagram({
   return (
     <figure className="circuit topology-diagram">
       <svg
-        viewBox="0 0 640 365"
+        viewBox="0 -15 640 400"
         role="img"
         aria-label={`多回路电路：${view === "elements" ? "5条元件支路、3个建图结点" : "4条组合支路、2个建图结点"}，高亮第${first + 1}与第${second + 1}列构成的回路`}
       >
@@ -100,13 +100,13 @@ export function ParallelBranchDiagram({
             fill="currentColor"
             stroke="none"
           />
-          <text x="326" y="61">
+          <text x="326" y="12">
             结点 A：整条上导线
           </text>
           <text x="326" y="342">
             结点 B：整条下导线
           </text>
-          <text x={(left + right) / 2} y="289">
+          <text x={(left + right) / 2} y="371">
             选定回路
           </text>
         </g>

@@ -40,7 +40,7 @@ export function BridgePortDiagram({ mode = "open" }: { mode?: BridgeMode }) {
             <>
               <CurrentSource x={305} y={155} horizontal />
               <VoltageSource x={280} y={260} label="" horizontal reverse />
-              <text x="280" y="300">
+              <text x="280" y="315">
                 US：左正、右负
               </text>
             </>

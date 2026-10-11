@@ -18,15 +18,22 @@ function SourceEdge({
     ex = dx / length,
     ey = dy / length,
     px = -ey,
-    py = ex;
+    py = ex,
+    polaritySide = (labelAt[0] - mx) * px + (labelAt[1] - my) * py > 0 ? -1 : 1;
   return (
     <g data-symbol="voltage-source">
       <path d={`M${from[0]} ${from[1]}L${to[0]} ${to[1]}`} />
       <circle cx={mx} cy={my} r="24" />
-      <text x={mx + 30 * ex + 12 * px} y={my + 30 * ey + 12 * py + 5}>
+      <text
+        x={mx + 14 * ex + 36 * px * polaritySide}
+        y={my + 14 * ey + 36 * py * polaritySide + 5}
+      >
         +
       </text>
-      <text x={mx - 30 * ex + 12 * px} y={my - 30 * ey + 12 * py + 5}>
+      <text
+        x={mx - 14 * ex + 36 * px * polaritySide}
+        y={my - 14 * ey + 36 * py * polaritySide + 5}
+      >
         −
       </text>
       <text x={labelAt[0]} y={labelAt[1]}>
@@ -69,9 +76,9 @@ export function ThreePhaseSourceDiagram() {
             label="U̇C"
             labelAt={[83, 175]}
           />
-          <Node x={160} y={55} label="A" />
-          <Node x={255} y={245} label="B" />
-          <Node x={65} y={245} label="C" />
+          <Node x={160} y={55} label="A" labelOffset={[20, 0]} />
+          <Node x={255} y={245} label="B" labelOffset={[20, 0]} />
+          <Node x={65} y={245} label="C" labelOffset={[-20, 0]} />
           <Node x={160} y={155} />
           <text x="185" y="155">
             N
@@ -94,9 +101,9 @@ export function ThreePhaseSourceDiagram() {
             label="U̇CA"
             labelAt={[420, 135]}
           />
-          <Node x={510} y={55} label="A" />
-          <Node x={605} y={245} label="B" />
-          <Node x={415} y={245} label="C" />
+          <Node x={510} y={55} label="A" labelOffset={[20, 0]} />
+          <Node x={605} y={245} label="B" labelOffset={[20, 0]} />
+          <Node x={415} y={245} label="C" labelOffset={[-20, 0]} />
         </g>
       </svg>
       <figcaption>

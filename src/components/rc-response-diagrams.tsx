@@ -40,7 +40,7 @@ function Wave({ initial, source }: { initial: number; source: number }) {
   }).join(" ");
   return (
     <svg
-      viewBox="0 0 280 145"
+      viewBox="0 0 280 165"
       role="img"
       aria-label={`电容电压从${initial} V趋向${source} V，横轴为时间`}
     >
@@ -50,7 +50,7 @@ function Wave({ initial, source }: { initial: number; source: number }) {
         <circle cx="32" cy={112 - 16 * initial} r="3" fill="currentColor" />
       </g>
       <g fill="currentColor" className="response-plot-label">
-        <text x="2" y="18">
+        <text x="2" y="12">
           uC / V
         </text>
         <text x="12" y="115">
@@ -65,7 +65,7 @@ function Wave({ initial, source }: { initial: number; source: number }) {
         <text x="229" y="132">
           5τ
         </text>
-        <text x="76" y="143">
+        <text x="76" y="154">
           τ = Req C，t ≥ 0
         </text>
       </g>

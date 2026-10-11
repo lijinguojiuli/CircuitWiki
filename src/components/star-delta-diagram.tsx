@@ -71,13 +71,15 @@ export function StarDeltaDiagram({
             from={[155, 145]}
             to={[260, 225]}
             label={impedance ? "Z_B" : "R₂"}
+            offset={[16, -30]}
           />
           <ImpedanceEdge
             from={[155, 145]}
             to={[50, 225]}
             label={impedance ? "Z_C" : "R₃"}
+            offset={[-16, -30]}
           />
-          <Node x={155} y={55} label={terminals[0]} />
+          <Node x={155} y={55} label={terminals[0]} labelOffset={[20, 0]} />
           <Node x={260} y={225} label={terminals[1]} />
           <Node x={50} y={225} label={terminals[2]} />
           <Node x={155} y={145} />
@@ -94,6 +96,7 @@ export function StarDeltaDiagram({
             from={[610, 225]}
             to={[400, 225]}
             label={impedance ? "Z_BC" : `${unit}₂₃`}
+            offset={[0, -26]}
           />
           <ImpedanceEdge
             from={[400, 225]}
@@ -101,7 +104,7 @@ export function StarDeltaDiagram({
             label={impedance ? "Z_CA" : `${unit}₃₁`}
             offset={[-24, -6]}
           />
-          <Node x={505} y={55} label={terminals[0]} />
+          <Node x={505} y={55} label={terminals[0]} labelOffset={[20, 0]} />
           <Node x={610} y={225} label={terminals[1]} />
           <Node x={400} y={225} label={terminals[2]} />
           <text x="330" y="147">

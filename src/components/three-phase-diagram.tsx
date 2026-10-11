@@ -57,7 +57,7 @@ export function ThreePhaseDiagram({
             />
             <Node x={525} y={65} label="A′" />
             <Node x={420} y={155} label="B′" />
-            <Node x={525} y={245} label="C′" />
+            <Node x={525} y={245} label="C′" labelOffset={[24, -14]} />
             <Node x={65} y={155} />
             <text x="40" y="160">
               N

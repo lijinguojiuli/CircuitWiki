@@ -130,7 +130,7 @@ export function PhasorConstruction() {
           </defs>
           <g fill="none" stroke="currentColor" strokeLinecap="round">
             <path d={`M55 ${oy}H430M${ox} 55V385`} opacity="0.2" />
-            <text x="440" y={oy + 5}>
+            <text x="445" y={oy + 26}>
               实轴
             </text>
             <text x={ox} y="40">

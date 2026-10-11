@@ -59,7 +59,7 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
               <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                 <LineChart
                   data={result.points}
-                  margin={{ top: 16, right: 20, left: 0, bottom: 18 }}
+                  margin={{ top: 16, right: 20, left: 18, bottom: 28 }}
                 >
                   <CartesianGrid strokeDasharray="3 5" stroke="var(--border)" />
                   <XAxis
@@ -67,6 +67,7 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
                     type="number"
                     domain={[0, 5 * result.tau]}
                     tickFormatter={(n) => fmt(n)}
+                    tickMargin={12}
                     label={{
                       value: "时间 t / s",
                       position: "insideBottom",
@@ -99,7 +100,11 @@ export function RCCalculator({ compact = false }: { compact?: boolean }) {
                     x={result.tau}
                     stroke="var(--muted)"
                     strokeDasharray="4 4"
-                    label="τ"
+                    label={{
+                      value: "τ",
+                      position: "insideTopRight",
+                      offset: 18,
+                    }}
                   />
                   <Line
                     type="monotone"

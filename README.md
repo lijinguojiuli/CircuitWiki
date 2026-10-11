@@ -224,6 +224,8 @@ npm run test:e2e
 
 浏览器测试访问 `http://localhost:3000`，需先启动服务。默认使用 Chromium；本次 Windows 验收使用 Edge Chromium。包括全部路由、MDX、公式、内部链接和页内锚点、搜索、提高题与折叠解答、主题持久化、系统主题跟随、三个计算器和 390px 移动端。
 
+电路图新增全站标签碰撞回归，覆盖桌面浅色、窄屏深色、展开解答与交互状态。运行 `node tests/audit-diagrams.mjs` 可生成去重截图和几何检查报告，输出到项目 `work/diagram-audit/latest`；设置 `AUDIT_ASSERT=1` 可在发现遮挡时返回失败。详见 [电路图遮挡排查](docs/电路图遮挡排查.md)。
+
 `npm run format` 统一格式。TypeScript 开启 strict。计算精度为 JavaScript 双精度，显示约 6 位有效数字，属于教学计算而非专业 SPICE 仿真。
 
 ## 部署到 Vercel

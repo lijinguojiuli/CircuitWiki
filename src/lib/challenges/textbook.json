@@ -1036,7 +1036,8 @@
           "kind": "resistor",
           "label": "R₄=2 Ω",
           "via": [[560, 100]],
-          "symbolSegment": 1
+          "symbolSegment": 1,
+          "labelOffset": [0, 32]
         },
         {
           "from": "X",
@@ -3195,7 +3196,7 @@
               "to": "U",
               "kind": "capacitor",
               "label": "20 F",
-              "labelOffset": [0, 68]
+              "labelOffset": [0, 84]
             },
             {
               "from": "b",

@@ -1232,7 +1232,8 @@
           "from": "1",
           "to": "X",
           "kind": "voltage",
-          "label": "10 V"
+          "label": "10 V",
+          "labelOffset": [-32, -12]
         },
         {
           "from": "1",
@@ -1244,27 +1245,30 @@
           "from": "2",
           "to": "Y",
           "kind": "voltage",
-          "label": "6 V"
+          "label": "6 V",
+          "polaritySide": -1,
+          "labelOffset": [45, -18]
         },
         {
           "from": "2",
           "to": "Z",
           "kind": "resistor",
           "label": "5 Ω",
-          "labelOffset": [0, 55]
+          "labelOffset": [0, 70]
         },
         {
           "from": "0",
           "to": "Z",
           "kind": "voltage",
           "label": "8 V",
-          "labelOffset": [0, 90]
+          "labelOffset": [0, 114]
         },
         {
           "from": "C",
           "to": "1",
           "kind": "current",
-          "label": "2 A"
+          "label": "2 A",
+          "labelOffset": [-4, 62]
         },
         {
           "from": "C",
