@@ -273,6 +273,47 @@ export function ProblemSchematic({
               label={node.id === network.ground ? "" : node.id}
             />
           ))}
+          {network.arrows?.map((arrow, index) => {
+            const dx = arrow.to[0] - arrow.from[0],
+              dy = arrow.to[1] - arrow.from[1];
+            const length = Math.hypot(dx, dy),
+              angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+            const vertical = Math.abs(dy) > Math.abs(dx);
+            return (
+              <g key={`reference-${index}`}>
+                <g
+                  transform={`translate(${arrow.from[0]} ${arrow.from[1]}) rotate(${angle})`}
+                >
+                  <path d={`M0 0H${length}`} />
+                  <path
+                    d={`M${length} 0l-8 -4v8z`}
+                    fill="currentColor"
+                    stroke="none"
+                  />
+                </g>
+                <text
+                  x={(arrow.from[0] + arrow.to[0]) / 2 + (vertical ? 18 : 0)}
+                  y={(arrow.from[1] + arrow.to[1]) / 2 + (vertical ? 4 : -12)}
+                  style={{ textAnchor: vertical ? "start" : "middle" }}
+                  fill="currentColor"
+                  stroke="none"
+                >
+                  {arrow.label}
+                </text>
+              </g>
+            );
+          })}
+          {network.notes?.map((note, index) => (
+            <text
+              key={`note-${index}`}
+              x={note.x}
+              y={note.y}
+              fill="currentColor"
+              stroke="none"
+            >
+              {note.text}
+            </text>
+          ))}
           {network.ground &&
             (() => {
               const node = network.nodes.find(
@@ -283,7 +324,11 @@ export function ProblemSchematic({
         </g>
       </svg>
       <figcaption>
-        箭头表示题设电流正方向，电压源按“+”“−”标注极性；结点0为参考结点。全部数值与连接条件见题干。
+        箭头表示题设电流正方向，电压源按“+”“−”标注极性；
+        {network.ground
+          ? `结点${network.ground}为参考结点。`
+          : "端口与参考方向以题干为准。"}
+        全部数值与连接条件见题干。
         <span className="diagram-pan-hint">窄屏可左右滑动查看完整图。</span>
       </figcaption>
     </figure>

@@ -8,6 +8,8 @@ test("textbook directory shows every section and no aggregate lessons", async ({
   );
   await expect(page.locator("main")).not.toContainText("全览");
   await page.goto("/practice");
+  await expect(page.locator(".practice-card")).toHaveCount(10);
+  await page.getByLabel("题目来源", { exact: true }).selectOption("original");
   await expect(page.locator(".practice-card")).toHaveCount(53);
   await page.getByLabel("练习章节", { exact: true }).selectOption("7");
   await expect(page.locator(".practice-card")).toHaveCount(4);
@@ -57,7 +59,7 @@ test("challenge pages fit mobile with long answers and dark diagrams", async ({
     "three-phase-power",
   ]) {
     await page.goto(`/learn/${slug}`);
-    await page.locator(".challenge-solution summary").click();
+    await page.locator(".challenge-solution summary").first().click();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -69,7 +71,7 @@ test("challenge pages fit mobile with long answers and dark diagrams", async ({
   await page.getByRole("button", { name: "Dark 深色", exact: true }).click();
   await page.getByRole("button", { name: "关闭目录" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
-  await expect(page.locator(".challenge-solution")).toHaveJSProperty(
+  await expect(page.locator(".challenge-solution").first()).toHaveJSProperty(
     "open",
     true,
   );

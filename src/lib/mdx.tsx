@@ -1,3 +1,4 @@
+import { StorageEquivalenceDiagrams } from "@/components/storage-equivalence-diagrams";
 import { ChallengeProblem } from "@/components/challenge-problem";
 import { SectionFormulaCards } from "@/components/section-formula-cards";
 import { IdealTransformerDiagram } from "@/components/ideal-transformer-diagram";
@@ -47,6 +48,7 @@ import { PhasorConstruction } from "@/components/phasor-construction";
 import { ThreePhaseLab } from "@/components/three-phase-lab";
 import { CodeBlock } from "@/components/primitives";
 const components: MDXComponents = {
+  StorageEquivalenceDiagrams,
   ChallengeProblem,
   SectionFormulaCards,
   IdealTransformerDiagram,

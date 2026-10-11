@@ -35,7 +35,7 @@ export default function Curriculum() {
       </div>
       <StudyResume />
       <Link className="tool-reading-link" href="/practice">
-        按章节练习53道综合提高题 ↗
+        按章节练习教材选题与原创题 ↗
       </Link>
       <Link className="tool-reading-link" href="/paths">
         按学习目标选择推荐路径 ↗
@@ -43,7 +43,7 @@ export default function Curriculum() {
       <section className="route-orientation" aria-label="学习路线使用说明">
         <strong>每个小节都能学习，也能独立练习</strong>
         <p>
-          按教材节号依次学习，每节包含讲解、公式、图解和综合提高题。需要集中练习时，可按章节进入提高题库。
+          按教材节号依次学习，每节包含讲解、公式、图解和综合提高题。需要集中练习时，可按章节进入教材习题与提高练习。
         </p>
       </section>
       <nav className="route-stages" aria-label="学习阶段跳转">

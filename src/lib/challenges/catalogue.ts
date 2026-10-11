@@ -1,3 +1,4 @@
+import textbookIndex from "./textbook-catalogue.json";
 export type ChallengeIndexEntry = {
   id: string;
   title: string;
@@ -6,8 +7,11 @@ export type ChallengeIndexEntry = {
   difficulty: string;
   slug: string;
   secondary: boolean;
+  sourceKind?: "original" | "textbook";
+  exercise?: string;
+  pages?: string;
 };
-export const challengeIndex: ChallengeIndexEntry[] = [
+const originalChallengeIndex: ChallengeIndexEntry[] = [
   {
     id: "1-1",
     title: "由两次带载测量识别电路模型",
@@ -486,3 +490,16 @@ export const challengeIndex: ChallengeIndexEntry[] = [
     slug: "three-phase-power",
   },
 ];
+
+export const challengeIndex: ChallengeIndexEntry[] = [
+  ...originalChallengeIndex,
+  ...textbookIndex.map((entry) => ({
+    ...entry,
+    sourceKind: "textbook" as const,
+  })),
+].sort(
+  (a, b) =>
+    a.chapter - b.chapter ||
+    a.section - b.section ||
+    Number(!a.exercise) - Number(!b.exercise),
+);

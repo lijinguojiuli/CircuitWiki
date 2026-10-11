@@ -244,3 +244,30 @@
     max-width: 100%;
   }
 }
+
+.storage-equivalence {
+  margin: 28px 0 36px;
+}
+.storage-svg-scroll {
+  overflow-x: auto;
+}
+.storage-equivalence-figure svg {
+  min-width: 580px;
+  max-height: none;
+}
+.storage-equivalence > p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+.storage-example {
+  padding: 14px 16px;
+  background: var(--soft);
+  border-radius: 5px;
+}
+.textbook-takeaway {
+  padding: 14px 16px;
+  background: var(--soft);
+  border-left: 3px solid var(--text);
+  font-size: 14px;
+  line-height: 1.85;
+}

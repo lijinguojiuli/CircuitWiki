@@ -3,14 +3,18 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import katex from "katex";
-import { challenges } from "../src/lib/challenges";
+import {
+  challenges,
+  originalChallenges,
+  textbookChallenges,
+} from "../src/lib/challenges";
 import { checkResiduals } from "../src/lib/challenges/verify";
 import { articles, curriculumArticles } from "../src/lib/content";
 import { textbookTopics } from "../src/lib/textbook-scope";
 
 test("all 53 studied sections own a complete independent page and original challenge", () => {
   assert.equal(curriculumArticles.length, 53);
-  assert.equal(challenges.length, 53);
+  assert.equal(originalChallenges.length, 53);
   assert.equal(new Set(textbookTopics.map((topic) => topic.slug)).size, 53);
   assert.ok(
     articles.every(
@@ -39,7 +43,7 @@ test("all 53 studied sections own a complete independent page and original chall
     );
   }
 });
-test("all original challenge answers satisfy independent numerical checks", () => {
+test("all textbook and original answers satisfy independent numerical checks", () => {
   for (const problem of challenges)
     for (const check of problem.checks) {
       const residuals = checkResiduals(check);
@@ -74,16 +78,33 @@ test("problem circuit graphs have valid terminals and textbook source/resistor s
     "inductor",
   ]);
   for (const problem of challenges)
-    if (problem.network) {
-      const nodes = new Set(problem.network.nodes.map((node) => node.id));
-      for (const branch of problem.network.branches)
+    for (const network of [
+      problem.network,
+      ...(problem.networks?.map((item) => item.network) ?? []),
+    ].filter((item) => item !== null)) {
+      const nodes = new Set(network.nodes.map((node) => node.id));
+      for (const branch of network.branches)
         assert.ok(
           nodes.has(branch.from) &&
             nodes.has(branch.to) &&
             kinds.has(branch.kind),
           problem.id,
         );
-      if (problem.network.ground)
-        assert.ok(nodes.has(problem.network.ground), problem.id);
+      if (network.ground) assert.ok(nodes.has(network.ground), problem.id);
     }
+});
+
+test("selected textbook exercises retain provenance, diagrams, tasks and learning takeaways", () => {
+  assert.equal(textbookChallenges.length, 10);
+  assert.equal(new Set(challenges.map((problem) => problem.id)).size, 63);
+  for (const problem of textbookChallenges) {
+    assert.ok(problem.source?.exercise && problem.source.pages, problem.id);
+    assert.ok(problem.network || problem.networks?.length, problem.id);
+    assert.ok(
+      problem.tasks.length >= 2 &&
+        problem.steps.length >= 3 &&
+        problem.takeaway,
+      problem.id,
+    );
+  }
 });

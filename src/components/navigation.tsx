@@ -152,7 +152,7 @@ export function Header() {
             className={path === "/practice" ? "active" : ""}
             href="/practice"
           >
-            提高题
+            习题
           </Link>
           <Link
             className={

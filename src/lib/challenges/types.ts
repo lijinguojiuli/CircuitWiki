@@ -1,5 +1,19 @@
 export type ComplexPair = [number, number];
 export type ProblemCheck =
+  | {
+      kind: "exponentialIntegral";
+      amplitude: number;
+      rate: number;
+      time: number;
+      expected: number;
+    }
+  | {
+      kind: "equivalentNetwork";
+      family: "C" | "L" | "R";
+      terminals: [string, string];
+      branches: { from: string; to: string; value: number }[];
+      expected: number;
+    }
   | { kind: "linear"; matrix: number[][]; rhs: number[]; solution: number[] }
   | {
       kind: "complexLinear";
@@ -83,6 +97,8 @@ export type ProblemNetwork = {
     labelOffset?: [number, number];
   }[];
   ground: string | null;
+  arrows?: { from: [number, number]; to: [number, number]; label: string }[];
+  notes?: { x: number; y: number; text: string }[];
 };
 export type ProblemPhasors = {
   unit: string;
@@ -94,7 +110,7 @@ export type Challenge = {
   title: string;
   chapter: number;
   section: number;
-  difficulty: "综合提高" | "综合挑战";
+  difficulty: "综合提高" | "综合挑战" | "教材习题";
   secondary: boolean;
   given: string;
   tasks: string[];
@@ -104,4 +120,7 @@ export type Challenge = {
   checks: ProblemCheck[];
   network: ProblemNetwork | null;
   phasors?: ProblemPhasors[];
+  source?: { exercise: string; pages: string; note: string };
+  takeaway?: string;
+  networks?: { title: string; network: ProblemNetwork }[];
 };

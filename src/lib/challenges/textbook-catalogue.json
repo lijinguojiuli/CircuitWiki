@@ -1,0 +1,122 @@
+[
+  {
+    "id": "book-2-5",
+    "title": "习题2-5：不平衡电桥的两条变换路径",
+    "chapter": 2,
+    "section": 4,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "star-delta",
+    "sourceKind": "textbook",
+    "exercise": "2-5",
+    "pages": "47–48"
+  },
+  {
+    "id": "book-3-19-a",
+    "title": "习题3-19(a)：电流源支路怎样进入结点方程",
+    "chapter": 3,
+    "section": 6,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "nodal-analysis",
+    "sourceKind": "textbook",
+    "exercise": "3-19(a)",
+    "pages": "79–80"
+  },
+  {
+    "id": "book-4-2",
+    "title": "习题4-2：三源电路中的叠加与符号",
+    "chapter": 4,
+    "section": 1,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "superposition",
+    "sourceKind": "textbook",
+    "exercise": "4-2",
+    "pages": "107"
+  },
+  {
+    "id": "book-4-9-a",
+    "title": "习题4-9(a)：开路端口不等于拆掉内部电阻",
+    "chapter": 4,
+    "section": 3,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "thevenin",
+    "sourceKind": "textbook",
+    "exercise": "4-9(a)",
+    "pages": "108–109"
+  },
+  {
+    "id": "book-6-8",
+    "title": "习题6-8：混联电容与电感的端口等效",
+    "chapter": 6,
+    "section": 3,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "storage-networks",
+    "sourceKind": "textbook",
+    "exercise": "6-8",
+    "pages": "135–136"
+  },
+  {
+    "id": "book-6-9",
+    "title": "习题6-9：串联电容合并后怎样保留初值",
+    "chapter": 6,
+    "section": 3,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "storage-networks",
+    "sourceKind": "textbook",
+    "exercise": "6-9",
+    "pages": "135–136"
+  },
+  {
+    "id": "book-6-10",
+    "title": "习题6-10：并联电感总初值为零，是否就无储能",
+    "chapter": 6,
+    "section": 3,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "storage-networks",
+    "sourceKind": "textbook",
+    "exercise": "6-10",
+    "pages": "135–136"
+  },
+  {
+    "id": "book-7-4",
+    "title": "习题7-4：换路以后，Req为什么不是原来的电阻",
+    "chapter": 7,
+    "section": 2,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "zero-input",
+    "sourceKind": "textbook",
+    "exercise": "7-4",
+    "pages": "191–192"
+  },
+  {
+    "id": "book-9-5",
+    "title": "习题9-5：先画相量关系，再反求未知感抗",
+    "chapter": 9,
+    "section": 2,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "phasor-diagrams",
+    "sourceKind": "textbook",
+    "exercise": "9-5",
+    "pages": "245"
+  },
+  {
+    "id": "book-12-9",
+    "title": "习题12-9：不相同的三角形支路，线电流能否对称",
+    "chapter": 12,
+    "section": 4,
+    "difficulty": "教材习题",
+    "secondary": false,
+    "slug": "unbalanced-three-phase",
+    "sourceKind": "textbook",
+    "exercise": "12-9",
+    "pages": "314"
+  }
+]

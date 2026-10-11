@@ -39,10 +39,12 @@ const entries: SearchResult[] = [
   ...challengeIndex.map((problem) => ({
     id: `challenge-${problem.id}`,
     title: problem.title,
-    detail: `§${problem.id} · ${problem.difficulty}`,
+    detail: problem.exercise
+      ? `教材习题${problem.exercise} · 第5版书页${problem.pages}`
+      : `§${problem.id} · ${problem.difficulty}`,
     kind: "提高题",
     href: `/learn/${problem.slug}#challenge-${problem.id}`,
-    keywords: `综合 难题 ${problem.title}`,
+    keywords: `综合 难题 习题 ${problem.exercise ?? ""} ${problem.title}`,
     area: areaForArticle(problem.slug).id,
     chapter: problem.chapter,
   })),

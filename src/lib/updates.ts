@@ -2,6 +2,14 @@
 export const contentUpdates = [
   {
     date: "2026-10-11",
+    title: "新增教材带图选题与四种储能元件等效图",
+    description:
+      "10道教材习题保留题号与书页，按连接、方法、方程、检验展开解答。",
+    slug: "storage-networks",
+    revision: "textbook-exercises-20261011",
+  },
+  {
+    date: "2026-10-11",
     title: "53个教材小节独立学习，新增53道综合提高题",
     description:
       "每节提供原创多步题、可选提示与分步解答，章节聚合讲解已融入对应小节。",

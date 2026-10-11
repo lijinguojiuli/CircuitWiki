@@ -5,6 +5,73 @@ const multiply = ([a, b]: ComplexPair, [c, d]: ComplexPair): ComplexPair => [
 ];
 export function checkResiduals(check: ProblemCheck): number[] {
   switch (check.kind) {
+    case "exponentialIntegral":
+      return [
+        (check.amplitude / check.rate) *
+          (1 - Math.exp(-check.rate * check.time)) -
+          check.expected,
+      ];
+    case "equivalentNetwork": {
+      // Apply a unit port voltage and solve all internal nodes independently.
+      const [positive, negative] = check.terminals;
+      const nodes = [
+        ...new Set(
+          check.branches.flatMap((branch) => [branch.from, branch.to]),
+        ),
+      ].filter((node) => node !== positive && node !== negative);
+      const matrix = nodes.map(() => nodes.map(() => 0));
+      const rhs = nodes.map(() => 0);
+      const weight = (value: number) =>
+        check.family === "C" ? value : 1 / value;
+      for (const branch of check.branches) {
+        for (const [from, to] of [
+          [branch.from, branch.to],
+          [branch.to, branch.from],
+        ]) {
+          const index = nodes.indexOf(from);
+          if (index < 0) continue;
+          const w = weight(branch.value);
+          matrix[index][index] += w;
+          if (to === positive) rhs[index] += w;
+          else if (to !== negative) matrix[index][nodes.indexOf(to)] -= w;
+        }
+      }
+      const rows = matrix.map((row, index) => [...row, rhs[index]]);
+      for (let k = 0; k < nodes.length; k++) {
+        let pivot = k;
+        for (let i = k + 1; i < nodes.length; i++)
+          if (Math.abs(rows[i][k]) > Math.abs(rows[pivot][k])) pivot = i;
+        [rows[k], rows[pivot]] = [rows[pivot], rows[k]];
+        const divisor = rows[k][k];
+        if (Math.abs(divisor) < 1e-15) return [NaN];
+        rows[k] = rows[k].map((value) => value / divisor);
+        for (let i = 0; i < nodes.length; i++)
+          if (i !== k) {
+            const factor = rows[i][k];
+            rows[i] = rows[i].map((value, j) => value - factor * rows[k][j]);
+          }
+      }
+      const potential = (node: string) =>
+        node === positive
+          ? 1
+          : node === negative
+            ? 0
+            : rows[nodes.indexOf(node)][nodes.length];
+      const flow = check.branches.reduce(
+        (sum, branch) =>
+          sum +
+          (branch.from === positive
+            ? weight(branch.value) * (1 - potential(branch.to))
+            : branch.to === positive
+              ? weight(branch.value) * (1 - potential(branch.from))
+              : 0),
+        0,
+      );
+      return [
+        ((check.family === "C" ? flow : 1 / flow) - check.expected) /
+          Math.max(1e-12, Math.abs(check.expected)),
+      ];
+    }
     case "linear":
       return check.matrix.map(
         (row, i) =>

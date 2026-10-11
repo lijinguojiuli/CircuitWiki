@@ -244,7 +244,7 @@ export default function Home() {
           个教材小节，每节都有综合提高题。先尝试完整分析，再展开提示和解答；遇到卡点，沿前置知识补齐理解。
         </p>
         <Link href="/practice">
-          进入综合提高题库
+          进入教材习题与提高练习
           <ArrowRight size={16} />
         </Link>
       </section>

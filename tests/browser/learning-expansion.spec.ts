@@ -12,10 +12,9 @@ test("all 53 in-scope sections have live anchors and rendered instructional cont
     expect(await block.locator(".katex").count()).toBeGreaterThan(0);
     await expect(block).toContainText("代入示例");
     expect(await block.locator(".warning").count()).toBeGreaterThan(0);
-    await expect(block.locator(".challenge-problem")).toHaveAttribute(
-      "data-challenge-id",
-      `${topic.chapter}-${topic.section}`,
-    );
+    await expect(
+      block.locator('.challenge-problem[data-problem-source="original"]'),
+    ).toHaveAttribute("data-challenge-id", `${topic.chapter}-${topic.section}`);
   }
   await page.goto("/curriculum");
   await expect(page.locator("h1")).toHaveText("学习路线");
