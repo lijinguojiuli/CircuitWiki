@@ -167,24 +167,9 @@ u、i、p 表示瞬时量，直流时也可直接代入恒定数值。KCL 统一
 
 <Example title="串联分压中的两条定律">
 
-**题目：** 12 V 电源串联 2 kΩ 与 4 kΩ 电阻，求电流、输出电压和两个电阻的功率。
+**题目：** 12 V电源串联2 kΩ、4 kΩ，求电流、4 kΩ上端A电压及两电阻功率。
 
-<CircuitDiagram
-  type="divider"
-  caption="US = 12 V，R₁ = 2 kΩ，R₂ = 4 kΩ；A 点为输出"
-/>
-
-**思路：** A 点只有两条支路，由 KCL 可知两电阻电流相同。沿回路写 KVL，再使用欧姆定律。
-
-**计算步骤：**
-
-<Formula latex={"12-2000I-4000I=0\\Rightarrow I=2\\,\\mathrm{mA}"} />
-
-<Formula latex={"U_A=IR_2=8\\,\\mathrm V"} />
-
-<Formula latex={"P_1=I^2R_1=8\\,\\mathrm{mW},\\quad P_2=16\\,\\mathrm{mW}"} />
-
-**最终答案：** 电流 2 mA，输出 8 V；两个电阻分别吸收 8 mW、16 mW。电源提供 12 V × 2 mA = 24 mW，与总耗散一致。
+<WorkedExample id="example-kcl-kvl-1" />
 
 </Example>
 

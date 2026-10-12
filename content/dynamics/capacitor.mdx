@@ -105,18 +105,9 @@ du/dt 是每秒电压变化多少伏；W 是电场储能。使用关联参考方
 
 <Example title="由电流积分求电压和储能">
 
-**题目：** C=100 μF，初始电压1 V，恒定2 mA流入正端，持续0.1 s。求末电压与末储能。
+**题目：** C=100 μF，uC(0)=1 V，2 mA恒流流入正端0.1 s。求末电压和储能。
 
-**思路：** 恒定电流使电压线性变化，电压增量为it/C；初始电压必须另外保留。
-
-<Formula
-  latex={"u_C(0.1)=1+\\frac{0.002\\times0.1}{100\\times10^{-6}}=3\\,\\mathrm V"}
-/>
-<Formula
-  latex={"W_C=\\frac12\\times100\\times10^{-6}\\times3^2=0.45\\,\\mathrm{mJ}"}
-/>
-
-**核验：** 初始储能0.05 mJ，增加0.40 mJ；储能变化取决于电压平方，不能简单按电压增量的平方计算。
+<WorkedExample id="example-capacitor-1" />
 
 </Example>
 

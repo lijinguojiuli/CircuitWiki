@@ -5,7 +5,7 @@ import { challengeIndex } from "../src/lib/challenges/catalogue.ts";
 const solutions = JSON.parse(
   await fs.readFile("src/lib/challenges/worked-solutions.json", "utf8"),
 );
-const scratch = path.resolve("../../work/solution-diagrams/steps");
+const scratch = path.resolve("../../work/all-solutions/steps");
 await fs.mkdir(scratch, { recursive: true });
 await fs.mkdir("docs/screenshots", { recursive: true });
 const browser = await chromium.launch({
@@ -16,11 +16,9 @@ await page.addInitScript(() =>
   localStorage.setItem("circuitwiki-theme-monochrome", "light"),
 );
 const origin = process.env.CAPTURE_ORIGIN || "http://localhost:3000";
-const examples = {
-  "example-thevenin-divider": "thevenin",
-  "example-source-transform": "source-transformations",
-  "example-bridge-port": "bridge-arm",
-};
+const examples = JSON.parse(
+  await fs.readFile("src/lib/challenges/worked-example-index.json", "utf8"),
+);
 const selected = {
   "example-thevenin-divider": [1, 5, 7, 8],
   "book-2-7": [1, 2],
@@ -34,7 +32,7 @@ const style = ".header,.skip-link {visibility:hidden!important;}";
 for (const [id, steps] of Object.entries(solutions)) {
   const example = id.startsWith("example-");
   const slug = example
-    ? examples[id]
+    ? examples[id].slug
     : challengeIndex.find((entry) => entry.id === id).slug;
   await page.goto(`${origin}/learn/${slug}`);
   await page.waitForLoadState("networkidle");
@@ -45,6 +43,7 @@ for (const [id, steps] of Object.entries(solutions)) {
   );
   if (!example) await scope.locator("summary").click();
   for (let i = 0; i < steps.length; i++) {
+    if (!steps[i].figure) continue;
     const step = scope.locator("[data-worked-step]").nth(i);
     const filename = `${id}-${i + 1}.png`;
     await step

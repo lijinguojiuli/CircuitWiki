@@ -48,10 +48,11 @@ async function inspect(route, variant = "default") {
     const geometry = await svg.evaluate(auditSvg);
     const number = String(diagrams.length + 1).padStart(3, "0");
     const filename = `${number}-${hash}.png`;
-    await svg.screenshot({
-      path: path.join(destination, filename),
-      style: ".header,.skip-link { visibility:hidden!important; }",
-    });
+    if (process.env.AUDIT_SCREENSHOTS !== "false" || geometry.collisions.length)
+      await svg.screenshot({
+        path: path.join(destination, filename),
+        style: ".header,.skip-link { visibility:hidden!important; }",
+      });
     diagrams.push({ number, route, variant, index, filename, ...geometry });
   }
 }

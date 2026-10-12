@@ -82,46 +82,17 @@ Z 是每相Y负载阻抗，Zₗ 是对应线路阻抗。计算负载端电压时
 
 <Example title="用一相法计算对称Y负载">
 
-**题目：** 电源相电压100∠0° V，忽略线路阻抗，三相Y负载均为 Z=3+j4 Ω。求三条线电流与中性线电流。
+**题目：** 正序电源相电压100∠0° V，忽略线路，Y负载每相3+j4 Ω。求三条线电流及中性线电流。
 
-**思路：** 先对A相用相量欧姆定律，另外两相只改变相位。
-
-**计算步骤：**
-
-<Formula
-  latex={
-    "Z=5\\angle53.13^\\circ\\,\\Omega,\\quad\\dot I_A=\\frac{100\\angle0^\\circ}{5\\angle53.13^\\circ}=20\\angle(-53.13^\\circ)\\,\\mathrm A"
-  }
-/>
-
-<Formula
-  latex={
-    "\\dot I_B=20\\angle(-173.13^\\circ)\\,\\mathrm A,\\quad\\dot I_C=20\\angle66.87^\\circ\\,\\mathrm A"
-  }
-/>
-
-<Formula latex={"\\dot I_N=0"} />
-
-**最终答案：** 三条线电流有效值均为20 A，分别滞后对应相电压53.13°；它们的相量和为零。
+<WorkedExample id="example-balanced-three-phase-1" />
 
 </Example>
 
 <Example title="同一相阻抗分别接Y和Δ">
 
-**题目：** 对称线电压380 V、每相电阻30 Ω，忽略线路阻抗，比较两种接法。
+**题目：** 对称线电压380 V，每相电阻30 Ω，忽略线路。比较同一相阻抗接Y与Δ时的相电流和线电流。
 
-<Formula
-  latex={
-    "Y: U_p=\\frac{380}{\\sqrt3}=219.393\\,\\mathrm V,\\quad I_l=I_p=7.313\\,\\mathrm A"
-  }
-/>
-<Formula
-  latex={
-    "\\Delta: U_p=380\\,\\mathrm V,\\quad I_p=12.667\\,\\mathrm A,\\quad I_l=\\sqrt3I_p=21.939\\,\\mathrm A"
-  }
-/>
-
-**结论：** 相阻抗不变而改变接法，Δ线电流是Y的3倍。若要求端口等效，应取ZΔ=3ZY，而不是保持相阻抗不变。
+<WorkedExample id="example-balanced-three-phase-2" />
 
 </Example>
 

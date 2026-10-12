@@ -79,23 +79,9 @@ U、I使用有效值。先理解功率因数与电流的关系，再进行具体
 
 <Example title="求并联补偿电容及电源电流">
 
-**题目：** 正弦单相负载P=1 kW、U=220 V、f=50 Hz，功率因数从0.8提高到1，求并联电容。
+**题目：** 【非重点】P=1 kW、U=220 V、f=50 Hz的感性单相负载，功率因数从0.8提高到1，求并联电容及补偿前后的源电流。
 
-<Formula
-  latex={"\\tan\\phi_1=0.75,\\quad Q_C=-P\\tan\\phi_1=-750\\,\\mathrm{var}"}
-/>
-<Formula
-  latex={
-    "C=\\frac{750}{2\\pi\\times50\\times220^2}\\approx49.33\\,\\mathrm{\\mu F}"
-  }
-/>
-<Formula
-  latex={
-    "I_{\\text{补偿前}}=\\frac{1000}{220\\times0.8}=5.682\\,\\mathrm A,\\quad I_{\\text{补偿后}}=\\frac{1000}{220}=4.545\\,\\mathrm A"
-  }
-/>
-
-**核验：** 负载有功仍为1 kW，改善的是电源侧无功和电流。若目标不是1，应保留tanφ2；容性过补偿仍可能增大电流。
+<WorkedExample id="example-power-factor-1" />
 
 </Example>
 

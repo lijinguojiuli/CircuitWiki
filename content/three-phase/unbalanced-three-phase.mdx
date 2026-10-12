@@ -94,31 +94,9 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 
 <Example title="同一负载断开中性线后的电压变化">
 
-**题目：** 正序电源 UA=220∠0° V，RA=10 Ω、RB=RC=20 Ω，忽略线路阻抗，中性线断开。求中性点位移及各相负载电压有效值。
+**题目：** 【非重点】正序源UA=220∠0° V，RA=10 Ω、RB=RC=20 Ω，忽略线路、中性线断开。求中性点位移和负载相电压。
 
-**思路：** 用YA=0.1 S、YB=YC=0.05 S。B、C电压相量之和为−220 V，不能把两相幅值直接相加。
-
-**计算步骤：**
-
-<Formula
-  latex={
-    "\\dot U_{N'N}=\\frac{0.1\\times220+0.05(-220)}{0.1+0.05+0.05}=55\\angle0^\\circ\\,\\mathrm V"
-  }
-/>
-
-<Formula latex={"\\dot U_{AN'}=220-55=165\\,\\mathrm V"} />
-
-<Formula
-  latex={
-    "\\dot U_{BN'}=-165-j190.526\\,\\mathrm V,\\quad\\dot U_{CN'}=-165+j190.526\\,\\mathrm V"
-  }
-/>
-
-<Formula
-  latex={"U_{BN'}=U_{CN'}=\\sqrt{165^2+190.526^2}\\approx252.04\\,\\mathrm V"}
-/>
-
-**最终答案：** 中性点向A相电位偏移55 V；A负载电压降为165 V，B、C升为约252.04 V。断开中性线时三条线电流的相量和为零，但各相电压、电流仍不对称。
+<WorkedExample id="example-unbalanced-three-phase-1" />
 
 </Example>
 
@@ -130,21 +108,9 @@ Y负载需先辨认中性线状态：有理想中性线时 N′ 与 N 等电位�
 
 <Example title="不对称Δ逐支路计算，不能套√3">
 
-**题目：** UAB=100∠0° V，UBC=100∠−120° V，UCA=100∠120° V；RAB=10 Ω、RBC=20 Ω、RCA=10 Ω，忽略线路阻抗。
+**题目：** Δ负载：UAB=100∠0°、UBC=100∠−120°、UCA=100∠120° V；RAB=10 Ω、RBC=20 Ω、RCA=10 Ω，忽略线路。求线电流和总有功。
 
-<Formula
-  latex={
-    "\\dot I_{AB}=10,\\quad\\dot I_{BC}=-2.5-j4.330,\\quad\\dot I_{CA}=-5+j8.660\\quad(\\mathrm A)"
-  }
-/>
-<Formula latex={"\\dot I_A=\\dot I_{AB}-\\dot I_{CA}=15-j8.660\\,\\mathrm A"} />
-<Formula
-  latex={
-    "\\dot I_B=-12.5-j4.330\\,\\mathrm A,\\quad\\dot I_C=-2.5+j12.990\\,\\mathrm A"
-  }
-/>
-
-**核验：** 三线电流相量和为0，但其有效值不全相等。三相有功功率为100²/10+100²/20+100²/10=2500 W。
+<WorkedExample id="example-unbalanced-three-phase-2" />
 
 </Example>
 

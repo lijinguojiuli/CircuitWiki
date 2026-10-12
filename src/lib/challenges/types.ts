@@ -121,8 +121,15 @@ export type ProblemNetwork = {
   notes?: { x: number; y: number; text: string }[];
   caption?: string;
   emphasis?: number[];
+  loops?: { x: number; y: number; rx: number; ry: number; label: string }[];
 };
 export type WorkedFigure =
+  | {
+      kind: "graph";
+      title: string;
+      check: Extract<ProblemCheck, { kind: "graph" }>;
+      activeEdges?: number[];
+    }
   | { kind: "circuit"; title: string; network: ProblemNetwork }
   | { kind: "phasor"; title: string; group: ProblemPhasors }
   | {
@@ -145,7 +152,14 @@ export type WorkedStep = {
 export type ProblemPhasors = {
   unit: string;
   caption: string;
-  vectors: { label: string; real: number; imag: number }[];
+  resultLabel?: string;
+  vectors: {
+    label: string;
+    real: number;
+    imag: number;
+    start?: ComplexPair;
+    labelOffset?: ComplexPair;
+  }[];
 };
 export type Challenge = {
   id: string;

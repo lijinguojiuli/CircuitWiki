@@ -2,7 +2,11 @@ import data from "./data.json";
 import textbookData from "./textbook.json";
 import workedData from "./worked-solutions.json";
 import type { Challenge, WorkedStep } from "./types";
-export const workedSolutions = workedData as Record<string, WorkedStep[]>;
+// JSON arrays infer as number[]; runtime figure validation covers tuple shapes.
+export const workedSolutions = workedData as unknown as Record<
+  string,
+  WorkedStep[]
+>;
 const withWorkedSteps = (problem: Challenge): Challenge => ({
   ...problem,
   steps: workedSolutions[problem.id] ?? problem.steps,

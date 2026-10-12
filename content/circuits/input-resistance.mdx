@@ -84,30 +84,17 @@ Rin为输入电阻，Req为所选端口的等效电阻，单位Ω；ut是测试�
 
 <Example title="两个电阻的输入电阻：直接化简与测试源核验">
 
-**题目：** 独立源置零后，A—B端口内有2 kΩ与4 kΩ并联，求输入电阻。
+**题目：** 独立源置零后，A-B端口内2 kΩ与4 kΩ并联，求输入电阻并用测试源核验。
 
-<Formula
-  latex={"R_{in}=\\frac{2000\\times4000}{2000+4000}\\approx1333.33\\,\\Omega"}
-/>
-
-**测试源核验：** 加ut=1 V，两支路电流分别0.5 mA、0.25 mA，流入总电流0.75 mA。
-
-<Formula latex={"R_{in}=\\frac1{0.00075}\\approx1333.33\\,\\Omega"} />
+<WorkedExample id="example-input-resistance-1" />
 
 </Example>
 
 <Example title="含受控源时，不能只看电阻元件">
 
-1 kΩ电阻与i=guₓ的受控电流源并联，g=0.5 mS，uₓ=ut，受控电流方向由A流向B。
+**题目：** 1 kΩ与受控电流源i=guAB并联在A-B，g=0.5 mS，电流A→B，网络无独立源。求输入电阻。
 
-<ControlledTestDiagram />
-<Formula
-  latex={
-    "i_t=\\frac1{1000}+0.0005\\times1=1.5\\,\\mathrm{mA},\\qquad R_{in}\\approx666.67\\,\\Omega"
-  }
-/>
-
-结果与1 kΩ不同。含受控源的输入电阻还可能为负或零，应按方程求解，不能预先强制取正。
+<WorkedExample id="example-input-resistance-2" />
 
 </Example>
 

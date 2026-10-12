@@ -103,16 +103,9 @@ di/dt 是每秒电流变化多少安；W 是磁场储能。使用关联参考方
 
 <Example title="从电压求电流变化率">
 
-**题目：** L=10 mH，初始电流0.2 A，关联电压2 V保持0.5 ms，求末电流与储能。
+**题目：** L=10 mH、iL(0)=0.2 A，关联电压2 V保持0.5 ms，求末电流和储能。
 
-<Formula
-  latex={
-    "\\frac{\\mathrm di}{\\mathrm dt}=\\frac2{0.01}=200\\,\\mathrm{A/s},\\quad i_L=0.2+200\\times0.0005=0.3\\,\\mathrm A"
-  }
-/>
-<Formula latex={"W_L=\\frac12\\times0.01\\times0.3^2=0.45\\,\\mathrm{mJ}"} />
-
-**核验：** 电流增量为0.1 A。电压保持有限，因此电流连续变化，不在接通瞬间直接跳到0.3 A。
+<WorkedExample id="example-inductor-1" />
 
 </Example>
 

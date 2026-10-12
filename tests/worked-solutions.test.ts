@@ -1,12 +1,24 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import katex from "katex";
-import { workedSolutions } from "../src/lib/challenges";
+import { workedSolutions, challenges } from "../src/lib/challenges";
+import examples from "../src/lib/challenges/worked-example-index.json";
 import type { ProblemNetwork } from "../src/lib/challenges/types";
 
-test("worked solutions pair each operation with one valid figure and detailed reasoning", () => {
-  assert.equal(Object.keys(workedSolutions).length, 25);
-  assert.equal(Object.values(workedSolutions).flat().length, 121);
+test("all problems and inline examples contain detailed steps and valid relevant figures", () => {
+  assert.equal(challenges.length, 96);
+  assert.equal(Object.keys(examples).length, 34);
+  assert.deepEqual(
+    new Set(Object.keys(workedSolutions)),
+    new Set([...challenges.map((p) => p.id), ...Object.keys(examples)]),
+  );
+  for (const [id, steps] of Object.entries(workedSolutions)) {
+    assert.ok(steps.length >= 2, id);
+    assert.ok(
+      steps.some((s) => s.figure),
+      `${id}: missing visual explanation`,
+    );
+  }
   for (const [id, steps] of Object.entries(workedSolutions))
     for (const step of steps) {
       assert.ok(
@@ -16,7 +28,6 @@ test("worked solutions pair each operation with one valid figure and detailed re
           step.check,
         `${id}: missing instruction or check`,
       );
-      assert.ok(step.figure, id);
       assert.doesNotThrow(
         () =>
           katex.renderToString(step.latex, {
@@ -25,10 +36,17 @@ test("worked solutions pair each operation with one valid figure and detailed re
           }),
         `${id}: ${step.latex}`,
       );
+      if (!step.figure) continue;
       if (step.figure.kind === "circuit") {
         const n = step.figure.network,
           ids = new Set(n.nodes.map((node) => node.id));
         assert.equal(ids.size, n.nodes.length, id);
+        assert.ok(
+          n.ground === null || ids.has(n.ground),
+          `${id}: missing ground node`,
+        );
+        for (const arrow of n.arrows ?? [])
+          assert.ok([...arrow.from, ...arrow.to].every(Number.isFinite), id);
         for (const b of n.branches)
           assert.ok(ids.has(b.from) && ids.has(b.to) && b.from !== b.to, id);
         assert.ok(
@@ -41,15 +59,60 @@ test("worked solutions pair each operation with one valid figure and detailed re
         );
         for (const index of n.emphasis ?? [])
           assert.ok(index >= 0 && index < n.branches.length, id);
+      } else if (step.figure.kind === "phasor") {
+        const { vectors, resultLabel } = step.figure.group;
+        assert.ok(
+          vectors.every((v) =>
+            [v.real, v.imag, ...(v.start ?? [0, 0])].every(Number.isFinite),
+          ),
+          id,
+        );
+        if (resultLabel) {
+          const result = vectors.find((v) => v.label === resultLabel)!;
+          assert.ok(result, id);
+          const parts = vectors.filter((v) => v !== result);
+          const sum = parts.reduce(
+            ([r, i], v) => [r + v.real, i + v.imag],
+            [0, 0],
+          );
+          assert.ok(
+            Math.hypot(sum[0] - result.real, sum[1] - result.imag) <
+              1e-8 * Math.max(1, Math.hypot(...sum)),
+            id,
+          );
+          let real = 0,
+            imag = 0;
+          for (const v of parts) {
+            assert.ok(
+              Math.hypot(real - v.start![0], imag - v.start![1]) < 1e-8,
+              id,
+            );
+            real += v.real;
+            imag += v.imag;
+          }
+        }
       } else if (step.figure.kind === "plot") {
-        assert.ok(step.figure.series.length <= 2, id);
+        assert.ok(step.figure.series.length <= 3, id);
         for (const s of step.figure.series) {
-          assert.ok(s.points.length > 2, id);
+          assert.ok(s.points.length >= 2, id);
           s.points.forEach(([x, y], i) => {
             assert.ok(Number.isFinite(x) && Number.isFinite(y), id);
-            if (i) assert.ok(x > s.points[i - 1][0], id);
+            if (i) assert.ok(x >= s.points[i - 1][0], id);
           });
+          assert.ok(s.points.at(-1)![0] > s.points[0][0], id);
         }
+      } else if (step.figure.kind === "graph") {
+        const { check, activeEdges } = step.figure;
+        assert.ok(
+          check.edges.every(
+            ([a, b]) => check.nodes.includes(a) && check.nodes.includes(b),
+          ),
+          id,
+        );
+        assert.ok(
+          activeEdges?.every((i) => i >= 0 && i < check.edges.length),
+          id,
+        );
       }
     }
 });
@@ -178,6 +241,16 @@ test("numeric source transformations and negative-polarity equivalents preserve 
     ["example-bridge-port", 4, "a", 14],
     ["example-bridge-port", 5, "a", 8.4],
     ["example-bridge-port", 6, "a", 8.4],
+    ["7-1", 0, "A", 8],
+    ["7-1", 1, "A", 8],
+    ["7-1", 1, "S", -6],
+    ["7-1", 2, "A", -4],
+    ["7-3", 0, "B", 24],
+    ["7-3", 1, "A", 8],
+    ["7-3", 1, "B", 0],
+    ["example-mesh-analysis-1", 0, "A", 5.6],
+    ["example-mesh-analysis-1", 1, "A", 5.6],
+    ["example-nodal-analysis-1", 0, "A", 28 / 3],
   ] as const) {
     const fig = workedSolutions[id][index].figure!;
     assert.equal(fig.kind, "circuit");

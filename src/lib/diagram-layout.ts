@@ -1,4 +1,4 @@
-import type { ProblemNetwork } from "./challenges/types";
+import type { ProblemNetwork, ProblemPhasors } from "./challenges/types";
 
 type Point = [number, number];
 type Box = { left: number; right: number; top: number; bottom: number };
@@ -24,6 +24,100 @@ function crossesBox(a: Point, b: Point, box: Box) {
     if (start > end) return false;
   }
   return true;
+}
+
+/** Allocate clear label positions for both origin-based and head-to-tail vectors. */
+export function phasorLabelPositions(
+  group: ProblemPhasors,
+  scale: number,
+): Point[] {
+  const vectors = group.vectors.filter(
+    (v) => Math.hypot(v.real, v.imag) * scale > 1e-6,
+  );
+  const segments = vectors.map((v) => ({
+    a: [
+      180 + scale * (v.start?.[0] ?? 0),
+      170 - scale * (v.start?.[1] ?? 0),
+    ] as Point,
+    b: [
+      180 + scale * (v.real + (v.start?.[0] ?? 0)),
+      170 - scale * (v.imag + (v.start?.[1] ?? 0)),
+    ] as Point,
+  }));
+  segments.push(
+    { a: [30, 170], b: [370, 170] },
+    { a: [180, 25], b: [180, 315] },
+  );
+  const occupied: Box[] = [
+    { left: 348, right: 372, top: 175, bottom: 194 },
+    { left: 148, right: 172, top: 5, bottom: 24 },
+  ];
+  return vectors.map((v, i) => {
+    const end = segments[i].b,
+      start = segments[i].a;
+    const width =
+      [...v.label].reduce(
+        (sum, c) => sum + (/[\u2e80-\u9fff]/.test(c) ? 14 : 8),
+        0,
+      ) + 8;
+    const offsets: Point[] = [
+      v.labelOffset ?? [v.real < 0 ? -22 : 22, v.imag < 0 ? 24 : -16],
+    ];
+    for (const radius of [24, 40, 58, 78])
+      for (const [dx, dy] of [
+        [0, -1],
+        [0, 1],
+        [-1, 0],
+        [1, 0],
+        [-1, -1],
+        [1, -1],
+        [-1, 1],
+        [1, 1],
+      ])
+        offsets.push([dx * radius, dy * radius]);
+    const candidates = offsets.map(
+      ([dx, dy]) => [end[0] + dx, end[1] + dy] as Point,
+    );
+    for (const t of [0.5, 0.25, 0.75])
+      for (const side of [-1, 1]) {
+        const len = Math.hypot(end[0] - start[0], end[1] - start[1]);
+        candidates.push([
+          start[0] +
+            (end[0] - start[0]) * t -
+            (side * (end[1] - start[1]) * 25) / len,
+          start[1] +
+            (end[1] - start[1]) * t +
+            (side * (end[0] - start[0]) * 25) / len,
+        ]);
+      }
+    const bounds = ([x, y]: Point): Box => ({
+      left: x - width / 2,
+      right: x + width / 2,
+      top: y - 17,
+      bottom: y + 5,
+    });
+    const score = (p: Point) => {
+      const b = bounds(p);
+      let value = 0;
+      if (b.left < 5 || b.right > 395 || b.top < 5 || b.bottom > 335)
+        value += 1000;
+      value += segments.filter((s) => crossesBox(s.a, s.b, b)).length * 20;
+      value +=
+        occupied.filter(
+          (a) =>
+            b.left < a.right + 3 &&
+            b.right > a.left - 3 &&
+            b.top < a.bottom + 3 &&
+            b.bottom > a.top - 3,
+        ).length * 40;
+      return value;
+    };
+    const selected = candidates.reduce((best, p) =>
+      score(p) < score(best) ? p : best,
+    );
+    occupied.push(bounds(selected));
+    return selected;
+  });
 }
 
 /** Keep node names beside clear space, rather than on an incident vertical wire. */

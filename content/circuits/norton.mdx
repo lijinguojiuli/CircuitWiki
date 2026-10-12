@@ -58,18 +58,9 @@ IN 是诺顿电流，Isc 是端口短路电流；RN 与戴维宁等效电阻相�
 
 <Example title="接负载后，先分流再求电压">
 
-**题目：** uoc=12 V，Req=3 kΩ，负载RL=6 kΩ。用诺顿模型求负载电流。
+**题目：** uoc=12 V、Req=3 kΩ、RL=6 kΩ，用诺顿模型求负载电流并验算。
 
-**思路：** 换成4 mA电流源并联3 kΩ，接入负载后使用分流。
-
-<Formula
-  latex={
-    "i_{sc}=12/3000=4\\,\\mathrm{mA},\\qquad i_L=4\\frac{3}{3+6}=\\frac43\\,\\mathrm{mA}"
-  }
-/>
-<Formula latex={"u_L=i_LR_L=8\\,\\mathrm V"} />
-
-**核验：** 戴维宁模型直接算12/(3+6) kΩ，得到同样结果。并联电阻中的电流为8/3000=2.667 mA，与负载电流相加为4 mA。
+<WorkedExample id="example-norton-1" />
 
 </Example>
 

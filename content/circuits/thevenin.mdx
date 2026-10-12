@@ -111,19 +111,9 @@
 
 <Example title="含受控源时的测试源法">
 
-1 kΩ电阻与受控电流源并联在A-B之间，受控电流i=guₓ，方向A→B。uₓ就是A对B电压，g=0.5 mS。网络没有独立源。
+**题目：** 1 kΩ与受控电流源i=guAB并联在A-B，g=0.5 mS，电流A→B，网络无独立源。求输入电阻。
 
-<ControlledTestDiagram />
-
-开路、短路响应均为0，不能取0/0。加ut=1 V，保留受控源，由uₓ=ut得：
-
-<Formula
-  latex={
-    "i_t=\\frac1{1000}+0.0005\\times1=1.5\\,\\mathrm{mA},\\qquad R_{eq}=\\frac1{0.0015}\\approx666.67\\,\\Omega"
-  }
-/>
-
-若错误删除受控源，会误算成1 kΩ。
+<WorkedExample id="example-thevenin-2" />
 
 </Example>
 

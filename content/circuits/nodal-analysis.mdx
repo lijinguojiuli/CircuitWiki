@@ -130,30 +130,9 @@ uₙ 是正在分析的结点电压，uₖ 是相邻结点电压，Rₙₖ 是�
 
 <Example title="电压源与电流源共同作用的节点">
 
-**题目：** 求图中 A 点电压。右侧 1 mA 电流源向上注入，通过 R₃ 流向 A。
+**题目：** US=12 V，R₁=2 kΩ、R₂=4 kΩ，右侧1 mA源经R₃=1 kΩ向A注入。求A电位及支路电流。
 
-<CircuitDiagram
-  type="nodal"
-  caption="US = 12 V；R₁ = 2 kΩ，R₂ = 4 kΩ，R₃ = 1 kΩ；IS = 1 mA 向上"
-/>
-
-**思路：** 右支路没有分叉，因此流经 R₃ 注入 A 的电流固定为 1 mA。选择下方导线为参考节点，只需对 A 写一个方程。
-
-**计算步骤：**
-
-<Formula latex={"\\frac{u_{n1}-12}{2000}+\\frac{u_{n1}}{4000}=0.001"} />
-
-<Formula
-  latex={"2(u_{n1}-12)+u_{n1}=4\\Rightarrow u_{n1}=\\frac{28}{3}\\,\\mathrm V"}
-/>
-
-<Formula
-  latex={
-    "i_{R_1}=\\frac{12-u_{n1}}{2000}=1.333\\,\\mathrm{mA},\\quad i_{R_2}=2.333\\,\\mathrm{mA}"
-  }
-/>
-
-**最终答案：** A 点电压约 9.333 V；1.333 mA + 1 mA = 2.333 mA，满足 KCL。右端节点电位为 10.333 V，因为 R₃ 的压降为 1 V。
+<WorkedExample id="example-nodal-analysis-1" />
 
 </Example>
 

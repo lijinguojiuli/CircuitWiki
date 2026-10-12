@@ -42,7 +42,8 @@ test("challenging nodal problem keeps hints and solution optional and renders al
   await expect(problem.locator(".challenge-hints")).toContainText("电压约束");
   await problem.locator(".challenge-solution summary").click();
   await expect(problem.locator(".challenge-answer")).toContainText("7.77778");
-  await expect(problem.locator(".problem-schematic svg")).toBeVisible();
+  await expect(problem.locator(".problem-schematic svg").first()).toBeVisible();
+  await expect(problem.locator(".challenge-solution .problem-schematic svg")).toHaveCount(3);
   await expect(problem.locator(".katex-error")).toHaveCount(0);
 });
 test("challenge pages fit mobile with long answers and dark diagrams", async ({

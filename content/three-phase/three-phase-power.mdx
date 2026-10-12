@@ -89,25 +89,9 @@ Uₚ、Iₚ是相电压、相电流有效值，Uₗ、Iₗ是线有效值。功�
 
 <Example title="用线值计算对称三相功率">
 
-**题目：** 对称三相负载，线电压380 V、线电流10 A，功率因数0.8（感性）。求总有功功率P、无功功率Q和视在功率S。
+**题目：** 对称三相负载，线电压380 V、线电流10 A，功率因数0.8（感性），求总P、Q、S。
 
-**思路：** 已知量都是线有效值，采用√3线值式。感性负载取sinφ=+0.6，因此无功功率为正。
-
-**计算步骤：**
-
-<Formula
-  latex={"P=\\sqrt3\\times380\\times10\\times0.8\\approx5.265\\,\\mathrm{kW}"}
-/>
-
-<Formula
-  latex={"Q=\\sqrt3\\times380\\times10\\times0.6\\approx3.949\\,\\mathrm{kvar}"}
-/>
-
-<Formula latex={"S=\\sqrt3\\times380\\times10\\approx6.582\\,\\mathrm{kVA}"} />
-
-<Formula latex={"S=\\sqrt{P^2+Q^2},\\qquad P/S=0.8"} />
-
-**最终答案：** P≈5.265 kW、Q≈3.949 kvar、S≈6.582 kVA。电路连接方式不同，也应先分清线值与相值，不能把相电压代入上述线值式。
+<WorkedExample id="example-three-phase-power-1" />
 
 </Example>
 

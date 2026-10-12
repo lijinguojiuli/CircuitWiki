@@ -123,24 +123,9 @@ uC(0⁺) 是换路刚完成时的电容电压，uC(∞) 是等很久后的电压
 
 <Example title="100 μF 电容的充电过程">
 
-**题目：** R = 1 kΩ，C = 100 μF，US = 5 V，电容初始未充电。求 τ、t=τ 和 t=5τ 时的电压。
+**题目：** 5 V经1 kΩ给100 μF电容充电，电容初压0。求τ及t=τ、5τ时电压。
 
-<CircuitDiagram
-  type="rc"
-  caption="R₁ 为充电电阻，US 为 t=0 加入的直流阶跃，电容初始电压为零"
-/>
-
-**思路：** 先把 μF 换算为 F。理想稳态时电流为零，电阻没有压降，电容电压最终等于输入电压。
-
-**计算步骤：**
-
-<Formula latex={"\\tau=1000\\times100\\times10^{-6}=0.1\\,\\mathrm s"} />
-
-<Formula latex={"u_C(0.1)=5(1-e^{-1})\\approx3.161\\,\\mathrm V"} />
-
-<Formula latex={"u_C(0.5)=5(1-e^{-5})\\approx4.966\\,\\mathrm V"} />
-
-**最终答案：** 时间常数 0.1 s；一个时间常数后达到终值的 63.2%，五个时间常数后达到约 99.3%，但数学上并非完全达到终值。
+<WorkedExample id="example-rc-circuit-1" />
 
 </Example>
 

@@ -62,13 +62,9 @@
 
 <Example title="用10 Ω电阻看出遗漏的交叉项">
 
-两个独立源单独作用时，同一电阻的电流分别为同方向1 A、2 A。先叠加得总电流3 A。
+**题目：** 同一10 Ω电阻，两个独立源分别产生同方向1 A、2 A的分电流。求共同作用的功率，比较分功率之和。
 
-<Formula latex={"p=10(1+2)^2=90\\,\\mathrm W"} />
-
-<Formula latex={"p'+p''=10\\times1^2+10\\times2^2=50\\,\\mathrm W"} />
-
-少掉的40 W正是交叉项。正确答案为90 W。
+<WorkedExample id="example-superposition-1" />
 
 </Example>
 
@@ -107,25 +103,9 @@
 
 <Example title="先求R₂电流，再求吸收功率">
 
-**题目：** US=12 V，IS=1 mA，R₁=2 kΩ，R₂=4 kΩ。求R₂中向下的电流与功率。
+**题目：** US=12 V、IS=1 mA、R₁=2 kΩ、R₂=4 kΩ。电流源向A注入，求R₂向下电流与功率。
 
-**电压源单独作用：** 电流源开路，两个电阻串联。
-
-<Formula latex={"i_2'=\\frac{12}{2000+4000}=2\\,\\mathrm{mA}"} />
-
-**电流源单独作用：** 电压源短路，R₁、R₂并联分流。
-
-<Formula latex={"i_2''=1\\times\\frac2{2+4}=\\frac13\\,\\mathrm{mA}"} />
-
-**叠加电流，再计算功率：**
-
-<Formula
-  latex={
-    "i_2=\\frac73\\,\\mathrm{mA},\\quad p_2=4000\\left(\\frac7{3000}\\right)^2\\approx21.778\\,\\mathrm{mW}"
-  }
-/>
-
-**最终答案：** 电流约2.333 mA，功率约21.778 mW。若先算分功率再相加，只会得到16.444 mW，遗漏交叉项5.333 mW。
+<WorkedExample id="example-superposition-2" />
 
 </Example>
 

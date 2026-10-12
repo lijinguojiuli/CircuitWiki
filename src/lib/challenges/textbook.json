@@ -5273,7 +5273,7 @@
         "explanation": "两者实部都为线圈电阻的正有功，虚部相加等于总电感无功。"
       }
     ],
-    "answer": "\\dot I=0.338462-j0.507692A,\\quad L_<function eq at 0x000001CF23767560>=3H,\\quad\\overline S_1+\\overline S_2=74.4615+j111.692VA",
+    "answer": "\\dot I=0.338462-j0.507692A,\\quad L_{eq}=3H,\\quad\\overline S_1+\\overline S_2=74.4615+j111.692VA",
     "checks": [
       {
         "kind": "complexLinear",

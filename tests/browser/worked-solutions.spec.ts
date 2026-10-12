@@ -1,21 +1,16 @@
 import { test, expect } from "@playwright/test";
 import steps from "../../src/lib/challenges/worked-solutions.json";
 import { challengeIndex } from "../../src/lib/challenges/catalogue";
+import examples from "../../src/lib/challenges/worked-example-index.json";
 
-test("illustrated solutions show one figure per detailed operation", async ({
+test("every problem and inline example renders detailed steps with the intended figures", async ({
   page,
 }) => {
-  test.setTimeout(180000);
+  test.setTimeout(360000);
   for (const [id, solution] of Object.entries(steps)) {
     const example = id.startsWith("example-");
     const slug = example
-      ? (
-          {
-            "example-thevenin-divider": "thevenin",
-            "example-source-transform": "source-transformations",
-            "example-bridge-port": "bridge-arm",
-          } as Record<string, string>
-        )[id]
+      ? (examples as Record<string, { slug: string }>)[id].slug
       : challengeIndex.find((item) => item.id === id)!.slug;
     await page.goto(`/learn/${slug}`);
     const scope = page.locator(
@@ -29,7 +24,9 @@ test("illustrated solutions show one figure per detailed operation", async ({
     );
     for (let i = 0; i < solution.length; i++) {
       const step = scope.locator("[data-worked-step]").nth(i);
-      await expect(step.getByRole("img")).toHaveCount(1);
+      await expect(step.getByRole("img")).toHaveCount(
+        "figure" in solution[i] ? 1 : 0,
+      );
       await expect(step.locator(".worked-step-action")).toContainText(
         "本步操作",
       );

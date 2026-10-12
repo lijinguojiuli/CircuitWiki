@@ -145,29 +145,9 @@ u(t) 是随时间变化的瞬时电压；U 是有效值；带点的 U 是包含�
 
 <Example title="串联 RC 的电流相量">
 
-**题目：** 电源有效值相量为 10∠0° V，R=100 Ω，电容在该频率下的阻抗为 −j100 Ω，求电流相量与瞬时电流。
+**题目：** 电源有效值相量10∠0° V，R=100 Ω，电容阻抗−j100 Ω，求电流相量与瞬时电流。
 
-<CircuitDiagram
-  type="rc"
-  sourceLabel="u_S"
-  caption="正弦电源驱动串联 RC，电容电压由阻抗分压求得"
-/>
-
-**思路：** 先将电阻与电容阻抗相加，再将总阻抗转换成极坐标。电容使总阻抗相角为负，因此电流超前电源电压。
-
-**计算步骤：**
-
-<Formula latex={"Z=100-j100=141.421\\angle(-45^\\circ)\\,\\Omega"} />
-
-<Formula
-  latex={
-    "\\dot I=\\frac{10\\angle0^\\circ}{141.421\\angle(-45^\\circ)}=0.07071\\angle45^\\circ\\,\\mathrm A"
-  }
-/>
-
-<Formula latex={"i(t)=0.1\\cos(\\omega t+45^\\circ)\\,\\mathrm A"} />
-
-**最终答案：** 电流有效值为 70.71 mA，超前电压 45°。瞬时电流峰值为 0.1 A；具体角频率由题目给定的电源频率决定。
+<WorkedExample id="example-phasor-1" />
 
 </Example>
 

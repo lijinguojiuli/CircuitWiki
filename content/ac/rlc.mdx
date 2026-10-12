@@ -83,21 +83,9 @@
 
 <Example title="同一L、C分别判断串联与并联谐振">
 
-**串联：** L=10 mH、C=1 μF、R=10 Ω，输入5 V有效值。ω0=10000 rad/s，f0≈1591.55 Hz；I=0.5 A，Q=10，UL=UC=50 V。
+**题目：** 串联：L=10 mH、C=1 μF、R=10 Ω、U=5 V。并联：L、C相同，R=1 kΩ与L、C并联、U=10 V。分别求谐振频率、输入量与支路量。
 
-<Formula
-  latex={"Q_s=\\frac{\\omega_0L}{R}=10,\\quad U_L=U_C=Q_sU=50\\,\\mathrm V"}
-/>
-
-**并联：** L、C相同，但R=1 kΩ与L、C并联，端电压10 V。谐振时源电流仅10 mA，电感和电容支路电流各100 mA，方向相反。
-
-<Formula
-  latex={
-    "I_S=GU=0.01\\,\\mathrm A,\\quad I_L=\\frac{U}{\\omega_0L}=0.1\\,\\mathrm A,\\quad I_C=\\omega_0CU=0.1\\,\\mathrm A"
-  }
-/>
-
-**核验：** 串联输入阻抗最小、并联输入阻抗最大；分量抵消不等于分量本身为零。这里并联模型是独立G、L、C三支路，不是电感串联损耗电阻的另一种拓扑。
+<WorkedExample id="example-rlc-1" />
 
 </Example>
 

@@ -67,20 +67,9 @@ Req 的单位 Ω，L 的单位 H，τ 的单位 s；切换后参数保持固定�
 
 <Example title="初始电流不为零的RL建流">
 
-**题目：** US=10 V、R=5 Ω、L=10 mH，iL(0+)=0.5 A，求2 ms后的电流。
+**题目：** US=10 V、R=5 Ω、L=10 mH，iL(0⁺)=0.5 A。求2 ms后电流。
 
-**步骤：** 终值US/R=2 A；时间常数L/R=2 ms；最后代入三要素通式。
-
-<Formula
-  latex={
-    "\\tau=\\frac{0.01}{5}=0.002\\,\\mathrm s,\\quad i_L(t)=2+(0.5-2)e^{-t/0.002}"
-  }
-/>
-<Formula
-  latex={"i_L(2\\,\\mathrm{ms})=2-1.5e^{-1}\\approx1.448\\,\\mathrm A"}
-/>
-
-**核验：** t=0得到0.5 A，t→∞得到2 A。初始变化率(10−5×0.5)/0.01=750 A/s，与增大趋势一致。
+<WorkedExample id="example-rl-circuit-1" />
 
 </Example>
 

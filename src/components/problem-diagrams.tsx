@@ -1,5 +1,8 @@
 import { Ground, Node } from "./circuit-symbols";
-import { networkNodeLabelOffset } from "@/lib/diagram-layout";
+import {
+  networkNodeLabelOffset,
+  phasorLabelPositions,
+} from "@/lib/diagram-layout";
 import type {
   ProblemNetwork,
   ProblemPhasors,
@@ -9,9 +12,13 @@ import type {
 export function ProblemAbstractGraph({
   check,
   id,
+  activeEdges,
+  title,
 }: {
   check: Extract<ProblemCheck, { kind: "graph" }>;
   id: string;
+  activeEdges?: number[];
+  title?: string;
 }) {
   const positions: Record<string, [number, number]> =
     check.nodes.length === 5
@@ -34,7 +41,7 @@ export function ProblemAbstractGraph({
         <svg
           viewBox="0 0 660 330"
           role="img"
-          aria-label={`§${id}提高题的有向图`}
+          aria-label={title ?? `§${id}提高题的有向图`}
         >
           <defs>
             <marker
@@ -67,7 +74,15 @@ export function ProblemAbstractGraph({
                 key={index}
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={index < check.nodes.length - 1 ? 2.5 : 1.5}
+                strokeWidth={
+                  activeEdges
+                    ? activeEdges.includes(index)
+                      ? 3.5
+                      : 1.2
+                    : index < check.nodes.length - 1
+                      ? 2.5
+                      : 1.5
+                }
               >
                 <path
                   d={
@@ -113,7 +128,10 @@ export function ProblemAbstractGraph({
         </svg>
       </div>
       <figcaption>
-        箭头为支路参考方向；较粗支路构成所选树，其他支路为连支。未标结点的交叉不表示连接。
+        {activeEdges
+          ? "箭头为支路参考方向；加粗支路表示本步选择的树或回路，具体含义见步骤说明。"
+          : "箭头为支路参考方向；较粗支路构成所选树，其他支路为连支。"}
+        未标结点的交叉不表示连接。
         <span className="diagram-pan-hint">窄屏可左右滑动查看完整图。</span>
       </figcaption>
     </figure>
@@ -385,6 +403,22 @@ export function ProblemSchematic({
                 </text>
               ),
             )}
+            {network.loops?.map((loop, index) => (
+              <g key={`mesh-${index}`} data-diagram-annotation="mesh">
+                <path
+                  d={`M${loop.x + loop.rx} ${loop.y}A${loop.rx} ${loop.ry} 0 1 1 ${loop.x} ${loop.y - loop.ry}`}
+                  strokeWidth="1.3"
+                />
+                <path
+                  d={`M${loop.x} ${loop.y - loop.ry}l-6 -3v6z`}
+                  fill="currentColor"
+                  stroke="none"
+                />
+                <text x={loop.x} y={loop.y + 5}>
+                  {loop.label}
+                </text>
+              </g>
+            ))}
             {network.ground &&
               (() => {
                 const node = network.nodes.find(
@@ -421,11 +455,17 @@ export function ProblemPhasorDiagram({
   const scale =
     140 /
     Math.max(
-      1,
+      Number.EPSILON,
       ...group.vectors.map((vector) =>
-        Math.max(Math.abs(vector.real), Math.abs(vector.imag)),
+        Math.max(
+          Math.abs(vector.real + (vector.start?.[0] ?? 0)),
+          Math.abs(vector.imag + (vector.start?.[1] ?? 0)),
+          Math.abs(vector.start?.[0] ?? 0),
+          Math.abs(vector.start?.[1] ?? 0),
+        ),
       ),
     );
+  const positions = phasorLabelPositions(group, scale);
   return (
     <figure className="circuit problem-phasor">
       <svg viewBox="0 0 400 340" role="img" aria-label={group.caption}>
@@ -449,31 +489,38 @@ export function ProblemPhasorDiagram({
         <text x="160" y="20">
           Im
         </text>
-        {group.vectors.map((vector, index) => (
-          <g key={vector.label}>
-            <line
-              x1="180"
-              y1="170"
-              x2={180 + scale * vector.real}
-              y2={170 - scale * vector.imag}
-              stroke="currentColor"
-              strokeWidth={index === group.vectors.length - 1 ? 3 : 1.5}
-              markerEnd={`url(#arrow-${id})`}
-            />
-            <text
-              x={180 + scale * vector.real + (vector.real < 0 ? -18 : 18)}
-              y={170 - scale * vector.imag + (vector.imag < 0 ? 22 : -14)}
-              fontSize="14"
-            >
-              {vector.label}
-            </text>
-          </g>
-        ))}
+        {group.vectors
+          .filter(
+            (vector) => Math.hypot(vector.real, vector.imag) * scale > 1e-6,
+          )
+          .map((vector, index) => (
+            <g key={vector.label}>
+              <line
+                x1={180 + scale * (vector.start?.[0] ?? 0)}
+                y1={170 - scale * (vector.start?.[1] ?? 0)}
+                x2={180 + scale * (vector.real + (vector.start?.[0] ?? 0))}
+                y2={170 - scale * (vector.imag + (vector.start?.[1] ?? 0))}
+                stroke="currentColor"
+                strokeWidth={vector.label === group.resultLabel ? 3 : 1.5}
+                markerEnd={`url(#arrow-${id})`}
+              />
+              <text
+                x={positions[index][0]}
+                y={positions[index][1]}
+                fontSize="14"
+              >
+                {vector.label}
+              </text>
+            </g>
+          ))}
         <circle cx="180" cy="170" r="3" fill="currentColor" />
       </svg>
       <figcaption>
         {group.caption} · 单位 {group.unit}
-        ；合成量用较粗箭头，同一量纲使用同一比例尺。
+        ；同一量纲使用同一比例尺。
+        {group.resultLabel
+          ? "合成量用较粗箭头；零合成量不画方向箭头。"
+          : "箭头方向表示该复数的相角。"}
       </figcaption>
     </figure>
   );

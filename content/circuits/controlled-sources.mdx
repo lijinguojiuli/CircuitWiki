@@ -81,25 +81,9 @@
 
 <Example title="保留受控源，求输入电阻">
 
-**题目：** 1 kΩ电阻与VCCS并联在A-B之间，i=guₓ从A流向B，uₓ=uAB，g=0.5 mS。网络没有独立源，求输入电阻。
+**题目：** 1 kΩ与受控电流源i=guAB并联在A-B，g=0.5 mS，电流A→B，网络无独立源。求输入电阻。
 
-<ControlledTestDiagram />
-
-**思路：** 独立源已经没有可关闭项，受控源保留。加ut=1 V，控制量也等于1 V。
-
-<Formula
-  latex={
-    "i_R=\\frac1{1000}=1\\,\\mathrm{mA},\\quad i_c=0.5\\times1=0.5\\,\\mathrm{mA}"
-  }
-/>
-
-<Formula
-  latex={
-    "i_t=i_R+i_c=1.5\\,\\mathrm{mA},\\quad R_{in}=\\frac1{0.0015}\\approx666.67\\,\\Omega"
-  }
-/>
-
-**最终答案：** 输入电阻约666.67 Ω。若删除受控源会误算成1 kΩ；若把开路电压0除以短路电流0，则没有意义。含受控源网络的输入电阻也可能为零或负值，不能先验强制取正。
+<WorkedExample id="example-controlled-sources-1" />
 
 </Example>
 
