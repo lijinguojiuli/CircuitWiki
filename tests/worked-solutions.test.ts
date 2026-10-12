@@ -194,6 +194,7 @@ test("storage-energy plots retain the internal state energy omitted by port equi
     ["book-6-9", 45],
     ["book-6-10", 15],
   ] as const) {
+    assert.ok(workedSolutions[id][3].title.includes("本站补充"), id);
     const figure = workedSolutions[id][3].figure!;
     assert.equal(figure.kind, "plot");
     if (figure.kind === "plot")
