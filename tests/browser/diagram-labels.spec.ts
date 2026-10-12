@@ -58,7 +58,9 @@ for (const { width, theme } of [
       });
       await inspect(route);
       if (width === 390 && route === "/learn/series-parallel") {
-        const figure = page.locator("#challenge-book-2-4-a .problem-schematic");
+        const figure = page
+          .locator("#challenge-book-2-4-a .problem-schematic")
+          .first();
         const caption = figure.locator("figcaption");
         const left = (await caption.boundingBox())!.x;
         const pane = figure.locator(".diagram-scroll");

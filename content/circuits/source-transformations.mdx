@@ -111,19 +111,7 @@
 
 **题目：** US=12 V，R=3 kΩ，负载RL=6 kΩ。求负载电流与电压，再转成电流源模型检查。
 
-**思路：** 串联模型直接用欧姆定律；并联模型先换成IS=4 mA，再分流。
-
-<Formula
-  latex={
-    "i_L=\\frac{12}{3000+6000}=\\frac43\\,\\mathrm{mA},\\quad u_L=8\\,\\mathrm V"
-  }
-/>
-
-<Formula
-  latex={
-    "I_S=\\frac{12}{3000}=4\\,\\mathrm{mA},\\quad i_L=4\\frac3{3+6}=\\frac43\\,\\mathrm{mA}"
-  }
-/>
+<WorkedExample id="example-source-transform" />
 
 **最终答案：** 两种模型都得到1.333 mA、8 V。内部元件的电流、功率分布不必相同：端口开路时，串联模型的R无电流，电流源模型的R仍流过4 mA。
 

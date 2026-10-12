@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Formula } from "./formula";
 import { Tag } from "./primitives";
+import { WorkedSolutionSteps } from "./worked-solution-steps";
 import { getChallenge, textbookSourceReference } from "@/lib/challenges";
 import {
   ProblemSchematic,
@@ -64,15 +65,7 @@ export function ChallengeProblem({ id }: { id: string }) {
       <details className="challenge-solution">
         <summary>完成尝试后，查看分步解答与校验</summary>
         <div>
-          {problem.steps.map((step, index) => (
-            <section className="challenge-step" key={step.title}>
-              <h4>
-                {index + 1}. {step.title}
-              </h4>
-              <Formula latex={step.latex} />
-              <p>{step.explanation}</p>
-            </section>
-          ))}
+          <WorkedSolutionSteps id={id} steps={problem.steps} />
           {problem.phasors && (
             <div className="problem-phasor-grid">
               {problem.phasors.map((group, index) => (

@@ -195,13 +195,30 @@ export function ProblemSchematic({
                 (vertical ? x + (labelOnLeft ? -38 : 38) : x) +
                 (branch.labelOffset?.[0] ?? 0);
               return (
-                <g key={index}>
+                <g
+                  key={index}
+                  strokeWidth={network.emphasis?.includes(index) ? 3.5 : 2}
+                >
                   <path
                     d={points
                       .map(([px, py], i) => `${i ? "L" : "M"}${px} ${py}`)
                       .join(" ")}
                   />
                   <g transform={`translate(${x} ${y}) rotate(${angle})`}>
+                    {branch.kind === "open" && (
+                      <>
+                        <rect
+                          x="-26"
+                          y="-8"
+                          width="52"
+                          height="16"
+                          fill="var(--surface)"
+                          stroke="none"
+                        />
+                        <circle cx="-24" cy="0" r="3" fill="var(--surface)" />
+                        <circle cx="24" cy="0" r="3" fill="var(--surface)" />
+                      </>
+                    )}
                     {(branch.kind === "resistor" ||
                       branch.kind === "impedance") && (
                       <rect

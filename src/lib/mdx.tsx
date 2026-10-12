@@ -1,4 +1,5 @@
 import { TextbookExercises } from "@/components/textbook-exercises";
+import { WorkedExample } from "@/components/worked-solution-steps";
 import { StorageEquivalenceDiagrams } from "@/components/storage-equivalence-diagrams";
 import { ChallengeProblem } from "@/components/challenge-problem";
 import { SectionFormulaCards } from "@/components/section-formula-cards";
@@ -49,6 +50,7 @@ import { PhasorConstruction } from "@/components/phasor-construction";
 import { ThreePhaseLab } from "@/components/three-phase-lab";
 import { CodeBlock } from "@/components/primitives";
 const components: MDXComponents = {
+  WorkedExample,
   TextbookExercises,
   StorageEquivalenceDiagrams,
   ChallengeProblem,

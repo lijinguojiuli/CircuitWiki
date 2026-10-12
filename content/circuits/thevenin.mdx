@@ -103,41 +103,7 @@
 
 **题目：** US=12 V，上臂R₁=2 kΩ，下臂R₂=4 kΩ，负载从A接到B。求等效参数，以及RL=2 kΩ时的负载电流、电压。
 
-**共同步骤——开路电压：** 移去负载，原网络R₂仍保留。
-
-<Formula latex={"u_{oc}=12\\frac4{2+4}=8\\,\\mathrm V"} />
-
-**方法一——输入电阻：** 电源短路后，R₁、R₂都跨在A-B之间，为并联。
-
-<Formula
-  latex={
-    "R_{eq}=R_1\\parallel R_2=\\frac{2\\times4}{2+4}=\\frac43\\,\\mathrm{k\\Omega}"
-  }
-/>
-
-**测试源核验：** 加ut=1 V，测试电流流入原网络。
-
-<Formula
-  latex={
-    "i_t=\\frac1{2000}+\\frac1{4000}=0.75\\,\\mathrm{mA},\\qquad R_{in}=\\frac1{0.00075}\\approx1.333\\,\\mathrm{k\\Omega}"
-  }
-/>
-
-**方法二——短路电流：** 短接A-B，R₂电压为0，isc由US与R₁决定。
-
-<Formula
-  latex={
-    "i_{sc}=\\frac{12}{2000}=6\\,\\mathrm{mA},\\qquad R_{eq}=\\frac8{0.006}\\approx1.333\\,\\mathrm{k\\Omega}"
-  }
-/>
-
-**重新接负载：**
-
-<Formula
-  latex={
-    "i_L=\\frac8{(4/3+2)\\times1000}=2.4\\,\\mathrm{mA},\\qquad u_L=4.8\\,\\mathrm V"
-  }
-/>
+<WorkedExample id="example-thevenin-divider" />
 
 **最终答案：** uoc=8 V、isc=6 mA、Req≈1.333 kΩ；两种方法一致。负载电流2.4 mA、电压4.8 V。
 

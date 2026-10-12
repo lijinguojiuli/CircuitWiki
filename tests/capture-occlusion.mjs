@@ -43,7 +43,9 @@ for (const [name, route, selector] of [
 await page.setViewportSize({ width: 390, height: 844 });
 await page.goto(`${origin}/learn/series-parallel`);
 await page.waitForLoadState("networkidle");
-const diagram = page.locator("#challenge-book-2-4-a .problem-schematic");
+const diagram = page
+  .locator("#challenge-book-2-4-a .problem-schematic")
+  .first();
 await diagram.screenshot({
   path: "docs/screenshots/occlusion-mobile-left.png",
   style,

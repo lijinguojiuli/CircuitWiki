@@ -1,8 +1,18 @@
 import data from "./data.json";
 import textbookData from "./textbook.json";
-import type { Challenge } from "./types";
-export const originalChallenges = data as unknown as Challenge[];
-export const textbookChallenges = textbookData as unknown as Challenge[];
+import workedData from "./worked-solutions.json";
+import type { Challenge, WorkedStep } from "./types";
+export const workedSolutions = workedData as Record<string, WorkedStep[]>;
+const withWorkedSteps = (problem: Challenge): Challenge => ({
+  ...problem,
+  steps: workedSolutions[problem.id] ?? problem.steps,
+});
+export const originalChallenges = (data as unknown as Challenge[]).map(
+  withWorkedSteps,
+);
+export const textbookChallenges = (textbookData as unknown as Challenge[]).map(
+  withWorkedSteps,
+);
 export const challenges = [...originalChallenges, ...textbookChallenges];
 export function textbookSourceReference(
   source: NonNullable<Challenge["source"]>,

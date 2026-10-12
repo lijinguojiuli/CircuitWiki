@@ -68,6 +68,34 @@
 .challenge-step {
   margin: 20px 0 24px;
 }
+.worked-step-action {
+  padding: 12px 14px;
+  background: var(--soft);
+  border-left: 2px solid var(--text);
+}
+.worked-step-reasoning {
+  padding-left: 24px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.worked-step-reasoning li {
+  margin: 7px 0;
+}
+.worked-step-check {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.worked-example .challenge-step {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.worked-example .challenge-step:last-child {
+  border-bottom: 0;
+}
+.worked-plot svg {
+  max-height: none;
+}
 .challenge-step h4 {
   font-size: 16px;
   margin: 0 0 12px;
@@ -243,6 +271,9 @@
   }
   .problem-schematic svg {
     min-width: 580px;
+  }
+  .worked-plot svg {
+    min-width: 560px;
   }
   .diagram-pan-hint {
     display: block;

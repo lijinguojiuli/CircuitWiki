@@ -212,6 +212,8 @@ LaTeX 放入 JavaScript 字符串时反斜杠须转义，例如 `<Formula latex=
 
 ## 检查与测试
 
+电阻等效、电路定理及部分储能教材题新增逐步图解：22题与3个原典型例题共121步，每步配对应电路状态或响应曲线，并说明操作、推导和检查。数据在 `src/lib/challenges/worked-solutions.json`，覆盖与修改记录见 [逐步图解解答](docs/逐步图解解答.md)。
+
 ```bash
 npm run lint
 npm run typecheck

@@ -62,27 +62,7 @@ US=6 V、IS=4 mA、R=2 kΩ。开路电压为6+0.004×2000=14 V；输入电阻2 k
 
 **题目：** 采用上方默认参数，US=6 V、IS=4 mA、R=2 kΩ，RL=3 kΩ。求uoc、isc、Req及负载电流。
 
-**思路：** 方法一从开路、短路、输入电阻分别计算；方法二先把上方电流源并联R换成8 V电压源串联R，再与下方6 V按极性合成14 V。
-
-<Formula latex={"u_{oc}=6+4\\times10^{-3}\\times2000=14\\,\\mathrm V"} />
-
-<Formula
-  latex={
-    "i_{sc}=\\frac6{2000}+0.004=7\\,\\mathrm{mA},\\quad R_{eq}=\\frac{14}{0.007}=2\\,\\mathrm{k\\Omega}"
-  }
-/>
-
-<Formula
-  latex={
-    "U_{\\mathrm{upper}}=I_SR=8\\,\\mathrm V,\\quad U_{\\mathrm{equivalent}}=6+8=14\\,\\mathrm V"
-  }
-/>
-
-<Formula
-  latex={
-    "i_L=\\frac{14}{2000+3000}=2.8\\,\\mathrm{mA},\\quad u_L=8.4\\,\\mathrm V"
-  }
-/>
+<WorkedExample id="example-bridge-port" />
 
 **最终答案：** uoc=14 V，isc=7 mA，Req=2 kΩ；RL=3 kΩ时电流2.8 mA、电压8.4 V。开路时外部电流虽为0，上方R仍有4 mA从A流向X，与电流源形成内部回路。
 

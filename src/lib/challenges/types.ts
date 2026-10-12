@@ -107,6 +107,7 @@ export type ProblemNetwork = {
       | "capacitor"
       | "inductor"
       | "wire"
+      | "open"
       | "element";
     // Plain wires and unspecified two-terminal elements appear in textbook models.
     label: string;
@@ -119,6 +120,27 @@ export type ProblemNetwork = {
   arrows?: { from: [number, number]; to: [number, number]; label: string }[];
   notes?: { x: number; y: number; text: string }[];
   caption?: string;
+  emphasis?: number[];
+};
+export type WorkedFigure =
+  | { kind: "circuit"; title: string; network: ProblemNetwork }
+  | { kind: "phasor"; title: string; group: ProblemPhasors }
+  | {
+      kind: "plot";
+      title: string;
+      xLabel: string;
+      yLabel: string;
+      yDomain?: ComplexPair;
+      series: { label: string; points: ComplexPair[] }[];
+    };
+export type WorkedStep = {
+  title: string;
+  latex: string;
+  explanation: string;
+  figure?: WorkedFigure;
+  action?: string;
+  reasoning?: string[];
+  check?: string;
 };
 export type ProblemPhasors = {
   unit: string;
@@ -136,7 +158,7 @@ export type Challenge = {
   given: string;
   tasks: string[];
   hints: string[];
-  steps: { title: string; latex: string; explanation: string }[];
+  steps: WorkedStep[];
   answer: string;
   checks: ProblemCheck[];
   network: ProblemNetwork | null;
