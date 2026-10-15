@@ -4,6 +4,7 @@ import { formulas, type FormulaEntry } from "./formulas";
 import { learningTools, lessonKind } from "./learning";
 import { challengeIndex } from "./challenges/catalogue";
 import { areaForArticle } from "./knowledge";
+import { equationTool } from "./circuit-equations/catalogue";
 
 export const formulaId = (formula: Pick<FormulaEntry, "position">) =>
   `formula-${formula.position.join("-")}`;
@@ -68,6 +69,16 @@ const entries: SearchResult[] = [
     area: areaForArticle(tool.slug).id,
     chapter: chapterForArticle(tool.slug).number,
   })),
+  {
+    id: `tool-${equationTool.id}`,
+    title: equationTool.title,
+    detail: equationTool.description,
+    kind: "交互工具",
+    href: equationTool.href,
+    keywords: equationTool.keywords,
+    area: areaForArticle(equationTool.slug).id,
+    chapter: chapterForArticle(equationTool.slug).number,
+  },
 ];
 
 export function searchContent(

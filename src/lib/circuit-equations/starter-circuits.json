@@ -1,0 +1,290 @@
+[
+  {
+    "id": "divider",
+    "title": "串联分压",
+    "description": "从一个未知节点开始理解 KCL。",
+    "document": {
+      "version": 1,
+      "title": "串联分压",
+      "gridSize": 20,
+      "components": [
+        {
+          "id": "V1",
+          "name": "供电电压源",
+          "type": "voltage-source",
+          "value": 12,
+          "position": [120, 240],
+          "rotation": 90
+        },
+        {
+          "id": "R1",
+          "name": "上臂电阻",
+          "type": "resistor",
+          "value": 2000,
+          "position": [280, 120],
+          "rotation": 0
+        },
+        {
+          "id": "R2",
+          "name": "下臂电阻",
+          "type": "resistor",
+          "value": 4000,
+          "position": [420, 240],
+          "rotation": 90
+        }
+      ],
+      "wires": [
+        {
+          "id": "W1",
+          "points": [
+            [120, 200],
+            [120, 120],
+            [240, 120]
+          ]
+        },
+        {
+          "id": "W2",
+          "points": [
+            [320, 120],
+            [420, 120],
+            [420, 200]
+          ]
+        },
+        {
+          "id": "W3",
+          "points": [
+            [420, 280],
+            [420, 360],
+            [120, 360],
+            [120, 280]
+          ]
+        }
+      ],
+      "junctions": [
+        [120, 120],
+        [420, 120],
+        [300, 360]
+      ],
+      "grounds": [
+        {
+          "id": "G1",
+          "position": [300, 360]
+        }
+      ]
+    }
+  },
+  {
+    "id": "injection",
+    "title": "电流源注入",
+    "description": "两节点联立，观察电流源的正负号。",
+    "document": {
+      "version": 1,
+      "title": "电流源注入",
+      "gridSize": 20,
+      "components": [
+        {
+          "id": "V1",
+          "name": "供电电压源",
+          "type": "voltage-source",
+          "value": 12,
+          "position": [120, 240],
+          "rotation": 90
+        },
+        {
+          "id": "R1",
+          "name": "上臂电阻",
+          "type": "resistor",
+          "value": 2000,
+          "position": [280, 120],
+          "rotation": 0
+        },
+        {
+          "id": "R2",
+          "name": "下臂电阻",
+          "type": "resistor",
+          "value": 4000,
+          "position": [420, 240],
+          "rotation": 90
+        },
+        {
+          "id": "R3",
+          "name": "注入支路电阻",
+          "type": "resistor",
+          "value": 1000,
+          "position": [540, 120],
+          "rotation": 0
+        },
+        {
+          "id": "I1",
+          "name": "注入电流源",
+          "type": "current-source",
+          "value": 0.001,
+          "position": [660, 240],
+          "rotation": 270
+        }
+      ],
+      "wires": [
+        {
+          "id": "W1",
+          "points": [
+            [120, 200],
+            [120, 120],
+            [240, 120]
+          ]
+        },
+        {
+          "id": "W2",
+          "points": [
+            [320, 120],
+            [420, 120],
+            [420, 200]
+          ]
+        },
+        {
+          "id": "W3",
+          "points": [
+            [420, 280],
+            [420, 360],
+            [120, 360],
+            [120, 280]
+          ]
+        },
+        {
+          "id": "W4",
+          "points": [
+            [420, 120],
+            [500, 120]
+          ]
+        },
+        {
+          "id": "W5",
+          "points": [
+            [580, 120],
+            [660, 120],
+            [660, 200]
+          ]
+        },
+        {
+          "id": "W6",
+          "points": [
+            [660, 280],
+            [660, 360],
+            [420, 360]
+          ]
+        }
+      ],
+      "junctions": [
+        [120, 120],
+        [420, 120],
+        [300, 360],
+        [660, 120],
+        [420, 360]
+      ],
+      "grounds": [
+        {
+          "id": "G1",
+          "position": [300, 360]
+        }
+      ]
+    }
+  },
+  {
+    "id": "floating",
+    "title": "浮置电压源",
+    "description": "用超级节点与电压约束建立两条方程。",
+    "document": {
+      "version": 1,
+      "title": "浮置电压源",
+      "gridSize": 20,
+      "components": [
+        {
+          "id": "V1",
+          "name": "浮置电压源",
+          "type": "voltage-source",
+          "value": 6,
+          "position": [380, 120],
+          "rotation": 0
+        },
+        {
+          "id": "R1",
+          "name": "左支路电阻",
+          "type": "resistor",
+          "value": 2000,
+          "position": [260, 240],
+          "rotation": 90
+        },
+        {
+          "id": "R2",
+          "name": "右支路电阻",
+          "type": "resistor",
+          "value": 3000,
+          "position": [500, 240],
+          "rotation": 90
+        },
+        {
+          "id": "I1",
+          "name": "注入电流源",
+          "type": "current-source",
+          "value": 0.002,
+          "position": [100, 240],
+          "rotation": 270
+        }
+      ],
+      "wires": [
+        {
+          "id": "W1",
+          "points": [
+            [340, 120],
+            [260, 120],
+            [260, 200]
+          ]
+        },
+        {
+          "id": "W2",
+          "points": [
+            [420, 120],
+            [500, 120],
+            [500, 200]
+          ]
+        },
+        {
+          "id": "W3",
+          "points": [
+            [100, 200],
+            [100, 120],
+            [260, 120]
+          ]
+        },
+        {
+          "id": "W4",
+          "points": [
+            [100, 280],
+            [100, 360],
+            [260, 360],
+            [260, 280]
+          ]
+        },
+        {
+          "id": "W5",
+          "points": [
+            [260, 360],
+            [500, 360],
+            [500, 280]
+          ]
+        }
+      ],
+      "junctions": [
+        [260, 120],
+        [500, 120],
+        [260, 360],
+        [380, 360]
+      ],
+      "grounds": [
+        {
+          "id": "G1",
+          "position": [380, 360]
+        }
+      ]
+    }
+  }
+]

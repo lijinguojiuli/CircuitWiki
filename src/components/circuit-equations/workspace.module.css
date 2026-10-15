@@ -1,0 +1,880 @@
+.page {
+  max-width: 1540px;
+  margin: auto;
+  padding: 28px 32px 64px;
+}
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: 32px;
+  letter-spacing: -0.8px;
+  margin: 8px 0 12px;
+}
+.hero > a {
+  font-size: 12px;
+  white-space: nowrap;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.kicker {
+  font: 10px monospace;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+.lead {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 780px;
+}
+.workspace {
+  min-width: 0;
+}
+.workspace button,
+.workspace select,
+.workspace input {
+  color: var(--text);
+  font: inherit;
+}
+.workspace button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 7px 11px;
+  background: var(--surface);
+  font-size: 12px;
+}
+.workspace button:hover:not(:disabled) {
+  border-color: var(--text);
+  background: var(--soft);
+}
+.workspace button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.workspace button[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--text);
+  font-weight: 600;
+}
+.workspace input,
+.workspace select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  min-height: 38px;
+  padding: 7px 9px;
+  min-width: 0;
+  font-size: 12px;
+}
+.workspace h2 {
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.workspace h3 {
+  font-size: 14px;
+  margin: 20px 0 12px;
+}
+.workspace label {
+  font-size: 12px;
+}
+.toolbar {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.presetLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.historyButtons {
+  display: flex;
+  gap: 5px;
+  margin-right: auto;
+}
+.fileInput {
+  display: none;
+}
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 14px 0;
+}
+.statusBar > span:last-child {
+  white-space: nowrap;
+}
+.diagnostic {
+  padding: 14px 16px;
+  border: 1px solid var(--text);
+  border-left-width: 3px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 10px 0 20px;
+  line-height: 1.8;
+  background: var(--soft);
+}
+.diagnostic p {
+  margin-top: 6px;
+}
+.editorGrid {
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr) 238px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.library,
+.properties {
+  padding: 20px 16px;
+  min-width: 0;
+}
+.library {
+  border-right: 1px solid var(--border);
+}
+.library > p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: -7px;
+}
+.libraryItems {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+.libraryItems button {
+  justify-content: flex-start;
+  text-align: left;
+  padding: 10px 8px;
+  min-height: 58px;
+}
+.symbolIcon {
+  font:
+    italic 21px "Times New Roman",
+    serif;
+  width: 24px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.libraryItems button > span:last-child {
+  font-size: 11px;
+  line-height: 1.6;
+}
+.libraryItems small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+}
+.editTools {
+  display: grid;
+  gap: 6px;
+}
+.editTools button {
+  justify-content: flex-start;
+}
+.editTools kbd {
+  margin-left: auto;
+  font: 10px monospace;
+  color: var(--muted);
+}
+.help {
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.help ul {
+  padding-left: 16px;
+}
+.canvasColumn,
+.canvasPanel {
+  min-width: 0;
+}
+.zoomBar {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.zoomBar span {
+  margin-right: auto;
+  font-size: 10px;
+  color: var(--muted);
+}
+.zoomBar button {
+  min-height: 30px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+.canvasHeading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--soft);
+}
+.canvasHeading strong {
+  font-size: 12px;
+}
+.canvasHeading span {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+  max-width: 70%;
+}
+.canvasScroll {
+  overflow: auto;
+  height: 475px;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+}
+.drawing {
+  display: block;
+  max-width: none;
+  height: auto;
+  color: var(--text);
+  background: var(--surface);
+  user-select: none;
+}
+.drawing text {
+  fill: currentColor;
+  stroke: none;
+  pointer-events: none;
+}
+.glyph {
+  cursor: grab;
+  touch-action: none;
+  outline: none;
+}
+.glyph:focus-visible .selectionBox {
+  stroke: var(--text);
+  stroke-width: 2;
+}
+.glyph:active {
+  cursor: grabbing;
+}
+.wireHit {
+  cursor: pointer;
+}
+.pinHit {
+  cursor: crosshair;
+  touch-action: none;
+}
+.pinHit:focus-visible {
+  stroke: var(--text);
+  stroke-width: 2;
+  outline: none;
+}
+.componentId {
+  font:
+    italic 17px "Times New Roman",
+    serif;
+}
+.componentValue {
+  font:
+    12px "Segoe UI",
+    "Microsoft YaHei",
+    sans-serif;
+}
+.polarity {
+  font:
+    18px "Times New Roman",
+    serif;
+}
+.nodeLabel {
+  font:
+    italic 16px "Times New Roman",
+    serif;
+}
+.meshMarker text {
+  font:
+    italic 15px "Times New Roman",
+    serif;
+}
+.canvasFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  padding: 12px 16px;
+  font-size: 10px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+.properties {
+  border-left: 1px solid var(--border);
+}
+.properties label {
+  display: block;
+  margin: 13px 0;
+}
+.properties label > input,
+.properties label > select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+}
+.selectedTitle {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 20px 0 12px;
+}
+.selectedTitle strong {
+  font:
+    italic 26px "Times New Roman",
+    serif;
+}
+.selectedTitle span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.valueInput {
+  display: flex;
+  gap: 5px;
+  margin-top: 6px;
+}
+.valueInput input {
+  width: 100%;
+  min-width: 0;
+}
+.valueInput select {
+  width: 74px;
+  flex-shrink: 0;
+}
+.workspace .primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  width: 100%;
+}
+.properties dl {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 11px;
+}
+.properties dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.properties dt {
+  color: var(--muted);
+}
+.properties dd {
+  margin: 0;
+}
+.properties > button {
+  width: 100%;
+  margin-top: 8px;
+}
+.emptyProperty {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-top: 24px;
+}
+.emptyProperty > button {
+  margin-top: 16px;
+}
+.muted {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.errorText {
+  font-size: 11px;
+  margin: 8px 0;
+}
+.analysisBar {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 24px 0 18px;
+  flex-wrap: wrap;
+}
+.analysisBar label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.analysisBar > a {
+  margin-left: auto;
+  font-size: 12px;
+}
+.modeSwitch {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.modeSwitch button {
+  border-color: transparent;
+  min-height: 32px;
+}
+.outputGrid {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.topology,
+.equations {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  min-width: 0;
+  background: var(--surface);
+}
+.equations {
+  scroll-margin-top: 100px;
+}
+.panelHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.panelHeading > span {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 16px 0;
+  border-block: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.stats strong {
+  font: 600 22px monospace;
+}
+.stats span {
+  font-size: 10px;
+  color: var(--muted);
+}
+.nodeChips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.nodeChips > span {
+  font: 11px/1.7 monospace;
+  padding: 3px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.branchList {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+}
+.branchList button {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  justify-content: space-between;
+  border-radius: 0;
+  padding: 12px 3px;
+}
+.branchList button > span:first-child {
+  text-align: left;
+}
+.branchList strong {
+  display: block;
+  font:
+    italic 16px "Times New Roman",
+    serif;
+}
+.branchList small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+}
+.branchList button > span:last-child {
+  font: 11px monospace;
+}
+.topology details,
+.matrix,
+.elimination {
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  padding: 15px 0;
+  line-height: 1.85;
+}
+.topology details > ul {
+  font-size: 11px;
+  padding-left: 16px;
+}
+.methodReason {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
+  padding-bottom: 18px;
+}
+.stepChoices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.stepChoices button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 6px;
+  font-size: 11px;
+  padding: 10px;
+}
+.stepChoices span {
+  font: 10px monospace;
+  color: var(--muted);
+}
+.teachingStep {
+  padding: 24px 0 8px;
+}
+.teachingStep h3 {
+  font-size: 18px;
+  margin: 10px 0 12px;
+}
+.teachingStep > p:not(.stepCount) {
+  font-size: 14px;
+  line-height: 1.95;
+}
+.stepCount {
+  font: 10px monospace;
+  color: var(--muted);
+}
+.stepDiagram {
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.stepDiagram svg {
+  width: 100%;
+  min-width: 480px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.stepDiagramScroll {
+  overflow-x: auto;
+}
+.stepDiagram figcaption {
+  font-size: 10px;
+  color: var(--muted);
+  padding: 10px 14px;
+}
+.equationLabel {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 18px 0 8px;
+}
+.equations :global(.formula),
+.topology :global(.formula) {
+  margin: 8px 0 16px;
+}
+.stepNavigation {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0 24px;
+}
+.matrix p,
+.elimination p {
+  margin: 12px 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.results {
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.tableScroll {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.tableScroll table {
+  border-collapse: collapse;
+  min-width: 460px;
+  width: 100%;
+  text-align: right;
+  font-size: 12px;
+}
+.tableScroll th {
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 11px;
+}
+.tableScroll td,
+.tableScroll th {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.tableScroll td:first-child,
+.tableScroll th:first-child {
+  text-align: left;
+}
+.tableScroll button {
+  border: 0;
+  padding: 0;
+  min-height: 28px;
+}
+.check {
+  font-size: 11px;
+  padding: 12px;
+  background: var(--soft);
+  border-radius: 5px;
+  margin-top: 16px;
+  overflow-wrap: anywhere;
+}
+.launchCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  margin: 28px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--soft);
+}
+.launchCard h2 {
+  font-size: 20px;
+  margin: 8px 0;
+}
+.launchCard span,
+.launchCard p {
+  font-size: 12px;
+  color: var(--muted);
+}
+.launchCard > svg {
+  flex-shrink: 0;
+}
+@media (max-width: 1150px) {
+  .page {
+    padding: 24px;
+  }
+  .editorGrid {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+  .properties {
+    grid-column: 1/-1;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr) 190px;
+    gap: 8px 24px;
+    align-items: start;
+  }
+  .properties > h2 {
+    grid-column: 1/-1;
+  }
+  .properties > label,
+  .selectedTitle {
+    grid-column: 1;
+  }
+  .properties > form {
+    grid-column: 2;
+    grid-row: 2 / span 4;
+  }
+  .properties dl {
+    grid-column: 3;
+    grid-row: 2;
+    margin: 0;
+  }
+  .properties > .muted {
+    grid-column: 3;
+  }
+  .properties > button {
+    grid-column: 3;
+  }
+  .properties .emptyProperty {
+    grid-column: 1/-1;
+  }
+  .outputGrid {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+  .topology,
+  .equations {
+    padding: 18px;
+  }
+  .toolbar {
+    gap: 7px;
+  }
+}
+@media (max-width: 760px) {
+  .page {
+    padding: 20px 16px 40px;
+  }
+  .hero {
+    display: block;
+  }
+  .hero h1 {
+    font-size: 26px;
+  }
+  .hero > a {
+    margin-top: 14px;
+  }
+  .lead {
+    font-size: 13px;
+  }
+  .toolbar button {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+  .presetLabel {
+    flex: 1;
+  }
+  .presetLabel select {
+    width: 100%;
+  }
+  .historyButtons {
+    margin-right: 0;
+  }
+  .statusBar {
+    font-size: 10px;
+  }
+  .editorGrid,
+  .outputGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .library {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+  }
+  .libraryItems {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    margin: 14px 0;
+  }
+  .libraryItems button {
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+    padding: 8px 2px;
+  }
+  .libraryItems button > span:last-child {
+    font-size: 10px;
+  }
+  .libraryItems small {
+    font-size: 9px;
+  }
+  .editTools {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .editTools button {
+    font-size: 10px;
+    padding: 6px;
+  }
+  .library h3 {
+    display: none;
+  }
+  .help {
+    margin-top: 14px;
+  }
+  .canvasScroll {
+    height: 360px;
+  }
+  .zoomBar {
+    padding: 8px 12px;
+  }
+  .zoomBar span {
+    font-size: 9px;
+  }
+  .canvasHeading {
+    padding: 10px 12px;
+  }
+  .canvasFoot {
+    font-size: 10px;
+  }
+  .properties {
+    display: block;
+    padding: 18px 16px;
+  }
+  .properties dl {
+    margin: 18px 0;
+  }
+  .properties form {
+    max-width: 100%;
+  }
+  .properties > button {
+    width: auto;
+    margin-right: 8px;
+  }
+  .analysisBar {
+    gap: 12px;
+  }
+  .analysisBar > a {
+    margin-left: 0;
+  }
+  .analysisBar label {
+    width: 100%;
+  }
+  .analysisBar select {
+    flex: 1;
+  }
+  .modeSwitch {
+    flex: 1;
+  }
+  .modeSwitch button {
+    flex: 1;
+  }
+  .topology,
+  .equations {
+    padding: 18px 16px;
+  }
+  .stepChoices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stepChoices button {
+    font-size: 11px;
+  }
+  .teachingStep > p:not(.stepCount) {
+    font-size: 13px;
+  }
+  .stepDiagram svg {
+    min-width: 520px;
+  }
+  .panelHeading {
+    align-items: flex-start;
+  }
+  .panelHeading h2 {
+    max-width: 70%;
+  }
+}

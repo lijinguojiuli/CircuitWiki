@@ -180,7 +180,12 @@ export function Header() {
           >
             公式速查
           </Link>
-          <Link className={path === "/tools" ? "active" : ""} href="/tools">
+          <Link
+            className={
+              path === "/tools" || path.startsWith("/tools/") ? "active" : ""
+            }
+            href="/tools"
+          >
             电路工具
           </Link>
         </div>

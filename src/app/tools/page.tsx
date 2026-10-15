@@ -7,6 +7,8 @@ import {
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { learningTools } from "@/lib/learning";
+import { equationTool } from "@/lib/circuit-equations/catalogue";
+import workspaceStyles from "@/components/circuit-equations/workspace.module.css";
 export const metadata = pageMetadata(
   "电路工具",
   "使用欧姆定律、RC响应和相量计算工具，调整参数并验证电路学习中的公式与规律。",
@@ -21,6 +23,14 @@ export default function ToolsPage() {
       <p className="page-lead">
         选择要解决的问题，输入参数并观察结果。每个工具都配有公式和适用条件，可与知识专题一起使用。
       </p>
+      <Link href={equationTool.href} className={workspaceStyles.launchCard}>
+        <div>
+          <span>绘图 · 自动列式 · 逐步求解</span>
+          <h2>{equationTool.title}</h2>
+          <p>{equationTool.description}</p>
+        </div>
+        <ArrowUpRight size={22} />
+      </Link>
       <nav className="tool-intents" aria-label="选择计算工具">
         {learningTools.map((tool, index) => (
           <a href={`#${tool.id}`} key={tool.id}>
