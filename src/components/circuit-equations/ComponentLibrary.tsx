@@ -44,7 +44,7 @@ export function ComponentLibrary({
         >
           <span className={styles.symbolIcon}>⏚</span>
           <span>
-            接地<small>参考电位 0 V</small>
+            接地<small>点击节点设置 0 V</small>
           </span>
         </button>
       </div>
@@ -82,7 +82,8 @@ export function ComponentLibrary({
           <li>空白处可加拐点，Enter结束，Esc取消。</li>
           <li>选中元件后 R 旋转，方向键微调，Delete删除。</li>
           <li>Ctrl/Cmd+Z 撤销，Shift+Z重做。</li>
-          <li>移动和旋转会延长已连接导线；必要时删除旧线重画。</li>
+          <li>移动和旋转会重新规划连线；空间不足时保留原电路。</li>
+          <li>接地点选端子或导线；再次设置会移动原参考地。</li>
         </ul>
       </details>
     </aside>

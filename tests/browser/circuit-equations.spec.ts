@@ -273,6 +273,82 @@ test("touch placement, zoom and drawing deletion work on a narrow screen", async
   ).toBe(true);
   await context.close();
 });
+test("repeated rotation preserves the circuit and undo/redo restores safe wiring", async ({
+  page,
+}) => {
+  await start(page);
+  await page.getByLabel("分析方法").selectOption("nodal");
+  await page.getByLabel("选择元件属性").selectOption("R1");
+  for (let i = 0; i < 12; i++) {
+    await page.getByRole("button", { name: "旋转90°", exact: true }).click();
+    await expect(row(page, "R2").locator("td").nth(1)).toHaveText("8");
+    const d = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("circuitwiki:equation-document:v1")!),
+    );
+    expect(
+      d.wires.every((w: { points: unknown[] }) => w.points.length < 20),
+    ).toBe(true);
+    const audit = await board(page).evaluate(auditSvg);
+    expect(audit.collisions, `rotation ${i}`).toEqual([]);
+  }
+  await page.getByLabel("撤销", { exact: true }).click();
+  await expect(row(page, "R2").locator("td").nth(1)).toHaveText("8");
+  await page.getByLabel("重做", { exact: true }).click();
+  await expect(row(page, "R2").locator("td").nth(1)).toHaveText("8");
+});
+
+test("both source symbols keep separated upright labels through four rotations", async ({
+  page,
+}) => {
+  await start(page);
+  for (const kind of ["V 独立电压源 V", "I 独立电流源 A"]) {
+    await page.getByRole("button", { name: "新建", exact: true }).click();
+    await page.getByRole("button", { name: kind, exact: true }).click();
+    await at(page, 400, 300);
+    for (let i = 0; i < 4; i++) {
+      const audit = await board(page).evaluate(auditSvg);
+      expect(audit.collisions, kind + " rotation " + i).toEqual([]);
+      await page.getByRole("button", { name: "旋转90°", exact: true }).click();
+    }
+  }
+});
+
+test("reference ground avoids the T branch, moves without merging nodes, and rejects invalid contacts", async ({
+  page,
+}) => {
+  await start(page);
+  await page.getByLabel("载入电路示例").selectOption("injection");
+  const currents = await page
+    .locator("#equation-output tbody tr td:nth-child(3)")
+    .allTextContents();
+  await page.getByRole("button", { name: /⏚ 接地/ }).click();
+  await at(page, 420, 120);
+  let d = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("circuitwiki:equation-document:v1")!),
+  );
+  expect(d.grounds).toHaveLength(1);
+  expect(d.grounds[0].position).toEqual([420, 120]);
+  expect(
+    await page
+      .locator("#equation-output tbody tr td:nth-child(3)")
+      .allTextContents(),
+  ).toEqual(currents);
+  expect((await board(page).evaluate(auditSvg)).collisions).toEqual([]);
+  await board(page)
+    .getByRole("button", { name: `选择接地 ${d.grounds[0].id}` })
+    .focus();
+  await page.keyboard.press("Delete");
+  d = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("circuitwiki:equation-document:v1")!),
+  );
+  expect(d.grounds).toHaveLength(0);
+  await page.getByRole("button", { name: /⏚ 接地/ }).click();
+  await at(page, 120, 240);
+  await expect(page.locator("main").getByRole("alert")).toContainText("内部");
+  await at(page, 800, 500);
+  await expect(page.locator("main").getByRole("alert")).toContainText("空白");
+});
+
 for (const [width, theme] of [
   [1440, "light"],
   [390, "dark"],

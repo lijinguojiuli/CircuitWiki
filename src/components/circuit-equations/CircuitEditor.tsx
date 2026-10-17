@@ -1,4 +1,8 @@
 "use client";
+import {
+  repositionComponent,
+  setReferenceGround,
+} from "@/lib/circuit-equations/routing";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Download,
@@ -19,8 +23,6 @@ import {
   equalPoint,
   nextId,
   parseDocument,
-  repositionComponent,
-  snap,
   wireContains,
 } from "@/lib/circuit-equations/geometry";
 import { serializeNetlist } from "@/lib/circuit-equations/model";
@@ -157,7 +159,8 @@ export function CircuitEditor() {
   const rotate = () => {
     if (selection?.kind !== "component") return;
     const c = doc.components.find((c) => c.id === selection.id);
-    if (c)
+    if (!c) return;
+    try {
       commit(
         repositionComponent(
           doc,
@@ -166,6 +169,9 @@ export function CircuitEditor() {
           ((c.rotation + 90) % 360) as 0 | 90 | 180 | 270,
         ),
       );
+    } catch (e) {
+      setError((e as Error).message);
+    }
   };
   const remove = () => {
     if (!selection) return;
@@ -190,17 +196,10 @@ export function CircuitEditor() {
   const place = (type: EditorTool, p: Point) => {
     try {
       if (type === "ground") {
-        const at = snap(p, 60);
-        const id = nextId(
-          "G",
-          doc.grounds.map((g) => g.id),
-        );
-        if (doc.grounds.some((g) => equalPoint(g.position, at))) {
-          setMessage("这里已有接地标记。");
-          return;
-        }
-        commit({ ...doc, grounds: [...doc.grounds, { id, position: at }] });
-        setSelection({ kind: "ground", id });
+        const next = setReferenceGround(doc, p);
+        commit(next);
+        setSelection({ kind: "ground", id: next.grounds[0].id });
+        setMessage("参考地已设置在所选节点；原参考地已移动。");
       } else if (type === "junction") {
         if (!doc.wires.some((w) => wireContains(w.points, p))) {
           setError("连接点应放在导线上；两线交叉时用它明确连接。");
@@ -296,12 +295,16 @@ export function CircuitEditor() {
             e.key === "ArrowLeft" ? -20 : e.key === "ArrowRight" ? 20 : 0,
             e.key === "ArrowUp" ? -20 : e.key === "ArrowDown" ? 20 : 0,
           ];
-          commit(
-            repositionComponent(doc, c.id, [
-              c.position[0] + d[0],
-              c.position[1] + d[1],
-            ]),
-          );
+          try {
+            commit(
+              repositionComponent(doc, c.id, [
+                c.position[0] + d[0],
+                c.position[1] + d[1],
+              ]),
+            );
+          } catch (e) {
+            setError((e as Error).message);
+          }
         }
       }}
     >
@@ -436,6 +439,7 @@ export function CircuitEditor() {
             </button>
           </div>
           <CircuitCanvas
+            key={revision}
             document={doc}
             topology={topology}
             selection={selection}

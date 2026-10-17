@@ -1,10 +1,10 @@
+import { repositionComponent } from "@/lib/circuit-equations/routing";
 import { useRef, useState } from "react";
 import { componentTerminals } from "@/lib/circuit-equations/model";
 import {
   cleanPath,
   equalPoint,
   orthogonal,
-  repositionComponent,
   snap,
 } from "@/lib/circuit-equations/geometry";
 import type {
@@ -40,6 +40,7 @@ export function CircuitCanvas(props: Props) {
       start: Point;
       origin: Point;
       preview: CircuitDocument;
+      error?: string;
     } | null>(null),
     [hover, setHover] = useState<Point | null>(null);
   const svg = useRef<SVGSVGElement>(null);
@@ -104,6 +105,7 @@ export function CircuitCanvas(props: Props) {
       >
         <CircuitDrawing
           ref={svg}
+          tabIndex={0}
           document={preview}
           topology={topology}
           selection={selection}
@@ -133,6 +135,7 @@ export function CircuitCanvas(props: Props) {
                 .closest("[data-ground-id]")
                 ?.getAttribute("data-ground-id");
             let p = toPoint(e.clientX, e.clientY);
+            if (ground) p = doc.grounds.find((g) => g.id === ground)!.position;
             if (pin && component) {
               const c = doc.components.find((c) => c.id === component)!;
               p =
@@ -173,14 +176,20 @@ export function CircuitCanvas(props: Props) {
                 drag.origin[0] + p[0] - drag.start[0],
                 drag.origin[1] + p[1] - drag.start[1],
               ];
-              setDrag({
-                ...drag,
-                preview: repositionComponent(doc, drag.id, position),
-              });
+              try {
+                setDrag({
+                  ...drag,
+                  preview: repositionComponent(doc, drag.id, position),
+                  error: undefined,
+                });
+              } catch (e) {
+                setDrag({ ...drag, preview: doc, error: (e as Error).message });
+              }
             }
           }}
           onPointerUp={(e) => {
             if (drag) {
+              if (drag.error) props.onError(drag.error);
               const moved = drag.preview.components.find(
                 (c) => c.id === drag.id,
               )!;

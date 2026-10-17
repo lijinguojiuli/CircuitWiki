@@ -4,6 +4,10 @@ import {
   componentDefinitions,
   formatComponentValue,
 } from "@/lib/circuit-equations/model";
+import {
+  componentAnnotations,
+  groundAnnotations,
+} from "@/lib/circuit-equations/annotations";
 import { BOARD } from "@/lib/circuit-equations/geometry";
 import { nodeLabelPositions } from "@/lib/circuit-equations/labels";
 import type {
@@ -45,6 +49,7 @@ export function CircuitDrawing({
 }: Props) {
   const pattern = useId();
   const labels = nodeLabelPositions(doc, topology);
+  const groundLabels = groundAnnotations(doc);
   const points = [
     ...doc.wires.flatMap((w) => w.points),
     ...doc.components.flatMap(
@@ -54,9 +59,10 @@ export function CircuitDrawing({
           [c.position[0] + 160, c.position[1] + 80],
         ] as Point[],
     ),
-    ...doc.grounds.map(
-      (g) => [g.position[0] + 75, g.position[1] + 40] as Point,
-    ),
+    ...groundLabels.flatMap((g) => [
+      ...g.points,
+      [g.position[0] + 75, g.position[1] + 40] as Point,
+    ]),
     ...labels.map((n) => n.position),
   ];
   const minX = Math.max(0, Math.min(...points.map((p) => p[0])) - 20),
@@ -130,9 +136,9 @@ export function CircuitDrawing({
         ))}
         {doc.components.map((c) => {
           const [x, y] = c.position,
-            vertical = c.rotation === 90 || c.rotation === 270,
             selected = selection?.kind === "component" && selection.id === c.id,
-            pins = componentTerminals(c);
+            pins = componentTerminals(c),
+            annotation = componentAnnotations(c);
           return (
             <g
               key={c.id}
@@ -158,9 +164,15 @@ export function CircuitDrawing({
                 {!snapshot && (
                   <rect
                     x="-56"
-                    y="-22"
+                    y={
+                      c.type !== "resistor" && c.rotation % 180 === 0
+                        ? -34
+                        : -22
+                    }
                     width="112"
-                    height="44"
+                    height={
+                      c.type !== "resistor" && c.rotation % 180 === 0 ? 68 : 44
+                    }
                     rx="6"
                     fill="transparent"
                     stroke={selected ? "var(--muted)" : "none"}
@@ -209,36 +221,36 @@ export function CircuitDrawing({
                 )}
               </g>
               {c.type === "voltage-source" &&
-                pins.map(([px, py], i) => (
+                annotation.polarity.map((p, i) => (
                   <text
                     key={i}
-                    x={vertical ? x - 31 : x + (px < x ? -29 : 29)}
-                    y={vertical ? y + (py < y ? -10 : 20) : y + 43}
+                    x={p.x}
+                    y={p.y}
                     textAnchor="middle"
                     className={styles.polarity}
                   >
-                    {i ? "−" : "+"}
+                    {p.sign}
                   </text>
                 ))}
               <text
-                x={vertical ? x + (x > 800 ? -47 : 47) : x}
-                y={vertical ? y - 4 : y - 34}
-                textAnchor={vertical ? (x > 800 ? "end" : "start") : "middle"}
+                x={annotation.id.x}
+                y={annotation.id.y}
+                textAnchor={annotation.id.anchor}
                 className={styles.componentId}
               >
                 {c.id}
-                {!vertical && (
+                {annotation.inlineValue && (
                   <tspan className={styles.componentValue}>
                     {" "}
                     · {formatComponentValue(c)}
                   </tspan>
                 )}
               </text>
-              {vertical && (
+              {!annotation.inlineValue && (
                 <text
-                  x={x + (x > 800 ? -47 : 47)}
-                  y={y + 17}
-                  textAnchor={x > 800 ? "end" : "start"}
+                  x={annotation.value.x}
+                  y={annotation.value.y}
+                  textAnchor={annotation.value.anchor}
                   className={styles.componentValue}
                 >
                   {formatComponentValue(c)}
@@ -285,7 +297,7 @@ export function CircuitDrawing({
             pointerEvents="none"
           />
         ))}
-        {doc.grounds.map((g) => {
+        {groundLabels.map((g) => {
           const [x, y] = g.position;
           return (
             <g
@@ -316,11 +328,26 @@ export function CircuitDrawing({
                   }
                 />
               )}
+              {g.points.length > 1 && (
+                <>
+                  <path
+                    d={g.points
+                      .map(([px, py], i) => `${i ? "L" : "M"}${px} ${py}`)
+                      .join(" ")}
+                  />
+                  <circle
+                    cx={g.contact[0]}
+                    cy={g.contact[1]}
+                    r="4"
+                    fill="currentColor"
+                  />
+                </>
+              )}
               <path d={`M${x} ${y}v10m-15 0h30m-5 7h-20m5 7h10`} />
               <text
-                x={x + (x > 900 ? -45 : 45)}
-                y={y + 21}
-                textAnchor={x > 900 ? "end" : "start"}
+                x={g.label.x}
+                y={g.label.y}
+                textAnchor={g.label.anchor}
                 className={styles.componentValue}
               >
                 0 V

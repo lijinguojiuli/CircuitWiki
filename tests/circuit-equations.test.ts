@@ -1,3 +1,11 @@
+import {
+  repositionComponent,
+  setReferenceGround,
+} from "../src/lib/circuit-equations/routing";
+import {
+  componentAnnotations,
+  groundAnnotations,
+} from "../src/lib/circuit-equations/annotations";
 import test from "node:test";
 import assert from "node:assert/strict";
 import katex from "katex";
@@ -18,7 +26,6 @@ import { solveMatrix } from "../src/lib/circuit-equations/matrix-solver";
 import {
   addComponent,
   parseDocument,
-  repositionComponent,
 } from "../src/lib/circuit-equations/geometry";
 import {
   componentTerminals,
@@ -230,6 +237,8 @@ test("an open current source and a redundant zero-volt short report meaningful d
     id: "W4",
     points: [
       [120, 200],
+      [80, 200],
+      [80, 280],
       [120, 280],
     ],
   });
@@ -394,4 +403,172 @@ test("overflow is a diagnostic, never a NaN or Infinity result table", () => {
   const a = analyzeCircuit(detectTopology(d), "nodal");
   assert.equal(a.status, "error");
   assert.equal(a.branches.length, 0);
+});
+
+test("repeated full rotations keep each source and resistor connected without accumulating short circuits", () => {
+  for (const preset of starterCircuits)
+    for (const component of preset.document.components) {
+      let d = structuredClone(preset.document);
+      const original = solve(d);
+      for (let i = 0; i < 12; i++) {
+        const c = d.components.find((c) => c.id === component.id)!;
+        assert.doesNotThrow(() => {
+          d = repositionComponent(
+            d,
+            c.id,
+            c.position,
+            ((c.rotation + 90) % 360) as 0 | 90 | 180 | 270,
+          );
+        }, `${preset.id} ${c.id} turn ${i}`);
+        parseDocument(d);
+        const a = solve(d);
+        assert.equal(
+          detectTopology(d).netlist.nodes.length,
+          detectTopology(preset.document).netlist.nodes.length,
+        );
+        a.branches.forEach((b, k) => {
+          close(b.current, original.branches[k].current);
+          close(b.voltage, original.branches[k].voltage);
+        });
+        assert.ok(
+          d.wires.every((w) => w.points.length < 20),
+          `${preset.id} ${c.id}: wire growth`,
+        );
+      }
+    }
+});
+
+test("isolated rotated resistor keeps two distinct terminals and no invented wires", () => {
+  let d = addComponent(emptyCircuit(), "resistor", [400, 300]);
+  for (let i = 0; i < 20; i++) {
+    d = repositionComponent(
+      d,
+      "R1",
+      [400, 300],
+      (((i + 1) * 90) % 360) as 0 | 90 | 180 | 270,
+    );
+    assert.equal(d.wires.length, 0);
+    const t = detectTopology(d);
+    assert.notEqual(
+      t.netlist.components[0].nodes[0],
+      t.netlist.components[0].nodes[1],
+    );
+  }
+});
+
+test("ground placement rejects symbol interiors and blank space and replaces rather than shorts the previous reference", () => {
+  const d = document(1),
+    a = solve(d);
+  assert.throws(() => setReferenceGround(d, [120, 240]), /内部/);
+  assert.throws(() => setReferenceGround(d, [800, 500]), /空白/);
+  const moved = setReferenceGround(d, [420, 120]);
+  assert.equal(moved.grounds.length, 1);
+  assert.equal(
+    detectTopology(moved).netlist.nodes.length,
+    detectTopology(d).netlist.nodes.length,
+  );
+  solve(moved).branches.forEach((b, i) => {
+    close(b.current, a.branches[i].current);
+    close(b.voltage, a.branches[i].voltage);
+  });
+  const layout = groundAnnotations(moved)[0];
+  assert.notDeepEqual(
+    layout.position,
+    layout.contact,
+    "ground must avoid the downward T branch",
+  );
+});
+
+test("source annotations follow polarity through all rotations with names and values separate", () => {
+  for (const type of ["voltage-source", "current-source"] as const)
+    for (const rotation of [0, 90, 180, 270] as const) {
+      const c = { ...document().components[0], type, rotation };
+      const a = componentAnnotations(c),
+        terminals = componentTerminals(c);
+      assert.equal(a.inlineValue, false);
+      if (rotation % 180) {
+        assert.ok(a.id.x < c.position[0]);
+        assert.ok(a.value.x > c.position[0]);
+      }
+      if (type === "voltage-source") {
+        assert.equal(a.polarity[0].sign, "+");
+        assert.equal(
+          a.polarity[0].y < c.position[1],
+          terminals[0][1] < c.position[1] || rotation % 180 === 0,
+        );
+      }
+    }
+});
+
+test("movement round trips and rotation at a grounded pin preserve connections without mutating the input", () => {
+  let d = document();
+  const initial = JSON.stringify(d),
+    original = solve(d);
+  for (let i = 0; i < 12; i++) {
+    d = repositionComponent(d, "R1", [280, i % 2 ? 120 : 180]);
+    const a = solve(d);
+    a.branches.forEach((b, k) =>
+      close(b.current, original.branches[k].current),
+    );
+    assert.ok(d.wires.every((w) => w.points.length < 20));
+  }
+  assert.equal(JSON.stringify(document()), initial);
+  const grounded = setReferenceGround(document(), [240, 120]);
+  for (let i = 0; i < 4; i++) {
+    const c = grounded.components.find((c) => c.id === "R1")!;
+    const rotated = repositionComponent(
+      grounded,
+      "R1",
+      c.position,
+      ((c.rotation + 90) % 360) as 0 | 90 | 180 | 270,
+    );
+    solve(rotated).branches.forEach((b, k) =>
+      close(b.current, original.branches[k].current),
+    );
+  }
+  assert.throws(() => repositionComponent(d, "R1", [420, 240]), /接近/);
+  close(solve(d).branches.find((b) => b.id === "R2")!.voltage, 8);
+});
+
+test("a wire drawn through a component body is diagnosed instead of showing a misleading short-circuit solution", () => {
+  let d = addComponent(emptyCircuit(), "resistor", [400, 300]);
+  d = {
+    ...d,
+    wires: [
+      {
+        id: "W1",
+        points: [
+          [360, 300],
+          [440, 300],
+        ],
+      },
+    ],
+  };
+  const a = analyzeCircuit(detectTopology(d));
+  assert.equal(a.status, "error");
+  assert.match(a.error!, /穿过R1/);
+  assert.equal(a.branches.length, 0);
+});
+
+test("a reference ground cannot silently join an unconnected wire crossing", () => {
+  const d = emptyCircuit();
+  d.wires = [
+    {
+      id: "W1",
+      points: [
+        [100, 200],
+        [500, 200],
+      ],
+    },
+    {
+      id: "W2",
+      points: [
+        [300, 100],
+        [300, 400],
+      ],
+    },
+  ];
+  assert.throws(() => setReferenceGround(d, [300, 200]), /未连接的交叉线/);
+  const connected = { ...d, junctions: [[300, 200] as const] };
+  assert.doesNotThrow(() => setReferenceGround(connected, [300, 200]));
 });

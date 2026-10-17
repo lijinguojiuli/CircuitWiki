@@ -1,3 +1,9 @@
+import {
+  componentAnnotations,
+  crossesBox,
+  groundAnnotations,
+  type Box,
+} from "./annotations";
 import { componentTerminals } from "./model";
 import { equalPoint, onSegment, pointKey, wireContains } from "./geometry";
 import type { CircuitDocument, CircuitNetlist, Point } from "./types";
@@ -19,6 +25,8 @@ export type Topology = {
   edges: PhysicalEdge[];
   crossings: Point[];
   loopCount: number;
+  wireNodes: Record<string, string>;
+  annotationBoxes: Box[];
 };
 class Union {
   parent = new Map<string, string>();
@@ -92,6 +100,17 @@ export function detectTopology(doc: CircuitDocument): Topology {
             u.join(w.key, v.key);
         }
     }
+  }
+  for (const c of doc.components) {
+    const body = componentAnnotations(c).boxes[0];
+    if (
+      doc.wires.some((w) =>
+        w.points.slice(1).some((p, i) => crossesBox(w.points[i], p, body)),
+      )
+    )
+      errors.push(
+        `导线穿过${c.id}符号，连接可能冲突。请绕开元件绘制导线，或重新载入示例。`,
+      );
   }
   const grounded: string[] = [];
   for (const g of doc.grounds) {
@@ -315,6 +334,16 @@ export function detectTopology(doc: CircuitDocument): Topology {
     edges,
     crossings: [...new Map(crossings.map((p) => [pointKey(p), p])).values()],
     loopCount: Math.max(0, components.length - nodes.length + 1),
+    annotationBoxes: [
+      ...doc.components.flatMap((c) => componentAnnotations(c).boxes),
+      ...groundAnnotations(doc).flatMap((g) => g.boxes),
+    ],
+    wireNodes: Object.fromEntries(
+      wires.map((w) => [
+        w.id,
+        ids.get(u.root(w.key)) ?? `wire:${u.root(w.key)}`,
+      ]),
+    ),
   };
 }
 
@@ -329,6 +358,7 @@ function meshAnnotation(
   points: Point[],
   center: Point,
   edges: PhysicalEdge[],
+  annotationBoxes: Box[],
 ): { center: Point; labelVisible: boolean } {
   const inside = (p: Point) => {
     let result = false;
@@ -356,24 +386,7 @@ function meshAnnotation(
       );
     return Math.hypot(p[0] - e.from[0] - t * dx, p[1] - e.from[1] - t * dy);
   };
-  const boxes = edges
-    .filter((e) => e.component !== null)
-    .flatMap((e) => {
-      const x = (e.from[0] + e.to[0]) / 2,
-        y = (e.from[1] + e.to[1]) / 2,
-        vertical = e.from[0] === e.to[0];
-      return vertical
-        ? [
-            [x - 38, y - 46, x + 38, y + 46],
-            x > 800
-              ? [x - 160, y - 28, x - 40, y + 28]
-              : [x + 40, y - 28, x + 160, y + 28],
-          ]
-        : [
-            [x - 46, y - 18, x + 46, y + 50],
-            [x - 80, y - 52, x + 80, y - 23],
-          ];
-    });
+  const boxes = annotationBoxes.map((b) => [b.left, b.top, b.right, b.bottom]);
   const valid = (p: Point) =>
     inside(p) &&
     edges.every((e) => distance(p, e) > 33) &&
@@ -470,7 +483,12 @@ export function detectMeshes(topology: Topology): {
       meshes.push({
         name: `J${meshes.length + 1}`,
         coefficients,
-        ...meshAnnotation(points, [cx / (3 * area), cy / (3 * area)], edges),
+        ...meshAnnotation(
+          points,
+          [cx / (3 * area), cy / (3 * area)],
+          edges,
+          topology.annotationBoxes,
+        ),
         points,
       });
     }

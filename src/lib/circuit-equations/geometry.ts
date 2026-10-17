@@ -1,10 +1,4 @@
-import { componentTerminals } from "./model";
-import type {
-  CircuitDocument,
-  ComponentType,
-  PlacedComponent,
-  Point,
-} from "./types";
+import type { CircuitDocument, ComponentType, Point } from "./types";
 
 export const BOARD = { width: 1000, height: 640, grid: 20 };
 export const equalPoint = (a: Point, b: Point) =>
@@ -38,8 +32,25 @@ export function orthogonal(a: Point, b: Point): Point[] {
   return a[0] === b[0] || a[1] === b[1] ? [a, b] : [a, [b[0], a[1]], b];
 }
 export function cleanPath(points: Point[]): Point[] {
-  return points.filter((p, i) => !i || !equalPoint(p, points[i - 1]));
+  const result: Point[] = [];
+  for (const p of points) {
+    if (result.length && equalPoint(result.at(-1)!, p)) continue;
+    while (result.length >= 2) {
+      const a = result.at(-2)!,
+        b = result.at(-1)!;
+      if (
+        ((a[0] === b[0] && b[0] === p[0]) ||
+          (a[1] === b[1] && b[1] === p[1])) &&
+        onSegment(b, a, p)
+      )
+        result.pop();
+      else break;
+    }
+    if (!result.length || !equalPoint(result.at(-1)!, p)) result.push(p);
+  }
+  return result;
 }
+
 export const nextId = (prefix: string, ids: string[]) => {
   let i = 1;
   while (ids.includes(prefix + i)) i++;
@@ -88,73 +99,6 @@ export function addComponent(
           type === "resistor" ? 0 : type === "current-source" ? 270 : 90,
       },
     ],
-  };
-}
-export function repositionComponent(
-  doc: CircuitDocument,
-  id: string,
-  position: Point,
-  rotation?: PlacedComponent["rotation"],
-): CircuitDocument {
-  const old = doc.components.find((c) => c.id === id);
-  if (!old) return doc;
-  const changed = {
-    ...old,
-    position: snap(position, 80),
-    rotation: rotation ?? old.rotation,
-  };
-  const before = componentTerminals(old),
-    after = componentTerminals(changed);
-  let wires = doc.wires.map((w) => ({ ...w, points: [...w.points] }));
-  // Preserve old wire paths and taps; extend attached endpoints to the moved pins.
-  before.forEach((pin, i) => {
-    if (equalPoint(pin, after[i])) return;
-    const otherPin = doc.components.some(
-      (c) =>
-        c.id !== id && componentTerminals(c).some((p) => equalPoint(p, pin)),
-    );
-    const tap = doc.wires.some(
-      (w) =>
-        wireContains(w.points, pin) &&
-        !equalPoint(w.points[0], pin) &&
-        !equalPoint(w.points.at(-1)!, pin),
-    );
-    const grounded = doc.grounds.some((g) => equalPoint(g.position, pin));
-    const attached = doc.wires.some((w) => wireContains(w.points, pin));
-    if (otherPin || tap || grounded) {
-      wires.push({
-        id: nextId(
-          "W",
-          wires.map((w) => w.id),
-        ),
-        points: orthogonal(pin, after[i]),
-      });
-    } else if (attached) {
-      wires = wires.map((w) => {
-        if (equalPoint(w.points[0], pin))
-          return {
-            ...w,
-            points: cleanPath([
-              ...orthogonal(after[i], pin),
-              ...w.points.slice(1),
-            ]),
-          };
-        if (equalPoint(w.points.at(-1)!, pin))
-          return {
-            ...w,
-            points: cleanPath([
-              ...w.points,
-              ...orthogonal(pin, after[i]).slice(1),
-            ]),
-          };
-        return w;
-      });
-    }
-  });
-  return {
-    ...doc,
-    components: doc.components.map((c) => (c.id === id ? changed : c)),
-    wires,
   };
 }
 
